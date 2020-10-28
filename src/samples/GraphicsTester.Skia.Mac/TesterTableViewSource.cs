@@ -3,6 +3,7 @@ using AppKit;
 using GraphicsTester.Scenarios;
 using Foundation;
 using Elevenworks.Graphics;
+using Xamarin.Graphics;
 
 namespace GraphicsTester.Mac
 {

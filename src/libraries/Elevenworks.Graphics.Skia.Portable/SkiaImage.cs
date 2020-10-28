@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using SkiaSharp;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

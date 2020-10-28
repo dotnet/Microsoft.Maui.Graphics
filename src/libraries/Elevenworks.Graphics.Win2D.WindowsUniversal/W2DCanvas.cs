@@ -9,6 +9,7 @@ using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.Geometry;
 using Microsoft.Graphics.Canvas.Text;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

@@ -21,9 +21,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
         <ProjectReference Include="..\Elevenworks.Graphics.Skia.Portable\Elevenworks.Graphics.Skia.Portable.csproj" />
         <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+        <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
     </ItemGroup>
 
 </Project>

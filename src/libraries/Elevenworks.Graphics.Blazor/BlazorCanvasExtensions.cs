@@ -1,4 +1,5 @@
 ﻿using Elevenworks.Graphics.Blazor.Canvas2D;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Blazor
 {

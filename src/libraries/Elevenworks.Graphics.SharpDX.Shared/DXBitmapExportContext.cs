@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using SharpDX;
 using SharpDX.Direct3D;
+using Xamarin.Graphics;
 using d2 = SharpDX.Direct2D1;
 using d3d = SharpDX.Direct3D11;
 using dxgi = SharpDX.DXGI;

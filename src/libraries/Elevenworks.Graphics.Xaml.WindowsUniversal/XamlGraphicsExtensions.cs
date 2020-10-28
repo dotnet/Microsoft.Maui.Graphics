@@ -4,6 +4,8 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Input;
 using Windows.UI.Xaml.Media;
+using Xamarin.Graphics;
+using Geometry = Xamarin.Graphics.Geometry;
 
 namespace Elevenworks.Graphics
 {

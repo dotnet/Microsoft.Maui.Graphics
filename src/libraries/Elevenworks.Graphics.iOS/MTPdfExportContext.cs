@@ -3,6 +3,7 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 using System.IO;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

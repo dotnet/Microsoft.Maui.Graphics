@@ -5,6 +5,7 @@ using CoreGraphics;
 using CoreText;
 using Foundation;
 using AppKit;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

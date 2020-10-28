@@ -1,5 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using System.Threading.Tasks;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Blazor
 {

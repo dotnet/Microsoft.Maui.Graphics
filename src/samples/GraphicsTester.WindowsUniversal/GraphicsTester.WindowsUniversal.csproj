@@ -130,10 +130,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.SharpDX.WindowsUniversal\Elevenworks.Graphics.SharpDX.WindowsUniversal.csproj">
       <Project>{694e970d-5c18-483f-bc48-d6d86da8e78f}</Project>
       <Name>Elevenworks.Graphics.SharpDX.WindowsUniversal</Name>
@@ -141,6 +137,10 @@
     <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Win2D.WindowsUniversal\Elevenworks.Graphics.Win2D.WindowsUniversal.csproj">
       <Project>{20794e60-3bfd-46f4-bc0b-87b3959aa3c7}</Project>
       <Name>Elevenworks.Graphics.Win2D.WindowsUniversal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
+      <Name>Xamarin.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{5f0cd247-afcb-4b1e-86e1-85d59e650fff}</Project>

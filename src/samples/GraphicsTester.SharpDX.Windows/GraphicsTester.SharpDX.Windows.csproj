@@ -36,8 +36,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
     <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.SharpDX.Windows\Elevenworks.Graphics.SharpDX.Windows.csproj" />
+    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{5f0cd247-afcb-4b1e-86e1-85d59e650fff}</Project>
       <Name>GraphicsTester.Portable</Name>

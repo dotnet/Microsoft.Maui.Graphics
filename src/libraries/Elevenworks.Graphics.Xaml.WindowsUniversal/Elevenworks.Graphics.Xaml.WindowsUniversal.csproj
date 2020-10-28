@@ -124,13 +124,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{509167e4-3279-4776-ab1a-31a6a9084565}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
       <Project>{3c6f197f-e53f-4dea-b16f-ede54bc659c9}</Project>
       <Name>Elevenworks.Text.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
+      <Name>Xamarin.Graphics.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

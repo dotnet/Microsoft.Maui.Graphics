@@ -9,7 +9,9 @@ using SharpDX.Direct2D1.Effects;
 using SharpDX.DirectWrite;
 using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
+using Xamarin.Graphics;
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
+using Geometry = Xamarin.Graphics.Geometry;
 using TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode;
 
 #if WINDOWS_UWP

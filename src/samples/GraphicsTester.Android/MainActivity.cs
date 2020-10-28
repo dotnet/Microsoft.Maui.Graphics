@@ -2,6 +2,7 @@
 using Android.Widget;
 using Android.OS;
 using Elevenworks.Graphics;
+using Xamarin.Graphics;
 
 namespace GraphicsTester.Android
 {

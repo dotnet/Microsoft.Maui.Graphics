@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.Graphics;
 using Android.Content;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

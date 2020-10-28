@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using Microsoft.Graphics.Canvas;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

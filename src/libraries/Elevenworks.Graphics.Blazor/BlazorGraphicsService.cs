@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Blazor
 {

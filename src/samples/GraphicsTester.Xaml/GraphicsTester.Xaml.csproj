@@ -36,14 +36,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Xaml.Windows\Elevenworks.Graphics.Xaml.Windows.csproj">
       <Project>{7cfa3483-d337-406c-a077-f284cbe6a552}</Project>
       <Name>Elevenworks.Graphics.Xaml.Windows</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

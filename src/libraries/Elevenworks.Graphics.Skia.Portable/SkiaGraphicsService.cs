@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using SkiaSharp;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

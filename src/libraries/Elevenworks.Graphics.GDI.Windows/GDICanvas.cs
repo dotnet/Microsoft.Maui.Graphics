@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Elevenworks.Text;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

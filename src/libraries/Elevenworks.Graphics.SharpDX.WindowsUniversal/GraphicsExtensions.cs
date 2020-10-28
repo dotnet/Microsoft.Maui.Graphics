@@ -1,6 +1,7 @@
 ﻿using Windows.UI;
 using Windows.UI.Input;
 using Windows.UI.Xaml.Media;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.SharpDX
 {

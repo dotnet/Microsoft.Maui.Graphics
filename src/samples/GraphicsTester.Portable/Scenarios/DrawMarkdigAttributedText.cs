@@ -1,5 +1,5 @@
-﻿using Elevenworks.Graphics;
-using Elevenworks.Text.Markdig;
+﻿using Elevenworks.Text.Markdig;
+using Xamarin.Graphics;
 
 namespace GraphicsTester.Scenarios
 {

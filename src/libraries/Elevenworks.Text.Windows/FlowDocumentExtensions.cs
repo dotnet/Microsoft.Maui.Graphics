@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Documents;
 using Elevenworks.Text.Immutable;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Text.WPF
 {

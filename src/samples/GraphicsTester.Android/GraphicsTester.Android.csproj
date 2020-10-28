@@ -74,9 +74,9 @@
       <Project>{f63d421b-a5e5-4107-9bac-9c45ed1363de}</Project>
       <Name>Elevenworks.Graphics.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
+    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
+      <Name>Xamarin.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elevenworks.Graphics.Android\Elevenworks.Graphics.Android.csproj">
       <Project>{F63D421B-A5E5-4107-9BAC-9C45ED1363DE}</Project>

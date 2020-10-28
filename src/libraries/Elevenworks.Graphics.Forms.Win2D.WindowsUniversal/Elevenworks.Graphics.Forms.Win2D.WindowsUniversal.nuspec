@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="Elevenworks.Services.Portable" version="2.0" />
       <dependency id="Elevenworks.Common.Portable" version="2.0" />
-      <dependency id="Elevenworks.Graphics.Portable" version="2.0" />
+      <dependency id="Xamarin.Graphics.Core" version="2.0" />
       <dependency id="Elevenworks.Graphics.Win2D.WindowsUniversal" version="2.0" />
       <dependency id="Elevenworks.Graphics.Forms" version="2.0" />
       <dependency id="Elevenworks.Text.Portable" version="2.0" />

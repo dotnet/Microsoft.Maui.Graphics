@@ -1,5 +1,6 @@
 using Android.Graphics;
 using Android.Text;
+using Xamarin.Graphics;
 using Color = Android.Graphics.Color;
 
 namespace Elevenworks.Graphics

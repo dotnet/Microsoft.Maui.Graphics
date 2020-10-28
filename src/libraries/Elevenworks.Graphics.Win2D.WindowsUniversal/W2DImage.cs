@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using Microsoft.Graphics.Canvas;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

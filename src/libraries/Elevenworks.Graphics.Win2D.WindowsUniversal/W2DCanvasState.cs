@@ -6,6 +6,7 @@ using Windows.UI.Text;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.Geometry;
+using Xamarin.Graphics;
 
 
 namespace Elevenworks.Graphics.Win2D

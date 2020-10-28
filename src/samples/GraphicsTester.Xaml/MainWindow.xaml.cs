@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Elevenworks.Graphics;
 using GraphicsTester.Scenarios;
+using Xamarin.Graphics;
 
 namespace GraphicsTester.Xaml
 {

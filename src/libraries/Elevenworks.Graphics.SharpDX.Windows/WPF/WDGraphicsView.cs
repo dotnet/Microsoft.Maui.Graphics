@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms.Integration;
 using Elevenworks.Graphics.SharpDX.WindowsForms;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.SharpDX.WPF
 {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Graphics.Canvas.Text;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

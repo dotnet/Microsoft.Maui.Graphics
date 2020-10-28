@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using SharpDX.Windows;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.SharpDX.WindowsForms
 {

@@ -5,6 +5,7 @@ using Foundation;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

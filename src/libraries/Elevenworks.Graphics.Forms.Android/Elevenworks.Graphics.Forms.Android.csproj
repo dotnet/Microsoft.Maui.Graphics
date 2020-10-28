@@ -63,10 +63,6 @@
             <Project>{E2E3239C-9062-4AAB-8C99-AA9CB17D962E}</Project>
             <Name>Elevenworks.Graphics.Forms.Portable</Name>
         </ProjectReference>
-        <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-            <Project>{90EFC12E-8B00-4E15-AD76-809A3E9421E3}</Project>
-            <Name>Elevenworks.Graphics.Portable</Name>
-        </ProjectReference>
         <ProjectReference Include="..\Elevenworks.Text.Android\Elevenworks.Text.Android.csproj">
             <Project>{d6fd6e58-258f-4dec-a31d-567ab041d4d4}</Project>
             <Name>Elevenworks.Text.Android</Name>
@@ -74,6 +70,10 @@
         <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
             <Project>{4ECA6034-A9E7-41B4-BE21-01C6F0BF87D0}</Project>
             <Name>Elevenworks.Text.Portable</Name>
+        </ProjectReference>
+        <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+          <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
+          <Name>Xamarin.Graphics.Core</Name>
         </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

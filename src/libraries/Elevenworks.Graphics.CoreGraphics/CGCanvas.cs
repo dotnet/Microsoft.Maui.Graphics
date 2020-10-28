@@ -3,6 +3,7 @@ using CoreGraphics;
 using CoreText;
 using Elevenworks.Text;
 using Foundation;
+using Xamarin.Graphics;
 #if MONOMAC
 using AppKit;
 #else

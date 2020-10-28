@@ -2,6 +2,7 @@
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

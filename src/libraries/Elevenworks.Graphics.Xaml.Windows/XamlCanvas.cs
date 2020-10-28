@@ -5,6 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Elevenworks.Text;
+using Xamarin.Graphics;
+using Fonts = Xamarin.Graphics.Fonts;
+using Geometry = Xamarin.Graphics.Geometry;
 
 namespace Elevenworks.Graphics
 {

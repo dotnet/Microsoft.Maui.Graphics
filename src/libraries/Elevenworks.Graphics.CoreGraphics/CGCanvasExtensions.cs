@@ -2,6 +2,7 @@
 using CoreGraphics;
 using CoreText;
 using Foundation;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Windows.UI.Text;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

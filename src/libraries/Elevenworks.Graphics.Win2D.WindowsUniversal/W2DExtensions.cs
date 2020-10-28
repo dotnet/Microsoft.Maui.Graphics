@@ -3,6 +3,7 @@ using System.Numerics;
 using Windows.UI;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Geometry;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Win2D
 {

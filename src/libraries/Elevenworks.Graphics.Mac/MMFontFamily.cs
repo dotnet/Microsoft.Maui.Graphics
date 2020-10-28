@@ -2,6 +2,7 @@
 using AppKit;
 using System.Collections.Generic;
 using Foundation;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.Text;
 using Elevenworks.Text;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

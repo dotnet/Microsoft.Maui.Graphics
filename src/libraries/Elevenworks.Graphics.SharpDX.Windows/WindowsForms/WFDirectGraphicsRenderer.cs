@@ -2,6 +2,7 @@
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DXGI;
+using Xamarin.Graphics;
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Factory = SharpDX.Direct2D1.Factory;
 

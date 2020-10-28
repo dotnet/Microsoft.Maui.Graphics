@@ -2,6 +2,7 @@
 using Elevenworks.Graphics.Blazor.Canvas2D;
 using Elevenworks.Graphics.Blazor.Model;
 using Elevenworks.Text;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.Blazor
 {

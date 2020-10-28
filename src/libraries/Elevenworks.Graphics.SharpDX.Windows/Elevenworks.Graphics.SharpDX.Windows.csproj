@@ -27,8 +27,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\External\SharpDX.Desktop\SharpDX.Desktop.csproj" />
-         <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
         <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+        <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
     </ItemGroup>
 
     <Import Project="..\Elevenworks.Graphics.SharpDX.Shared\Elevenworks.Graphics.SharpDX.Shared.projitems" Label="Shared" />

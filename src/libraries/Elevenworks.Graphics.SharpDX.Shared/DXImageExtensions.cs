@@ -1,5 +1,6 @@
 using System.IO;
 using SharpDX.Direct2D1;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.SharpDX
 {

@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Java.IO;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics
 {

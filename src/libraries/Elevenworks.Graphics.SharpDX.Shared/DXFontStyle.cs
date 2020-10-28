@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using SharpDX.DirectWrite;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.SharpDX
 {

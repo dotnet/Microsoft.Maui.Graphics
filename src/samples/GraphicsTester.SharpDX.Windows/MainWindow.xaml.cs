@@ -2,6 +2,7 @@
 using Elevenworks.Graphics;
 using Elevenworks.Graphics.SharpDX;
 using GraphicsTester.Scenarios;
+using Xamarin.Graphics;
 
 namespace GraphicsTester.WPF.SharpDX
 {

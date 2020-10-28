@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
+using Xamarin.Graphics;
+using Fonts = Xamarin.Graphics.Fonts;
+using Geometry = Xamarin.Graphics.Geometry;
 
 namespace Elevenworks.Graphics
 {

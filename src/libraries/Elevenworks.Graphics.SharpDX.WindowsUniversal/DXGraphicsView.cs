@@ -1,5 +1,5 @@
 ﻿using SharpDX.Direct2D1;
-
+using Xamarin.Graphics;
 #if WINDOWS_UWP
 using Windows.Graphics.Display;
 #endif

@@ -1,3 +1,5 @@
+using Xamarin.Graphics;
+
 namespace Elevenworks.Graphics
 {
     public class CGCanvasState : CanvasState

@@ -15,7 +15,7 @@
         <copyright>Copyright 2010-2017 Elevenworks LLC</copyright>
         <tags>Elevenworks</tags>
         <dependencies>
-            <dependency id="Elevenworks.Graphics.Portable" version="2.0" />
+            <dependency id="Xamarin.Graphics.Core" version="2.0" />
             <dependency id="Elevenworks.Text.Portable" version="2.0" />
             <dependency id="Elevenworks.Services.Portable" version="2.0" />
             <dependency id="Elevenworks.Graphics.SharpDX.Windows" version="2.0" />

@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using SharpDX.Direct2D1;
+using Xamarin.Graphics;
 
 namespace Elevenworks.Graphics.SharpDX
 {
