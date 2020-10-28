@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>GraphicsTester.Portable</AssemblyName>
+        <RootNamespace>GraphicsTester</RootNamespace>
+        <Version>2.0.0</Version>
+        <Company>Elevenworks LLC</Company>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Properties\" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="Resources\royals.png" />
+        <None Remove="Resources\swirl_pattern.png" />
+        <None Remove="Resources\emf\TestShapes.emf" />
+        <None Remove="Resources\emf\KITE Network.emf" />
+        <None Remove="Resources\emf\KarateClub1.emf" />
+        <None Remove="Resources\emf\freehep\base-2.emf" />
+        <None Remove="Resources\emf\freehep\base-3.emf" />
+        <None Remove="Resources\emf\freehep\base-4.emf" />
+        <None Remove="Resources\emf\freehep\base64.emf" />
+        <None Remove="Resources\emf\freehep\base64 - type 2.emf" />
+        <None Remove="Resources\emf\freehep\Drawing1.emf" />
+        <None Remove="Resources\emf\freehep\Drawing2.emf" />
+        <None Remove="Resources\emf\freehep\Drawing3.emf" />
+        <None Remove="Resources\emf\freehep\path.emf" />
+        <None Remove="Resources\emf\freehep\TestAll.emf" />
+        <None Remove="Resources\emf\freehep\TestClip.emf" />
+        <None Remove="Resources\emf\freehep\TestColors.emf" />
+        <None Remove="Resources\emf\freehep\TestCustomStrokes.emf" />
+        <None Remove="Resources\emf\freehep\TestFontDerivation.emf" />
+        <None Remove="Resources\emf\freehep\TestFonts.emf" />
+        <None Remove="Resources\emf\freehep\TestGraphicsContexts.emf" />
+        <None Remove="Resources\emf\freehep\TestHTML.emf" />
+        <None Remove="Resources\emf\freehep\TestImage2D.emf" />
+        <None Remove="Resources\emf\freehep\TestImages.emf" />
+        <None Remove="Resources\emf\freehep\TestLabels.emf" />
+        <None Remove="Resources\emf\freehep\TestLineStyles.emf" />
+        <None Remove="Resources\emf\freehep\TestOffset.emf" />
+        <None Remove="Resources\emf\freehep\TestPaint.emf" />
+        <None Remove="Resources\emf\freehep\TestPrintColors.emf" />
+        <None Remove="Resources\emf\freehep\TestResolution.emf" />
+        <None Remove="Resources\emf\freehep\TestShapes.emf" />
+        <None Remove="Resources\emf\freehep\TestSymbols2D.emf" />
+        <None Remove="Resources\emf\freehep\TestTaggedString.emf" />
+        <None Remove="Resources\emf\freehep\TestText2D.emf" />
+        <None Remove="Resources\emf\freehep\TestTransforms.emf" />
+        <None Remove="Resources\emf\freehep\TestTransparency.emf" />
+        <None Remove="Resources\emf\authored\RotatedText1.emf" />
+        <None Remove="Resources\emf\authored\HorizontalTextAlignment1.emf" />
+        <None Remove="Resources\emf\authored\HorizontalTextAlignment2.emf" />
+        <None Remove="Resources\emf\authored\VerticalTextAlignment1.emf" />
+        <None Remove="Resources\emf\authored\VerticalTextAlignment2.emf" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\royals.png" />
+        <EmbeddedResource Include="Resources\swirl_pattern.png" />
+        <EmbeddedResource Include="Resources\dummy.pdf" />
+        <EmbeddedResource Include="Resources\emf\TestShapes.emf" />
+        <EmbeddedResource Include="Resources\emf\KITENetwork.emf" />
+        <EmbeddedResource Include="Resources\emf\KarateClub1.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\base-2.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\base-3.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\base-4.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\base64.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\base64-type2.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\Drawing1.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\Drawing2.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\Drawing3.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\path.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestAll.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestClip.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestColors.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestCustomStrokes.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestFontDerivation.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestFonts.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestGraphicsContexts.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestHTML.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestImage2D.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestImages.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestLabels.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestLineStyles.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestOffset.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestPaint.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestPrintColors.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestResolution.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestShapes.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestSymbols2D.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestTaggedString.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestText2D.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestTransforms.emf" />
+        <EmbeddedResource Include="Resources\emf\freehep\TestTransparency.emf" />
+        <EmbeddedResource Include="Resources\emf\authored\RotatedText1.emf" />
+        <EmbeddedResource Include="Resources\emf\authored\HorizontalTextAlignment1.emf" />
+        <EmbeddedResource Include="Resources\emf\authored\HorizontalTextAlignment2.emf" />
+        <EmbeddedResource Include="Resources\emf\authored\VerticalTextAlignment1.emf" />
+        <EmbeddedResource Include="Resources\emf\authored\VerticalTextAlignment2.emf" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
+        <ProjectReference Include="..\..\libraries\Elevenworks.Text.Markdig.Portable\Elevenworks.Text.Markdig.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Text.Markdig.Portable\Elevenworks.Text.Markdig.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Markdig" Version="0.22.0" />
+    </ItemGroup>
+</Project>

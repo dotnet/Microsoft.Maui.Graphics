@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>Elevenworks.Text</RootNamespace>
+        <Version>2.0.0</Version>
+        <Company>Elevenworks LLC</Company>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Properties\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+    </ItemGroup>
+
+</Project>

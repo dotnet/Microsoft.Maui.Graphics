@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>Elevenworks.Graphics.Forms</AssemblyName>
+        <RootNamespace>Elevenworks.Graphics</RootNamespace>
+        <Version>2.0.0</Version>
+        <Company>Elevenworks LLC</Company>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Properties\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+    </ItemGroup>
+
+</Project>

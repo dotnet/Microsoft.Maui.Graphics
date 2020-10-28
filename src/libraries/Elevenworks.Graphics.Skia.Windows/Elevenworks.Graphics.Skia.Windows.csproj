@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>Elevenworks.Graphics.Skia.Windows</AssemblyName>
+        <RootNamespace>Elevenworks.Graphics</RootNamespace>
+        <Version>2.0.0</Version>
+        <Company>Elevenworks LLC</Company>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Properties\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SkiaSharp" Version="1.68.1.1" />
+      <PackageReference Include="SkiaSharp.Views" Version="1.68.1.1" />
+      <PackageReference Include="SkiaSharp.Views.WPF" Version="1.68.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Graphics.Skia.Portable\Elevenworks.Graphics.Skia.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+    </ItemGroup>
+
+</Project>

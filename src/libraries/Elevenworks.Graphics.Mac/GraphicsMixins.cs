@@ -1,0 +1,26 @@
+using System;
+using CoreGraphics;
+using Elevenworks.Graphics;
+using AppKit;
+
+namespace Elevenworks.Graphics
+{
+    public static class GraphicsMixins
+    {
+        public static EWPaint AsPaint(this NSImage target)
+        {
+            if (target == null)
+                return null;
+
+            var image = new MMImage(target);
+            var paint = new EWPaint();
+            paint.Image = image;
+            return paint;
+        }
+
+        public static NSColor AsNSColor(this EWColor color)
+        {
+            return NSColor.FromDeviceRgba(color.Red, color.Green, color.Blue, color.Alpha);
+        }
+    }
+}

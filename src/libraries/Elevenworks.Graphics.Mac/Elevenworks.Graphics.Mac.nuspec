@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<package>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>Elevenworks LLC</authors>
+        <owners>Elevenworks LLC</owners>
+        <licenseUrl>http://www.elevenworks.com</licenseUrl>
+        <projectUrl>http://www.elevenworks.com</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>$id$</description>
+        <releaseNotes></releaseNotes>
+        <copyright>Copyright 2010-2017 Elevenworks LLC</copyright>
+        <tags>Elevenworks</tags>
+        <dependencies>
+            <dependency id="Elevenworks.Services.Portable" version="2.0" />
+            <dependency id="Elevenworks.Common.Portable" version="2.0" />
+            <dependency id="Elevenworks.Common.Mac" version="2.0" />
+            <dependency id="Elevenworks.Graphics.Portable" version="2.0" />
+            <dependency id="Elevenworks.Text.Portable" version="2.0" />
+            <dependency id="Elevenworks.Text.Mac" version="2.0" />
+        </dependencies>
+    </metadata>
+</package>

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{9743DF65-F250-4465-9D67-914922375A02}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GraphicsTester.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>GraphicsTesteriOS</AssemblyName>
+    <TargetFrameworkIdentifier>Xamarin.iOS</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchSdkVersion>12.1</MtouchSdkVersion>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BTProgressHUD">
+      <Version>1.2.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Markdig">
+      <Version>0.15.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Generators\GraphicsViewAction.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="DetailViewController.cs" />
+    <Compile Include="AppController.cs" />
+    <Compile Include="UIViewExtensions.cs" />
+    <Compile Include="Scenarios\FilledRectangle.cs" />
+    <Compile Include="Generators\XfiniumPdfGenerator.cs" />
+    <Compile Include="Generators\AbstractGenerator.cs" />
+    <Compile Include="Scenarios\AbstractScenario.cs" />
+    <Compile Include="Generators\DrawableAction.cs" />
+    <Compile Include="Generators\GeneratorAction.cs" />
+    <Compile Include="Generators\PictureDrawable.cs" />
+    <Compile Include="Scenarios\RectangleWithZeroStroke.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="System" />
+    <Reference Include="Xfinium.Pdf.Xamarin.iOS">
+      <HintPath>..\..\External\Xfinium\9.3.1\iOS\Xfinium.Pdf.Xamarin.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elevenworks.Common.iOS\Elevenworks.Common.iOS.csproj">
+      <Project>{e63f1c48-f1b6-4760-9c8c-4ff2e0354c41}</Project>
+      <Name>Elevenworks.Common.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
+      <Project>{3229a6d9-4108-46f1-a766-dc2814309906}</Project>
+      <Name>Elevenworks.Common.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Graphics.Xfinium.iOS\Elevenworks.Graphics.Xfinium.iOS.csproj">
+      <Project>{40BEC750-3EF3-486F-9F19-7DE965286B6C}</Project>
+      <Name>Elevenworks.Graphics.Xfinium.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Menus.iOS\Elevenworks.Menus.iOS.csproj">
+      <Project>{01e41a27-f63f-43dd-b758-1574096a959f}</Project>
+      <Name>Elevenworks.Menus.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Menus.Portable\Elevenworks.Menus.Portable.csproj">
+      <Project>{733fedc5-b70f-468a-a0c7-ab9ed527ae46}</Project>
+      <Name>Elevenworks.Menus.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
+      <Project>{b3522055-0ab5-4c61-9398-81f3409c8dd6}</Project>
+      <Name>Elevenworks.Services.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Text.Markdig.Portable\Elevenworks.Text.Markdig.Portable.csproj">
+      <Project>{3C370ACC-FA5D-4979-946A-6994149625A8}</Project>
+      <Name>Elevenworks.Text.Markdig.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Graphics.iOS\Elevenworks.Graphics.iOS.csproj">
+      <Project>{F8D43F64-AF09-4E06-8473-5BDC37281908}</Project>
+      <Name>Elevenworks.Graphics.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
+      <Project>{90EFC12E-8B00-4E15-AD76-809A3E9421E3}</Project>
+      <Name>Elevenworks.Graphics.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
+      <Project>{4ECA6034-A9E7-41B4-BE21-01C6F0BF87D0}</Project>
+      <Name>Elevenworks.Text.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elevenworks.Text.iOS\Elevenworks.Text.iOS.csproj">
+      <Project>{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}</Project>
+      <Name>Elevenworks.Text.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
+      <Project>{D7B1D186-67D6-4A89-B67F-500C524776B8}</Project>
+      <Name>GraphicsTester.Portable</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

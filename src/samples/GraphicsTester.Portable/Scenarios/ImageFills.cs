@@ -1,0 +1,30 @@
+﻿using System;
+using System.Reflection;
+using Elevenworks.Graphics;
+
+namespace GraphicsTester.Scenarios
+{
+    public class ImageFills : AbstractScenario
+    {
+        public ImageFills()
+            : base(720, 1024)
+        {
+        }
+
+        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        {
+            EWImage image;
+            var assembly = GetType().GetTypeInfo().Assembly;
+            using (var stream = assembly.GetManifestResourceStream("GraphicsTester.Resources.swirl_pattern.png"))
+            {
+                image = GraphicsPlatform.CurrentService.LoadImageFromStream(stream);
+            }
+
+            if (image != null)
+            {
+                canvas.SetFillPaint(image.AsPaint(), 0, 0, 0, 0);
+                canvas.FillRectangle(50, 50, 500, 500);
+            }
+        }
+    }
+}
