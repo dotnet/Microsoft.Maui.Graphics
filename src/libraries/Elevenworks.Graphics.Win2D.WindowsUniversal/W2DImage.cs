@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
-using Elevenworks.Threading;
 using Microsoft.Graphics.Canvas;
 
 namespace Elevenworks.Graphics.Win2D
@@ -12,42 +11,25 @@ namespace Elevenworks.Graphics.Win2D
     {
         private readonly ICanvasResourceCreator _creator;
         private CanvasBitmap _bitmap;
-        private string _hash;
 
-        public W2DImage(ICanvasResourceCreator creator, CanvasBitmap bitmap, string hash = null)
+        public W2DImage(ICanvasResourceCreator creator, CanvasBitmap bitmap)
         {
             _creator = creator;
             _bitmap = bitmap;
-            _hash = hash;
         }
 
         public CanvasBitmap NativeImage => _bitmap;
 
         public void Dispose()
         {
-            var disp = Interlocked.Exchange(ref _bitmap, null);
-            disp?.Dispose();
+            var bitmap = Interlocked.Exchange(ref _bitmap, null);
+            bitmap?.Dispose();
         }
 
         public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             if (Width > maxWidthOrHeight || Height > maxWidthOrHeight)
             {
-                /*float factor;
-
-                if (Width > Height)
-                {
-                    factor = maxWidthOrHeight / Width;
-                }
-                else
-                {
-                    factor = maxWidthOrHeight / Height;
-                }*/
-
-                //var w = (int)Math.Round(factor * Width);
-                //var h = (int)Math.Round(factor * Height);
-
-                // todo: check to see if this actually works.  It appears it was never finished.
                 using (var memoryStream = new InMemoryRandomAccessStream())
                 {
                     Save(memoryStream.AsStreamForWrite());
@@ -87,22 +69,6 @@ namespace Elevenworks.Graphics.Win2D
         public float Width => (float)_bitmap.Size.Width;
 
         public float Height => (float)_bitmap.Size.Height;
-
-        public string Hash
-        {
-            get
-            {
-                if (_hash == null)
-                {
-                    string thehash = this.CreateHash();
-                    return Interlocked.Exchange(ref _hash, thehash);
-                }
-
-                return _hash;
-            }
-
-            set => _hash = value;
-        }
 
         public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
         {

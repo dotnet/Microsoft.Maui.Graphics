@@ -1,5 +1,4 @@
-﻿using System;
-using AppKit;
+﻿using AppKit;
 using CoreGraphics;
 using Elevenworks.Graphics;
 

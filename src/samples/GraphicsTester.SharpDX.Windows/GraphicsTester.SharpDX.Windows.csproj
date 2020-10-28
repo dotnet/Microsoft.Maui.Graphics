@@ -36,22 +36,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
-      <Project>{93e88856-ee96-442d-a705-edcaed895888}</Project>
-      <Name>Elevenworks.Common.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{9aa8397f-e446-4cfe-9dd7-a8ebdd6ad5c3}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{6762efdb-1f08-491e-859c-64a18d0c9082}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.SharpDX.Windows\Elevenworks.Graphics.SharpDX.Windows.csproj">
-      <Project>{818288fe-7cc6-49c7-ab26-2238dd314200}</Project>
-      <Name>Elevenworks.Graphics.SharpDX.Windows</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
+    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.SharpDX.Windows\Elevenworks.Graphics.SharpDX.Windows.csproj" />
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{5f0cd247-afcb-4b1e-86e1-85d59e650fff}</Project>
       <Name>GraphicsTester.Portable</Name>

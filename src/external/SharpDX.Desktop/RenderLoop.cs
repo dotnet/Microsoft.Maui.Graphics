@@ -72,10 +72,7 @@ namespace SharpDX.Windows
         /// <exception cref="System.InvalidOperationException">Control is already disposed</exception>
         public Control Control
         {
-            get
-            {
-                return control;
-            }
+            get => control;
             set
             {
                 if(control == value) return;

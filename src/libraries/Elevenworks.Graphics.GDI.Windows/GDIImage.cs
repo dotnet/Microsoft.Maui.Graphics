@@ -9,48 +9,40 @@ namespace Elevenworks.Graphics
 {
     internal class GDIImage : EWImage
     {
-        private Bitmap bitmap;
-        private string hash;
+        private Bitmap _bitmap;
 
-        public GDIImage(Bitmap bitmap, string hash = null)
+        public GDIImage(Bitmap bitmap)
         {
-            this.bitmap = bitmap;
-            this.hash = hash;
+            this._bitmap = bitmap;
         }
 
-        public Bitmap NativeImage => bitmap;
+        public Bitmap NativeImage => _bitmap;
 
         public void Dispose()
         {
-            var disp = Interlocked.Exchange(ref bitmap, null);
-            if (disp != null) disp.Dispose();
+            var bitmap = Interlocked.Exchange(ref _bitmap, null);
+            bitmap?.Dispose();
         }
 
         public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             if (Width > maxWidthOrHeight || Height > maxWidthOrHeight)
             {
-                float factor = 1;
+                float factor ;
 
                 if (Width > Height)
-                {
                     factor = maxWidthOrHeight / Width;
-                }
                 else
-                {
                     factor = maxWidthOrHeight / Height;
-                }
 
                 var w = (int) Math.Round(factor * Width);
                 var h = (int) Math.Round(factor * Height);
 
-                var copy = new Bitmap(bitmap, w, h);
+                var copy = new Bitmap(_bitmap, w, h);
                 var newImage = new GDIImage(copy);
 
                 if (disposeOriginal)
-                {
-                    bitmap.Dispose();
-                }
+                    _bitmap.Dispose();
 
                 return newImage;
             }
@@ -68,26 +60,10 @@ namespace Elevenworks.Graphics
             throw new NotImplementedException();
         }
 
-        public float Width => bitmap.Size.Width;
+        public float Width => _bitmap.Size.Width;
 
-        public float Height => bitmap.Size.Height;
-
-        public string Hash
-        {
-            get
-            {
-                if (hash == null)
-                {
-                    string thehash = this.CreateHash();
-                    return Interlocked.Exchange(ref hash, thehash);
-                }
-
-                return hash;
-            }
-
-            set => hash = value;
-        }
-
+        public float Height => _bitmap.Size.Height;
+        
         public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
         {
             try
@@ -100,11 +76,11 @@ namespace Elevenworks.Graphics
                     var myEncoderParameter = new EncoderParameter(myEncoder, (long) (quality * 100));
                     myEncoderParameters.Param[0] = myEncoderParameter;
 
-                    bitmap.Save(stream, jgpEncoder, myEncoderParameters);
+                    _bitmap.Save(stream, jgpEncoder, myEncoderParameters);
                 }
                 else
                 {
-                    bitmap.Save(stream, ImageFormat.Png);
+                    _bitmap.Save(stream, ImageFormat.Png);
                 }
             }
             catch (Exception exc)
@@ -136,36 +112,6 @@ namespace Elevenworks.Graphics
         public void Draw(EWCanvas canvas, EWRectangle dirtyRect)
         {
             canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, Math.Abs(dirtyRect.Width), Math.Abs(dirtyRect.Height));
-        }
-    }
-
-    public static class GDIImageExtensions
-    {
-        public static Bitmap AsBitmap(this EWImage image)
-        {
-            var dxImage = image as GDIImage;
-            if (dxImage != null)
-            {
-                return dxImage.NativeImage;
-            }
-
-            var virtualImage = image as VirtualImage;
-            if (virtualImage != null)
-            {
-                using (var stream = new MemoryStream(virtualImage.Bytes))
-                {
-                    return new Bitmap(stream);
-                }
-            }
-
-            if (image != null)
-            {
-                Logger.Warn(
-                    "GDIImageExtensions.AsBitmap: Unable to get Bitmap from EWImage. Expected an image of type GDIImage however an image of type {0} was received.",
-                    image.GetType());
-            }
-
-            return null;
         }
     }
 }

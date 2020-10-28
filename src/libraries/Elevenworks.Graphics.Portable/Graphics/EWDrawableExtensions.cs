@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Elevenworks.Graphics
+﻿namespace Elevenworks.Graphics
 {
     public static class EWDrawableExtensions
     {

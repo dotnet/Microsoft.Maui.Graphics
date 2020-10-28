@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Elevenworks.Graphics;
+﻿using Elevenworks.Graphics;
 
 namespace GraphicsTester.Scenarios
 {
@@ -33,7 +31,7 @@ namespace GraphicsTester.Scenarios
                     var horizontalAlignment = (EWHorizontalAlignment) x;
                     var verticalAlignment = (EWVerticalAlignment) y;
 
-                    canvas.DrawString(textLong, 5, dx, dy, 190, 140, horizontalAlignment, verticalAlignment);
+                    canvas.DrawString(textLong, dx, dy, 190, 140, horizontalAlignment, verticalAlignment);
                 }
             }
         }

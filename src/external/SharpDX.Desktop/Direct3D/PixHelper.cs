@@ -105,13 +105,7 @@ namespace SharpDX.Direct3D
         /// <c>true</c> if this instance is currently profiled; otherwise, <c>false</c>.
         /// </value>
         /// <unmanaged>D3DPERF_GetStatus</unmanaged>
-        public static bool IsCurrentlyProfiled
-        {
-            get
-            {
-                return D3DPERF_GetStatus() != 0;
-            }
-        }
+        public static bool IsCurrentlyProfiled => D3DPERF_GetStatus() != 0;
 
         [DllImport("d3d9.dll", EntryPoint = "D3DPERF_BeginEvent", CharSet = CharSet.Unicode)]
         private extern static int D3DPERF_BeginEvent(RawColorBGRA color, string name);

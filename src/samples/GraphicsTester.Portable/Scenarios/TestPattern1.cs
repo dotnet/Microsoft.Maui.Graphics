@@ -429,7 +429,7 @@ namespace GraphicsTester.Scenarios
 
                     canvas.FontName = "Arial";
                     canvas.FontSize = 12f;
-                    canvas.DrawString(vTextLong, 5, dx, dy, 190, 140, vHorizontalAlignment, vVerticalAlignment);
+                    canvas.DrawString(vTextLong, dx, dy, 190, 140, vHorizontalAlignment, vVerticalAlignment);
                 }
             }
 
@@ -450,7 +450,7 @@ namespace GraphicsTester.Scenarios
 
                     canvas.FontName = "Arial";
                     canvas.FontSize = 12f;
-                    canvas.DrawString(vTextShort, 5, dx, dy, 190, 140, vHorizontalAlignment, vVerticalAlignment);
+                    canvas.DrawString(vTextShort, dx, dy, 190, 140, vHorizontalAlignment, vVerticalAlignment);
                 }
             }
 
@@ -470,7 +470,6 @@ namespace GraphicsTester.Scenarios
                 canvas.FontSize = 12f;
                 canvas.DrawString(
                     vTextLong,
-                    5,
                     dx,
                     dy,
                     190,
@@ -529,14 +528,12 @@ namespace GraphicsTester.Scenarios
                 path =
                     vBuilder.BuildPath(
                         "M0 52.5 C60 -17.5 60 -17.5 100 52.5 C140 122.5 140 122.5 100 152.5 Q60 182.5 0 152.5 Z");
-                EWRectangle vRect = graphicsPlatform.GetPathBounds(path);
 
                 canvas.SaveState();
                 canvas.Translate(650, 900);
                 canvas.StrokeColor = StandardColors.Black;
                 canvas.DrawPath(path);
-                canvas.StrokeColor = StandardColors.Blue;
-                canvas.DrawRectangle(vRect);
+
                 canvas.RestoreState();
             }
 

@@ -23,17 +23,12 @@ using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
-using SharpDX.Mathematics.Interop;
 using SharpDX.WIC;
-using AlphaMode = SharpDX.DXGI.AlphaMode;
 using Device = SharpDX.Direct2D1.Device;
-using Device1 = SharpDX.Direct3D11.Device1;
 using DeviceContext = SharpDX.Direct2D1.DeviceContext;
-using DeviceContext1 = SharpDX.Direct3D11.DeviceContext1;
 using Factory = SharpDX.DirectWrite.Factory;
 using Factory1 = SharpDX.Direct2D1.Factory1;
 using FeatureLevel = SharpDX.Direct3D.FeatureLevel;
-using PixelFormat = SharpDX.Direct2D1.PixelFormat;
 
 namespace Elevenworks.Graphics.SharpDX
 {

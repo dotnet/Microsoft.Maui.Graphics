@@ -108,7 +108,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="GraphicsTester.WindowsUniversal_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -131,31 +130,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
-      <Project>{93e88856-ee96-442d-a705-edcaed895888}</Project>
-      <Name>Elevenworks.Common.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Common.WindowsUniversal\Elevenworks.Common.WindowsUniversal.csproj">
-      <Project>{1dfd40a6-3ea5-4ecd-b367-151a0baed17c}</Project>
-      <Name>Elevenworks.Common.WindowsUniversal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{9aa8397f-e446-4cfe-9dd7-a8ebdd6ad5c3}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.WindowsUniversal\Elevenworks.Services.WindowsUniversal.csproj">
-      <Project>{8788981b-1855-497a-a65e-e69a8fe78b33}</Project>
-      <Name>Elevenworks.Services.WindowsUniversal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{6762efdb-1f08-491e-859c-64a18d0c9082}</Project>
+    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
+      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
       <Name>Elevenworks.Graphics.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.SharpDX.WindowsUniversal\Elevenworks.Graphics.SharpDX.WindowsUniversal.csproj">
+    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.SharpDX.WindowsUniversal\Elevenworks.Graphics.SharpDX.WindowsUniversal.csproj">
       <Project>{694e970d-5c18-483f-bc48-d6d86da8e78f}</Project>
       <Name>Elevenworks.Graphics.SharpDX.WindowsUniversal</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Win2D.WindowsUniversal\Elevenworks.Graphics.Win2D.WindowsUniversal.csproj">
+    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Win2D.WindowsUniversal\Elevenworks.Graphics.Win2D.WindowsUniversal.csproj">
       <Project>{20794e60-3bfd-46f4-bc0b-87b3959aa3c7}</Project>
       <Name>Elevenworks.Graphics.Win2D.WindowsUniversal</Name>
     </ProjectReference>
@@ -166,7 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.9</Version>
+      <Version>6.2.10</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

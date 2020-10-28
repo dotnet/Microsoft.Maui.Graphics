@@ -1,7 +1,6 @@
 #if __MACOS__
 using AppKit;
 #else
-using UIKit;
 using NSStringAttributeKey = UIKit.UIStringAttributeKey;
 using NSFont = UIKit.UIFont;
 using NSColor = UIKit.UIColor;

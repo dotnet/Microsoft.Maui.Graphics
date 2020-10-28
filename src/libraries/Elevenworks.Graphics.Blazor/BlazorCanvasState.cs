@@ -1,7 +1,4 @@
 ﻿using Elevenworks.Graphics.Blazor.Canvas2D;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Elevenworks.Graphics.Blazor
 {

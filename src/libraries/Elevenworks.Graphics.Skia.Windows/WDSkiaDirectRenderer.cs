@@ -21,7 +21,7 @@ namespace Elevenworks.Graphics
 
         public EWDrawable Drawable
         {
-            get { return _drawable; }
+            get => _drawable;
             set
             {
                 _drawable = value;
@@ -31,13 +31,13 @@ namespace Elevenworks.Graphics
 
         public WDSkiaGraphicsView GraphicsView
         {
-            set { _graphicsView = value; }
+            set => _graphicsView = value;
         }
 
         public EWColor BackgroundColor
         {
-            get { return _backgroundColor; }
-            set { _backgroundColor = value; }
+            get => _backgroundColor;
+            set => _backgroundColor = value;
         }
 
         public void Draw(

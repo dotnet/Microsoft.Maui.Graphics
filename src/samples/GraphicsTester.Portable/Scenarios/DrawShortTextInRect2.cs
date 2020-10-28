@@ -33,7 +33,7 @@ namespace GraphicsTester.Scenarios
                     var horizontalAlignment = (EWHorizontalAlignment) x;
                     var verticalAlignment = (EWVerticalAlignment) y;
 
-                    canvas.DrawString(textShort, 5, dx, dy, 190, 140, horizontalAlignment, verticalAlignment);
+                    canvas.DrawString(textShort, dx, dy, 190, 140, horizontalAlignment, verticalAlignment);
                 }
             }
 

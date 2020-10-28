@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Elevenworks.Graphics.Blazor.Canvas2D;
 using Elevenworks.Graphics.Blazor.Model;
 using Elevenworks.Text;

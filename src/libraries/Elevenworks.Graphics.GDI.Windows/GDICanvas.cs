@@ -452,7 +452,7 @@ namespace Elevenworks.Graphics
             Draw(g => g.DrawString(value, font, CurrentState.TextBrush, x, y - size.Height));
         }
 
-        public override void DrawString(string value, float margin, float x, float y, float width, float height, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public override void DrawString(string value, float x, float y, float width, float height, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineAdjustment = 0)
         {
             var font = CurrentState.Font;
@@ -557,7 +557,7 @@ namespace Elevenworks.Graphics
         {
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2, float fx, float fy)
+        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
             {

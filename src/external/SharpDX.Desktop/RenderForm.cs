@@ -43,7 +43,6 @@
 * THE SOFTWARE.
 */
 
-using System.Diagnostics;
 using SharpDX.Mathematics.Interop;
 using System;
 using System.ComponentModel;
@@ -163,10 +162,7 @@ namespace SharpDX.Windows
         /// <value><c>true</c> if this form can be resized by the user (by default); otherwise, <c>false</c>.</value>
         public bool AllowUserResizing
         {
-            get
-            {
-                return allowUserResizing;
-            }
+            get => allowUserResizing;
             set
             {
                 if (allowUserResizing != value)

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Elevenworks.Graphics</RootNamespace>
     <AssemblyName>Elevenworks.Graphics.GDI.Windows</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="GDIDirectGraphicsRenderer.cs" />
     <Compile Include="GDIGraphicsRenderer.cs" />
+    <Compile Include="GDIImageExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Elevenworks.Graphics.GDI.Windows.nuspec" />
@@ -65,10 +66,6 @@
     <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
       <Project>{90EFC12E-8B00-4E15-AD76-809A3E9421E3}</Project>
       <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{b3522055-0ab5-4c61-9398-81f3409c8dd6}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
       <Project>{4ECA6034-A9E7-41B4-BE21-01C6F0BF87D0}</Project>

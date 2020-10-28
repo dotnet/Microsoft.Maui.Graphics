@@ -106,6 +106,7 @@
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
   <ItemGroup>
+    <Compile Include="AsyncPump.cs" />
     <Compile Include="W2DFontFamily.cs" />
     <Compile Include="W2DFontService.cs" />
     <Compile Include="W2DFontStyle.cs" />
@@ -120,20 +121,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.9</Version>
+      <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="Win2D.uwp">
-      <Version>1.24.0</Version>
+      <Version>1.25.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
       <Project>{509167e4-3279-4776-ab1a-31a6a9084565}</Project>
       <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{b3522055-0ab5-4c61-9398-81f3409c8dd6}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
       <Project>{3c6f197f-e53f-4dea-b16f-ede54bc659c9}</Project>

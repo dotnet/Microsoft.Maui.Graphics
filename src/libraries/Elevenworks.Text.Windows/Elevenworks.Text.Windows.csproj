@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj" />
+        <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj" />
         <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
     </ItemGroup>
 

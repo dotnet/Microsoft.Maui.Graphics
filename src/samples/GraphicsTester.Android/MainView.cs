@@ -2,6 +2,7 @@
 using System.Collections;
 using Android.Runtime;
 using Android.Content;
+using Android.Views;
 using Android.Widget;
 using Elevenworks.Graphics;
 using GraphicsTester.Scenarios;
@@ -10,8 +11,8 @@ namespace GraphicsTester.Android
 {
     public class MainView : LinearLayout
     {
-        private ListView listView;
-        private MDGraphicsView graphicsView;
+        private readonly ListView _listView;
+        private readonly MDGraphicsView _graphicsView;
 
         public MainView (IntPtr javaReference, JniHandleOwnership transfer) : base (javaReference, transfer)
         {
@@ -21,28 +22,28 @@ namespace GraphicsTester.Android
         {
             Orientation = Orientation.Horizontal;
 
-            listView = new ListView (context);
-            listView.LayoutParameters = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WrapContent,
-                LinearLayout.LayoutParams.MatchParent,
+            _listView = new ListView (context);
+            _listView.LayoutParameters = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WrapContent,
+                ViewGroup.LayoutParams.MatchParent,
                 2.5f);
-            base.AddView (listView);
+            base.AddView (_listView);
 
-            graphicsView = new MDGraphicsView (context);
-            graphicsView.BackgroundColor = StandardColors.White;
-            graphicsView.LayoutParameters = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WrapContent,
-                LinearLayout.LayoutParams.MatchParent,
+            _graphicsView = new MDGraphicsView (context);
+            _graphicsView.BackgroundColor = StandardColors.White;
+            _graphicsView.LayoutParameters = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WrapContent,
+                ViewGroup.LayoutParams.MatchParent,
                 1);
-            base.AddView (graphicsView);
+            base.AddView (_graphicsView);
 
-            var adapter = new ArrayAdapter (context, Resource.Layout.ListViewItem, ScenarioList.Scenarios as IList);
-            listView.Adapter = adapter;
+            var adapter = new ArrayAdapter (context, Resource.Layout.ListViewItem, ScenarioList.Scenarios);
+            _listView.Adapter = adapter;
 
-            listView.ItemClick += (sender, e) => 
+            _listView.ItemClick += (sender, e) => 
             {
                 var scenario = ScenarioList.Scenarios[e.Position];
-                graphicsView.Drawable = scenario;
+                _graphicsView.Drawable = scenario;
             };
         }   
     }

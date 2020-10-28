@@ -531,7 +531,7 @@ namespace Elevenworks.Graphics
             CurrentState.Font = defaultSystemFont;
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2, float fx, float fy)
+        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
 			if (paint.PaintType == EWPaintType.SOLID)
 				FillColor = paint.StartColor;
@@ -546,7 +546,6 @@ namespace Elevenworks.Graphics
 
         public override void DrawString(
             string value, 
-            float margin, 
             float x, 
             float y, 
             float width, 
@@ -608,7 +607,7 @@ namespace Elevenworks.Graphics
             block.FontWeight = CurrentState.FontWeight;
             block.TextTrimming = TextTrimming.None;
             block.TextWrapping = TextWrapping.Wrap;
-            block.Padding = new Thickness(margin);
+            block.Padding = new Thickness();
             block.Opacity = CurrentState.Alpha;
             element.RenderTransform = CurrentState.GetXamlTransform(_rectX, _rectY);
         }
@@ -777,7 +776,7 @@ namespace Elevenworks.Graphics
 
         public override bool PixelShifted
         {
-            get { return false; }
+            get => false;
             set
             {
                 

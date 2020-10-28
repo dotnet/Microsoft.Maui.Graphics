@@ -25,9 +25,6 @@ namespace GraphicsTester.Skia
             base.AwakeFromNib ();
         }
 
-        public new MainWindow Window
-        {
-            get { return (MainWindow)base.Window; }
-        }
+        public new MainWindow Window => (MainWindow)base.Window;
     }
 }

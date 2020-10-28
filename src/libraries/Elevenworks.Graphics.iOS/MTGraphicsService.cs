@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Drawing;
 using CoreGraphics;
 using CoreText;
@@ -26,13 +25,7 @@ namespace Elevenworks.Graphics
             boldSystemFont.Dispose();
         }
 
-        public bool IsRetina
-        {
-            get
-            {
-                return UIScreen.MainScreen.Scale > 2;
-            }
-        }
+        public bool IsRetina => UIScreen.MainScreen.Scale > 2;
 
         public EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png)
         {

@@ -17,7 +17,7 @@ namespace Elevenworks.Graphics
 
         public ISkiaGraphicsRenderer Renderer
         {
-            get { return _renderer; }
+            get => _renderer;
 
             set
             {
@@ -42,13 +42,13 @@ namespace Elevenworks.Graphics
 
         public EWColor BackgroundColor
         {
-            get { return _renderer.BackgroundColor; }
-            set { _renderer.BackgroundColor = value; }
+            get => _renderer.BackgroundColor;
+            set => _renderer.BackgroundColor = value;
         }
 
         public EWDrawable Drawable
         {
-            get { return _drawable; }
+            get => _drawable;
             set
             {
                 _drawable = value;

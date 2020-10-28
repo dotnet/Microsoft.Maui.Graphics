@@ -9,20 +9,18 @@ namespace Elevenworks.Graphics.SharpDX
     public class DXImage : EWImage
     {
         private Bitmap _bitmap;
-        private string _hash;
 
-        public DXImage(Bitmap bitmap, string hash = null)
+        public DXImage(Bitmap bitmap)
         {
             _bitmap = bitmap;
-            _hash = hash;
         }
 
         public Bitmap NativeImage => _bitmap;
 
         public void Dispose()
         {
-            var disp = Interlocked.Exchange(ref _bitmap, null);
-            disp?.Dispose();
+            var bitmap = Interlocked.Exchange(ref _bitmap, null);
+            bitmap?.Dispose();
         }
 
         public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
@@ -82,22 +80,6 @@ namespace Elevenworks.Graphics.SharpDX
 
         public float Height => _bitmap.Size.Height;
 
-        public string Hash
-        {
-            get
-            {
-                if (_hash == null)
-                {
-                    string thehash = this.CreateHash();
-                    return Interlocked.Exchange(ref _hash, thehash);
-                }
-
-                return _hash;
-            }
-
-            set => _hash = value;
-        }
-
         public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
         {
             switch (format)
@@ -119,34 +101,6 @@ namespace Elevenworks.Graphics.SharpDX
         public void Draw(EWCanvas canvas, EWRectangle dirtyRect)
         {
             canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, Math.Abs(dirtyRect.Width), Math.Abs(dirtyRect.Height));
-        }
-    }
-
-    public static class DXImageExtensions
-    {
-        public static Bitmap AsBitmap(this EWImage image)
-        {
-            if (image is DXImage dxImage)
-            {
-                return dxImage.NativeImage;
-            }
-
-            if (image is VirtualImage virtualImage)
-            {
-                using (var stream = new MemoryStream(virtualImage.Bytes))
-                {
-                    return DXGraphicsService.CurrentTarget.Value.LoadBitmap(stream);
-                }
-            }
-
-            if (image != null)
-            {
-                Logger.Warn(
-                    "DXImageExtensions.AsBitmap: Unable to get Bitmap from EWImage. Expected an image of type DXImage however an image of type {0} was received.",
-                    image.GetType());
-            }
-
-            return null;
         }
     }
 }

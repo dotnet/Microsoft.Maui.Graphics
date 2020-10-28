@@ -19,7 +19,6 @@
 // THE SOFTWARE.
 using System;
 using System.Runtime.InteropServices;
-using System.Security;
 using SharpDX.IO;
 using SharpDX.Mathematics.Interop;
 using SharpDX.Win32;

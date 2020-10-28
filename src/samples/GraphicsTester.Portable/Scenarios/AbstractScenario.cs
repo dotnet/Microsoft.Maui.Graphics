@@ -1,5 +1,4 @@
-﻿using System;
-using Elevenworks.Graphics;
+﻿using Elevenworks.Graphics;
 
 namespace GraphicsTester.Scenarios
 {

@@ -1,6 +1,4 @@
-﻿using Elevenworks.Graphics;
-
-namespace GraphicsTester.Scenarios
+﻿namespace GraphicsTester.Scenarios
 {
     public class FillOvals : AbstractFillScenario
     {

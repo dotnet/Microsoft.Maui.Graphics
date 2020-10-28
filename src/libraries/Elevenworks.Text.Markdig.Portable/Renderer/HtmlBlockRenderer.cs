@@ -1,5 +1,4 @@
-﻿using System;
-using Markdig.Syntax;
+﻿using Markdig.Syntax;
 
 namespace Elevenworks.Text.Markdig.Renderer
 {

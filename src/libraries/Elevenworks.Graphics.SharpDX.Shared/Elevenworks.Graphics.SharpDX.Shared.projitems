@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DXFontStyle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DXGraphicsService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DXImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DXImageExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DXImageUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DXWicContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Matrix3x2Extensions.cs" />

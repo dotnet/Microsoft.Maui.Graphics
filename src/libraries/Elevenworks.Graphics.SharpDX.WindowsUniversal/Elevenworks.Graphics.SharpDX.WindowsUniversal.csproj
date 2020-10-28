@@ -124,7 +124,7 @@
   <Import Project="..\Elevenworks.Graphics.SharpDX.Shared\Elevenworks.Graphics.SharpDX.Shared.projitems" Label="Shared" />
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.9</Version>
+      <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="SharpDX">
       <Version>4.2.0</Version>
@@ -143,17 +143,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
-      <Project>{3229a6d9-4108-46f1-a766-dc2814309906}</Project>
-      <Name>Elevenworks.Common.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
       <Project>{509167e4-3279-4776-ab1a-31a6a9084565}</Project>
       <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{b3522055-0ab5-4c61-9398-81f3409c8dd6}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
       <Project>{3c6f197f-e53f-4dea-b16f-ede54bc659c9}</Project>

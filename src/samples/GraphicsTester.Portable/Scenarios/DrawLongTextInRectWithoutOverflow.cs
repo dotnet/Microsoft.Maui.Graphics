@@ -30,7 +30,6 @@ namespace GraphicsTester.Scenarios
 
                 canvas.DrawString(
                     longText,
-                    5,
                     dx,
                     dy,
                     190,

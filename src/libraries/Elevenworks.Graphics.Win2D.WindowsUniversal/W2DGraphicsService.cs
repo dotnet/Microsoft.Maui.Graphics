@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Elevenworks.Threading;
 using Microsoft.Graphics.Canvas;
 
 namespace Elevenworks.Graphics.Win2D
@@ -56,39 +55,7 @@ namespace Elevenworks.Graphics.Win2D
             return new EWSize(value.Length * 10, textSize + 2);
         }
 
-        public void LayoutText(EWPath path, string text, ITextAttributes textAttributes, LayoutLine callback)
-        {
-            // Do nothing
-        }
-
-        public EWRectangle GetPathBounds(EWPath path)
-        {
-            return path.GetBoundsByFlattening(0.0005f);
-        }
-
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint center, EWPath path, float angle)
-        {
-            var rotatedPath = path.Rotate(angle, center);
-            return rotatedPath.GetBoundsByFlattening();
-        }
-
-        public bool PathContainsPoint(EWPath path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
-        {
-            var flattened = path.GetFlattenedPath();
-            return flattened.Contains(point);
-        }
-
-        public bool PointIsOnPath(EWPath path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool PointIsOnPathSegment(EWPath path, int segmentIndex, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
-        {
-            throw new NotImplementedException();
-        }
-
-        public EWImage LoadImageFromStream(Stream stream, string hash = null, EWImageFormat format = EWImageFormat.Png)
+        public EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png)
         {
             var creator = Creator;
             if (creator == null)

@@ -1,5 +1,3 @@
-using System;
-
 namespace Elevenworks.Graphics
 {
     public enum EWImageFormat

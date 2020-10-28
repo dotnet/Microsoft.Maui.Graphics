@@ -34,8 +34,8 @@ namespace Elevenworks.Graphics
 
     public class XamlCanvas : AbstractCanvas<XamlCanvasState>
     {
-        public static string DefaultSystemFont;
-        public static string DefaultBoldSystemFont;
+        private static string _defaultSystemFont;
+        private static string _defaultBoldSystemFont;
 
         private readonly List<Item> _items = new List<Item>();
 
@@ -516,35 +516,35 @@ namespace Elevenworks.Graphics
 
         public override void SetToBoldSystemFont()
         {
-            if (DefaultSystemFont == null) InitSystemFont();
-            CurrentState.Font = DefaultBoldSystemFont;
+            if (_defaultSystemFont == null) InitSystemFont();
+            CurrentState.Font = _defaultBoldSystemFont;
         }
 
         public override void SetToSystemFont()
         {
-            if (DefaultSystemFont == null) InitSystemFont();
-            CurrentState.Font = DefaultSystemFont;
+            if (_defaultSystemFont == null) InitSystemFont();
+            CurrentState.Font = _defaultSystemFont;
         }
 
         private void InitSystemFont()
         {
-            if (DefaultSystemFont == null)
+            if (_defaultSystemFont == null)
             {
                 var segoeFont = Fonts.CurrentService.GetFontStyleById("SegoeUI");
                 if (segoeFont != null)
                 {
-                    DefaultSystemFont = "SegoeUI";
-                    DefaultBoldSystemFont = "SegoeUI-Bold";
+                    _defaultSystemFont = "SegoeUI";
+                    _defaultBoldSystemFont = "SegoeUI-Bold";
                 }
                 else
                 {
-                    DefaultSystemFont = "Tahoma";
-                    DefaultBoldSystemFont = "Tahoma-Bold";
+                    _defaultSystemFont = "Tahoma";
+                    _defaultBoldSystemFont = "Tahoma-Bold";
                 }
             }
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2, float fx, float fy)
+        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
             if (paint.PaintType == EWPaintType.SOLID)
                 FillColor = paint.StartColor;
@@ -559,7 +559,6 @@ namespace Elevenworks.Graphics
 
         public override void DrawString(
             string value,
-            float margin,
             float x,
             float y,
             float width,
@@ -621,7 +620,7 @@ namespace Elevenworks.Graphics
             block.Foreground = CurrentState.XamlFontBrush;
             block.TextTrimming = TextTrimming.None;
             block.TextWrapping = TextWrapping.Wrap;
-            block.Padding = new Thickness(margin);
+            block.Padding = new Thickness();
             block.Opacity = CurrentState.Alpha;
             block.Effect = CurrentState.XamlEffect;
             block.RenderTransform = CurrentState.GetXamlTransform(_rectX, _rectY);
@@ -793,7 +792,7 @@ namespace Elevenworks.Graphics
 
         public override bool PixelShifted
         {
-            get { return false; }
+            get => false;
             set { }
         }
 

@@ -314,7 +314,6 @@ namespace Elevenworks.Graphics.Win2D
 
         public override void DrawString(
             string value, 
-            float margin, 
             float x, 
             float y, 
             float width, 
@@ -366,8 +365,8 @@ namespace Elevenworks.Graphics.Win2D
                 _session,
                 value,
                 textFormat,
-                width - margin * 2,
-                height - margin * 2)
+                width,
+                height)
             {
                 Options = textFlow == EWTextFlow.OVERFLOW_BOUNDS
                     ? CanvasDrawTextOptions.Default
@@ -375,8 +374,8 @@ namespace Elevenworks.Graphics.Win2D
             };
 
 
-            _point1.X = x + margin;
-            _point1.Y = y + margin;
+            _point1.X = x;
+            _point1.Y = y;
 
             Draw(ctx => ctx.DrawTextLayout( textLayout, _point1, CurrentState.NativeFontBrush));
         }
@@ -391,7 +390,7 @@ namespace Elevenworks.Graphics.Win2D
             CurrentState.SetShadow(offset, blur, color, zoom);
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2, float fx, float fy)
+        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
             {

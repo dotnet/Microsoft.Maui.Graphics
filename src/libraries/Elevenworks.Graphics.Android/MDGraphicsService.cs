@@ -1,10 +1,6 @@
-using System.Collections.Generic;
 using System.IO;
 using Android.Graphics;
 using Android.Text;
-using Color = Android.Graphics.Color;
-using Path = Android.Graphics.Path;
-using SizeF = System.Drawing.SizeF;
 
 namespace Elevenworks.Graphics
 {

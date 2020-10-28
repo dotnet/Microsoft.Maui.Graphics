@@ -2,7 +2,6 @@
 using Foundation;
 using CoreGraphics;
 using System.IO;
-using AppKit;
 
 namespace Elevenworks.Graphics
 {

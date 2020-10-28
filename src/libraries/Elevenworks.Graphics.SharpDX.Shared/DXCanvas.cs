@@ -220,47 +220,13 @@ namespace Elevenworks.Graphics.SharpDX
 
         private void DisposeEffectContext()
         {
-            if (_effectContext != null)
-            {
-                //effectContext.Dispose();
                 _effectContext = null;
-            }
-
-            if (_effectBitmap != null)
-            {
-                //effectBitmap.Dispose();
                 _effectBitmap = null;
-            }
-
-            if (_shadowEffect != null)
-            {
-                //shadowEffect.Dispose();
                 _shadowEffect = null;
-            }
-
-            if (_blurEffect != null)
-            {
-                //blurEffect.Dispose();
                 _blurEffect = null;
-            }
-
-            if (_patternContext != null)
-            {
-                //patternContext.Dispose();
                 _patternContext = null;
-            }
-
-            if (_patternBitmap != null)
-            {
-                //patternBitmap.Dispose();
                 _patternBitmap = null;
-            }
-
-            if (_vectorPatternContext != null)
-            {
-                //vectorPatternContext.Dispose();
                 _vectorPatternContext = null;
-            }
         }
 
         protected override void NativeDrawLine(float x1, float y1, float x2, float y2)
@@ -725,7 +691,6 @@ namespace Elevenworks.Graphics.SharpDX
 
         public override void DrawString(
             string value,
-            float margin,
             float x,
             float y,
             float width,
@@ -774,10 +739,10 @@ namespace Elevenworks.Graphics.SharpDX
 
             // Initialize a TextLayout
             var textLayout = new TextLayout(DXGraphicsService.FactoryDirectWrite, value, textFormat,
-                width - margin * 2, height - margin * 2);
+                width, height);
 
-            _point1.X = x + margin;
-            _point1.Y = y + margin;
+            _point1.X = x;
+            _point1.Y = y;
 
             // Draw the TextLayout
 // ReSharper disable AccessToDisposedClosure    
@@ -945,7 +910,7 @@ namespace Elevenworks.Graphics.SharpDX
             set { }
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2, float fx, float fy)
+        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
             {

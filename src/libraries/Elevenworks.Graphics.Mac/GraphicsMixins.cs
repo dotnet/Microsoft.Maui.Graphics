@@ -1,6 +1,3 @@
-using System;
-using CoreGraphics;
-using Elevenworks.Graphics;
 using AppKit;
 
 namespace Elevenworks.Graphics
