@@ -305,7 +305,7 @@ namespace Elevenworks.Graphics
             CurrentState.XamlRotate(degrees, radians, x, y);
         }
 
-        protected override void NativeDrawPath(EWPath path, float ppu)
+        protected override void NativeDrawPath(EWPath path)
         {
             var item = GetOrCreateItem(ItemType.DrawPath);
             var element = (Path) item.Element;
@@ -316,7 +316,7 @@ namespace Elevenworks.Graphics
                 transformedPath.Transform(CurrentState.Transform);
             }
 
-            var geometry = transformedPath.AsPathGeometry(ppu);
+            var geometry = transformedPath.AsPathGeometry();
             element.Data = geometry;
 
             element.Stroke = CurrentState.XamlStrokeBrush;
@@ -563,8 +563,8 @@ namespace Elevenworks.Graphics
             float y,
             float width,
             float height,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment,
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float lineAdjustment = 0)
         {
@@ -586,29 +586,29 @@ namespace Elevenworks.Graphics
 
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     block.TextAlignment = TextAlignment.Left;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     block.TextAlignment = TextAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     block.TextAlignment = TextAlignment.Right;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     block.TextAlignment = TextAlignment.Justify;
                     break;
             }
 
             switch (verticalAlignment)
             {
-                case EWVerticalAlignment.TOP:
+                case EwVerticalAlignment.Top:
                     block.VerticalAlignment = VerticalAlignment.Top;
                     break;
-                case EWVerticalAlignment.CENTER:
+                case EwVerticalAlignment.Center:
                     block.VerticalAlignment = VerticalAlignment.Center;
                     break;
-                case EWVerticalAlignment.BOTTOM:
+                case EwVerticalAlignment.Bottom:
                     block.VerticalAlignment = VerticalAlignment.Bottom;
                     break;
             }
@@ -626,7 +626,7 @@ namespace Elevenworks.Graphics
             block.RenderTransform = CurrentState.GetXamlTransform(_rectX, _rectY);
         }
 
-        public override void DrawString(string value, float x, float y, EWHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
             var item = GetOrCreateItem(ItemType.DrawText);
             var element = (TextBlock) item.Element;
@@ -634,16 +634,16 @@ namespace Elevenworks.Graphics
 
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     element.TextAlignment = TextAlignment.Left;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     element.TextAlignment = TextAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     element.TextAlignment = TextAlignment.Right;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     element.TextAlignment = TextAlignment.Justify;
                     break;
             }
@@ -796,7 +796,7 @@ namespace Elevenworks.Graphics
             set { }
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
             var item = GetOrCreateItem(ItemType.FillPath);
             var element = (Path) item.Element;
@@ -808,7 +808,7 @@ namespace Elevenworks.Graphics
                 transformedPath.Transform(CurrentState.Transform);
             }
 
-            var geometry = transformedPath.AsPathGeometry(ppu);
+            var geometry = transformedPath.AsPathGeometry();
             element.Data = geometry;
 
             element.Fill = CurrentState.XamlFillBrush;
@@ -821,7 +821,7 @@ namespace Elevenworks.Graphics
         {
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
         }
 

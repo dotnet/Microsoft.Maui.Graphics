@@ -172,7 +172,7 @@ namespace Elevenworks.Graphics
             return size.AsEWSize();
         }
 
-        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, EWHorizontalAlignment aHorizontalAlignment, EWVerticalAlignment aVerticalAlignment)
+        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, EwHorizontalAlignment aHorizontalAlignment, EwVerticalAlignment aVerticalAlignment)
         {
             var fontSize = aFontSize;
             float factor = 1;
@@ -198,16 +198,16 @@ namespace Elevenworks.Graphics
             var vParagraphSettings = new CTParagraphStyleSettings();
             switch (aHorizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     vParagraphSettings.Alignment = CTTextAlignment.Left;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     vParagraphSettings.Alignment = CTTextAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     vParagraphSettings.Alignment = CTTextAlignment.Right;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     vParagraphSettings.Alignment = CTTextAlignment.Justified;
                     break;
             }
@@ -288,7 +288,7 @@ namespace Elevenworks.Graphics
 
             if (nativePath == null)
             {
-                nativePath = path.AsCGPath(1);
+                nativePath = path.AsCGPath();
                 path.NativePath = nativePath;
             }
 

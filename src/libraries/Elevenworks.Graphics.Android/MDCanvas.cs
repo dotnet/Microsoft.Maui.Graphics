@@ -634,19 +634,19 @@ namespace Elevenworks.Graphics
             _canvas.ClipRect(x, y, (x + width), (y + height), Region.Op.Difference);
         }
 
-        protected override void NativeDrawPath(EWPath aPath, float ppu)
+        protected override void NativeDrawPath(EWPath aPath)
         {
             var strokeLocation = CurrentState.StrokeLocation;
             if (strokeLocation == EWStrokeLocation.CENTER)
             {
-                var nativePath = aPath.AsAndroidPath(ppu);
+                var nativePath = aPath.AsAndroidPath();
                 _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
                 nativePath.Dispose();
             }
             else if (strokeLocation == EWStrokeLocation.INSIDE)
             {
                 _canvas.Save(SaveFlags.Clip);
-                var nativePath = aPath.AsAndroidPath(ppu);
+                var nativePath = aPath.AsAndroidPath();
                 _canvas.ClipPath(nativePath);
                 var paint = CurrentState.StrokePaintWithAlpha;
                 float strokeSize = paint.StrokeWidth;
@@ -659,7 +659,7 @@ namespace Elevenworks.Graphics
             else if (strokeLocation == EWStrokeLocation.OUTSIDE)
             {
                 var origClip = _canvas.ClipBounds;
-                var nativePath = aPath.AsAndroidPath(ppu);
+                var nativePath = aPath.AsAndroidPath();
 
                 var clippingPath = new Path();
                 var origClipAsRect = origClip.AsRectF();
@@ -682,9 +682,9 @@ namespace Elevenworks.Graphics
             }
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            var nativePath = path.AsAndroidPath(ppu);
+            var nativePath = path.AsAndroidPath();
             nativePath.SetFillType(windingMode == EWWindingMode.NonZero ? Path.FillType.Winding : Path.FillType.EvenOdd);
             _canvas.ClipPath(nativePath);
         }
@@ -694,19 +694,19 @@ namespace Elevenworks.Graphics
             _canvas.ClipRect(x, y, x + width, y + height);
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
-            var nativePath = path.AsAndroidPath(ppu);
+            var nativePath = path.AsAndroidPath();
             nativePath.SetFillType(windingMode == EWWindingMode.NonZero ? Path.FillType.Winding : Path.FillType.EvenOdd);
             _canvas.DrawPath(nativePath, CurrentState.FillPaintWithAlpha);
             nativePath.Dispose();
         }
 
-        public override void DrawString(string value, float x, float y, EWHorizontalAlignment horizAlignment)
+        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizAlignment)
         {
-            if (horizAlignment == EWHorizontalAlignment.LEFT)
+            if (horizAlignment == EwHorizontalAlignment.Left)
                 DrawString(value, x, y);
-            else if (horizAlignment == EWHorizontalAlignment.RIGHT)
+            else if (horizAlignment == EwHorizontalAlignment.Right)
             {
                 EWSize vSize = MDGraphicsService.Instance.GetStringSize(
                     value,
@@ -751,8 +751,8 @@ namespace Elevenworks.Graphics
             float y,
             float width,
             float height,
-            EWHorizontalAlignment horizAlignment,
-            EWVerticalAlignment vertAlignment,
+            EwHorizontalAlignment horizAlignment,
+            EwVerticalAlignment vertAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float lineSpacingAdjustment = 0)
         {
@@ -762,11 +762,11 @@ namespace Elevenworks.Graphics
             _canvas.Save();
 
             var alignment = Layout.Alignment.AlignNormal;
-            if (horizAlignment == EWHorizontalAlignment.CENTER)
+            if (horizAlignment == EwHorizontalAlignment.Center)
             {
                 alignment = Layout.Alignment.AlignCenter;
             }
-            else if (horizAlignment == EWHorizontalAlignment.RIGHT)
+            else if (horizAlignment == EwHorizontalAlignment.Right)
             {
                 alignment = Layout.Alignment.AlignOpposite;
             }
@@ -778,12 +778,10 @@ namespace Elevenworks.Graphics
             _canvas.Restore();
         }
 
-        public override void DrawString(
-            EWPath aPath,
-            float ppu,
+        public override void DrawString(EWPath aPath,
             string aString,
-            EWHorizontalAlignment aHorizontalAlignment,
-            EWVerticalAlignment aVerticalAlignment,
+            EwHorizontalAlignment aHorizontalAlignment,
+            EwVerticalAlignment aVerticalAlignment,
             EWTextFlow aTextFlow = EWTextFlow.CLIP_BOUNDS,
             float lineSpacingAdjustment = 0)
         {
@@ -797,7 +795,7 @@ namespace Elevenworks.Graphics
             _canvas.Save();
             var span = value.AsSpannableString();
             var layout = MDTextLayout.CreateLayoutForSpannedString(span, CurrentState.FontPaint, (int) width, Layout.Alignment.AlignNormal);
-            var offset = layout.GetOffsetsToDrawText(x, y, width, height, EWHorizontalAlignment.LEFT, EWVerticalAlignment.TOP);
+            var offset = layout.GetOffsetsToDrawText(x, y, width, height, EwHorizontalAlignment.Left, EwVerticalAlignment.Top);
             _canvas.Translate(offset.Width, offset.Height);
             layout.Draw(_canvas);
             layout.Dispose();

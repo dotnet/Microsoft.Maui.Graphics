@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Elevenworks.Graphics
 {
-    public interface EWPdfPage : EWDrawable, IDisposable, IHasheable
+    public interface EWPdfPage : EWDrawable, IDisposable
     {
         float Width { get; }
         float Height { get; }

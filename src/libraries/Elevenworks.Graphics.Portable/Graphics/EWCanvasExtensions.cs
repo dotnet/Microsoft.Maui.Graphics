@@ -9,11 +9,6 @@ namespace Elevenworks.Graphics
             target.StrokeDashPattern = pattern;
         }
 
-        public static void DrawLine(this EWCanvas target, EWLine line)
-        {
-            target.DrawLine(line.X1, line.Y1, line.X2, line.Y2);
-        }
-
         public static void DrawLine(this EWCanvas target, EWImmutablePoint point1, EWImmutablePoint point2)
         {
             target.DrawLine(point1.X, point1.Y, point2.X, point2.Y);
@@ -51,22 +46,22 @@ namespace Elevenworks.Graphics
 
         public static void DrawPath(this EWCanvas target, EWPath path)
         {
-            target.DrawPath(path, 1);
+            target.DrawPath(path);
         }
 
         public static void FillPath(this EWCanvas target, EWPath path)
         {
-            target.FillPath(path, 1, EWWindingMode.NonZero);
+            target.FillPath(path, EWWindingMode.NonZero);
         }
 
         public static void FillPath(this EWCanvas target, EWPath path, EWWindingMode windingMode)
         {
-            target.FillPath(path, 1, windingMode);
+            target.FillPath(path, windingMode);
         }
 
         public static void ClipPath(this EWCanvas target, EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            target.ClipPath(path, 1, windingMode);
+            target.ClipPath(path, windingMode);
         }
 
         public static void ClipRectangle(this EWCanvas target, EWRectangle rect)
@@ -74,7 +69,7 @@ namespace Elevenworks.Graphics
             target.ClipRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void DrawString(this EWCanvas target, string value, EWRectangle bounds, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public static void DrawString(this EWCanvas target, string value, EWRectangle bounds, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
             target.DrawString(value, bounds.MinX, bounds.MinY, Math.Abs(bounds.Width), Math.Abs(bounds.Height), horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);

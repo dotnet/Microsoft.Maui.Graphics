@@ -21,7 +21,7 @@ namespace Elevenworks.Graphics
         }
 
 
-        public EWSize GetStringSize(string aString, string aFontName, float fontSize, EWHorizontalAlignment aHorizontalAlignment, EWVerticalAlignment aVerticalAlignment)
+        public EWSize GetStringSize(string aString, string aFontName, float fontSize, EwHorizontalAlignment aHorizontalAlignment, EwVerticalAlignment aVerticalAlignment)
         {
             var fontEntry = GDIFontManager.GetMapping(aFontName);
             var font = new Font(fontEntry.Name, fontSize * .75f);

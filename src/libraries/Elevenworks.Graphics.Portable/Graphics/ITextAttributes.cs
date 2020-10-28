@@ -10,8 +10,8 @@ namespace Elevenworks.Graphics
 
         EWColor TextFontColor { get; set; }
 
-        EWHorizontalAlignment HorizontalAlignment { get; set; }
+        EwHorizontalAlignment HorizontalAlignment { get; set; }
 
-        EWVerticalAlignment VerticalAlignment { get; set; }
+        EwVerticalAlignment VerticalAlignment { get; set; }
     }
 }

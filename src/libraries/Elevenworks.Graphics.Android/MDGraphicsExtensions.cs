@@ -472,10 +472,10 @@ namespace Elevenworks.Graphics
             float y,
             float width,
             float height,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment)
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment)
         {
-            if (verticalAlignment != EWVerticalAlignment.TOP)
+            if (verticalAlignment != EwVerticalAlignment.Top)
             {
                 SizeF vTextFrameSize = target.GetTextSize();
 
@@ -484,7 +484,7 @@ namespace Elevenworks.Graphics
 
                 if (height > 0)
                 {
-                    if (verticalAlignment == EWVerticalAlignment.BOTTOM)
+                    if (verticalAlignment == EwVerticalAlignment.Bottom)
                         vOffsetY = height - vTextFrameSize.Height;
                     else
                         vOffsetY = (height - vTextFrameSize.Height) / 2;

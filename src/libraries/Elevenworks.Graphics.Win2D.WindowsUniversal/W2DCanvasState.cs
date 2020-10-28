@@ -70,9 +70,9 @@ namespace Elevenworks.Graphics.Win2D
         }
 
         public float BlurRadius { get; private set; }
-        public bool IsShadowed { get; set; }
+        public bool IsShadowed { get; private set; }
         public bool IsBlurred { get; private set; }
-        public Vector2 ShadowOffset { get; set; }
+        public Vector2 ShadowOffset { get; private set; }
         public float ShadowBlur { get; set; }
         public Matrix3x2 Matrix { get; private set; }
 
@@ -466,14 +466,14 @@ namespace Elevenworks.Graphics.Win2D
             return Matrix;
         }
 
-        public void ClipPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public void ClipPath(EWPath path, EWWindingMode windingMode)
         {
             if (_layerMask != null)
                 throw new Exception("Only one clip operation currently supported.");
 
             var layerRect = new Rect(0, 0, _owner.CanvasSize.Width, _owner.CanvasSize.Height);
             _layerBounds = CanvasGeometry.CreateRectangle(_owner.Session, layerRect);
-            var clipGeometry = path.AsPath(ppu, _owner.Session, windingMode == EWWindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
+            var clipGeometry = path.AsPath(_owner.Session, windingMode == EWWindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
 
             _layerMask = _layerBounds.CombineWith(clipGeometry, Matrix3x2.Identity, CanvasGeometryCombine.Intersect);
 
@@ -485,7 +485,7 @@ namespace Elevenworks.Graphics.Win2D
         {
             var path = new EWPath();
             path.AppendRectangle(x, y, width, height);
-            ClipPath(path, 1, EWWindingMode.NonZero);
+            ClipPath(path, EWWindingMode.NonZero);
         }
 
         public void SubtractFromClip(float x, float y, float width, float height)

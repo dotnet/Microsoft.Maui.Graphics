@@ -45,7 +45,7 @@ namespace Elevenworks.Graphics
         }
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static PathGeometry AsPathGeometry(this EWPath target, float ppu)
+        public static PathGeometry AsPathGeometry(this EWPath target, float scale = 1)
         {
             var geometry = new PathGeometry();
             PathFigure figure = null;
@@ -60,19 +60,19 @@ namespace Elevenworks.Graphics
                 {
                     figure = new PathFigure();
                     geometry.Figures.Add(figure);
-                    figure.StartPoint = target[pointIndex++].AsPoint(ppu);
+                    figure.StartPoint = target[pointIndex++].AsPoint(scale);
                 }
                 else if (type == PathOperation.LINE)
                 {
-                    var lineSegment = new LineSegment {Point = target[pointIndex++].AsPoint(ppu)};
+                    var lineSegment = new LineSegment {Point = target[pointIndex++].AsPoint(scale)};
                     figure.Segments.Add(lineSegment);
                 }
                 else if (type == PathOperation.QUAD)
                 {
                     var quadSegment = new QuadraticBezierSegment
                     {
-                        Point1 = target[pointIndex++].AsPoint(ppu),
-                        Point2 = target[pointIndex++].AsPoint(ppu)
+                        Point1 = target[pointIndex++].AsPoint(scale),
+                        Point2 = target[pointIndex++].AsPoint(scale)
                     };
                     figure.Segments.Add(quadSegment);
                 }
@@ -80,9 +80,9 @@ namespace Elevenworks.Graphics
                 {
                     var cubicSegment = new BezierSegment()
                     {
-                        Point1 = target[pointIndex++].AsPoint(ppu),
-                        Point2 = target[pointIndex++].AsPoint(ppu),
-                        Point3 = target[pointIndex++].AsPoint(ppu),
+                        Point1 = target[pointIndex++].AsPoint(scale),
+                        Point2 = target[pointIndex++].AsPoint(scale),
+                        Point3 = target[pointIndex++].AsPoint(scale),
                     };
                     figure.Segments.Add(cubicSegment);
                 }
@@ -107,10 +107,10 @@ namespace Elevenworks.Graphics
                     var sweep = Geometry.GetSweep(startAngle, endAngle, clockwise);
                     var absSweep = Math.Abs(sweep);
 
-                    var rectX = topLeft.X * ppu;
-                    var rectY = topLeft.Y * ppu;
-                    var rectWidth = bottomRight.X * ppu - topLeft.X * ppu;
-                    var rectHeight = bottomRight.Y * ppu - topLeft.Y * ppu;
+                    var rectX = topLeft.X * scale;
+                    var rectY = topLeft.Y * scale;
+                    var rectWidth = bottomRight.X * scale - topLeft.X * scale;
+                    var rectHeight = bottomRight.Y * scale - topLeft.Y * scale;
 
                     var startPoint = Geometry.OvalAngleToPoint(rectX, rectY, rectWidth, rectHeight, -startAngle);
                     var endPoint = Geometry.OvalAngleToPoint(rectX, rectY, rectWidth, rectHeight, -endAngle);

@@ -18,29 +18,29 @@ namespace GraphicsTester.Scenarios
             canvas.FontSize = 12f;
 
             canvas.Translate(0, 10);
-            canvas.DrawString("Arial - Left", 100, 10, EWHorizontalAlignment.LEFT);
+            canvas.DrawString("Arial - Left", 100, 10, EwHorizontalAlignment.Left);
             canvas.FillCircle(100, 10, 2);
 
             canvas.Translate(0, 30);
-            canvas.DrawString("Arial - Center", 100, 10, EWHorizontalAlignment.CENTER);
+            canvas.DrawString("Arial - Center", 100, 10, EwHorizontalAlignment.Center);
             canvas.FillCircle(100, 10, 2);
 
             canvas.Translate(0, 30);
-            canvas.DrawString("Arial - Right", 100, 10, EWHorizontalAlignment.RIGHT);
+            canvas.DrawString("Arial - Right", 100, 10, EwHorizontalAlignment.Right);
             canvas.FillCircle(100, 10, 2);
 
             canvas.SetToSystemFont();
 
             canvas.Translate(0, 30);
-            canvas.DrawString("System - Left", 100, 10, EWHorizontalAlignment.LEFT);
+            canvas.DrawString("System - Left", 100, 10, EwHorizontalAlignment.Left);
             canvas.FillCircle(100, 10, 2);
 
             canvas.Translate(0, 30);
-            canvas.DrawString("System - Center", 100, 10, EWHorizontalAlignment.CENTER);
+            canvas.DrawString("System - Center", 100, 10, EwHorizontalAlignment.Center);
             canvas.FillCircle(100, 10, 2);
 
             canvas.Translate(0, 30);
-            canvas.DrawString("System - Right", 100, 10, EWHorizontalAlignment.RIGHT);
+            canvas.DrawString("System - Right", 100, 10, EwHorizontalAlignment.Right);
             canvas.FillCircle(100, 10, 2);
 
             canvas.RestoreState();

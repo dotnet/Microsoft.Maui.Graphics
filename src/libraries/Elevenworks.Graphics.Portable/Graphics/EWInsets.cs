@@ -64,8 +64,7 @@ namespace Elevenworks.Graphics
 
         public override bool Equals(object obj)
         {
-            var vCompareTo = obj as EWInsets;
-            if (vCompareTo != null)
+            if (obj is EWInsets vCompareTo)
             {
                 return Math.Abs(vCompareTo.Top - Top) < Geometry.Epsilon && Math.Abs(vCompareTo.Left - Left) < Geometry.Epsilon && Math.Abs(vCompareTo.Bottom - Bottom) < Geometry.Epsilon &&
                        Math.Abs(vCompareTo.Right - Right) < Geometry.Epsilon;

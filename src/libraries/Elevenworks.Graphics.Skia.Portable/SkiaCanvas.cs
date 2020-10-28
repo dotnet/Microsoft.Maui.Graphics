@@ -693,20 +693,19 @@ namespace Elevenworks.Graphics
         }
 
         protected override void NativeDrawPath(
-            EWPath path,
-            float ppu)
+            EWPath path)
         {
             var strokeLocation = CurrentState.StrokeLocation;
             if (strokeLocation == EWStrokeLocation.CENTER)
             {
-                var nativePath = path.AsSkiaPath(ppu);
+                var nativePath = path.AsSkiaPath();
                 _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
                 nativePath.Dispose();
             }
             else if (strokeLocation == EWStrokeLocation.INSIDE)
             {
                 _canvas.Save();
-                var nativePath = path.AsSkiaPath(ppu);
+                var nativePath = path.AsSkiaPath();
                 _canvas.ClipPath(nativePath);
                 var paint = CurrentState.StrokePaintWithAlpha;
                 var strokeSize = paint.StrokeWidth;
@@ -719,7 +718,7 @@ namespace Elevenworks.Graphics
             else if (strokeLocation == EWStrokeLocation.OUTSIDE)
             {
                 var origClip = _canvas.LocalClipBounds;
-                var nativePath = path.AsSkiaPath(ppu);
+                var nativePath = path.AsSkiaPath();
 
                 var clippingPath = new SKPath();
                 var origClipAsRect = origClip;
@@ -742,22 +741,18 @@ namespace Elevenworks.Graphics
             }
         }
 
-        public override void ClipPath(
-            EWPath path,
-            float ppu,
+        public override void ClipPath(EWPath path,
             EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            var nativePath = path.AsSkiaPath(ppu);
+            var nativePath = path.AsSkiaPath();
             nativePath.FillType = windingMode == EWWindingMode.NonZero ? SKPathFillType.Winding : SKPathFillType.EvenOdd;
             _canvas.ClipPath(nativePath);
         }
 
-        public override void FillPath(
-            EWPath path,
-            float ppu,
+        public override void FillPath(EWPath path,
             EWWindingMode windingMode)
         {
-            var nativePath = path.AsSkiaPath(ppu);
+            var nativePath = path.AsSkiaPath();
             nativePath.FillType = windingMode == EWWindingMode.NonZero ? SKPathFillType.Winding : SKPathFillType.EvenOdd;
             _canvas.DrawPath(nativePath, CurrentState.FillPaintWithAlpha);
             nativePath.Dispose();
@@ -767,16 +762,16 @@ namespace Elevenworks.Graphics
             string value,
             float x,
             float y,
-            EWHorizontalAlignment horizAlignment)
+            EwHorizontalAlignment horizAlignment)
         {
             if (string.IsNullOrEmpty(value))
                 return;
 
-            if (horizAlignment == EWHorizontalAlignment.LEFT)
+            if (horizAlignment == EwHorizontalAlignment.Left)
             {
                 _canvas.DrawText(value, x, y, CurrentState.FontPaint);
             }
-            else if (horizAlignment == EWHorizontalAlignment.RIGHT)
+            else if (horizAlignment == EwHorizontalAlignment.Right)
             {
                 var paint = CurrentState.FontPaint;
                 var width = paint.MeasureText(value);
@@ -798,8 +793,8 @@ namespace Elevenworks.Graphics
             float y,
             float width,
             float height,
-            EWHorizontalAlignment horizAlignment,
-            EWVerticalAlignment vertAlignment,
+            EwHorizontalAlignment horizAlignment,
+            EwVerticalAlignment vertAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float lineSpacingAdjustment = 0)
         {
@@ -836,7 +831,7 @@ namespace Elevenworks.Graphics
         public override void DrawText(IAttributedText value, float x, float y, float width, float height)
         {
             Logger.Debug("Not yet implemented.");
-            DrawString(value?.Text, x, y, width, height, EWHorizontalAlignment.LEFT, EWVerticalAlignment.TOP);
+            DrawString(value?.Text, x, y, width, height, EwHorizontalAlignment.Left, EwVerticalAlignment.Top);
         }
 
         public override void ResetState()

@@ -478,34 +478,25 @@ namespace Elevenworks.Graphics.SharpDX
             Draw(ctx => ctx.DrawEllipse(_ellipse, CurrentState.DxStrokeBrush, strokeWidth, CurrentState.StrokeStyle));
         }
 
-        private PathGeometry GetPath(EWPath path, float ppu, FillMode fillMode = FillMode.Winding)
+        private PathGeometry GetPath(EWPath path, FillMode fillMode = FillMode.Winding)
         {
-            PathGeometry geometry = null;
-
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (ppu == path.NativePathPPU)
-            {
-                geometry = path.NativePathAtPPU as PathGeometry;
-            }
+            var geometry = path.NativePath as PathGeometry;
 
             if (geometry == null)
             {
-                geometry = path.AsDxPath(ppu, _renderTarget.Factory, fillMode);
-                path.NativePathPPU = ppu;
-                path.NativePathAtPPU = geometry;
+                geometry = path.AsDxPath(_renderTarget.Factory, fillMode);
+                path.NativePath = geometry;
             }
 
             return geometry;
         }
 
-        protected override void NativeDrawPath(EWPath path, float ppu)
+        protected override void NativeDrawPath(EWPath path)
         {
             if (path == null)
-            {
                 return;
-            }
-
-            var geometry = GetPath(path, ppu);
+            
+            var geometry = GetPath(path);
 
             Draw(context =>
             {
@@ -560,9 +551,9 @@ namespace Elevenworks.Graphics.SharpDX
             });
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            CurrentState.ClipPath(path, ppu, windingMode);
+            CurrentState.ClipPath(path, windingMode);
         }
 
         public override void ClipRectangle(float x, float y, float width, float height)
@@ -632,13 +623,13 @@ namespace Elevenworks.Graphics.SharpDX
             Draw(ctx => ctx.FillEllipse(_ellipse, CurrentState.DxFillBrush));
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
-            var geometry = GetPath(path, ppu, windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
+            var geometry = GetPath(path, windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
             Draw(ctx => ctx.FillGeometry(geometry, CurrentState.DxFillBrush));
         }
 
-        public override void DrawString(string value, float x, float y, EWHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
             // Initialize a TextFormat
 #if DEBUG
@@ -652,13 +643,13 @@ namespace Elevenworks.Graphics.SharpDX
                     CurrentState.FontStyle,
                     CurrentState.FontSize);
 
-                if (horizontalAlignment == EWHorizontalAlignment.LEFT)
+                if (horizontalAlignment == EwHorizontalAlignment.Left)
                 {
                     _rect.Left = x;
                     _rect.Right = x + _renderTarget.PixelSize.Width;
                     textFormat.TextAlignment = TextAlignment.Leading;
                 }
-                else if (horizontalAlignment == EWHorizontalAlignment.RIGHT)
+                else if (horizontalAlignment == EwHorizontalAlignment.Right)
                 {
                     _rect.Right = x;
                     _rect.Left = x - _renderTarget.PixelSize.Width;
@@ -695,8 +686,8 @@ namespace Elevenworks.Graphics.SharpDX
             float y,
             float width,
             float height,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment,
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float lineAdjustment = 0)
         {
@@ -706,29 +697,29 @@ namespace Elevenworks.Graphics.SharpDX
 
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     textFormat.TextAlignment = TextAlignment.Leading;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     textFormat.TextAlignment = TextAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     textFormat.TextAlignment = TextAlignment.Trailing;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     textFormat.TextAlignment = TextAlignment.Justified;
                     break;
             }
 
             switch (verticalAlignment)
             {
-                case EWVerticalAlignment.TOP:
+                case EwVerticalAlignment.Top:
                     textFormat.ParagraphAlignment = ParagraphAlignment.Near;
                     break;
-                case EWVerticalAlignment.CENTER:
+                case EwVerticalAlignment.Center:
                     textFormat.ParagraphAlignment = ParagraphAlignment.Center;
                     break;
-                case EWVerticalAlignment.BOTTOM:
+                case EwVerticalAlignment.Bottom:
                     textFormat.ParagraphAlignment = ParagraphAlignment.Far;
                     break;
             }

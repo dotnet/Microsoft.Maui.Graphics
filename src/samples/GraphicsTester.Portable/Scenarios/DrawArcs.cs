@@ -92,12 +92,12 @@ namespace GraphicsTester.Scenarios
             for (int i = 1; i < 5; i++)
             {
                 canvas.StrokeSize = i;
-                canvas.StrokeDashPattern = StandardLines.DASHED;
+                canvas.StrokeDashPattern = DASHED;
                 canvas.DrawArc(50f, 200f + i * 30, 150, 20, 0, 180, false, false);
                 canvas.DrawArc(250.5f, 200.5f + i * 30, 150, 20, 0, 180, false, false);
             }
 
-            canvas.StrokeDashPattern = StandardLines.SOLID;
+            canvas.StrokeDashPattern = SOLID;
         }
 
         private static void OvalDrawArcsOfDifferentSizesAndColors(EWCanvas canvas)

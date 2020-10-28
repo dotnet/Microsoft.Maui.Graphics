@@ -4,8 +4,8 @@ namespace Elevenworks.Graphics
 {
     public static class Fonts
     {
-        private static IFontService globalService;
-        private static ThreadLocal<IFontService> threadLocalService;
+        private static IFontService _globalService;
+        private static ThreadLocal<IFontService> _threadLocalService;
 
         /// <summary>
         /// Registers the global service to be used.
@@ -13,7 +13,7 @@ namespace Elevenworks.Graphics
         /// <param name="service"></param>
         public static void RegisterGlobalService(IFontService service)
         {
-            globalService = service ?? new VirtualFontService();
+            _globalService = service ?? new VirtualFontService();
         }
 
         /// <summary>
@@ -22,10 +22,10 @@ namespace Elevenworks.Graphics
         /// <param name="service"></param>
         public static void RegisterThreadLocalContext(IFontService service)
         {
-            if (threadLocalService == null)
-                threadLocalService = new ThreadLocal<IFontService>();
+            if (_threadLocalService == null)
+                _threadLocalService = new ThreadLocal<IFontService>();
 
-            threadLocalService.Value = service;
+            _threadLocalService.Value = service;
         }
 
         /// <summary>
@@ -33,21 +33,21 @@ namespace Elevenworks.Graphics
         /// </summary>
         public static void ClearThreadLocalContext()
         {
-            if (threadLocalService != null)
-                threadLocalService.Value = null;
+            if (_threadLocalService != null)
+                _threadLocalService.Value = null;
         }
 
         public static IFontService GlobalService
         {
             get
             {
-                if (globalService == null)
+                if (_globalService == null)
                 {
-                    globalService = new VirtualFontService();
+                    _globalService = new VirtualFontService();
                     Logger.Warn("No font service was registered.  Falling back to the virtual implementation.");
                 }
 
-                return globalService;
+                return _globalService;
             }
         }
 
@@ -55,26 +55,26 @@ namespace Elevenworks.Graphics
         {
             get
             {
-                if (threadLocalService != null && threadLocalService.IsValueCreated)
+                if (_threadLocalService != null && _threadLocalService.IsValueCreated)
                 {
-                    var localContext = threadLocalService.Value;
+                    var localContext = _threadLocalService.Value;
                     if (localContext != null)
                         return localContext;
                 }
 
-                if (globalService == null)
+                if (_globalService == null)
                 {
-                    globalService = new VirtualFontService();
+                    _globalService = new VirtualFontService();
                     Logger.Warn("No font service was registered.  Falling back to the virtual implementation.");
                 }
 
-                return globalService;
+                return _globalService;
             }
         }
 
         public static void Register(IFontService service)
         {
-            globalService = service;
+            _globalService = service;
         }
     }
 }

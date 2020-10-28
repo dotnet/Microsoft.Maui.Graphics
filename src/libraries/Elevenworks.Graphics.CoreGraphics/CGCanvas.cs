@@ -1009,27 +1009,22 @@ namespace Elevenworks.Graphics
             clip.Dispose();
         }
         
-        private CGPath GetNativePath(EWPath path, float ppu)
+        private CGPath GetNativePath(EWPath path)
         {
-            CGPath nativePath = null;
-
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (ppu == path.NativePathPPU)
-                nativePath = path.NativePathAtPPU as CGPath;
+            var nativePath = path.NativePath as CGPath;
 
             if (nativePath == null || nativePath.Handle == IntPtr.Zero)
             {
-                nativePath = path.AsCGPath(ppu);
-                path.NativePathPPU = ppu;
-                path.NativePathAtPPU = nativePath;
+                nativePath = path.AsCGPath();
+                path.NativePath = nativePath;
             }
 
             return nativePath;
         }
 
-        protected override void NativeDrawPath(EWPath path, float ppu)
+        protected override void NativeDrawPath(EWPath path)
         {
-            var nativePath = GetNativePath(path, ppu);
+            var nativePath = GetNativePath(path);
 
             var strokeLocation = CurrentState.StrokeLocation;
             if (strokeLocation == EWStrokeLocation.CENTER)
@@ -1068,9 +1063,9 @@ namespace Elevenworks.Graphics
             }
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            var nativePath = GetNativePath(path, ppu);
+            var nativePath = GetNativePath(path);
             _context.AddPath(nativePath);
 
             if (windingMode == EWWindingMode.EvenOdd)
@@ -1098,9 +1093,9 @@ namespace Elevenworks.Graphics
             _context.Clip();
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
-            var nativePath = GetNativePath(path, ppu);
+            var nativePath = GetNativePath(path);
 
             if (_gradient != null)
             {
@@ -1167,16 +1162,16 @@ namespace Elevenworks.Graphics
             string value,
             float x,
             float y,
-            EWHorizontalAlignment horizontalAlignment)
+            EwHorizontalAlignment horizontalAlignment)
         {
             if (_fontName != null && _fontName[0] == '.')
                 _fontName = "Helvetica";
 
-            if (horizontalAlignment == EWHorizontalAlignment.LEFT)
+            if (horizontalAlignment == EwHorizontalAlignment.Left)
             {
                 DrawString(value, x, y);
             }
-            else if (horizontalAlignment == EWHorizontalAlignment.RIGHT)
+            else if (horizontalAlignment == EwHorizontalAlignment.Right)
             {
                 var size = GraphicsPlatform.CurrentService.GetStringSize(value, _fontName, _fontSize);
                 x -= size.Width;
@@ -1205,8 +1200,8 @@ namespace Elevenworks.Graphics
             float y,
             float width,
             float height,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment,
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float lineSpacingAdjustment = 0)
         {
@@ -1243,19 +1238,17 @@ namespace Elevenworks.Graphics
             path.Dispose();
         }
 
-        public override void DrawString(
-            EWPath path,
-            float ppu,
+        public override void DrawString(EWPath path,
             string value,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment,
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float lineSpacingAdjustment = 0)
         {
             float fx = 1;
             float fy = 1;
 
-            var nativePath = _context.AddPath(path, ppu, 0,0, fx, fy);
+            var nativePath = _context.AddPath(path, 0,0, fx, fy);
             DrawStringInNativePath(nativePath, value, horizontalAlignment, verticalAlignment, textFlow, _context, _fontName, _fontSize, _fontColor, 0, 0);
             nativePath.Dispose();
         }
@@ -1269,8 +1262,8 @@ namespace Elevenworks.Graphics
         private void DrawStringInNativePath(
             CGPath path,
             string value,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment,
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow,
             CGContext context,
             String fontName,
@@ -1304,11 +1297,11 @@ namespace Elevenworks.Graphics
             if (font != null && font.Handle != IntPtr.Zero)
                 attributes.Font = font;
 
-            if (verticalAlignment ==  EWVerticalAlignment.CENTER)
+            if (verticalAlignment ==  EwVerticalAlignment.Center)
             {
                iy += -(float)(font.DescentMetric / 2);
             }
-            else if (verticalAlignment == EWVerticalAlignment.BOTTOM)
+            else if (verticalAlignment == EwVerticalAlignment.Bottom)
             {
                 iy += -(float)(font.DescentMetric);
             }
@@ -1317,16 +1310,16 @@ namespace Elevenworks.Graphics
             var paragraphSettings = new CTParagraphStyleSettings();
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     paragraphSettings.Alignment = CTTextAlignment.Left;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     paragraphSettings.Alignment = CTTextAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     paragraphSettings.Alignment = CTTextAlignment.Right;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     paragraphSettings.Alignment = CTTextAlignment.Justified;
                     break;
             }
@@ -1345,7 +1338,7 @@ namespace Elevenworks.Graphics
 
             if (frame != null)
             {
-                if (verticalAlignment != EWVerticalAlignment.TOP)
+                if (verticalAlignment != EwVerticalAlignment.Top)
                 {
 #if MONOMAC
                     var textFrameSize = MMGraphicsService.GetTextSize(frame);
@@ -1355,7 +1348,7 @@ namespace Elevenworks.Graphics
 
                     if (textFrameSize.Height > 0)
                     {
-                        if (verticalAlignment == EWVerticalAlignment.BOTTOM)
+                        if (verticalAlignment == EwVerticalAlignment.Bottom)
                         {
                             var dy = rect.Height - textFrameSize.Height + iy;
                             context.TranslateCTM(-ix, -dy);
@@ -1414,7 +1407,7 @@ namespace Elevenworks.Graphics
             float iy = 0)
         {
             var rect = path.PathBoundingBox;
-            var verticalAlignment = EWVerticalAlignment.TOP;
+            var verticalAlignment = EwVerticalAlignment.Top;
 
             context.SaveState();
             context.TranslateCTM(0, rect.Height);
@@ -1436,7 +1429,7 @@ namespace Elevenworks.Graphics
 
             if (frame != null)
             {
-                if (verticalAlignment != EWVerticalAlignment.TOP)
+                if (verticalAlignment != EwVerticalAlignment.Top)
                 {
 #if MONOMAC
 					var textSize = MMGraphicsService.GetTextSize(frame);
@@ -1446,7 +1439,7 @@ namespace Elevenworks.Graphics
 
                     if (textSize.Height > 0)
                     {
-                        if (verticalAlignment == EWVerticalAlignment.BOTTOM)
+                        if (verticalAlignment == EwVerticalAlignment.Bottom)
                         {
                             var dy = rect.Height - textSize.Height + iy;
                             context.TranslateCTM(-ix, -dy);
@@ -1564,9 +1557,9 @@ namespace Elevenworks.Graphics
 
     public static class CgContextExtensions
     {
-        public static CGPath AddPath(this CGContext target, EWPath path, float ppu, float ox, float oy, float fx, float fy)
+        public static CGPath AddPath(this CGContext target, EWPath path, float ox, float oy, float fx, float fy)
         {
-            var nativePath = path.AsCGPath(ppu, ox, oy, fx, fy);
+            var nativePath = path.AsCGPath(ox, oy, fx, fy);
             target.AddPath(nativePath);
             return nativePath;
         }

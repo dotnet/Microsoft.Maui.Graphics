@@ -51,8 +51,7 @@ namespace Elevenworks.Graphics
 
         public override bool Equals(object obj)
         {
-            var vCompareTo = obj as EWVector;
-            if (vCompareTo != null)
+            if (obj is EWVector vCompareTo)
             {
                 return Math.Abs(vCompareTo.U - _u) < Geometry.Epsilon && Math.Abs(vCompareTo.V - _v) < Geometry.Epsilon;
             }

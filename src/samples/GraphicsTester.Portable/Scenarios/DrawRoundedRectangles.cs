@@ -42,12 +42,12 @@ namespace GraphicsTester.Scenarios
             for (int i = 1; i < 5; i++)
             {
                 canvas.StrokeSize = i;
-                canvas.StrokeDashPattern = StandardLines.DASHED;
+                canvas.StrokeDashPattern = DASHED;
                 canvas.DrawRoundedRectangle(50f, 200f + i * 30, 150, 20, 5);
                 canvas.DrawRoundedRectangle(250.5f, 200.5f + i * 30, 150, 20, 5);
             }
 
-            canvas.StrokeDashPattern = StandardLines.SOLID;
+            canvas.StrokeDashPattern = SOLID;
         }
 
         private static void DrawRoundedRectanglesOfDifferentSizesAndColors(EWCanvas canvas)

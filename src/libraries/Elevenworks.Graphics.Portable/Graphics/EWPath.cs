@@ -24,9 +24,7 @@ namespace Elevenworks.Graphics
 
         private EWRectangle _cachedBounds;
         private object _nativePath;
-        private object _nativePathAtPPU;
-        private float _nativePathPPU = -1;
-
+        
         private EWPath(List<EWPoint> aPoints, List<float> aArcSizes, List<bool> arcClockwise, List<PathOperation> aOperations, int aSubPathCount)
         {
             _points = aPoints;
@@ -1030,18 +1028,6 @@ namespace Elevenworks.Graphics
 
             Invalidate();
         }
-
-        public void Transform(EWAffineTransformStack aTransform)
-        {
-            foreach (EWPoint vPoint in _points)
-            {
-                EWPoint vNewPoint = aTransform.Transform(vPoint);
-                vPoint.X = vNewPoint.X;
-                vPoint.Y = vNewPoint.Y;
-            }
-
-            Invalidate();
-        }
         
         public List<EWPath> Separate()
         {
@@ -1230,56 +1216,6 @@ namespace Elevenworks.Graphics
             Close();
         }
         
-        public void InsertHandleAtPointOnSegment(int vSegmentIndex, EWPoint vInsertPoint)
-        {
-            if (vSegmentIndex >= 0 && vInsertPoint != null)
-            {
-                if (vSegmentIndex == SegmentCount)
-                {
-                    LineTo(vInsertPoint);
-                }
-                else
-                {
-                    PathOperation vSegmentType = GetSegmentType(vSegmentIndex);
-                    int vSegmentStartPointIndex = GetSegmentPointIndex(vSegmentIndex);
-                    var vStartPoint = this[vSegmentStartPointIndex - 1];
-                    var vPoints = GetPointsForSegment(vSegmentIndex);
-
-                    if (vSegmentType == PathOperation.LINE || vSegmentType == PathOperation.CLOSE)
-                    {
-                        InsertLineTo(vInsertPoint, vSegmentIndex);
-                    }
-                    else if (vSegmentType == PathOperation.QUAD)
-                    {
-                        var vCurvePoints = new[] {vStartPoint, vPoints[0], vPoints[1]};
-                        float vClosestPoint = BezierUtil.ClosestPointToBezier(vCurvePoints, vInsertPoint);
-                        if (vClosestPoint > 0 && vClosestPoint < 1)
-                        {
-                            EWPoint[] vNewPoints = BezierUtil.InsertHandleIntoQuadCurve(vCurvePoints, vClosestPoint);
-
-                            RemoveSegment(vSegmentIndex);
-                            InsertQuadTo(vNewPoints[1], vNewPoints[2], vSegmentIndex);
-                            InsertQuadTo(vNewPoints[4], vNewPoints[5], vSegmentIndex + 1);
-                        }
-                    }
-                    else if (vSegmentType == PathOperation.CUBIC)
-                    {
-                        var vCurvePoints = new[] {vStartPoint, vPoints[0], vPoints[1], vPoints[2]};
-                        float vClosestPoint = BezierUtil.ClosestPointToBezier(vCurvePoints, vInsertPoint);
-
-                        if (vClosestPoint > 0 && vClosestPoint < 1)
-                        {
-                            EWPoint[] vNewPoints = BezierUtil.InsertHandleIntoCubicCurve(vCurvePoints, vClosestPoint);
-
-                            RemoveSegment(vSegmentIndex);
-                            InsertCurveTo(vNewPoints[1], vNewPoints[2], vNewPoints[3], vSegmentIndex);
-                            InsertCurveTo(vNewPoints[5], vNewPoints[6], vNewPoints[7], vSegmentIndex + 1);
-                        }
-                    }
-                }
-            }
-        }
-
         public bool IsSubPathClosed(int aSubPathIndex)
         {
             if (aSubPathIndex >= 0 && aSubPathIndex < SubPathCount)
@@ -1295,35 +1231,11 @@ namespace Elevenworks.Graphics
             get => _nativePath;
             set
             {
-                var disposable = _nativePath as IDisposable;
-                if (disposable != null)
-                {
+                if (_nativePath is IDisposable disposable)
                     disposable.Dispose();
-                }
 
                 _nativePath = value;
             }
-        }
-
-        public object NativePathAtPPU
-        {
-            get => _nativePathAtPPU;
-            set
-            {
-                var disposable = _nativePathAtPPU as IDisposable;
-                if (disposable != null)
-                {
-                    disposable.Dispose();
-                }
-
-                _nativePathAtPPU = value;
-            }
-        }
-
-        public float NativePathPPU
-        {
-            get => _nativePathPPU;
-            set => _nativePathPPU = value;
         }
 
         public void Invalidate()
@@ -1339,21 +1251,10 @@ namespace Elevenworks.Graphics
 
         private void ReleaseNative()
         {
-            var disposable = _nativePath as IDisposable;
-            if (disposable != null)
-            {
+            if (_nativePath is IDisposable disposable)
                 disposable.Dispose();
-            }
 
             _nativePath = null;
-
-            disposable = _nativePathAtPPU as IDisposable;
-            if (disposable != null)
-            {
-                disposable.Dispose();
-            }
-
-            _nativePathAtPPU = null;
         }
 
         public void Move(float x, float y)

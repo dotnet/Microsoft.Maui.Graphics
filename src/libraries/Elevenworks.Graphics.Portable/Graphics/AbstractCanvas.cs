@@ -22,7 +22,7 @@ namespace Elevenworks.Graphics
         protected abstract void NativeDrawRectangle(float x, float y, float width, float height);
         protected abstract void NativeDrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius);
         protected abstract void NativeDrawOval(float x, float y, float width, float height);
-        protected abstract void NativeDrawPath(EWPath path, float ppu);
+        protected abstract void NativeDrawPath(EWPath path);
         protected abstract void NativeRotate(float degrees, float radians, float x, float y);
         protected abstract void NativeRotate(float degrees, float radians);
         protected abstract void NativeScale(float fx, float fy);
@@ -171,10 +171,10 @@ namespace Elevenworks.Graphics
             NativeDrawOval(x, y, width, height);
         }
 
-        public override void DrawPath(EWPath path, float ppu)
+        public override void DrawPath(EWPath path)
         {
             EnsureStrokePatternSet();
-            NativeDrawPath(path, ppu);
+            NativeDrawPath(path);
         }
         
         public override void ResetState()

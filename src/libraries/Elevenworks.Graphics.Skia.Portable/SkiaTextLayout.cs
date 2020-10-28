@@ -67,18 +67,18 @@ namespace Elevenworks.Graphics
             var top = y;
             var bottom = y + height;
 
-            if (_textAttributes.HorizontalAlignment == EWHorizontalAlignment.RIGHT)
+            if (_textAttributes.HorizontalAlignment == EwHorizontalAlignment.Right)
                 _paint.TextAlign = SKTextAlign.Right;
-            else if (_textAttributes.HorizontalAlignment == EWHorizontalAlignment.CENTER)
+            else if (_textAttributes.HorizontalAlignment == EwHorizontalAlignment.Center)
                 _paint.TextAlign = SKTextAlign.Center;
 
             var lines = CreateLines(y, bottom, width);
             switch (_textAttributes.VerticalAlignment)
             {
-                case EWVerticalAlignment.CENTER:
+                case EwVerticalAlignment.Center:
                     LayoutCenterAligned(lines, x, width, top, height);
                     break;
-                case EWVerticalAlignment.BOTTOM:
+                case EwVerticalAlignment.Bottom:
                     LayoutBottomAligned(lines, x, width, bottom, top);
                     break;
                 default:
@@ -130,10 +130,10 @@ namespace Elevenworks.Graphics
                 var point = new EWPoint(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
-                    case EWHorizontalAlignment.CENTER:
+                    case EwHorizontalAlignment.Center:
                         point.X = x + width / 2;
                         break;
-                    case EWHorizontalAlignment.RIGHT:
+                    case EwHorizontalAlignment.Right:
                         point.X = x + width;
                         break;
                 }
@@ -161,10 +161,10 @@ namespace Elevenworks.Graphics
                 var point = new EWPoint(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
-                    case EWHorizontalAlignment.CENTER:
+                    case EwHorizontalAlignment.Center:
                         point.X = x + width / 2;
                         break;
-                    case EWHorizontalAlignment.RIGHT:
+                    case EwHorizontalAlignment.Right:
                         point.X = x + width;
                         break;
                 }
@@ -190,10 +190,10 @@ namespace Elevenworks.Graphics
                 var point = new EWPoint(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
-                    case EWHorizontalAlignment.CENTER:
+                    case EwHorizontalAlignment.Center:
                         point.X = x + width / 2;
                         break;
-                    case EWHorizontalAlignment.RIGHT:
+                    case EwHorizontalAlignment.Right:
                         point.X = x + width;
                         break;
                 }
@@ -212,7 +212,7 @@ namespace Elevenworks.Graphics
             {
                 y += _lineHeight;
 
-                if (_textFlow == EWTextFlow.CLIP_BOUNDS && _textAttributes.VerticalAlignment == EWVerticalAlignment.TOP && y > bottom)
+                if (_textFlow == EWTextFlow.CLIP_BOUNDS && _textAttributes.VerticalAlignment == EwVerticalAlignment.Top && y > bottom)
                     return lines;
 
                 var count = (int) _paint.BreakText(_value.Substring(index), width, out var textWidth);

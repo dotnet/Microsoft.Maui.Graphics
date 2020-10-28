@@ -10,7 +10,7 @@ namespace Elevenworks.Graphics
         string BoldSystemFontName { get; }
         
         EWSize GetStringSize(string value, string fontName, float textSize);
-        EWSize GetStringSize(string value, string fontName, float textSize, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment);
+        EWSize GetStringSize(string value, string fontName, float textSize, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment);
         
         EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png);
         BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1);

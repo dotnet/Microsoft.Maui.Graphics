@@ -11,11 +11,11 @@ namespace GraphicsTester.Scenarios
         public override void Draw(EWCanvas canvas, float zoom, float ppu)
         {
             canvas.StrokeSize = 1;
-            canvas.StrokeDashPattern = StandardLines.DOT_DOT;
+            canvas.StrokeDashPattern = DOT_DOT;
             canvas.DrawLine(50, 20f, 200, 20f);
 
             canvas.StrokeSize = 1;
-            canvas.StrokeDashPattern = StandardLines.SOLID;
+            canvas.StrokeDashPattern = SOLID;
             canvas.DrawLine(50, 30f, 200, 30f);
 
             canvas.SaveState();
@@ -23,11 +23,11 @@ namespace GraphicsTester.Scenarios
             canvas.Scale(2, 2);
 
             canvas.StrokeSize = 1;
-            canvas.StrokeDashPattern = StandardLines.DOT_DOT;
+            canvas.StrokeDashPattern = DOT_DOT;
             canvas.DrawLine(50, 20f, 200, 20f);
 
             canvas.StrokeSize = 1;
-            canvas.StrokeDashPattern = StandardLines.SOLID;
+            canvas.StrokeDashPattern = SOLID;
             canvas.DrawLine(50, 30f, 200, 30f);
 
             canvas.RestoreState();

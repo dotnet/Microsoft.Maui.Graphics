@@ -56,9 +56,9 @@ namespace Elevenworks.Graphics.Blazor
 
         protected override float NativeStrokeSize { set => CurrentState.LineWidth = value; }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            AddPath(path,ppu,ppu);
+            AddPath(path,1,1);
             _context.Clip(windingMode == EWWindingMode.NonZero ? "nonzero" : "evenodd");
         }
 
@@ -87,7 +87,7 @@ namespace Elevenworks.Graphics.Blazor
             string value, 
             float x, 
             float y, 
-            EWHorizontalAlignment horizontalAlignment)
+            EwHorizontalAlignment horizontalAlignment)
         {
             if (string.IsNullOrWhiteSpace(value))
                 return;
@@ -97,11 +97,11 @@ namespace Elevenworks.Graphics.Blazor
 
             y += (float)(metrics.FontBoundingBoxAscent + metrics.FontBoundingBoxDescent);
             
-            if (horizontalAlignment == EWHorizontalAlignment.RIGHT)
+            if (horizontalAlignment == EwHorizontalAlignment.Right)
             {
                 x -= (float)metrics.Width;
             }
-            else if (horizontalAlignment == EWHorizontalAlignment.CENTER)
+            else if (horizontalAlignment == EwHorizontalAlignment.Center)
             {
                 x -= (float)(metrics.Width / 2);
             }
@@ -116,8 +116,8 @@ namespace Elevenworks.Graphics.Blazor
             float y, 
             float width, 
             float height, 
-            EWHorizontalAlignment horizontalAlignment, 
-            EWVerticalAlignment verticalAlignment, 
+            EwHorizontalAlignment horizontalAlignment, 
+            EwVerticalAlignment verticalAlignment, 
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, 
             float lineSpacingAdjustment = 0)
         {
@@ -131,22 +131,22 @@ namespace Elevenworks.Graphics.Blazor
             float dx = 0;
             float dy = 0;
 
-            if (horizontalAlignment == EWHorizontalAlignment.CENTER)
+            if (horizontalAlignment == EwHorizontalAlignment.Center)
             {
                 var diff = width - size.Width;
                 dx = diff / 4;
             }
-            else if (horizontalAlignment == EWHorizontalAlignment.RIGHT)
+            else if (horizontalAlignment == EwHorizontalAlignment.Right)
             {
                 var diff = width - size.Width;
                 dx = diff / 2;
             }
 
-            if (verticalAlignment == EWVerticalAlignment.TOP)
+            if (verticalAlignment == EwVerticalAlignment.Top)
                 dy = CurrentState.FontSize * .8f;
-            else if (verticalAlignment == EWVerticalAlignment.CENTER)
+            else if (verticalAlignment == EwVerticalAlignment.Center)
                 dy = ((height - size.Height) / 2) + (CurrentState.FontSize *.6f / 2);
-            else if (verticalAlignment == EWVerticalAlignment.BOTTOM)
+            else if (verticalAlignment == EwVerticalAlignment.Bottom)
                 dy = height - size.Height - CurrentState.FontSize * .3f;
                
             x += dx;
@@ -179,11 +179,11 @@ namespace Elevenworks.Graphics.Blazor
             _context.GlobalAlpha = alpha;
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
             var alpha = CurrentState.SetFillStyle(_context);
             _context.BeginPath();
-            AddPath(path, ppu, ppu);
+            AddPath(path,1,1);
             _context.Fill();
             _context.GlobalAlpha = alpha;
         }
@@ -276,11 +276,11 @@ namespace Elevenworks.Graphics.Blazor
             _context.GlobalAlpha = alpha;
         }
 
-        protected override void NativeDrawPath(EWPath path, float ppu)
+        protected override void NativeDrawPath(EWPath path)
         {
             var alpha = CurrentState.SetStrokeStyle(_context);
             _context.BeginPath();
-            AddPath(path, ppu, ppu);
+            AddPath(path, 1, 1);
             _context.Stroke();
             _context.GlobalAlpha = alpha;
         }
@@ -393,7 +393,7 @@ namespace Elevenworks.Graphics.Blazor
             _context.ClosePath();
         }
 
-        private void AddPath(EWPath target, float ppux, float ppuy)
+        private void AddPath(EWPath target, float scaleX, float scaleY)
         {
             int pointIndex = 0;
             int arcAngleIndex = 0;
@@ -404,12 +404,12 @@ namespace Elevenworks.Graphics.Blazor
                 if (type == PathOperation.MOVE_TO)
                 {
                     var point = target[pointIndex++];
-                    _context.MoveTo((point.X * ppux), (point.Y * ppuy));
+                    _context.MoveTo((point.X * scaleX), (point.Y * scaleY));
                 }
                 else if (type == PathOperation.LINE)
                 {
                     var endPoint = target[pointIndex++];
-                    _context.LineTo((endPoint.X * ppux), (endPoint.Y * ppuy));
+                    _context.LineTo((endPoint.X * scaleX), (endPoint.Y * scaleY));
                 }
 
                 else if (type == PathOperation.QUAD)
@@ -417,8 +417,8 @@ namespace Elevenworks.Graphics.Blazor
                     var controlPoint = target[pointIndex++];
                     var endPoint = target[pointIndex++];
                     _context.QuadraticCurveTo(
-                        (controlPoint.X * ppux), (controlPoint.Y * ppuy),
-                        (endPoint.X * ppux), (endPoint.Y * ppuy));
+                        (controlPoint.X * scaleX), (controlPoint.Y * scaleY),
+                        (endPoint.X * scaleX), (endPoint.Y * scaleY));
                 }
                 else if (type == PathOperation.CUBIC)
                 {
@@ -426,9 +426,9 @@ namespace Elevenworks.Graphics.Blazor
                     var controlPoint2 = target[pointIndex++];
                     var endPoint = target[pointIndex++];
                     _context.BezierCurveTo(
-                        (controlPoint1.X * ppux), (controlPoint1.Y * ppuy),
-                        (controlPoint2.X * ppux), (controlPoint2.Y * ppuy),
-                        (endPoint.X * ppux), (endPoint.Y * ppuy));
+                        (controlPoint1.X * scaleX), (controlPoint1.Y * scaleY),
+                        (controlPoint2.X * scaleX), (controlPoint2.Y * scaleY),
+                        (endPoint.X * scaleX), (endPoint.Y * scaleY));
                 }
                 else if (type == PathOperation.ARC)
                 {

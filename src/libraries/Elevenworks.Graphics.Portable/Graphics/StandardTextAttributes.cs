@@ -6,12 +6,12 @@
 
         public float FontSize { get; set; }
 
-        public EWHorizontalAlignment HorizontalAlignment { get; set; }
+        public EwHorizontalAlignment HorizontalAlignment { get; set; }
 
         public float Margin { get; set; }
 
         public EWColor TextFontColor { get; set; }
 
-        public EWVerticalAlignment VerticalAlignment { get; set; }
+        public EwVerticalAlignment VerticalAlignment { get; set; }
     }
 }

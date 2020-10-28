@@ -30,8 +30,8 @@ namespace GraphicsTester.Scenarios
 
                     canvas.DrawRectangle(dx, dy, 190, 140);
 
-                    var horizontalAlignment = (EWHorizontalAlignment) x;
-                    var verticalAlignment = (EWVerticalAlignment) y;
+                    var horizontalAlignment = (EwHorizontalAlignment) x;
+                    var verticalAlignment = (EwVerticalAlignment) y;
 
                     canvas.DrawString(textShort, dx, dy, 190, 140, horizontalAlignment, verticalAlignment);
                 }

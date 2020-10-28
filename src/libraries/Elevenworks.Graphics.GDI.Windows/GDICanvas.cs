@@ -316,33 +316,27 @@ namespace Elevenworks.Graphics
             path.Dispose();
         }
 
-        private GraphicsPath GetPath(EWPath path, float aPPU)
+        private GraphicsPath GetPath(EWPath path)
         {
-            GraphicsPath graphicsPath = null;
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (aPPU == path.NativePathPPU)
-            {
-                graphicsPath = path.NativePathAtPPU as GraphicsPath;
-            }
+            var graphicsPath = path.NativePath as GraphicsPath;
 
             if (graphicsPath == null)
             {
-                graphicsPath = path.AsGDIPath(aPPU);
-                path.NativePathPPU = aPPU;
-                path.NativePathAtPPU = graphicsPath;
+                graphicsPath = path.AsGDIPath();
+                path.NativePath = graphicsPath;
             }
 
             return graphicsPath;
         }
 
-        protected override void NativeDrawPath(EWPath path, float ppu)
+        protected override void NativeDrawPath(EWPath path)
         {
             if (path == null)
             {
                 return;
             }
 
-            var vGeometry = GetPath(path, ppu);
+            var vGeometry = GetPath(path);
 
             Draw(g =>
             {
@@ -374,26 +368,26 @@ namespace Elevenworks.Graphics
             });
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
             if (path == null)
             {
                 return;
             }
 
-            var graphicsPath = GetPath(path, ppu);
+            var graphicsPath = GetPath(path);
             graphicsPath.FillMode = windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate;
             Draw(g => g.FillPath(CurrentState.FillBrush, graphicsPath));
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
             if (path == null)
             {
                 return;
             }
 
-            var graphicsPath = GetPath(path, ppu);
+            var graphicsPath = GetPath(path);
             graphicsPath.FillMode = windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate;
             var region = new Region(graphicsPath);
             _graphics.IntersectClip(region);
@@ -433,18 +427,18 @@ namespace Elevenworks.Graphics
             Draw(g => g.FillEllipse(CurrentState.FillBrush, _rect));
         }
 
-        public override void DrawString(string value, float x, float y, EWHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
             var font = CurrentState.Font;
             var size = _graphics.MeasureString(value, font);
 
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     x -= size.Width;
                     break;
-                case EWHorizontalAlignment.CENTER:
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Center:
+                case EwHorizontalAlignment.Justified:
                     x -= size.Width / 2;
                     break;
             }
@@ -452,7 +446,7 @@ namespace Elevenworks.Graphics
             Draw(g => g.DrawString(value, font, CurrentState.TextBrush, x, y - size.Height));
         }
 
-        public override void DrawString(string value, float x, float y, float width, float height, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public override void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineAdjustment = 0)
         {
             var font = CurrentState.Font;
@@ -460,13 +454,13 @@ namespace Elevenworks.Graphics
 
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     format.Alignment = StringAlignment.Near;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     format.Alignment = StringAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     format.Alignment = StringAlignment.Far;
                     break;
                 default:
@@ -476,13 +470,13 @@ namespace Elevenworks.Graphics
 
             switch (verticalAlignment)
             {
-                case EWVerticalAlignment.TOP:
+                case EwVerticalAlignment.Top:
                     format.LineAlignment = StringAlignment.Near;
                     break;
-                case EWVerticalAlignment.CENTER:
+                case EwVerticalAlignment.Center:
                     format.LineAlignment = StringAlignment.Center;
                     break;
-                case EWVerticalAlignment.BOTTOM:
+                case EwVerticalAlignment.Bottom:
                     format.LineAlignment = StringAlignment.Far;
                     break;
             }
@@ -499,10 +493,10 @@ namespace Elevenworks.Graphics
 
                     switch (verticalAlignment)
                     {
-                        case EWVerticalAlignment.CENTER:
+                        case EwVerticalAlignment.Center:
                             _rect.Y -= difference / 2;
                             break;
-                        case EWVerticalAlignment.BOTTOM:
+                        case EwVerticalAlignment.Bottom:
                             _rect.Y -= difference;
                             break;
                     }

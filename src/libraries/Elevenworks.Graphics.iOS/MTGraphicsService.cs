@@ -62,8 +62,8 @@ namespace Elevenworks.Graphics
             string value,
             string fontName,
             float fontSize,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment)
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment)
         {
             float factor = 1;
             while (fontSize > 10)
@@ -88,16 +88,16 @@ namespace Elevenworks.Graphics
             var paragraphSettings = new CTParagraphStyleSettings();
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     paragraphSettings.Alignment = CTTextAlignment.Left;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     paragraphSettings.Alignment = CTTextAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     paragraphSettings.Alignment = CTTextAlignment.Right;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     paragraphSettings.Alignment = CTTextAlignment.Justified;
                     break;
             }
@@ -108,7 +108,7 @@ namespace Elevenworks.Graphics
             // Set the attributes for the complete length of the string
             attributedString.SetAttributes(attributes, new NSRange(0, value.Length));
 
-            // Create the framesetter with the attributed string.
+            // Create the frame setter with the attributed string.
             var frameSetter = new CTFramesetter(attributedString);
 
             var textBounds = GetTextSize(frameSetter, path);
@@ -180,7 +180,7 @@ namespace Elevenworks.Graphics
 
             if (nativePath == null)
             {
-                nativePath = path.AsCGPath(1);
+                nativePath = path.AsCGPath();
                 path.NativePath = nativePath;
             }
 
@@ -202,99 +202,15 @@ namespace Elevenworks.Graphics
 
             if (vPath == null)
             {
-                vPath = aPath.AsCGPath(1);
+                vPath = aPath.AsCGPath();
                 aPath.NativePath = vPath;
             }
 
             return vPath.ContainsPoint(aPoint.ToCGPoint(), aPath.Closed);
         }
-
-        public bool PointIsOnPath(EWPath aPath, EWImmutablePoint aPoint, float vPPU, float aZoom, float aStrokeWidth)
-        {
-            CGPath vPath = null;
-
-            // Analysis disable once CompareOfFloatsByEqualityOperator
-            if (aPath.NativePathPPU == vPPU)
-            {
-                vPath = aPath.NativePathAtPPU as CGPath;
-            }
-
-            if (vPath == null)
-            {
-                vPath = aPath.AsCGPath(vPPU);
-                aPath.NativePathAtPPU = vPath;
-                aPath.NativePathPPU = vPPU;
-            }
-
-            var vPoint = aPoint.ToCGPoint();
-
-            // Create 1x1 BitmapContext
-            var pixelData = new byte[4];
-            Array.Clear(pixelData, 0, 4);
-
-            var vContext = new CGBitmapContext(pixelData, 1, 1, 8, 4, CGColorSpace.CreateDeviceRGB(), CGImageAlphaInfo.PremultipliedFirst);
-            vContext.SetStrokeColorSpace(CGColorSpace.CreateDeviceRGB());
-
-            // Move it to "where"
-            vContext.TranslateCTM(-vPoint.X * vPPU, -vPoint.Y * vPPU);
-
-            // Draw the path and ...
-            vContext.AddPath(vPath);
-            vContext.SetStrokeColor(StandardColors.White);
-            var vStrokeWidth = (20f / aZoom) + aStrokeWidth;
-            vContext.SetLineWidth(vStrokeWidth);
-            vContext.StrokePath();
-
-            // check whether we have touched thePixel
-            var vResult = pixelData[0] > 0 && pixelData[1] > 0 && pixelData[2] > 0;
-            vContext.Dispose();
-
-            return vResult;
-        }
-
-        public bool PointIsOnPathSegment(EWPath aPath, int aIndex, EWImmutablePoint aPoint, float ppu, float aZoom, float aStrokeWidth)
-        {
-            var vPath = aPath.AsCGPathFromSegment(aIndex, ppu, aZoom);
-            var vPoint = aPoint.ToCGPoint();
-
-            var vFactor = (ppu * aZoom);
-
-            // Create 1x1 BitmapContext
-            var pixelData = new byte[4];
-            Array.Clear(pixelData, 0, 4);
-
-            var vContext = new CGBitmapContext(pixelData, 1, 1, 8, 4, CGColorSpace.CreateDeviceRGB(), CGImageAlphaInfo.PremultipliedFirst);
-            vContext.SetStrokeColorSpace(CGColorSpace.CreateDeviceRGB());
-
-            // Move it to "where"
-            vContext.TranslateCTM(-vPoint.X * vFactor, -vPoint.Y * vFactor);
-
-            // Draw the path and ...
-            vContext.AddPath(vPath);
-            vContext.SetStrokeColor(StandardColors.White);
-            var vStrokeWidth = Math.Max(10f, aStrokeWidth / aZoom);
-            vContext.SetLineWidth(vStrokeWidth);
-            vContext.StrokePath();
-
-            // check whether we have touched thePixel
-            var vResult = pixelData[0] > 0 && pixelData[1] > 0 && pixelData[2] > 0;
-            vContext.Dispose();
-
-            vPath.Dispose();
-
-            return vResult;
-        }
-
+        
         #endregion
         
-
-        public CTFont LoadFont(ITextAttributes aTextAttributes)
-        {
-            return aTextAttributes.FontName == null
-                ? MTFontService.Instance.LoadFont(_systemFontName, aTextAttributes.FontSize)
-                : MTFontService.Instance.LoadFont(aTextAttributes.FontName, aTextAttributes.FontSize);
-        }
-
         public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1)
         {
             return new MTBitmapExportContext(width, height, displayScale);

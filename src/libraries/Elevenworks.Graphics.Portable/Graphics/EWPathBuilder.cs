@@ -563,11 +563,7 @@ namespace Elevenworks.Graphics
             _path.CurveTo(point1, point2, point3);
             _lastCurveControlPoint = point2;
         }
-
-        /**
-         * 
-         */
-
+        
         private void ArcTo(bool isRelative)
         {
             var startPoint = new EWPoint(_relativePoint);
@@ -648,7 +644,7 @@ namespace Elevenworks.Graphics
 
             // If this is the reference point, we want to store the location before
             // we translate it into the final coordinates.  This way, future relative
-            // points will starte from an un-translated position.
+            // points will start from an un-translated position.
             if (isReference)
             {
                 _relativePoint = point;
@@ -672,7 +668,7 @@ namespace Elevenworks.Graphics
 
             // If this is the reference point, we want to store the location before
             // we translate it into the final coordinates.  This way, future relative
-            // points will starte from an un-translated position.
+            // points will start from an un-translated position.
             if (isReference)
             {
                 _relativePoint = point;

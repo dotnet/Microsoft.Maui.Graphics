@@ -125,9 +125,9 @@ namespace Elevenworks.Graphics.Win2D
 
         public override bool PixelShifted { get; set; }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
-            var geometry = GetPath(path, ppu, windingMode == EWWindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
+            var geometry = GetPath(path, windingMode == EWWindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
             Draw(s => s.FillGeometry(geometry, CurrentState.NativeFillBrush));
         }
 
@@ -137,9 +137,9 @@ namespace Elevenworks.Graphics.Win2D
             CurrentState.SubtractFromClip(x, y, width, height);
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            CurrentState.ClipPath(path, ppu, windingMode);
+            CurrentState.ClipPath(path, windingMode);
         }
 
         public override void ClipRectangle(float x, float y, float width, float height)
@@ -252,7 +252,7 @@ namespace Elevenworks.Graphics.Win2D
             Draw(s => s.FillEllipse(_point1, radiusX, radiusY, CurrentState.NativeFillBrush));
         }
 
-        public override void DrawString(string value, float x, float y, EWHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
             // Initialize a TextFormat
 #if DEBUG
@@ -270,12 +270,12 @@ namespace Elevenworks.Graphics.Win2D
 
                 switch (horizontalAlignment)
                 {
-                    case EWHorizontalAlignment.LEFT:
+                    case EwHorizontalAlignment.Left:
                         _rect.X = x;
                         _rect.Width = CanvasSize.Width;
                         textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
                         break;
-                    case EWHorizontalAlignment.RIGHT:
+                    case EwHorizontalAlignment.Right:
                         _rect.X = x - CanvasSize.Width;
                         _rect.Width = CanvasSize.Width;
                         textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Right;
@@ -318,8 +318,8 @@ namespace Elevenworks.Graphics.Win2D
             float y, 
             float width, 
             float height,
-            EWHorizontalAlignment horizontalAlignment, 
-            EWVerticalAlignment verticalAlignment,
+            EwHorizontalAlignment horizontalAlignment, 
+            EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, 
 			float lineAdjustment = 0)
         {
@@ -333,29 +333,29 @@ namespace Elevenworks.Graphics.Win2D
 
             switch (horizontalAlignment)
             {
-                case EWHorizontalAlignment.LEFT:
+                case EwHorizontalAlignment.Left:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
                     break;
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Center;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Right;
                     break;
-                case EWHorizontalAlignment.JUSTIFIED:
+                case EwHorizontalAlignment.Justified:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Justified;
                     break;
             }
 
             switch (verticalAlignment)
             {
-                case EWVerticalAlignment.TOP:
+                case EwVerticalAlignment.Top:
                     textFormat.VerticalAlignment = CanvasVerticalAlignment.Top;
                     break;
-                case EWVerticalAlignment.CENTER:
+                case EwVerticalAlignment.Center:
                     textFormat.VerticalAlignment = CanvasVerticalAlignment.Center;
                     break;
-                case EWVerticalAlignment.BOTTOM:
+                case EwVerticalAlignment.Bottom:
                     textFormat.VerticalAlignment = CanvasVerticalAlignment.Bottom;
                     break;
             }
@@ -739,33 +739,26 @@ namespace Elevenworks.Graphics.Win2D
 
             Draw(s => s.DrawEllipse(px, py, radiusX, radiusY, CurrentState.NativeStrokeBrush, CurrentState.StrokeSize, CurrentState.NativeStrokeStyle));
         }
-
-        private CanvasGeometry GetPath(EWPath path, float ppu, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
+        
+        private CanvasGeometry GetPath(EWPath path, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
         {
-            CanvasGeometry geometry = null;
-
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (ppu == path.NativePathPPU)
-            {
-                geometry = path.NativePathAtPPU as CanvasGeometry;
-            }
-
+            var geometry = path.NativePath as CanvasGeometry;
+            
             if (geometry == null)
             {
-                geometry = path.AsPath(ppu, _session, fillMode);
-                path.NativePathPPU = ppu;
-                path.NativePathAtPPU = geometry;
+                geometry = path.AsPath(_session, fillMode);
+                path.NativePath = geometry;
             }
 
             return geometry;
         }
-
-        protected override void NativeDrawPath(EWPath path, float ppu)
+        
+        protected override void NativeDrawPath(EWPath path)
         {
             if (path == null)
                 return;
 
-            var geometry = GetPath(path, ppu);
+            var geometry = GetPath(path);
 
             Draw(s =>
             {

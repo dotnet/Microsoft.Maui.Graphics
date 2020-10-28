@@ -1,6 +1,6 @@
 ﻿namespace Elevenworks.Graphics
 {
-    public delegate void DrawingCommand(EWCanvas canvas, float zoom, float ppu);
+    public delegate void DrawingCommand(EWCanvas canvas, float zoom);
 
     public class StandardPicture : EWPicture
     {
@@ -26,12 +26,8 @@
         public void Draw(EWCanvas canvas, float zoom, float ppu)
         {
             if (_commands != null)
-            {
                 foreach (var command in _commands)
-                {
-                    command.Invoke(canvas, zoom, ppu);
-                }
-            }
+                    command.Invoke(canvas, zoom);
         }
     }
 }

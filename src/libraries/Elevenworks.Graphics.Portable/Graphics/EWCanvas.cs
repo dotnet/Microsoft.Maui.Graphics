@@ -43,9 +43,9 @@ namespace Elevenworks.Graphics
         public abstract void StartFigure(object figure);
         public abstract void EndFigure();
 
-        public abstract void DrawPath(EWPath path, float ppu);
+        public abstract void DrawPath(EWPath path);
 
-        public abstract void FillPath(EWPath path, float ppu, EWWindingMode windingMode);
+        public abstract void FillPath(EWPath path, EWWindingMode windingMode);
 
         public void SubtractFromClip(EWRectangle rect)
         {
@@ -54,7 +54,7 @@ namespace Elevenworks.Graphics
 
         public abstract void SubtractFromClip(float x, float y, float width, float height);
         
-        public abstract void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero);
+        public abstract void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero);
 
         public abstract void ClipRectangle(float x, float y, float width, float height);
 
@@ -76,18 +76,12 @@ namespace Elevenworks.Graphics
 
         public abstract void FillOval(float x, float y, float width, float height);
 
-        public abstract void DrawString(string value, float x, float y, EWHorizontalAlignment horizontalAlignment);
+        public abstract void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment);
 
-        public abstract void DrawString(string value, float x, float y, float width, float height, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public abstract void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0);
 
-        public virtual void DrawString(EWPath path, string value, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
-        {
-            DrawString(path, 1, value, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
-        }
-
-        public virtual void DrawString(EWPath path, float ppu, string value, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public virtual void DrawString(EWPath path, string value, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
             // Subclass must implement this

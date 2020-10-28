@@ -113,7 +113,7 @@ namespace Elevenworks.Graphics
 
        
 
-        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, EWHorizontalAlignment aHorizontalAlignment, EWVerticalAlignment aVerticalAlignment)
+        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, EwHorizontalAlignment aHorizontalAlignment, EwVerticalAlignment aVerticalAlignment)
         {
             if (aString == null) return new EWSize();
 
@@ -123,10 +123,10 @@ namespace Elevenworks.Graphics
             Layout.Alignment vAlignment;
             switch (aHorizontalAlignment)
             {
-                case EWHorizontalAlignment.CENTER:
+                case EwHorizontalAlignment.Center:
                     vAlignment = Layout.Alignment.AlignCenter;
                     break;
-                case EWHorizontalAlignment.RIGHT:
+                case EwHorizontalAlignment.Right:
                     vAlignment = Layout.Alignment.AlignOpposite;
                     break;
                 default:

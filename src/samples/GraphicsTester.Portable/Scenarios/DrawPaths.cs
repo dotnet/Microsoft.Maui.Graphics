@@ -68,7 +68,7 @@ namespace GraphicsTester.Scenarios
             path.LineTo(375.5f, 200.5f);
             path.Close();
             canvas.StrokeColor = StandardColors.Black;
-            canvas.StrokeDashPattern = StandardLines.DOTTED;
+            canvas.StrokeDashPattern = DOTTED;
             canvas.DrawPath(path);
             canvas.StrokeDashPattern = null;
         }

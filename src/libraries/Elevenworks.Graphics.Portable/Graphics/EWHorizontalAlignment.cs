@@ -1,10 +1,10 @@
 namespace Elevenworks.Graphics
 {
-    public enum EWHorizontalAlignment
+    public enum EwHorizontalAlignment
     {
-        LEFT = 0,
-        CENTER = 1,
-        RIGHT = 2,
-        JUSTIFIED = 3
+        Left = 0,
+        Center = 1,
+        Right = 2,
+        Justified = 3
     }
 }

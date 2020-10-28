@@ -4,8 +4,8 @@ namespace Elevenworks.Graphics
 {
     public static class GraphicsPlatform
     {
-        private static IGraphicsService globalService;
-        private static ThreadLocal<IGraphicsService> threadLocalService;
+        private static IGraphicsService _globalService;
+        private static ThreadLocal<IGraphicsService> _threadLocalService;
 
         /// <summary>
         /// Registers the global service to be used.
@@ -13,7 +13,7 @@ namespace Elevenworks.Graphics
         /// <param name="service"></param>
         public static void RegisterGlobalService(IGraphicsService service)
         {
-            globalService = service ?? new VirtualGraphicsPlatform();
+            _globalService = service ?? new VirtualGraphicsPlatform();
         }
 
         /// <summary>
@@ -22,10 +22,10 @@ namespace Elevenworks.Graphics
         /// <param name="service"></param>
         public static void RegisterThreadLocalContext(IGraphicsService service)
         {
-            if (threadLocalService == null)
-                threadLocalService = new ThreadLocal<IGraphicsService>();
+            if (_threadLocalService == null)
+                _threadLocalService = new ThreadLocal<IGraphicsService>();
 
-            threadLocalService.Value = service;
+            _threadLocalService.Value = service;
         }
 
         /// <summary>
@@ -33,21 +33,21 @@ namespace Elevenworks.Graphics
         /// </summary>
         public static void ClearThreadLocalContext()
         {
-            if (threadLocalService != null)
-                threadLocalService.Value = null;
+            if (_threadLocalService != null)
+                _threadLocalService.Value = null;
         }
 
         public static IGraphicsService GlobalService
         {
             get
             {
-                if (globalService == null)
+                if (_globalService == null)
                 {
-                    globalService = new VirtualGraphicsPlatform();
+                    _globalService = new VirtualGraphicsPlatform();
                     Logger.Warn("No graphics platform was registered.  Falling back to the virtual implementation.");
                 }
 
-                return globalService;
+                return _globalService;
             }
         }
 
@@ -55,26 +55,26 @@ namespace Elevenworks.Graphics
         {
             get
             {
-                if (threadLocalService != null && threadLocalService.IsValueCreated)
+                if (_threadLocalService != null && _threadLocalService.IsValueCreated)
                 {
-                    var localContext = threadLocalService.Value;
+                    var localContext = _threadLocalService.Value;
                     if (localContext != null)
                         return localContext;
                 }
 
-                if (globalService == null)
+                if (_globalService == null)
                 {
-                    globalService = new VirtualGraphicsPlatform();
+                    _globalService = new VirtualGraphicsPlatform();
                     Logger.Warn("No graphics platform was registered.  Falling back to the virtual implementation.");
                 }
 
-                return globalService;
+                return _globalService;
             }
         }
 
         public static void Register(IGraphicsService service)
         {
-            globalService = service;
+            _globalService = service;
         }
 
         public static bool IsRetina => CurrentService.IsRetina;

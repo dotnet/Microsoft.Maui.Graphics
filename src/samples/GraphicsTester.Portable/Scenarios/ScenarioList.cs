@@ -4,15 +4,15 @@ namespace GraphicsTester.Scenarios
 {
     public static class ScenarioList
     {
-        private static List<AbstractScenario> scenarios;
+        private static List<AbstractScenario> _scenarios;
 
         public static List<AbstractScenario> Scenarios
         {
             get
             {
-                if (scenarios == null)
+                if (_scenarios == null)
                 {
-                    scenarios = new List<AbstractScenario>()
+                    _scenarios = new List<AbstractScenario>()
                     {
                         new DrawLines(),
                         new DrawLinesScaled(),
@@ -58,12 +58,10 @@ namespace GraphicsTester.Scenarios
                         new FilledArcDirection(),
                         new ClipRect(),
                         new SubtractFromClip(),
-                        new GetPointOnOvalScenario(),
-                        new GetPointOnArcScenario(),
                     };
                 }
 
-                return scenarios;
+                return _scenarios;
             }
         }
     }

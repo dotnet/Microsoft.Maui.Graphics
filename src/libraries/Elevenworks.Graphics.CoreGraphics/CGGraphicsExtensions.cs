@@ -39,30 +39,20 @@ namespace Elevenworks.Graphics
             return path;
         }
 
-        public static CGPath AsCGPath(this EWPath target)
+        public static CGPath AsCGPath(
+            this EWPath target)
         {
-            return AsCGPath(target, 1);
+            return AsCGPath(target, 0, 0, 1, 1);
         }
 
         public static CGPath AsCGPath(
             this EWPath target,
-            float ppu)
-        {
-            return AsCGPath(target, ppu, 0, 0, 1, 1);
-        }
-
-        public static CGPath AsCGPath(
-            this EWPath target,
-            float ppu,
             float ox,
             float oy,
             float fx,
             float fy)
         {
             var path = new CGPath();
-
-            float ppux = ppu * fx;
-            float ppuy = ppu * fy;
 
             int pointIndex = 0;
             int arcAngleIndex = 0;
@@ -73,12 +63,12 @@ namespace Elevenworks.Graphics
                 if (type == PathOperation.MOVE_TO)
                 {
                     var point = target[pointIndex++];
-                    path.MoveToPoint((ox + point.X * ppux), (oy + point.Y * ppuy));
+                    path.MoveToPoint((ox + point.X * fx), (oy + point.Y * fy));
                 }
                 else if (type == PathOperation.LINE)
                 {
                     var endPoint = target[pointIndex++];
-                    path.AddLineToPoint((ox + endPoint.X * ppux), (oy + endPoint.Y * ppuy));
+                    path.AddLineToPoint((ox + endPoint.X * fx), (oy + endPoint.Y * fy));
                 }
 
                 else if (type == PathOperation.QUAD)
@@ -86,10 +76,10 @@ namespace Elevenworks.Graphics
                     var controlPoint = target[pointIndex++];
                     var endPoint = target[pointIndex++];
                     path.AddQuadCurveToPoint(
-                        (ox + controlPoint.X * ppux),
-                        (oy + controlPoint.Y * ppuy),
-                        (ox + endPoint.X * ppux),
-                        (oy + endPoint.Y * ppuy));
+                        (ox + controlPoint.X * fx),
+                        (oy + controlPoint.Y * fy),
+                        (ox + endPoint.X * fx),
+                        (oy + endPoint.Y * fy));
                 }
                 else if (type == PathOperation.CUBIC)
                 {
@@ -97,12 +87,12 @@ namespace Elevenworks.Graphics
                     var controlPoint2 = target[pointIndex++];
                     var endPoint = target[pointIndex++];
                     path.AddCurveToPoint(
-                        (ox + controlPoint1.X * ppux),
-                        (oy + controlPoint1.Y * ppuy),
-                        (ox + controlPoint2.X * ppux),
-                        (oy + controlPoint2.Y * ppuy),
-                        (ox + endPoint.X * ppux),
-                        (oy + endPoint.Y * ppuy));
+                        (ox + controlPoint1.X * fx),
+                        (oy + controlPoint1.Y * fy),
+                        (ox + controlPoint2.X * fx),
+                        (oy + controlPoint2.Y * fy),
+                        (ox + endPoint.X * fx),
+                        (oy + endPoint.Y * fy));
                 }
                 else if (type == PathOperation.ARC)
                 {
@@ -131,10 +121,10 @@ namespace Elevenworks.Graphics
                     var height = bottomRight.Y - topLeft.Y;
                     var r = width / 2;
 
-                    var transform = CGAffineTransform.MakeTranslation(ox + cx * ppu, oy + cy * ppu);
+                    var transform = CGAffineTransform.MakeTranslation(ox + cx, oy + cy);
                     transform = CGAffineTransform.Multiply(CGAffineTransform.MakeScale(1, height / width), transform);
 
-                    path.AddArc(transform, 0, 0, r * ppux, startAngleInRadians, endAngleInRadians, !clockwise);
+                    path.AddArc(transform, 0, 0, r * fx, startAngleInRadians, endAngleInRadians, !clockwise);
                 }
                 else if (type == PathOperation.CLOSE)
                 {
@@ -147,10 +137,11 @@ namespace Elevenworks.Graphics
 
         public static CGPath AsCGPath(
             this EWPath target,
-            float ppu,
+            float scale,
             float zoom)
         {
-            return AsCGPath(target, ppu * zoom, 0, 0, 1, 1);
+            var factor = scale * zoom;
+            return AsCGPath(target, 0, 0, factor, factor);
         }
 
         public static CGPath AsCGPathFromSegment(

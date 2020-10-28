@@ -650,7 +650,7 @@ namespace Elevenworks.Graphics.SharpDX
             _fontBrushValid = false;
         }
 
-        public void ClipPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public void ClipPath(EWPath path, EWWindingMode windingMode)
         {
             if (_layerMask != null)
             {
@@ -664,7 +664,7 @@ namespace Elevenworks.Graphics.SharpDX
             var layerRect = new RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
             _layerBounds = new RectangleGeometry(_renderTarget.Factory, layerRect);
 
-            var clipGeometry = path.AsDxPath(ppu, _renderTarget.Factory);
+            var clipGeometry = path.AsDxPath(_renderTarget.Factory);
 
             _layerBounds.Combine(clipGeometry, CombineMode.Intersect, sink);
             sink.Close();
@@ -686,7 +686,7 @@ namespace Elevenworks.Graphics.SharpDX
         {
             var path = new EWPath();
             path.AppendRectangle(x, y, width, height);
-            ClipPath(path, 1, EWWindingMode.NonZero);
+            ClipPath(path, EWWindingMode.NonZero);
         }
 
         public void SubtractFromClip(float x, float y, float width, float height)

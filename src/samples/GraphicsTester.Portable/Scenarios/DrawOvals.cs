@@ -42,12 +42,12 @@ namespace GraphicsTester.Scenarios
             for (int i = 1; i < 5; i++)
             {
                 canvas.StrokeSize = i;
-                canvas.StrokeDashPattern = StandardLines.DASHED;
+                canvas.StrokeDashPattern = DASHED;
                 canvas.DrawOval(50f, 200f + i * 30, 150, 20);
                 canvas.DrawOval(250.5f, 200.5f + i * 30, 150, 20);
             }
 
-            canvas.StrokeDashPattern = StandardLines.SOLID;
+            canvas.StrokeDashPattern = SOLID;
         }
 
         private static void DrawOvalsOfDifferentSizesAndColors(EWCanvas canvas)

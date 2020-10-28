@@ -333,27 +333,7 @@ namespace Elevenworks.Graphics
                 PaintType,
                 Angle);
         }
-
-        private bool IsNullOrBlack(EWColor target)
-        {
-            if (target == null || StandardColors.Black.Equals(target))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool IsNullOrClear(EWColor target)
-        {
-            if (target == null || target.Alpha == 0)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         public void SetStops(float[] offsets, EWColor[] colors)
         {
             var stopCount = Math.Min(colors.Length, offsets.Length);

@@ -229,106 +229,7 @@ namespace Elevenworks.Graphics
 
             return new EWRectangle(x1, y1, x2 - x1, y2 - y1);
         }
-
-        public bool Intersects(float x, float y, float w, float h)
-        {
-            return Intersects(new EWRectangle(x, y, w, h));
-        }
-
-        public bool Intersects(EWRectangle aRectangle)
-        {
-            var rw = Math.Abs(aRectangle.Width);
-            var rh = Math.Abs(aRectangle.Height);
-
-            if (rw < Geometry.Epsilon || rh < Geometry.Epsilon)
-            {
-                if (rw < Geometry.Epsilon && rh < Geometry.Epsilon)
-                {
-                    return Contains(aRectangle.Point1);
-                }
-
-                return Intersects(new EWLine(aRectangle.Point1, aRectangle.Point2));
-            }
-
-            var tw = Math.Abs(_size.Width);
-            var th = Math.Abs(_size.Height);
-
-            if (rw <= 0 || rh <= 0 || tw <= 0 || th <= 0)
-            {
-                return false;
-            }
-
-            var tx = MinX;
-            var ty = MinY;
-            var rx = aRectangle.MinX;
-            var ry = aRectangle.MinY;
-
-            rw += rx;
-            rh += ry;
-            tw += tx;
-            th += ty;
-
-            return ((rw < rx || rw > tx) && (rh < ry || rh > ty) && (tw < tx || tw > rx) && (th < ty || th > ry));
-        }
-
-        public bool Intersects(EWLine aLine)
-        {
-            if (Width == 0 && Height == 0)
-            {
-                return aLine.DistanceFromLine(Point1) < Geometry.Epsilon;
-            }
-
-            var x1 = aLine.X1;
-            var y1 = aLine.Y1;
-            var x2 = aLine.X2;
-            var y2 = aLine.Y2;
-
-            if (x1 == x2 && y1 == y2)
-            {
-                return Contains(x1, y1);
-            }
-
-            // Try the top
-            var x3 = MinX;
-            var y3 = MinY;
-            var x4 = MaxX;
-            var y4 = MinY;
-
-            if (Geometry.IsLineIntersectingLine(x1, y1, x2, y2, x3, y3, x4, y4))
-            {
-                return true;
-            }
-
-            // Try the right
-            x3 = MaxX;
-            y3 = MaxY;
-
-            if (Geometry.IsLineIntersectingLine(x1, y1, x2, y2, x3, y3, x4, y4))
-            {
-                return true;
-            }
-
-            // Try the bottom
-            x4 = MinX;
-            y4 = MaxY;
-
-            if (Geometry.IsLineIntersectingLine(x1, y1, x2, y2, x3, y3, x4, y4))
-            {
-                return true;
-            }
-
-            // Try the left
-            x3 = MinX;
-            y3 = MinY;
-
-            if (Geometry.IsLineIntersectingLine(x1, y1, x2, y2, x3, y3, x4, y4))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
+        
         public bool Contains(EWImmutablePoint aPoint)
         {
             return Contains(aPoint.X, aPoint.Y);
@@ -393,12 +294,7 @@ namespace Elevenworks.Graphics
         {
             return MinX <= aRectangle.MinX && MinY <= aRectangle.MinY && MaxX >= aRectangle.MaxX && MaxY >= aRectangle.MaxY;
         }
-
-        public bool Contains(EWLine aLine)
-        {
-            return Contains(new EWRectangle(aLine.Point1, aLine.Point2));
-        }
-
+        
         public EWPoint GetCenter()
         {
             return new EWPoint(X1 + Width / 2, Y1 + Height / 2);
@@ -454,93 +350,6 @@ namespace Elevenworks.Graphics
             }
 
             return new EWPoint(X1 + x, Y1 + y);
-        }
-
-        public EWPoint GetIntersectionFromPointToCenter(EWImmutablePoint destination)
-        {
-            var center = GetCenter();
-            var x1 = center.X;
-            var y1 = center.Y;
-            var x2 = destination.X;
-            var y2 = destination.Y;
-
-            var minX = MinX;
-            var minY = MinY;
-            var maxX = MaxX;
-            var maxY = MaxY;
-
-            var point = Geometry.GetPointWhereLineIntersectsLine(minX, minY, maxX, minY, x1, y1, x2, y2);
-            if (point != null)
-            {
-                //Logger.Debug ("Intersected on top");
-                return point;
-            }
-
-            point = Geometry.GetPointWhereLineIntersectsLine(maxX, minY, maxX, maxY, x1, y1, x2, y2);
-            if (point != null)
-            {
-                //Logger.Debug ("Intersected on right");
-                return point;
-            }
-
-            point = Geometry.GetPointWhereLineIntersectsLine(maxX, maxY, minX, maxY, x1, y1, x2, y2);
-            if (point != null)
-            {
-                //Logger.Debug ("Intersected on bottom");
-                return point;
-            }
-
-            point = Geometry.GetPointWhereLineIntersectsLine(minX, maxY, minX, minY, x1, y1, x2, y2);
-            if (point != null)
-            {
-                //Logger.Debug ("Intersected on left");
-                return point;
-            }
-
-            if (Contains(destination))
-            {
-                return null;
-            }
-
-            var index = 1;
-            var cur = Geometry.GetDistance(minX, minY, x2, y2);
-            var d2 = Geometry.GetDistance(maxX, minY, x2, y2);
-
-            if (d2 < cur)
-            {
-                cur = d2;
-                index = 2;
-            }
-
-            var d3 = Geometry.GetDistance(maxX, maxY, x2, y2);
-
-            if (d3 < cur)
-            {
-                cur = d3;
-                index = 3;
-            }
-
-            var d4 = Geometry.GetDistance(minX, maxY, x2, y2);
-
-            if (d4 < cur)
-            {
-                //cur = d4;
-                index = 4;
-            }
-
-            switch (index)
-            {
-                case 1:
-                    return new EWPoint(minX, minY);
-                case 2:
-                    return new EWPoint(maxX, minY);
-                case 3:
-                    return new EWPoint(maxX, maxY);
-                case 4:
-                    return new EWPoint(minX, maxY);
-            }
-
-            return null;
         }
 
         /**

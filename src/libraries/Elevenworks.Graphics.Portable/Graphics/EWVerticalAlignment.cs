@@ -1,9 +1,9 @@
 namespace Elevenworks.Graphics
 {
-    public enum EWVerticalAlignment
+    public enum EwVerticalAlignment
     {
-        TOP = 0,
-        CENTER = 1,
-        BOTTOM = 2
+        Top = 0,
+        Center = 1,
+        Bottom = 2
     }
 }

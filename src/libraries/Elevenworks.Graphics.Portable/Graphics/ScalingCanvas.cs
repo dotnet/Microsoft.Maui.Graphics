@@ -151,21 +151,21 @@ namespace Elevenworks.Graphics
             _canvas.DrawRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public override void DrawString(string value, float x, float y, EWHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, horizontalAlignment);
         }
 
-        public override void DrawString(string value, float x, float y, float width, float height, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public override void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, horizontalAlignment, verticalAlignment, textFlow);
         }
 
-        public override void DrawString(EWPath path, string value, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment,
+        public override void DrawString(EWPath path, string value, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
-            _canvas.DrawString(path, _scaleX, value, horizontalAlignment, verticalAlignment, textFlow);
+            _canvas.DrawString(path, value, horizontalAlignment, verticalAlignment, textFlow);
         }
 
         public override void DrawText(IAttributedText value, float x, float y, float width, float height)
@@ -188,19 +188,19 @@ namespace Elevenworks.Graphics
             _canvas.FillRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public override void DrawPath(EWPath path, float ppu)
+        public override void DrawPath(EWPath path)
         {
-            _canvas.DrawPath(path, ppu * _scaleX);
+            _canvas.DrawPath(path);
         }
 
-        public override void FillPath(EWPath path, float ppu, EWWindingMode windingMode)
+        public override void FillPath(EWPath path, EWWindingMode windingMode)
         {
-            _canvas.FillPath(path, ppu * _scaleX, windingMode);
+            _canvas.FillPath(path, windingMode);
         }
 
-        public override void ClipPath(EWPath path, float ppu, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            _canvas.ClipPath(path, ppu * _scaleX, windingMode);
+            _canvas.ClipPath(path, windingMode);
         }
 
         public override void ClipRectangle(float x, float y, float width, float height)

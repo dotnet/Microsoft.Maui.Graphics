@@ -66,8 +66,8 @@ namespace Elevenworks.Graphics.SharpDX
             string value,
             string fontName,
             float textSize,
-            EWHorizontalAlignment horizontalAlignment,
-            EWVerticalAlignment verticalAlignment)
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment)
         {
             if (value == null) return new EWSize();
 
@@ -83,32 +83,32 @@ namespace Elevenworks.Graphics.SharpDX
 
             var textFormat = new TextFormat(FactoryDirectWrite, SystemFontName, FontWeight.Regular, FontStyle.Normal,
                 fontSize);
-            if (horizontalAlignment == EWHorizontalAlignment.LEFT)
+            if (horizontalAlignment == EwHorizontalAlignment.Left)
             {
                 textFormat.TextAlignment = TextAlignment.Leading;
             }
-            else if (horizontalAlignment == EWHorizontalAlignment.CENTER)
+            else if (horizontalAlignment == EwHorizontalAlignment.Center)
             {
                 textFormat.TextAlignment = TextAlignment.Center;
             }
-            else if (horizontalAlignment == EWHorizontalAlignment.RIGHT)
+            else if (horizontalAlignment == EwHorizontalAlignment.Right)
             {
                 textFormat.TextAlignment = TextAlignment.Trailing;
             }
-            else if (horizontalAlignment == EWHorizontalAlignment.JUSTIFIED)
+            else if (horizontalAlignment == EwHorizontalAlignment.Justified)
             {
                 textFormat.TextAlignment = TextAlignment.Justified;
             }
 
-            if (verticalAlignment == EWVerticalAlignment.TOP)
+            if (verticalAlignment == EwVerticalAlignment.Top)
             {
                 textFormat.ParagraphAlignment = ParagraphAlignment.Near;
             }
-            else if (verticalAlignment == EWVerticalAlignment.CENTER)
+            else if (verticalAlignment == EwVerticalAlignment.Center)
             {
                 textFormat.ParagraphAlignment = ParagraphAlignment.Center;
             }
-            else if (verticalAlignment == EWVerticalAlignment.BOTTOM)
+            else if (verticalAlignment == EwVerticalAlignment.Bottom)
             {
                 textFormat.ParagraphAlignment = ParagraphAlignment.Far;
             }

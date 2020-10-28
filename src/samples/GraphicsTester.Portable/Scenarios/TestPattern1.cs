@@ -171,17 +171,17 @@ namespace GraphicsTester.Scenarios
             // Stroke Dash Pattern
             //
             canvas.StrokeSize = 1;
-            canvas.StrokeDashPattern = StandardLines.DOTTED;
+            canvas.StrokeDashPattern = DOTTED;
             canvas.DrawLine(650, 120, 800, 120);
 
             canvas.StrokeSize = 3;
-            canvas.StrokeDashPattern = StandardLines.DOTTED;
+            canvas.StrokeDashPattern = DOTTED;
             canvas.DrawLine(650, 140, 800, 140);
 
-            canvas.StrokeDashPattern = StandardLines.DASHED_DOT;
+            canvas.StrokeDashPattern = DASHED_DOT;
             canvas.DrawLine(650, 160, 800, 160);
 
-            canvas.StrokeDashPattern = StandardLines.SOLID;
+            canvas.StrokeDashPattern = SOLID;
             canvas.DrawLine(650, 180, 800, 180);
 
             canvas.StrokeLineCap = EWLineCap.BUTT;
@@ -424,8 +424,8 @@ namespace GraphicsTester.Scenarios
 
                     canvas.DrawRectangle(dx, dy, 190, 140);
 
-                    var vHorizontalAlignment = (EWHorizontalAlignment) x;
-                    var vVerticalAlignment = (EWVerticalAlignment) y;
+                    var vHorizontalAlignment = (EwHorizontalAlignment) x;
+                    var vVerticalAlignment = (EwVerticalAlignment) y;
 
                     canvas.FontName = "Arial";
                     canvas.FontSize = 12f;
@@ -445,8 +445,8 @@ namespace GraphicsTester.Scenarios
 
                     canvas.DrawRectangle(dx, dy, 190, 140);
 
-                    var vHorizontalAlignment = (EWHorizontalAlignment) x;
-                    var vVerticalAlignment = (EWVerticalAlignment) y;
+                    var vHorizontalAlignment = (EwHorizontalAlignment) x;
+                    var vVerticalAlignment = (EwVerticalAlignment) y;
 
                     canvas.FontName = "Arial";
                     canvas.FontSize = 12f;
@@ -463,8 +463,8 @@ namespace GraphicsTester.Scenarios
 
                 canvas.DrawRectangle(dx, dy, 190, 140);
 
-                const EWHorizontalAlignment vHorizontalAlignment = EWHorizontalAlignment.LEFT;
-                var vVerticalAlignment = (EWVerticalAlignment) y;
+                const EwHorizontalAlignment vHorizontalAlignment = EwHorizontalAlignment.Left;
+                var vVerticalAlignment = (EwVerticalAlignment) y;
 
                 canvas.FontName = "Arial";
                 canvas.FontSize = 12f;
@@ -487,10 +487,10 @@ namespace GraphicsTester.Scenarios
             canvas.DrawLine(1000, 1350, 1200, 1350);
             canvas.DrawLine(1000, 1375, 1200, 1375);
             canvas.DrawLine(1100, 1300, 1100, 1400);
-            canvas.DrawString("This is a test.", 1100, 1300, EWHorizontalAlignment.LEFT);
-            canvas.DrawString("This is a test.", 1100, 1325, EWHorizontalAlignment.CENTER);
-            canvas.DrawString("This is a test.", 1100, 1350, EWHorizontalAlignment.RIGHT);
-            canvas.DrawString("This is a test.", 1100, 1375, EWHorizontalAlignment.JUSTIFIED);
+            canvas.DrawString("This is a test.", 1100, 1300, EwHorizontalAlignment.Left);
+            canvas.DrawString("This is a test.", 1100, 1325, EwHorizontalAlignment.Center);
+            canvas.DrawString("This is a test.", 1100, 1350, EwHorizontalAlignment.Right);
+            canvas.DrawString("This is a test.", 1100, 1375, EwHorizontalAlignment.Justified);
 
             //
             // Test inverse clipping area
@@ -514,7 +514,7 @@ namespace GraphicsTester.Scenarios
                 for (int i = 0; i < 4; i++)
                 {
                     canvas.FontSize = 12 + i * 6;
-                    canvas.DrawString("Test String Length", 650, 400 + (100 * i), EWHorizontalAlignment.LEFT);
+                    canvas.DrawString("Test String Length", 650, 400 + (100 * i), EwHorizontalAlignment.Left);
 
                     var size = graphicsPlatform.GetStringSize("Test String Length", "Arial", 12 + i * 6);
                     canvas.DrawRectangle(650, 400 + (100 * i), size.Width, size.Height);

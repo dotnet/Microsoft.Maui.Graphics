@@ -16,7 +16,7 @@ namespace Elevenworks.Graphics
             return new EWSize(value.Length * 10, textSize + 2);
         }
 
-        public EWSize GetStringSize(string value, string fontName, float textSize, EWHorizontalAlignment horizontalAlignment, EWVerticalAlignment verticalAlignment)
+        public EWSize GetStringSize(string value, string fontName, float textSize, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment)
         {
             return new EWSize(value.Length * 10, textSize + 2);
         }

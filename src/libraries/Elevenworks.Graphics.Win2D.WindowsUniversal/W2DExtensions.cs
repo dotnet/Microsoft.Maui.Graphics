@@ -54,17 +54,12 @@ namespace Elevenworks.Graphics.Win2D
             return vMatrix;
         }
 
-        public static CanvasGeometry AsPath(this EWPath target, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
+        public static CanvasGeometry AsPath(this EWPath path, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
         {
-            return AsPath(target, 1, creator, fillMode);
+            return AsPath(path, 0, 0, 1, 1, creator, fillMode);
         }
 
-        public static CanvasGeometry AsPath(this EWPath path, float ppu, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
-        {
-            return AsPath(path, ppu, 0, 0, 1, 1, creator, fillMode);
-        }
-
-        public static CanvasGeometry AsPath(this EWPath path, float ppu, float ox, float oy, float fx, float fy, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
+        public static CanvasGeometry AsPath(this EWPath path, float ox, float oy, float fx, float fy, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
         {
             var builder = new CanvasPathBuilder(creator);
 
@@ -73,9 +68,6 @@ namespace Elevenworks.Graphics.Win2D
             {
 #endif
                 builder.SetFilledRegionDetermination(fillMode);
-
-                var ppux = ppu * fx;
-                var ppuy = ppu * fy;
 
                 var pointIndex = 0;
                 var arcAngleIndex = 0;
@@ -98,13 +90,13 @@ namespace Elevenworks.Graphics.Win2D
 
                         var point = path[pointIndex++];
                         var begin = CanvasFigureFill.Default;
-                        builder.BeginFigure(ox + point.X * ppux, oy + point.Y * ppuy, begin);
+                        builder.BeginFigure(ox + point.X * fx, oy + point.Y * fy, begin);
                         figureOpen = true;
                     }
                     else if (type == PathOperation.LINE)
                     {
                         var point = path[pointIndex++];
-                        builder.AddLine(ox + point.X * ppux, oy + point.Y * ppuy);
+                        builder.AddLine(ox + point.X * fx, oy + point.Y * fy);
                     }
 
                     else if (type == PathOperation.QUAD)
@@ -113,8 +105,8 @@ namespace Elevenworks.Graphics.Win2D
                         var endPoint = path[pointIndex++];
 
                         builder.AddQuadraticBezier(
-                            new Vector2(ox + controlPoint.X * ppux, oy + controlPoint.Y * ppuy),
-                            new Vector2(ox + endPoint.X * ppux, oy + endPoint.Y * ppuy));
+                            new Vector2(ox + controlPoint.X * fx, oy + controlPoint.Y * fy),
+                            new Vector2(ox + endPoint.X * fx, oy + endPoint.Y * fy));
                     }
                     else if (type == PathOperation.CUBIC)
                     {
@@ -122,9 +114,9 @@ namespace Elevenworks.Graphics.Win2D
                         var controlPoint2 = path[pointIndex++];
                         var endPoint = path[pointIndex++];
                         builder.AddCubicBezier(
-                            new Vector2( ox + controlPoint1.X * ppux, oy + controlPoint1.Y * ppuy),
-                            new Vector2(ox + controlPoint2.X * ppux,oy + controlPoint2.Y * ppuy),
-                            new Vector2(ox + endPoint.X * ppux,oy + endPoint.Y * ppuy));
+                            new Vector2( ox + controlPoint1.X * fx, oy + controlPoint1.Y * fy),
+                            new Vector2(ox + controlPoint2.X * fx,oy + controlPoint2.Y * fy),
+                            new Vector2(ox + endPoint.X * fx,oy + endPoint.Y * fy));
                     }
                     else if (type == PathOperation.ARC)
                     {
@@ -147,10 +139,10 @@ namespace Elevenworks.Graphics.Win2D
                         var rotation = Geometry.GetSweep(startAngle, endAngle, clockwise);
                         var absRotation = Math.Abs(rotation);
 
-                        var rectX = ox + topLeft.X * ppux;
-                        var rectY = oy + topLeft.Y * ppuy;
-                        var rectWidth = (ox + bottomRight.X * ppux) - rectX;
-                        var rectHeight = (oy + bottomRight.Y * ppuy) - rectY;
+                        var rectX = ox + topLeft.X * fx;
+                        var rectY = oy + topLeft.Y * fy;
+                        var rectWidth = (ox + bottomRight.X * fx) - rectX;
+                        var rectHeight = (oy + bottomRight.Y * fy) - rectY;
 
                         var startPoint = Geometry.OvalAngleToPoint(rectX, rectY, rectWidth, rectHeight, -startAngle);
                         var endPoint = Geometry.OvalAngleToPoint(rectX, rectY, rectWidth, rectHeight, -endAngle);
@@ -203,15 +195,10 @@ namespace Elevenworks.Graphics.Win2D
             }
 #endif
         }
-
-        public static CanvasGeometry AsPath(this EWPath path, float ppu, float zoom, ICanvasResourceCreator creator)
+        
+        public static CanvasGeometry AsPathFromSegment(this EWPath path, int segmentIndex, float zoom, ICanvasResourceCreator creator)
         {
-            return AsPath(path, ppu * zoom, creator);
-        }
-
-        public static CanvasGeometry AsPathFromSegment(this EWPath path, int segmentIndex, float ppu, float zoom, ICanvasResourceCreator creator)
-        {
-            float scale = ppu / zoom;
+            float scale = 1 / zoom;
 
             var builder = new CanvasPathBuilder(creator);
 
