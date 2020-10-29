@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
+    <ProjectReference Include="..\Systems.Graphics.Core\Systems.Graphics.Core.csproj" />
   </ItemGroup>
   
 </Project>

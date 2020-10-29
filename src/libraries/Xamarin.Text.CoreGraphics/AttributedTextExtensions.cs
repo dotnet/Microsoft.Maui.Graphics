@@ -5,7 +5,6 @@ using NSStringAttributeKey = UIKit.UIStringAttributeKey;
 #endif
 using CoreText;
 using Foundation;
-using Xamarin.Graphics.Text;
 
 namespace Xamarin.Text
 {

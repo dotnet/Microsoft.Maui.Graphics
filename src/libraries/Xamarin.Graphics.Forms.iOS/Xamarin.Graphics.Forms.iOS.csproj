@@ -63,13 +63,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
+      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
+      <Name>Systems.Graphics.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xamarin.Graphics.CoreGraphics.iOS\Xamarin.Graphics.CoreGraphics.iOS.csproj">
       <Project>{f8d43f64-af09-4e06-8473-5bdc37281908}</Project>
       <Name>Xamarin.Graphics.CoreGraphics.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
-      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Xamarin.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Xamarin.Graphics.Forms.Core\Xamarin.Graphics.Forms.Core.csproj">
       <Project>{be7203d5-b616-4f38-9d9f-b5d4d92dbdf3}</Project>

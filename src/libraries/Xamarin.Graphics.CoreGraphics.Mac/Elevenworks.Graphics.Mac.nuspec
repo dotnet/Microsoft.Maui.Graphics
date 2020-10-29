@@ -18,7 +18,7 @@
             <dependency id="Elevenworks.Services.Portable" version="2.0" />
             <dependency id="Elevenworks.Common.Portable" version="2.0" />
             <dependency id="Elevenworks.Common.Mac" version="2.0" />
-            <dependency id="Xamarin.Graphics.Core" version="2.0" />
+            <dependency id="Systems.Graphics.Core" version="2.0" />
             <dependency id="Xamarin.Text.Core" version="2.0" />
             <dependency id="Xamarin.Text.Core.Mac" version="2.0" />
         </dependencies>

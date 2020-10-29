@@ -142,9 +142,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+    <ProjectReference Include="..\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Xamarin.Graphics.Core</Name>
+      <Name>Systems.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Xamarin.Text.Core\Xamarin.Text.Core.csproj">
       <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>

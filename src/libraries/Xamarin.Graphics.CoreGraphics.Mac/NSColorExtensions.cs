@@ -1,6 +1,6 @@
 ﻿using AppKit;
 
-namespace Xamarin.Graphics.CoreGraphics.Extensions
+namespace Xamarin.Graphics.CoreGraphics
 {
     public static class NSColorExtensions
     {

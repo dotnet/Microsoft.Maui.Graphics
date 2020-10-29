@@ -103,9 +103,9 @@
             <Project>{B3522055-0AB5-4C61-9398-81F3409C8DD6}</Project>
             <Name>Elevenworks.Services.Portable</Name>
         </ProjectReference>
-        <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+        <ProjectReference Include="..\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
           <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-          <Name>Xamarin.Graphics.Core</Name>
+          <Name>Systems.Graphics.Core</Name>
         </ProjectReference>
         <ProjectReference Include="..\Xamarin.Text.Android\Xamarin.Text.Android.csproj">
           <Project>{d6fd6e58-258f-4dec-a31d-567ab041d4d4}</Project>

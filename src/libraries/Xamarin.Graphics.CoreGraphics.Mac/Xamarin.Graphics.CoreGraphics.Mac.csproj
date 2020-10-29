@@ -58,7 +58,7 @@
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
     <ItemGroup>
         <Compile Include="AppKitConstants.cs" />
-        <Compile Include="GraphicsMixins.cs" />
+        <Compile Include="CoreGraphicsExtensions.cs" />
         <Compile Include="MMImage.cs" />
         <Compile Include="MMGraphicsView.cs" />
         <Compile Include="MMGraphicsService.cs" />
@@ -68,7 +68,6 @@
         <Compile Include="GraphicsMac.Designer.cs">
             <DependentUpon>GraphicsMac.resx</DependentUpon>
         </Compile>
-        <Compile Include="Extensions\NSColorExtensions.cs" />
         <Compile Include="MMFontService.cs" />
         <Compile Include="MMFontFamily.cs" />
         <Compile Include="MMFontStyle.cs" />
@@ -76,6 +75,7 @@
         <Compile Include="MMPdfExportService.cs" />
         <Compile Include="MMPdfExportContext.cs" />
         <Compile Include="MMFontRegistry.cs" />
+        <Compile Include="NSColorExtensions.cs" />
         <Compile Include="NSImageExtensions.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -86,21 +86,9 @@
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Elevenworks.Common.Mac\Elevenworks.Common.Mac.csproj">
-            <Project>{3458b103-a2fd-4ac0-a93c-39600ad41d8b}</Project>
-            <Name>Elevenworks.Common.Mac</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
-            <Project>{3229A6D9-4108-46F1-A766-DC2814309906}</Project>
-            <Name>Elevenworks.Common.Portable</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-            <Project>{B3522055-0AB5-4C61-9398-81F3409C8DD6}</Project>
-            <Name>Elevenworks.Services.Portable</Name>
-        </ProjectReference>
-        <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+        <ProjectReference Include="..\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
           <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-          <Name>Xamarin.Graphics.Core</Name>
+          <Name>Systems.Graphics.Core</Name>
         </ProjectReference>
         <ProjectReference Include="..\Xamarin.Text.Core\Xamarin.Text.Core.csproj">
           <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
@@ -113,6 +101,9 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="Elevenworks.Graphics.Mac.nuspec" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Extensions" />
     </ItemGroup>
     <Import Project="..\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems" Label="Shared" />
 </Project>

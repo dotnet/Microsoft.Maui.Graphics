@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
+        <ProjectReference Include="..\Systems.Graphics.Core\Systems.Graphics.Core.csproj" />
         <ProjectReference Include="..\Xamarin.Text.Core\Xamarin.Text.Core.csproj" />
     </ItemGroup>
 

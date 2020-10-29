@@ -130,9 +130,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
+    <ProjectReference Include="..\..\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Xamarin.Graphics.Core</Name>
+      <Name>Systems.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\libraries\Xamarin.Graphics.SharpDX.UWP\Xamarin.Graphics.SharpDX.UWP.csproj">
       <Project>{694e970d-5c18-483f-bc48-d6d86da8e78f}</Project>

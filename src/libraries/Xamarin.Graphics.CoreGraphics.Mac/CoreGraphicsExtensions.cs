@@ -2,7 +2,7 @@ using AppKit;
 
 namespace Xamarin.Graphics.CoreGraphics
 {
-    public static class GraphicsMixins
+    public static class CoreGraphicsExtensions
     {
         public static EWPaint AsPaint(this NSImage target)
         {

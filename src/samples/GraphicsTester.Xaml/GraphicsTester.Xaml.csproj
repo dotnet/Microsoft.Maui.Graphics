@@ -36,7 +36,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
+    <ProjectReference Include="..\..\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj" />
     <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Xaml.WPF\Xamarin.Graphics.Xaml.WPF.csproj" />
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj" />
   </ItemGroup>

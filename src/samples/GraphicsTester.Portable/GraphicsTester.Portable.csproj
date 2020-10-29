@@ -23,7 +23,7 @@
         <PackageReference Include="Markdig" Version="0.22.0" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj" />
+      <ProjectReference Include="..\..\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj" />
       <ProjectReference Include="..\..\libraries\Xamarin.Text.Core\Xamarin.Text.Core.csproj" />
       <ProjectReference Include="..\..\libraries\Xamarin.Text.Markdig\Xamarin.Text.Markdig.csproj" />
     </ItemGroup>

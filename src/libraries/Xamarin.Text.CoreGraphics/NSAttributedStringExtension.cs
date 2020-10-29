@@ -8,8 +8,7 @@ using NSColor = UIKit.UIColor;
 using System.Collections.Generic;
 using System.IO;
 using Foundation;
-using Xamarin.Graphics.Text;
-using Xamarin.Graphics.Text.Immutable;
+using Xamarin.Text.Immutable;
 
 namespace Xamarin.Text
 {

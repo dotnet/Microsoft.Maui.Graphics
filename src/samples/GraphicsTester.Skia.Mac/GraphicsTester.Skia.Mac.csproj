@@ -98,13 +98,13 @@
       <Project>{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}</Project>
       <Name>Elevenworks.Graphics.Mac</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
+      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
+      <Name>Systems.Graphics.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\libraries\Xamarin.Graphics.CoreGraphics.Mac\Xamarin.Graphics.CoreGraphics.Mac.csproj">
       <Project>{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}</Project>
       <Name>Xamarin.Graphics.CoreGraphics.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
-      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Xamarin.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{D1878E17-08A7-4858-94B8-DE8B38BE2632}</Project>
