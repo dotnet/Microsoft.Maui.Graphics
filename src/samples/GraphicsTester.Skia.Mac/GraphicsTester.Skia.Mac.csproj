@@ -107,7 +107,7 @@
       <Name>Xamarin.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
-      <Project>{0C9903DC-7649-46EB-83E6-E74A86D97780}</Project>
+      <Project>{D1878E17-08A7-4858-94B8-DE8B38BE2632}</Project>
       <Name>GraphicsTester.Portable</Name>
     </ProjectReference>
   </ItemGroup>

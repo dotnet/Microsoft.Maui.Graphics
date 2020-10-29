@@ -116,7 +116,7 @@
       <Name>Xamarin.Graphics.GDI.Winforms</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
-      <Project>{5F0CD247-AFCB-4B1E-86E1-85D59E650FFF}</Project>
+      <Project>{D1878E17-08A7-4858-94B8-DE8B38BE2632}</Project>
       <Name>GraphicsTester.Portable</Name>
     </ProjectReference>
   </ItemGroup>

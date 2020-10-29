@@ -77,11 +77,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpDX.Desktop", "src\external\SharpDX.Desktop\SharpDX.Desktop.csproj", "{D52F4128-20EA-41F3-BA67-0586BBCB3E5A}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Text.CoreGraphics", "src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.shproj", "{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Graphics.SharpDX.Shared", "src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.shproj", "{5163BCB2-4D70-42DA-975A-AF55D6B6A0B3}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Graphics.CoreGraphics", "src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.shproj", "{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Text.CoreGraphics", "src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.shproj", "{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -270,9 +270,9 @@ Global
 		{91CD8AD3-E080-4286-8DC7-C2EE5D1625D3} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
 		{9365DB5B-E4F4-4E05-8558-DAA01789D7F6} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
 		{D52F4128-20EA-41F3-BA67-0586BBCB3E5A} = {5FDD2BE9-96B1-4E7D-8028-B8158E6A0FEC}
-		{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{5163BCB2-4D70-42DA-975A-AF55D6B6A0B3} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
+		{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B07E734-6AE2-4A12-AD60-C072F3695854}
