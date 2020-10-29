@@ -30,6 +30,4 @@
         <ProjectReference Include="..\Xamarin.Text.Core\Xamarin.Text.Core.csproj" />
     </ItemGroup>
     
-    <Import Project="..\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems" Label="Shared" />
-
 </Project>

@@ -27,8 +27,7 @@ namespace Elevenworks.Graphics
                 name = style.Name;
             }
 
-            SKTypeface typeface;
-            if (!_typeFaces.TryGetValue(name, out typeface))
+            if (!_typeFaces.TryGetValue(name, out var typeface))
             {
                 try
                 {

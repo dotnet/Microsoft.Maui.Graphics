@@ -67,6 +67,5 @@
         <Name>Xamarin.Text.Core</Name>
       </ProjectReference>
     </ItemGroup>
-    <Import Project="..\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems" Label="Shared" Condition="Exists('..\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems')" />
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

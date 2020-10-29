@@ -10,8 +10,7 @@ namespace Xamarin.Text
             if (color == null)
                 return null;
 
-            nfloat red, green, blue, alpha;
-            color.GetRGBA(out red, out green, out blue, out alpha);
+            color.GetRGBA(out var red, out var green, out var blue, out var alpha);
 
             if (alpha < 1)
                 return "#" + ToHexString(red) + ToHexString(green) + ToHexString(blue) + ToHexString(alpha);

@@ -108,10 +108,7 @@ namespace Elevenworks.Graphics.SharpDX
                 {
                     using (var stream = loader.CreateStreamFromKey(file.GetReferenceKey()))
                     {
-                        IntPtr fragmentStart;
-                        IntPtr fragmentContext;
-
-                        stream.ReadFileFragment(out fragmentStart, 0, stream.GetFileSize(), out fragmentContext);
+                        stream.ReadFileFragment(out var fragmentStart, 0, stream.GetFileSize(), out var fragmentContext);
 
                         var array = new byte[stream.GetFileSize()];
                         Marshal.Copy(fragmentStart, array, 0, (int) stream.GetFileSize());

@@ -33,9 +33,8 @@ namespace Elevenworks.Graphics.SharpDX
                             string postScriptName = name;
 
                             var font = fontFamily.GetFont(j);
-                            LocalizedStrings localizedPostScriptName;
 
-                            var found = font.GetInformationalStrings(InformationalStringId.PostscriptName, out localizedPostScriptName);
+                            var found = font.GetInformationalStrings(InformationalStringId.PostscriptName, out var localizedPostScriptName);
                             if (found)
                             {
                                 postScriptName = localizedPostScriptName.GetString(0);
@@ -63,8 +62,7 @@ namespace Elevenworks.Graphics.SharpDX
 
             if (postScriptName != null)
             {
-                FontMapping mapping;
-                if (FontMapping.TryGetValue(postScriptName, out mapping))
+                if (FontMapping.TryGetValue(postScriptName, out var mapping))
                 {
                     return mapping;
                 }

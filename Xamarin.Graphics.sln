@@ -33,9 +33,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Forms.Win2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.GDI.Winforms", "src\libraries\Xamarin.Graphics.GDI.Winforms\Xamarin.Graphics.GDI.Winforms.csproj", "{3C3BF90F-C579-463D-B33F-8B9B16D2DAB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.iOS", "src\libraries\Xamarin.Graphics.iOS\Xamarin.Graphics.iOS.csproj", "{F8D43F64-AF09-4E06-8473-5BDC37281908}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.CoreGraphics.iOS", "src\libraries\Xamarin.Graphics.CoreGraphics.iOS\Xamarin.Graphics.CoreGraphics.iOS.csproj", "{F8D43F64-AF09-4E06-8473-5BDC37281908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Mac", "src\libraries\Xamarin.Graphics.Mac\Xamarin.Graphics.Mac.csproj", "{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.CoreGraphics.Mac", "src\libraries\Xamarin.Graphics.CoreGraphics.Mac\Xamarin.Graphics.CoreGraphics.Mac.csproj", "{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Skia.Core", "src\libraries\Xamarin.Graphics.Skia.Core\Xamarin.Graphics.Skia.Core.csproj", "{C7613109-6198-402E-953F-57EA81E8238E}"
 EndProject

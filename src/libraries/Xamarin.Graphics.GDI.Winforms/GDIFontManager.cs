@@ -45,8 +45,7 @@ namespace Elevenworks.Graphics
 
             if (postScriptName != null)
             {
-                FontMapping mapping;
-                if (FontMapping.TryGetValue(postScriptName, out mapping))
+                if (FontMapping.TryGetValue(postScriptName, out var mapping))
                 {
                     return mapping;
                 }

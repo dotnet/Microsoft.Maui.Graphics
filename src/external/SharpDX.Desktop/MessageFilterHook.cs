@@ -85,8 +85,7 @@ namespace SharpDX
             lock (RegisteredHooks)
             {
                 hwnd = GetSafeWindowHandle(hwnd);
-                MessageFilterHook hook;
-                if (!RegisteredHooks.TryGetValue(hwnd, out hook))
+                if (!RegisteredHooks.TryGetValue(hwnd, out var hook))
                 {
                     hook = new MessageFilterHook(hwnd);
                     RegisteredHooks.Add(hwnd, hook);
@@ -105,8 +104,7 @@ namespace SharpDX
             lock (RegisteredHooks)
             {
                 hwnd = GetSafeWindowHandle(hwnd);
-                MessageFilterHook hook;
-                if (RegisteredHooks.TryGetValue(hwnd, out hook))
+                if (RegisteredHooks.TryGetValue(hwnd, out var hook))
                 {
                     hook.RemoveMessageFilter(messageFilter);
 

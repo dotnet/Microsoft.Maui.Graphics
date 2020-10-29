@@ -241,10 +241,7 @@ namespace Elevenworks.Graphics.Win2D
             }
             else if (type == PathOperation.ARC)
             {
-                int pointIndex;
-                int arcAngleIndex;
-                int arcClockwiseIndex;
-                path.GetSegmentInfo(segmentIndex, out pointIndex, out arcAngleIndex, out arcClockwiseIndex);
+                path.GetSegmentInfo(segmentIndex, out var pointIndex, out var arcAngleIndex, out var arcClockwiseIndex);
 
                 var topLeft = path[pointIndex++];
                 var bottomRight = path[pointIndex];

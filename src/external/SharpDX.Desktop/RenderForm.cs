@@ -355,9 +355,7 @@ namespace SharpDX.Windows
                     }
                     else
                     {
-                        RawRectangle rect;
-
-                        Win32Native.GetClientRect(m.HWnd, out rect);
+                        Win32Native.GetClientRect(m.HWnd, out var rect);
                         if (rect.Bottom - rect.Top == 0)
                         {
                             // Rapidly clicking the task bar to minimize and restore a window

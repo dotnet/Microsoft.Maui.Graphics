@@ -30,8 +30,7 @@ namespace Elevenworks.Graphics
             if (string.IsNullOrEmpty(name))
                 name = _systemFontName;
 
-            SKTypeface typeface;
-            if (!_typeFaces.TryGetValue(name, out typeface))
+            if (!_typeFaces.TryGetValue(name, out var typeface))
             {
                 try
                 {

@@ -3,8 +3,8 @@ using Elevenworks.Graphics;
 using Foundation;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using Xamarin.Graphics.CoreGraphics;
 using Xamarin.Graphics.Forms.iOS;
-using Xamarin.Graphics.iOS;
 
 [assembly: ExportRenderer(typeof(GraphicsView), typeof(GraphicsViewRenderer))]
 

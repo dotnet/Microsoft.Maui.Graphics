@@ -32,8 +32,7 @@ namespace Elevenworks.Graphics.SharpDX
                 var fontFamily = fontCollection.GetFontFamily(i);
                 var familyNames = fontFamily.FamilyNames;
 
-                int index;
-                if (!familyNames.FindLocaleName("en-us", out index))
+                if (!familyNames.FindLocaleName("en-us", out var index))
                     index = 0;
                 var familyName = familyNames.GetString(index);
 
@@ -42,17 +41,15 @@ namespace Elevenworks.Graphics.SharpDX
                     string postScriptName = familyName;
 
                     var font = fontFamily.GetFont(j);
-                    LocalizedStrings localizedPostScriptName;
 
                     var found = font.GetInformationalStrings(InformationalStringId.PostscriptName,
-                        out localizedPostScriptName);
+                        out var localizedPostScriptName);
                     if (found)
                     {
                         postScriptName = localizedPostScriptName.GetString(0);
                     }
 
-                    DXFontFamily family;
-                    if (!families.TryGetValue(familyName, out family))
+                    if (!families.TryGetValue(familyName, out var family))
                     {
                         family = new DXFontFamily(familyName);
                         families[familyName] = family;

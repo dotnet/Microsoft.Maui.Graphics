@@ -729,9 +729,11 @@ namespace Xamarin.Graphics.CoreGraphics
             var nativeImage = nativeWrapper?.NativeImage;
             if (nativeImage != null)
             {
-                var rect = new CGRect();
-                rect.Width = nativeWrapper.Width;
-                rect.Height = nativeWrapper.Height;
+                var rect = new CGRect
+                {
+                    Width = nativeWrapper.Width, 
+                    Height = nativeWrapper.Height
+                };
 #if MONOMAC
 				var cgimage = nativeImage.AsCGImage (ref rect, null, null);
 #else
