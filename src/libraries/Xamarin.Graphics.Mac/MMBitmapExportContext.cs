@@ -1,10 +1,9 @@
 using System;
-using CoreGraphics;
 using System.IO;
 using AppKit;
-using Xamarin.Graphics;
+using CoreGraphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMBitmapExportContext : BitmapExportContext
     {

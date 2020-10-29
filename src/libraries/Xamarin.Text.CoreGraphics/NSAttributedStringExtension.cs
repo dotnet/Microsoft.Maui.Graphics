@@ -11,7 +11,7 @@ using Foundation;
 using Xamarin.Graphics.Text;
 using Xamarin.Graphics.Text.Immutable;
 
-namespace Elevenworks.Text
+namespace Xamarin.Text
 {
     public static class NSAttributedStringExtension
     {

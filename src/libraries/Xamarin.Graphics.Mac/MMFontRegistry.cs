@@ -3,7 +3,7 @@ using System.Linq;
 using AppKit;
 using CoreGraphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMFontRegistry
     {

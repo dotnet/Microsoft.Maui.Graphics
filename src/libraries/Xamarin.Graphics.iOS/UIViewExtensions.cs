@@ -1,8 +1,7 @@
-using UIKit;
 using Foundation;
-using Xamarin.Graphics;
+using UIKit;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public static class UIViewExtensions
     {

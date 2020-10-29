@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>Elevenworks.Graphics</RootNamespace>
+        <RootNamespace>Xamarin.Graphics.Xaml</RootNamespace>
         <Version>2.0.0</Version>
         <Company>Elevenworks LLC</Company>
     </PropertyGroup>

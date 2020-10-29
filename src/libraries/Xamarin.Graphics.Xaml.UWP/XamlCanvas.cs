@@ -5,12 +5,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
-using Xamarin.Graphics;
 using Xamarin.Text;
-using Geometry = Xamarin.Graphics.Geometry;
 
-
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Xaml
 {
     public enum ItemType
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Graphics;
+using Xamarin.Graphics.GDI;
 
 namespace Elevenworks.Graphics
 {

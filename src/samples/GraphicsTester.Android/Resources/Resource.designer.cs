@@ -25,7 +25,7 @@ namespace GraphicsTester.Android
 		
 		public static void UpdateIdValues()
 		{
-			global::Elevenworks.Graphics.Resource.String.library_name = global::GraphicsTester.Android.Resource.String.library_name;
+			global::Xamarin.Graphics.Android.Resource.String.library_name = global::GraphicsTester.Android.Resource.String.library_name;
 		}
 		
 		public partial class Attribute
@@ -41,11 +41,65 @@ namespace GraphicsTester.Android
 			}
 		}
 		
-		public partial class String
+		public partial class Drawable
 		{
 			
 			// aapt resource value: 0x7F010000
-			public const int library_name = 2130771968;
+			public const int Icon = 2130771968;
+			
+			static Drawable()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Drawable()
+			{
+			}
+		}
+		
+		public partial class Id
+		{
+			
+			// aapt resource value: 0x7F020000
+			public const int textItem = 2130837504;
+			
+			static Id()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Id()
+			{
+			}
+		}
+		
+		public partial class Layout
+		{
+			
+			// aapt resource value: 0x7F030000
+			public const int ListViewItem = 2130903040;
+			
+			static Layout()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Layout()
+			{
+			}
+		}
+		
+		public partial class String
+		{
+			
+			// aapt resource value: 0x7F040000
+			public const int app_name = 2130968576;
+			
+			// aapt resource value: 0x7F040001
+			public const int hello = 2130968577;
+			
+			// aapt resource value: 0x7F040002
+			public const int library_name = 2130968578;
 			
 			static String()
 			{

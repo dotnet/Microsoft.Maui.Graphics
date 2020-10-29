@@ -1,8 +1,8 @@
 ﻿using System;
+using Elevenworks.Graphics;
 using SkiaSharp;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Skia
 {
     public class WDSkiaDirectRenderer : ISkiaGraphicsRenderer
     {

@@ -2,9 +2,8 @@
 using CoreGraphics;
 using CoreText;
 using Foundation;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.CoreGraphics
 {
     public static class CGCanvasExtensions
     {

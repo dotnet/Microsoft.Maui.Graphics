@@ -6,7 +6,7 @@
     <SharedGUID>5163bcb2-4d70-42da-975a-af55d6b6a0b3</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Elevenworks.Graphics.SharpDX.Shared</Import_RootNamespace>
+    <Import_RootNamespace>Xamarin.Graphics.SharpDX.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CustomBrushTextRenderer.cs" />

@@ -1,4 +1,4 @@
-﻿namespace Elevenworks.Graphics
+﻿namespace Xamarin.Graphics.Forms.iOS
 {
     public static class Forms
     {

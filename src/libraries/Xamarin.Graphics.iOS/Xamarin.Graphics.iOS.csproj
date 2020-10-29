@@ -6,7 +6,7 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{F8D43F64-AF09-4E06-8473-5BDC37281908}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Elevenworks.Graphics</RootNamespace>
+    <RootNamespace>Xamarin.Graphics.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Xamarin.Graphics.iOS</AssemblyName>
   </PropertyGroup>
@@ -64,20 +64,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elevenworks.Common.iOS\Elevenworks.Common.iOS.csproj">
-      <Project>{e63f1c48-f1b6-4760-9c8c-4ff2e0354c41}</Project>
-      <Name>Elevenworks.Common.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
-      <Project>{3229A6D9-4108-46F1-A766-DC2814309906}</Project>
-      <Name>Elevenworks.Common.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{B3522055-0AB5-4C61-9398-81F3409C8DD6}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
       <Name>Xamarin.Graphics.Core</Name>
@@ -96,5 +82,5 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <Import Project="..\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.projitems" Label="Shared" />
+  <Import Project="..\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems" Label="Shared" />
 </Project>

@@ -1,6 +1,4 @@
-﻿using Xamarin.Graphics;
-
-namespace Elevenworks.Graphics
+﻿namespace Xamarin.Graphics.iOS
 {
     public class MTPdfExportService : IPdfExportService
     {

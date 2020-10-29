@@ -7,7 +7,7 @@
         <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <ProjectGuid>{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}</ProjectGuid>
         <OutputType>Library</OutputType>
-        <RootNamespace>Elevenworks.Graphics</RootNamespace>
+        <RootNamespace>Xamarin.Graphics.Mac</RootNamespace>
         <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
         <AssemblyName>Xamarin.Graphics.Mac</AssemblyName>
         <TargetFrameworkIdentifier>Xamarin.Mac</TargetFrameworkIdentifier>
@@ -55,7 +55,6 @@
         <Reference Include="Xamarin.Mac" />
         <Reference Include="netstandard" />
     </ItemGroup>
-    <Import Project="..\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.projitems" Label="Shared" Condition="Exists('..\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.projitems')" />
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
     <ItemGroup>
         <Compile Include="AppKitConstants.cs" />
@@ -115,4 +114,5 @@
     <ItemGroup>
         <None Include="Elevenworks.Graphics.Mac.nuspec" />
     </ItemGroup>
+    <Import Project="..\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems" Label="Shared" />
 </Project>

@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Elevenworks.Graphics.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xamarin.Graphics.Android.Resource", IsApplication=false)]
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Android
 {
 	
 	

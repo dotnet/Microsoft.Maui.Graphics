@@ -7,7 +7,7 @@ using CoreText;
 using Foundation;
 using Xamarin.Graphics.Text;
 
-namespace Elevenworks.Text
+namespace Xamarin.Text
 {
     public static class AttributedTextExtensions
     {

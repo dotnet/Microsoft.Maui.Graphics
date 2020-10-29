@@ -2,6 +2,7 @@
 using Elevenworks.Graphics;
 using GraphicsTester.Scenarios;
 using Xamarin.Graphics;
+using Xamarin.Graphics.Xaml;
 
 namespace GraphicsTester.Xaml
 {

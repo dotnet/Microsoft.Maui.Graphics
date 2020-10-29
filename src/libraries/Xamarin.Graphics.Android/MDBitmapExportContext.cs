@@ -1,8 +1,8 @@
 using System.IO;
 using Android.Graphics;
-using Xamarin.Graphics;
+using Elevenworks.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Android
 {
     public class MDBitmapExportContext : BitmapExportContext
     {

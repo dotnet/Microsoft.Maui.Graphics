@@ -2,9 +2,8 @@
 using Windows.UI;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Media;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Xaml
 {
     public class XamlCanvasState : CanvasState
     {

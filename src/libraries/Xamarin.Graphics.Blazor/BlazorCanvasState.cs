@@ -1,7 +1,6 @@
-﻿using Elevenworks.Graphics.Blazor.Canvas2D;
-using Xamarin.Graphics;
+﻿using Xamarin.Graphics.Blazor.Canvas2D;
 
-namespace Elevenworks.Graphics.Blazor
+namespace Xamarin.Graphics.Blazor
 {
     public class BlazorCanvasState : CanvasState
     {

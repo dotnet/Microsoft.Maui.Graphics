@@ -1,7 +1,6 @@
-using Elevenworks.Graphics.Blazor.Model;
 using Microsoft.AspNetCore.Components;
 
-namespace Elevenworks.Graphics.Blazor.Canvas2D
+namespace Xamarin.Graphics.Blazor.Canvas2D
 {
     public class CanvasRenderingContext2D : RenderingContext
     {

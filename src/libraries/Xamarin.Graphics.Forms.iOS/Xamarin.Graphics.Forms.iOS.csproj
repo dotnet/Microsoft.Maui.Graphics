@@ -6,7 +6,7 @@
     <ProjectGuid>{7B6503A2-DA2C-4512-BBA5-95BF85CF63C1}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Elevenworks.Graphics</RootNamespace>
+    <RootNamespace>Xamarin.Graphics.Forms.iOS</RootNamespace>
     <AssemblyName>Xamarin.Graphics.Forms.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <NuGetPackageImportStamp>

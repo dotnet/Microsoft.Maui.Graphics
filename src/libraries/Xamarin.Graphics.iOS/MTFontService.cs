@@ -1,11 +1,10 @@
 ﻿using System;
-using UIKit;
 using System.Collections.Generic;
-using CoreText;
 using CoreGraphics;
-using Xamarin.Graphics;
+using CoreText;
+using UIKit;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTFontService : AbstractFontService
     {

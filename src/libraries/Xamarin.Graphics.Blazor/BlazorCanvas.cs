@@ -1,10 +1,8 @@
 ﻿using System;
-using Elevenworks.Graphics.Blazor.Canvas2D;
-using Elevenworks.Graphics.Blazor.Model;
-using Xamarin.Graphics;
+using Xamarin.Graphics.Blazor.Canvas2D;
 using Xamarin.Text;
 
-namespace Elevenworks.Graphics.Blazor
+namespace Xamarin.Graphics.Blazor
 {
     public class BlazorCanvas : AbstractCanvas<BlazorCanvasState>
     {

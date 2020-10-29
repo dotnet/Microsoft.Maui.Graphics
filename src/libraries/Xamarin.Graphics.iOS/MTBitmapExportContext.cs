@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using CoreGraphics;
 using UIKit;
-using Xamarin.Graphics;
+using Xamarin.Graphics.CoreGraphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTBitmapExportContext : BitmapExportContext
     {

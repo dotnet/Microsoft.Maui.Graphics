@@ -1,8 +1,7 @@
 ﻿using System;
 using SkiaSharp;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Skia
 {
     public interface ISkiaGraphicsRenderer : IDisposable
     {

@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <LangVersion>7.3</LangVersion>
-    <RootNamespace>Elevenworks.Graphics.Blazor</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

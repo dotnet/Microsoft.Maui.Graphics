@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Drawing;
 using Xamarin.Graphics;
+using Xamarin.Graphics.GDI;
 
 namespace Elevenworks.Graphics
 {

@@ -7,7 +7,7 @@
     <ProjectGuid>{8B29A316-4194-4051-A9A2-1F55428F6E87}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elevenworks.Graphics</RootNamespace>
+    <RootNamespace>Elevenworks.Graphics.Forms.Win2D</RootNamespace>
     <AssemblyName>Elevenworks.Graphics.Forms.Win2D</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

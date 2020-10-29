@@ -1,10 +1,9 @@
 using System;
+using AppKit;
 using CoreGraphics;
 using Foundation;
-using AppKit;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     [Register("MMGraphicsView")]
     public class MMGraphicsView : NSView

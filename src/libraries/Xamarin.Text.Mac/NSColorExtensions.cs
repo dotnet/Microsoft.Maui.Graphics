@@ -1,6 +1,6 @@
 ﻿using AppKit;
 
-namespace Elevenworks.Text
+namespace Xamarin.Text
 {
     public static class NSColorExtensions
     {

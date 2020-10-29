@@ -1,9 +1,8 @@
 using System;
 using AppKit;
 using CoreGraphics;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMDirectRenderer : MMGraphicsRenderer
     {

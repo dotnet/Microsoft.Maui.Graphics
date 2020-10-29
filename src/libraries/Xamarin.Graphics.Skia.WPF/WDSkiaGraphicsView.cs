@@ -1,9 +1,9 @@
 ﻿using System.Windows;
+using Elevenworks.Graphics;
 using SkiaSharp.Views.Desktop;
 using SkiaSharp.Views.WPF;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Skia
 {
     public class WDSkiaGraphicsView : SKElement
     {

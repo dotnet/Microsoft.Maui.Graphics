@@ -1,13 +1,12 @@
 using System;
-using CoreGraphics;
-using AppKit;
-using Foundation;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Graphics;
+using AppKit;
+using CoreGraphics;
+using Foundation;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMImage : EWImage
     {

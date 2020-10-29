@@ -2,7 +2,6 @@ using System;
 using Android.Content;
 using Android.Graphics;
 using Android.Text;
-using Elevenworks.Text;
 using Xamarin.Graphics;
 using Xamarin.Text;
 

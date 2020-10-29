@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Elevenworks.Graphics {
-    using System;
-    
-    
+namespace Xamarin.Graphics.Mac {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

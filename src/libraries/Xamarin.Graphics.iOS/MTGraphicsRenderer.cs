@@ -1,8 +1,7 @@
 ﻿using System;
 using CoreGraphics;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public interface MTGraphicsRenderer : IDisposable
     {

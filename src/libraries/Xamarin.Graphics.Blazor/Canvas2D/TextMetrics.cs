@@ -1,4 +1,4 @@
-namespace Elevenworks.Graphics.Blazor.Model
+namespace Xamarin.Graphics.Blazor.Canvas2D
 {
     public class TextMetrics
     {

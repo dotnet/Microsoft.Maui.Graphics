@@ -3,7 +3,7 @@ using System.IO;
 using Android.Text;
 using Xamarin.Text.Immutable;
 
-namespace Elevenworks.Text
+namespace Xamarin.Text
 {
     public static class SpannableExtensions
     {

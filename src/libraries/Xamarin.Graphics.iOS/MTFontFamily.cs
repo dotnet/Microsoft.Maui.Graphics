@@ -1,10 +1,9 @@
 ﻿using System;
-using UIKit;
 using System.Collections.Generic;
 using CoreText;
-using Xamarin.Graphics;
+using UIKit;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
     {

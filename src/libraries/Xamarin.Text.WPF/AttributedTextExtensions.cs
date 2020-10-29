@@ -1,11 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
-using Xamarin.Text;
 
 // ReSharper disable UnusedMember.Global
 
-namespace Elevenworks.Text.WPF
+namespace Xamarin.Text
 {
     public static class AttributedTextExtensions
     {

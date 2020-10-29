@@ -3,10 +3,12 @@ using Elevenworks.Graphics;
 using Foundation;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using Xamarin.Graphics.Forms.iOS;
+using Xamarin.Graphics.iOS;
 
 [assembly: ExportRenderer(typeof(GraphicsView), typeof(GraphicsViewRenderer))]
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Forms.iOS
 {
     [Preserve]
     public class GraphicsViewRenderer : ViewRenderer<GraphicsView, MTGraphicsView>

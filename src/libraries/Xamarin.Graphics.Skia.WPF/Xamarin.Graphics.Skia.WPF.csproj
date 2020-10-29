@@ -2,11 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>Elevenworks.Graphics</RootNamespace>
         <Version>2.0.0</Version>
         <Company>Elevenworks LLC</Company>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
+        <RootNamespace>Xamarin.Graphics.Skia</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

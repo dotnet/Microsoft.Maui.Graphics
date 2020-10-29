@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics.Blazor
+namespace Xamarin.Graphics.Blazor
 {
     public class BlazorGraphicsService : IGraphicsService
     {

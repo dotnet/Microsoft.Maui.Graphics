@@ -30,7 +30,7 @@ namespace Xamarin.Text
             if (attributedText?.Text == null)
                 return null;
 
-            if (attributedText.Optimal)
+            if (attributedText is AbstractAttributedText abstractAttributedText && abstractAttributedText.Optimal)
             {
                 if (attributedText.Runs == null)
                     return null;

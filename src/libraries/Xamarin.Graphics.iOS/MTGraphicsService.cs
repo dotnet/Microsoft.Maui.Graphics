@@ -1,13 +1,12 @@
 using System;
-using System.IO;
 using System.Drawing;
+using System.IO;
 using CoreGraphics;
 using CoreText;
 using Foundation;
 using UIKit;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTGraphicsService : IGraphicsService
     {

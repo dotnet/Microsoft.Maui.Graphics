@@ -1,6 +1,6 @@
-using Elevenworks.Graphics.Blazor.Canvas2D;
+using Xamarin.Graphics.Blazor.Canvas2D;
 
-namespace Elevenworks.Graphics.Blazor
+namespace Xamarin.Graphics.Blazor
 {
     public static class ComponentExtensions
     {

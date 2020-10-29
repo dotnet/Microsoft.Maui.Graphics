@@ -1,4 +1,4 @@
-namespace Elevenworks.Graphics.Blazor.Canvas2D
+namespace Xamarin.Graphics.Blazor.Canvas2D
 {
     public enum LineCap
     {

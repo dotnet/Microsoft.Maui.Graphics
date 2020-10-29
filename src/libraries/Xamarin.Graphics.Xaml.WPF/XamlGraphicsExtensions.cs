@@ -2,10 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Media;
-using Xamarin.Graphics;
-using Geometry = Xamarin.Graphics.Geometry;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Xaml
 {
     public static class XamlGraphicsExtensions
     {

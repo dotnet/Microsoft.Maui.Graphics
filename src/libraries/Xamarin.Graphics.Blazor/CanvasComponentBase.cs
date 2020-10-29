@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Elevenworks.Graphics.Blazor
+namespace Xamarin.Graphics.Blazor
 {
     public class CanvasComponentBase : ComponentBase
     {

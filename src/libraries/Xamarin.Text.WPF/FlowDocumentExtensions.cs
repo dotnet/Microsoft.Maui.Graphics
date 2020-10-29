@@ -4,7 +4,7 @@ using System.Windows.Documents;
 using Xamarin.Graphics;
 using Xamarin.Text.Immutable;
 
-namespace Elevenworks.Text.WPF
+namespace Xamarin.Text
 {
     public static class FlowDocumentExtensions
     {

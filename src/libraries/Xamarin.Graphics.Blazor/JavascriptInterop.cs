@@ -1,8 +1,7 @@
-﻿using Microsoft.JSInterop;
-using System.Threading.Tasks;
-using Xamarin.Graphics;
+﻿using System.Threading.Tasks;
+using Microsoft.JSInterop;
 
-namespace Elevenworks.Graphics.Blazor
+namespace Xamarin.Graphics.Blazor
 {
     public static class JavascriptInterop
     {

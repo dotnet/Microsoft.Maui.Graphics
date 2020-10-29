@@ -7,7 +7,7 @@
     <ProjectGuid>{694E970D-5C18-483F-BC48-D6D86DA8E78F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elevenworks.Graphics.SharpDX.WindowsUniversal</RootNamespace>
+    <RootNamespace>Xamarin.Graphics.ShaprDX</RootNamespace>
     <AssemblyName>Xamarin.Graphics.SharpDX.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -121,7 +121,6 @@
     <Compile Include="TargetBase.cs" />
     <Content Include="Properties\Elevenworks.Graphics.SharpDX.WindowsUniversal.rd.xml" />
   </ItemGroup>
-  <Import Project="..\Elevenworks.Graphics.SharpDX.Shared\Elevenworks.Graphics.SharpDX.Shared.projitems" Label="Shared" />
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
@@ -159,6 +158,7 @@
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems" Label="Shared" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

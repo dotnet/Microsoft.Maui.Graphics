@@ -1,9 +1,8 @@
 using Android.Graphics;
 using Android.Text;
 using Android.Text.Style;
-using Xamarin.Text;
 
-namespace Elevenworks.Text
+namespace Xamarin.Text
 {
     public static class AttributedTextExtensions
     {

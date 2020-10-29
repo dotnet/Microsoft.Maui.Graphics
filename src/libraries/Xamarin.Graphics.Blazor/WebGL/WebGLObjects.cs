@@ -1,4 +1,4 @@
-namespace Elevenworks.Graphics.Blazor.WebGL
+namespace Xamarin.Graphics.Blazor.WebGL
 {
     public class WebGLContextAttributes
     {

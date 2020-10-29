@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Graphics;
+using Xamarin.Graphics.Android;
 
 namespace Elevenworks.Graphics
 {

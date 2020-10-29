@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Elevenworks.Text.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xamarin.Text.Resource", IsApplication=false)]
 
-namespace Elevenworks.Text
+namespace Xamarin.Text
 {
 	
 	
@@ -32,6 +32,22 @@ namespace Elevenworks.Text
 			}
 			
 			private Attribute()
+			{
+			}
+		}
+		
+		public partial class String
+		{
+			
+			// aapt resource value: 0x7F010000
+			public static int library_name = 2130771968;
+			
+			static String()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private String()
 			{
 			}
 		}

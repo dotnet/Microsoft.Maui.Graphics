@@ -1,12 +1,11 @@
 using System;
-using UIKit;
-using Foundation;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Graphics;
+using Foundation;
+using UIKit;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTImage : EWImage
     {

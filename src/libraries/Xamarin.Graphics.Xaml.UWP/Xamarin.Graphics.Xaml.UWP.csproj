@@ -7,7 +7,7 @@
     <ProjectGuid>{9DF3C198-5B93-47B1-A8C4-11A25CA6DEF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elevenworks.Graphics</RootNamespace>
+    <RootNamespace>Xamarin.Graphics.Xaml</RootNamespace>
     <AssemblyName>Xamarin.Graphics.Xaml.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

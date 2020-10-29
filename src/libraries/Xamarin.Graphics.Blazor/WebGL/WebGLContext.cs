@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Elevenworks.Graphics.Blazor.WebGL
+namespace Xamarin.Graphics.Blazor.WebGL
 {
     public class WebGLContext : RenderingContext
     {

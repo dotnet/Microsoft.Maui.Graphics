@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
-using Xamarin.Graphics;
+using Elevenworks.Graphics;
 using Xamarin.Text;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.GDI
 {
     public class GDICanvas : AbstractCanvas<GDICanvasState>
     {

@@ -1,11 +1,11 @@
 ﻿using System;
+using System.IO;
+using CoreGraphics;
 using Foundation;
 using UIKit;
-using CoreGraphics;
-using System.IO;
-using Xamarin.Graphics;
+using Xamarin.Graphics.CoreGraphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTPdfExportContext : PdfExportContext
     {

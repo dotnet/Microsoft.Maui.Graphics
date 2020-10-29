@@ -2,7 +2,7 @@ using System;
 using Foundation;
 using ObjCRuntime;
 
-namespace Elevenworks
+namespace Xamarin.Graphics.Mac
 {
 
 

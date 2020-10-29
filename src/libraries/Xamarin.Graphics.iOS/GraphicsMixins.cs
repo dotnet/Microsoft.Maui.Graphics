@@ -1,8 +1,7 @@
 using System;
 using UIKit;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public static class GraphicsMixins
     {

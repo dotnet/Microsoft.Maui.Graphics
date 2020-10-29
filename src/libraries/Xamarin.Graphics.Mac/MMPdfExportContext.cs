@@ -1,10 +1,9 @@
 ﻿using System;
-using Foundation;
-using CoreGraphics;
 using System.IO;
-using Xamarin.Graphics;
+using CoreGraphics;
+using Foundation;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMPdfExportContext : PdfExportContext
     {

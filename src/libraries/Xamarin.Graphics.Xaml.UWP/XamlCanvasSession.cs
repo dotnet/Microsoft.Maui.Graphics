@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Xaml
 {
     public class XamlCanvasSession : IDisposable
     {

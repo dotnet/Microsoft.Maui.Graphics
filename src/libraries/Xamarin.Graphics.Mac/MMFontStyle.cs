@@ -1,7 +1,6 @@
 ﻿using System;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMFontStyle : IFontStyle
     {

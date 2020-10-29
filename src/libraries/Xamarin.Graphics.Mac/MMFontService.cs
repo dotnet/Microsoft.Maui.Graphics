@@ -1,11 +1,10 @@
-﻿using AppKit;
+﻿using System;
+using System.Collections.Generic;
+using AppKit;
 using CoreGraphics;
 using CoreText;
-using System;
-using System.Collections.Generic;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac
 {
     public class MMFontService : AbstractFontService
     {

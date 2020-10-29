@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using CoreGraphics;
-using Xamarin.Graphics;
+using Xamarin.Graphics.CoreGraphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     public class MTDirectRenderer : MTGraphicsRenderer
     {

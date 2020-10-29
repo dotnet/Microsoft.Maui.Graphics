@@ -1,7 +1,6 @@
 ﻿using AppKit;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.Mac.Extensions
 {
     public static class NSColorExtensions
     {

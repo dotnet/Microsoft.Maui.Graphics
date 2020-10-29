@@ -1,7 +1,7 @@
 ﻿using AppKit;
 using CoreGraphics;
-using Elevenworks.Graphics;
 using Xamarin.Graphics;
+using Xamarin.Graphics.Mac;
 
 namespace GraphicsTester.Mac
 {

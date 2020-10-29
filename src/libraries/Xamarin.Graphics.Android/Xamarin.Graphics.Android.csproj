@@ -7,7 +7,7 @@
         <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <ProjectGuid>{F63D421B-A5E5-4107-9BAC-9C45ED1363DE}</ProjectGuid>
         <OutputType>Library</OutputType>
-        <RootNamespace>Elevenworks.Graphics</RootNamespace>
+        <RootNamespace>Xamarin.Graphics.Android</RootNamespace>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -27,6 +27,7 @@
         <WarningLevel>4</WarningLevel>
         <AndroidLinkMode>None</AndroidLinkMode>
         <ConsolePause>false</ConsolePause>
+        <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <DebugType>full</DebugType>

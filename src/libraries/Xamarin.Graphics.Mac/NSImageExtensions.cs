@@ -1,9 +1,9 @@
 using System;
-using CoreGraphics;
 using AppKit;
+using CoreGraphics;
 using Foundation;
 
-namespace Elevenworks
+namespace Xamarin.Graphics.Mac
 {
     public static class NSImageExtensions
     {

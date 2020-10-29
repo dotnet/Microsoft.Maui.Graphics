@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace Elevenworks.Text.WPF
+namespace Xamarin.Text
 {
     public static class ColorExtensions
     {

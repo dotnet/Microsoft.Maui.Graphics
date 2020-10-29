@@ -1,18 +1,14 @@
+#if MONOMAC
+#else
+using UIKit;
+#endif
 using System;
 using CoreGraphics;
 using CoreText;
-using Elevenworks.Text;
 using Foundation;
-using Xamarin.Graphics;
 using Xamarin.Text;
-#if MONOMAC
-using AppKit;
-#else
-using UIKit;
 
-#endif
-
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.CoreGraphics
 {
     public class CGCanvas : AbstractCanvas<CGCanvasState>
     {

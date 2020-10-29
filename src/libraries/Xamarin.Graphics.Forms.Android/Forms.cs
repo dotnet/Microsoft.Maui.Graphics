@@ -1,4 +1,4 @@
-﻿namespace Elevenworks.Graphics
+﻿namespace Xamarin.Graphics.Forms.Android
 {
     public static class Forms
     {

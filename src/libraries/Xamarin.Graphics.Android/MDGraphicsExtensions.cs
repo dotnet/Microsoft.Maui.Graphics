@@ -4,6 +4,7 @@ using Color = Android.Graphics.Color;
 using PointF = Android.Graphics.PointF;
 using Android.Text;
 using Xamarin.Graphics;
+using Xamarin.Graphics.Android;
 using RectangleF = System.Drawing.RectangleF;
 using SizeF = System.Drawing.SizeF;
     

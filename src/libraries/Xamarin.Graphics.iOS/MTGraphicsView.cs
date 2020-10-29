@@ -3,9 +3,8 @@ using System.Drawing;
 using CoreGraphics;
 using Foundation;
 using UIKit;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics
+namespace Xamarin.Graphics.iOS
 {
     [Register("MTGraphicsView")]
     public class MTGraphicsView : UIView

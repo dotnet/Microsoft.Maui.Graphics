@@ -7,7 +7,7 @@
     <ProjectGuid>{20794E60-3BFD-46F4-BC0B-87B3959AA3C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elevenworks.Graphics.Win2D</RootNamespace>
+    <RootNamespace>Xamarin.Graphics.Win2D</RootNamespace>
     <AssemblyName>Xamarin.Graphics.Win2D.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
