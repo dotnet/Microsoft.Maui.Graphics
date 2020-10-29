@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using Elevenworks.Graphics.SharpDX.Shared;
-using Elevenworks.Text;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct2D1.Effects;
@@ -10,6 +9,7 @@ using SharpDX.DirectWrite;
 using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
 using Xamarin.Graphics;
+using Xamarin.Text;
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Geometry = Xamarin.Graphics.Geometry;
 using TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode;

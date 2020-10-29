@@ -90,10 +90,6 @@
     <InterfaceDefinition Include="MainWindow.xib" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Mac\Elevenworks.Graphics.Mac.csproj">
-      <Project>{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}</Project>
-      <Name>Elevenworks.Graphics.Mac</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Elevenworks.Graphics2\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
       <Project>{D3D43654-2899-486E-8E3F-4F5A81BA7A4C}</Project>
       <Name>Elevenworks.Graphics.Portable</Name>
@@ -105,6 +101,10 @@
     <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
       <Name>Xamarin.Graphics.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Mac\Xamarin.Graphics.Mac.csproj">
+      <Project>{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}</Project>
+      <Name>Xamarin.Graphics.Mac</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{0C9903DC-7649-46EB-83E6-E74A86D97780}</Project>

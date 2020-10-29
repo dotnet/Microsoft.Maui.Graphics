@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj" />
+      <ProjectReference Include="..\Xamarin.Text.Core\Xamarin.Text.Core.csproj" />
     </ItemGroup>
 
 </Project>

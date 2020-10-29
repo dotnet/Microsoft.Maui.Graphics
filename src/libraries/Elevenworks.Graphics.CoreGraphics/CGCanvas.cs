@@ -4,6 +4,7 @@ using CoreText;
 using Elevenworks.Text;
 using Foundation;
 using Xamarin.Graphics;
+using Xamarin.Text;
 #if MONOMAC
 using AppKit;
 #else

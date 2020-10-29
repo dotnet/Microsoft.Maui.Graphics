@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}</ProjectGuid>
+        <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <OutputType>Library</OutputType>
+        <RootNamespace>Xamarin.Text</RootNamespace>
+        <AssemblyName>Xamarin.Text.iOS</AssemblyName>
+        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug</OutputPath>
+        <DefineConstants>DEBUG;</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchDebug>true</MtouchDebug>
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+        <MtouchFastDev>true</MtouchFastDev>
+        <MtouchProfiling>true</MtouchProfiling>
+        <IOSDebuggerPort>14337</IOSDebuggerPort>
+        <DeviceSpecificBuild>false</DeviceSpecificBuild>
+        <MtouchLink>
+        </MtouchLink>
+        <MtouchHttpClientHandler>
+        </MtouchHttpClientHandler>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>
+        </DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release</OutputPath>
+        <DefineConstants>
+        </DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+        <MtouchLink>SdkOnly</MtouchLink>
+        <MtouchHttpClientHandler>
+        </MtouchHttpClientHandler>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Core" />
+        <Reference Include="Xamarin.iOS" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="UIColorExtensions.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="Elevenworks.Text.iOS.nuspec">
+            <SubType>Designer</SubType>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Xamarin.Text.Core\Xamarin.Text.Core.csproj">
+        <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
+        <Name>Xamarin.Text.Core</Name>
+      </ProjectReference>
+    </ItemGroup>
+    <Import Project="..\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems" Label="Shared" Condition="Exists('..\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems')" />
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

@@ -70,9 +70,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Android\Elevenworks.Graphics.Android.csproj">
+    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Android\Xamarin.Graphics.Android.csproj">
       <Project>{f63d421b-a5e5-4107-9bac-9c45ed1363de}</Project>
-      <Name>Elevenworks.Graphics.Android</Name>
+      <Name>Xamarin.Graphics.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Core\Xamarin.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
