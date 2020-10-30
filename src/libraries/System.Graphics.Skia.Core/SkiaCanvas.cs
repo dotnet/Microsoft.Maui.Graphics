@@ -3,7 +3,7 @@ using SkiaSharp;
 
 namespace System.Graphics.Skia
 {
-    public class SkiaCanvas : AbstractCanvas<SkiaCanvasState>, BlurrableCanvas
+    public class SkiaCanvas : AbstractCanvas<SkiaCanvasState>, IBlurrableCanvas
     {
         private static SKPaint _defaultFillPaint;
         private static SKPaint _defaultFontPaint;
@@ -103,7 +103,7 @@ namespace System.Graphics.Skia
             }
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set
             {
@@ -219,7 +219,7 @@ namespace System.Graphics.Skia
                 {
                     Color = SKColors.Black,
                     StrokeWidth = 1,
-                    StrokeMiter = DefaultMiterLimit,
+                    StrokeMiter = CanvasDefaults.DefaultMiterLimit,
                     IsStroke = true,
                     IsAntialias = true
                 };
@@ -359,7 +359,7 @@ namespace System.Graphics.Skia
             }
             else if (paint.PaintType == EWPaintType.PATTERN)
             {
-                SKBitmap bitmap = paint.GetPatternBitmap(CurrentFigure, DisplayScale);
+                SKBitmap bitmap = paint.GetPatternBitmap(DisplayScale);
 
                 if (bitmap != null)
                 {
@@ -863,27 +863,24 @@ namespace System.Graphics.Skia
         public override void SetShadow(
             EWSize offset,
             float blur,
-            EWColor color,
-            float zoom)
+            EWColor color)
         {
             var actualOffset = offset;
             if (actualOffset == null)
-                actualOffset = DefaultShadowOffset;
+                actualOffset = CanvasDefaults.DefaultShadowOffset;
 
-            var sx = actualOffset.Width * zoom;
-            var sy = actualOffset.Height * zoom;
-
-            var finalBlur = blur * zoom;
+            var sx = actualOffset.Width;
+            var sy = actualOffset.Height;
 
             if (color == null)
             {
                 var actualColor = StandardColors.Black.AsSKColorMultiplyAlpha(CurrentState.Alpha);
-                CurrentState.SetShadow(finalBlur, sx, sy, actualColor);
+                CurrentState.SetShadow(blur, sx, sy, actualColor);
             }
             else
             {
                 var actualColor = color.AsSKColorMultiplyAlpha(CurrentState.Alpha);
-                CurrentState.SetShadow(finalBlur, sx, sy, actualColor);
+                CurrentState.SetShadow(blur, sx, sy, actualColor);
             }
         }
 
@@ -920,7 +917,7 @@ namespace System.Graphics.Skia
             _canvas.Translate(tx * CurrentState.ScaleX, ty * CurrentState.ScaleY);
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             var matrix = new SKMatrix();
 

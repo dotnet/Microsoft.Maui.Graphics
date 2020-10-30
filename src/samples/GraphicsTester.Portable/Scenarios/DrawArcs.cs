@@ -11,7 +11,7 @@ namespace GraphicsTester.Scenarios
             this.includeOvals = includeOvals;
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             if (includeOvals)
             {
@@ -54,7 +54,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawArc(250.5f, 30.5f, 150, 15, 90, 270, true, true);
         }
 
-        private static void OvalDrawShadowedRect(EWCanvas canvas)
+        private static void OvalDrawShadowedRect(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.StrokeSize = 5;
@@ -62,18 +62,18 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeColor = StandardColors.Black;
         }
 
-        private static void DrawShadowedRect(EWCanvas canvas)
+        private static void DrawShadowedRect(ICanvas canvas)
         {
             canvas.SaveState();
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 5;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.DrawArc(50.5f, 400.5f, 200, 50, 90, 270, true, false);
 
             canvas.RestoreState();
         }
 
-        private static void OvalDrawArcsWithDashesOfDifferentSizes(EWCanvas canvas)
+        private static void OvalDrawArcsWithDashesOfDifferentSizes(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             for (int i = 1; i < 5; i++)
@@ -86,7 +86,7 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeColor = StandardColors.Black;
         }
 
-        private static void DrawArcsWithDashesOfDifferentSizes(EWCanvas canvas)
+        private static void DrawArcsWithDashesOfDifferentSizes(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Salmon;
             for (int i = 1; i < 5; i++)
@@ -100,7 +100,7 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeDashPattern = SOLID;
         }
 
-        private static void OvalDrawArcsOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void OvalDrawArcsOfDifferentSizesAndColors(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             for (int i = 1; i < 5; i++)
@@ -119,7 +119,7 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeColor = StandardColors.Black;
         }
 
-        private static void DrawArcsOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void DrawArcsOfDifferentSizesAndColors(ICanvas canvas)
         {
             for (int i = 1; i < 5; i++)
             {
@@ -136,7 +136,7 @@ namespace GraphicsTester.Scenarios
             }
         }
 
-        private static void DrawArcsWithAlpha(EWCanvas canvas)
+        private static void DrawArcsWithAlpha(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 2;
@@ -149,7 +149,7 @@ namespace GraphicsTester.Scenarios
             canvas.Alpha = 1;
         }
 
-        private static void OvalDrawArcsWithDifferentStrokeLocations(EWCanvas canvas)
+        private static void OvalDrawArcsWithDifferentStrokeLocations(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.StrokeLocation = EWStrokeLocation.INSIDE;
@@ -176,7 +176,7 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeColor = StandardColors.Black;
         }
 
-        private static void DrawArcsWithDifferentStrokeLocations(EWCanvas canvas)
+        private static void DrawArcsWithDifferentStrokeLocations(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Blue;
             canvas.StrokeSize = 1;

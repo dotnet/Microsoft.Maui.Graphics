@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.DrawRectangle(50.5f, 20.5f, 150, 5);
 
@@ -25,24 +25,24 @@ namespace GraphicsTester.Scenarios
             canvas.DrawRectangle(50.5f, 30.5f, 150, 5);
         }
 
-        private static void DrawShadowedRect(EWCanvas canvas)
+        private static void DrawShadowedRect(ICanvas canvas)
         {
             canvas.SaveState();
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 5;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.DrawRectangle(50.5f, 400.5f, 200, 50);
             canvas.RestoreState();
 
             canvas.SaveState();
             canvas.StrokeColor = StandardColors.CornflowerBlue;
             canvas.StrokeSize = 5;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.DrawRectangle(50.5f, 460.5f, 200, 50);
             canvas.RestoreState();
         }
 
-        private static void DrawRectanglesWithDashesOfDifferentSizes(EWCanvas canvas)
+        private static void DrawRectanglesWithDashesOfDifferentSizes(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Salmon;
             for (int i = 1; i < 5; i++)
@@ -56,7 +56,7 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeDashPattern = SOLID;
         }
 
-        private static void DrawRectanglesOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void DrawRectanglesOfDifferentSizesAndColors(ICanvas canvas)
         {
             for (int i = 1; i < 5; i++)
             {
@@ -73,7 +73,7 @@ namespace GraphicsTester.Scenarios
             }
         }
 
-        private static void DrawRectanglesWithAlpha(EWCanvas canvas)
+        private static void DrawRectanglesWithAlpha(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 2;
@@ -86,7 +86,7 @@ namespace GraphicsTester.Scenarios
             canvas.Alpha = 1;
         }
 
-        private static void DrawRectanglesWithDifferentStrokeLocations(EWCanvas canvas)
+        private static void DrawRectanglesWithDifferentStrokeLocations(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Blue;
             canvas.StrokeSize = 1;

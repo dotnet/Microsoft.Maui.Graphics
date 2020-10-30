@@ -4,7 +4,7 @@
     {
         WFGraphicsView GraphicsView { set; }
 
-        EWCanvas Canvas { get; }
+        ICanvas Canvas { get; }
 
         EWColor BackgroundColor { get; set; }
 

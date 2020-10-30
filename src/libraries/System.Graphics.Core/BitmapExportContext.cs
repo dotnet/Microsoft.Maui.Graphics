@@ -19,7 +19,7 @@ namespace System.Graphics
         {
         }
 
-        public abstract EWCanvas Canvas { get; }
+        public abstract ICanvas Canvas { get; }
 
         public abstract void WriteToStream(Stream stream);
 

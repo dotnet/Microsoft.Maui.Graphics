@@ -1,8 +1,8 @@
 namespace System.Graphics
 {
-    public class PaintPattern : EWPattern
+    public class PaintPattern : IPattern
     {
-        public EWPattern Wrapped { get; }
+        public IPattern Wrapped { get; }
         public EWPaint Paint { get; set; }
 
         public float Width => Wrapped?.Width ?? 0;
@@ -10,12 +10,12 @@ namespace System.Graphics
         public float StepX => Wrapped?.StepX ?? 0;
         public float StepY => Wrapped?.StepY ?? 0;
 
-        public PaintPattern(EWPattern pattern)
+        public PaintPattern(IPattern pattern)
         {
             Wrapped = pattern;
         }
 
-        public void Draw(EWCanvas canvas)
+        public void Draw(ICanvas canvas)
         {
             if (Paint != null)
             {

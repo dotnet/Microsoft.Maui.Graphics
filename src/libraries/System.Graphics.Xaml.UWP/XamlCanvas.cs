@@ -283,7 +283,7 @@ namespace System.Graphics.Xaml
             }
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             CurrentState.XamlConcatenateTransform(transform);
         }
@@ -537,7 +537,7 @@ namespace System.Graphics.Xaml
 			CurrentState.SetFillPaint(paint, x1, y1, x2, y2);
 		}
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }
@@ -767,7 +767,7 @@ namespace System.Graphics.Xaml
             set { }
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set {  }
         }

@@ -136,7 +136,7 @@ namespace System.Graphics.Win2D
             _strokeStyle = null;
 
             _dashes = null;
-            _miterLimit = EWCanvas.DefaultMiterLimit;
+            _miterLimit = CanvasDefaults.DefaultMiterLimit;
             _lineCap = CanvasCapStyle.Flat;
             _lineJoin = CanvasLineJoin.Miter;
             
@@ -146,7 +146,7 @@ namespace System.Graphics.Win2D
             Matrix = Matrix3x2.Identity;
 
             IsShadowed = false;
-            _sourceShadowColor = EWCanvas.DefaultShadowColor;
+            _sourceShadowColor = CanvasDefaults.DefaultShadowColor;
 
             FontName = "Arial";
             FontSize = 12;
@@ -379,14 +379,14 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public void SetShadow(EWSize aOffset, float aBlur, EWColor aColor, float aZoom)
+        public void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            if (aOffset != null)
+            if (offset != null)
             {
                 IsShadowed = true;
-                ShadowOffset = new Vector2(aOffset.Width, aOffset.Height);
-                ShadowBlur = aBlur;
-                _sourceShadowColor = aColor;
+                ShadowOffset = new Vector2(offset.Width, offset.Height);
+                ShadowBlur = blur;
+                _sourceShadowColor = color;
                 _shadowColorValid = false;
             }
             else
@@ -401,7 +401,7 @@ namespace System.Graphics.Win2D
             {
                 if (!_shadowColorValid)
                 {
-                    _shadowColor = _sourceShadowColor?.AsColor(_alpha) ?? EWCanvas.DefaultShadowColor.AsColor(_alpha);
+                    _shadowColor = _sourceShadowColor?.AsColor(_alpha) ?? CanvasDefaults.DefaultShadowColor.AsColor(_alpha);
                 }
 
                 return _shadowColor;
@@ -433,7 +433,7 @@ namespace System.Graphics.Win2D
             return Matrix;
         }
 
-        public Matrix3x2 AppendConcatenateTransform(EWAffineTransform transform)
+        public Matrix3x2 AppendConcatenateTransform(AffineTransform transform)
         {
             var values = new float[6];
             transform.GetMatrix(values);

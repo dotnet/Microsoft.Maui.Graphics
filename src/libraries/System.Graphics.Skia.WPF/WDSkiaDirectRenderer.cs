@@ -16,7 +16,7 @@ namespace System.Graphics.Skia
             _scalingCanvas = new ScalingCanvas(_canvas);
         }
 
-        public EWCanvas Canvas => _scalingCanvas;
+        public ICanvas Canvas => _scalingCanvas;
 
         public EWDrawable Drawable
         {

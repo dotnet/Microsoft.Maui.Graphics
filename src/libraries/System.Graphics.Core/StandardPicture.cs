@@ -1,6 +1,6 @@
 ﻿namespace System.Graphics
 {
-    public delegate void DrawingCommand(EWCanvas canvas, float zoom);
+    public delegate void DrawingCommand(ICanvas canvas);
 
     public class StandardPicture : EWPicture
     {
@@ -23,11 +23,11 @@
             Hash = hash;
         }
 
-        public void Draw(EWCanvas canvas, float zoom, float ppu)
+        public void Draw(ICanvas canvas, float zoom, float ppu)
         {
             if (_commands != null)
                 foreach (var command in _commands)
-                    command.Invoke(canvas, zoom);
+                    command.Invoke(canvas);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             EWImage image;
             var assembly = GetType().GetTypeInfo().Assembly;
@@ -41,7 +41,7 @@ namespace GraphicsTester.Scenarios
                 canvas.Alpha = 1;
 
                 canvas.SaveState();
-                canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+                canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
                 canvas.DrawImage(image, 650, 500, expectedWidth / 2, expectedHeight / 2);
                 canvas.RestoreState();
             }

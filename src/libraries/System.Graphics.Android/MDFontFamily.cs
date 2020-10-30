@@ -53,7 +53,7 @@ namespace System.Graphics.Android
         {
             unchecked
             {
-                return (_name != null ? _name.GetHashCode() : 0);
+                return _name != null ? _name.GetHashCode() : 0;
             }
         }
 

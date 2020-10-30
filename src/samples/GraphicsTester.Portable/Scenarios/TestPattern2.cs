@@ -8,16 +8,16 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
-            var blurrableCanvas = canvas as BlurrableCanvas;
+            var blurrableCanvas = canvas as IBlurrableCanvas;
 
             canvas.SaveState();
             DrawStrokes(canvas);
             canvas.RestoreState();
 
             canvas.SaveState();
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.Translate(0, 100);
             DrawStrokes(canvas);
             canvas.RestoreState();
@@ -38,7 +38,7 @@ namespace GraphicsTester.Scenarios
             canvas.RestoreState();
 
             canvas.SaveState();
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.Translate(0, 400);
             DrawFills(canvas);
             canvas.RestoreState();
@@ -50,7 +50,7 @@ namespace GraphicsTester.Scenarios
             canvas.RestoreState();
         }
 
-        private static void DrawFills(EWCanvas canvas)
+        private static void DrawFills(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.Red;
             canvas.FillRectangle(10, 10, 80, 80);
@@ -73,7 +73,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        private static void DrawStrokes(EWCanvas canvas)
+        private static void DrawStrokes(ICanvas canvas)
         {
             //
             // DrawXXXX Methods

@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public abstract class AbstractPattern : EWPattern
+    public abstract class AbstractPattern : IPattern
     {
         public float Width { get; }
         public float Height { get; }
@@ -23,6 +23,6 @@ namespace System.Graphics
         {
         }
 
-        public abstract void Draw(EWCanvas canvas);
+        public abstract void Draw(ICanvas canvas);
     }
 }

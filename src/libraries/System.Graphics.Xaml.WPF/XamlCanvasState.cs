@@ -24,7 +24,7 @@ namespace System.Graphics.Xaml
         private Effect _effect;
         private Effect _shadowEffect;
         private Effect _blurEffect = null;
-        private float _miterLimit = EWCanvas.DefaultMiterLimit;
+        private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
         private EWLineCap _strokeLineCap = EWLineCap.BUTT;
         private EWLineJoin _strokeLineJoin = EWLineJoin.MITER;
         private TransformGroup _transformGroup;
@@ -398,7 +398,7 @@ namespace System.Graphics.Xaml
             _transformGroup.Children.Add(transform);
         }
 
-        public void XamlConcatenateTransform(EWAffineTransform transform)
+        public void XamlConcatenateTransform(AffineTransform transform)
         {
             InitGroup();
             var nativeTransform = transform.AsTransform();

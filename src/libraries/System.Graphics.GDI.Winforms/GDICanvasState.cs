@@ -277,7 +277,7 @@ namespace System.Graphics.GDI
             StrokeDashPattern = null;
             StrokeLineJoin = LineJoin.Miter;
             StrokeLineCap = LineCap.Flat;
-            StrokeMiterLimit = EWCanvas.DefaultMiterLimit;
+            StrokeMiterLimit = CanvasDefaults.DefaultMiterLimit;
 
             FillColor = Color.White;
 
@@ -325,9 +325,9 @@ namespace System.Graphics.GDI
             _graphics.TranslateTransform(-x, -y);
         }
 
-        public void NativeConcatenateTransform(EWAffineTransform transform)
+        public void NativeConcatenateTransform(AffineTransform transform)
         {
-            _scale *= transform.GetScaleX();
+            _scale *= transform.ScaleX;
             var values = new float[6];
             transform.GetMatrix(values);
             var transformMatrix = new Matrix(values[0], values[1], values[2], values[3], values[4], values[5]);

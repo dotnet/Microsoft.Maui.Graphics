@@ -17,7 +17,7 @@ namespace System.Graphics.Android
             _scalingCanvas = new ScalingCanvas(_canvas);
         }
 
-        public EWCanvas Canvas => _scalingCanvas;
+        public ICanvas Canvas => _scalingCanvas;
 
         public EWDrawable Drawable
         {

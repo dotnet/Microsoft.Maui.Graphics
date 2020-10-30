@@ -59,7 +59,7 @@ namespace System.Graphics.SharpDX
             _canvas = new DXCanvas(_deviceContext) {DisplayScale = displayScale};
         }
 
-        public override EWCanvas Canvas => _canvas;
+        public override ICanvas Canvas => _canvas;
 
         public d2.RenderTarget DeviceContext => _deviceContext;
 

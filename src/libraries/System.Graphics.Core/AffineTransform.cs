@@ -1,15 +1,9 @@
 namespace System.Graphics
 {
-    public class EWAffineTransform
+    public class AffineTransform
     {
-        /**
-     * The min value equivalent to zero. If absolute value less then ZERO it considered as zero.  
-     */
-        private const float Zero = 1E-10f;
-
-        /**
-     * The values of transformation matrix
-     */
+        private const float Epsilon = 1E-10f;
+        
         private float _m00;
         private float _m01;
         private float _m02;
@@ -17,13 +11,13 @@ namespace System.Graphics
         private float _m11;
         private float _m12;
 
-        public EWAffineTransform()
+        public AffineTransform()
         {
             _m00 = _m11 = 1.0f;
             _m10 = _m01 = _m02 = _m12 = 0.0f;
         }
 
-        public EWAffineTransform(EWAffineTransform t)
+        public AffineTransform(AffineTransform t)
         {
             _m00 = t._m00;
             _m10 = t._m10;
@@ -33,7 +27,7 @@ namespace System.Graphics
             _m12 = t._m12;
         }
 
-        public EWAffineTransform(float m00, float m10, float m01, float m11, float m02, float m12)
+        public AffineTransform(float m00, float m10, float m01, float m11, float m02, float m12)
         {
             _m00 = m00;
             _m10 = m10;
@@ -43,7 +37,7 @@ namespace System.Graphics
             _m12 = m12;
         }
 
-        public EWAffineTransform(float[] matrix)
+        public AffineTransform(float[] matrix)
         {
             _m00 = matrix[0];
             _m10 = matrix[1];
@@ -66,35 +60,17 @@ namespace System.Graphics
             _m12 = m12;
         }
 
-        public float GetScaleX()
-        {
-            return _m00;
-        }
+        public float ScaleX => _m00;
 
-        public float GetScaleY()
-        {
-            return _m11;
-        }
+        public float ScaleY => _m11;
 
-        public float GetShearX()
-        {
-            return _m01;
-        }
+        public float ShearX => _m01;
 
-        public float GetShearY()
-        {
-            return _m10;
-        }
+        public float ShearY => _m10;
 
-        public float GetTranslateX()
-        {
-            return _m02;
-        }
+        public float TranslateX => _m02;
 
-        public float GetTranslateY()
-        {
-            return _m12;
-        }
+        public float TranslateY => _m12;
 
         public void GetMatrix(float[] matrix)
         {
@@ -124,7 +100,7 @@ namespace System.Graphics
             _m12 = m12;
         }
 
-        public void SetTransform(EWAffineTransform t)
+        public void SetTransform(AffineTransform t)
         {
             SetTransform(t._m00, t._m10, t._m01, t._m11, t._m02, t._m12);
         }
@@ -162,12 +138,12 @@ namespace System.Graphics
         {
             float sin = (float) Math.Sin(angle);
             float cos = (float) Math.Cos(angle);
-            if (Math.Abs(cos) < Zero)
+            if (Math.Abs(cos) < Epsilon)
             {
                 cos = 0.0f;
                 sin = sin > 0.0f ? 1.0f : -1.0f;
             }
-            else if (Math.Abs(sin) < Zero)
+            else if (Math.Abs(sin) < Epsilon)
             {
                 sin = 0.0f;
                 cos = cos > 0.0f ? 1.0f : -1.0f;
@@ -186,37 +162,37 @@ namespace System.Graphics
             _m12 = py * (1.0f - _m00) - px * _m10;
         }
 
-        public static EWAffineTransform GetTranslateInstance(float mx, float my)
+        public static AffineTransform GetTranslateInstance(float mx, float my)
         {
-            var t = new EWAffineTransform();
+            var t = new AffineTransform();
             t.SetToTranslation(mx, my);
             return t;
         }
 
-        public static EWAffineTransform GetScaleInstance(float scx, float scY)
+        public static AffineTransform GetScaleInstance(float scx, float scY)
         {
-            var t = new EWAffineTransform();
+            var t = new AffineTransform();
             t.SetToScale(scx, scY);
             return t;
         }
 
-        public static EWAffineTransform GetShearInstance(float shx, float shy)
+        public static AffineTransform GetShearInstance(float shx, float shy)
         {
-            var m = new EWAffineTransform();
+            var m = new AffineTransform();
             m.SetToShear(shx, shy);
             return m;
         }
 
-        public static EWAffineTransform GetRotateInstance(float angle)
+        public static AffineTransform GetRotateInstance(float angle)
         {
-            var t = new EWAffineTransform();
+            var t = new AffineTransform();
             t.SetToRotation(angle);
             return t;
         }
 
-        public static EWAffineTransform GetRotateInstance(float angle, float x, float y)
+        public static AffineTransform GetRotateInstance(float angle, float x, float y)
         {
-            var t = new EWAffineTransform();
+            var t = new AffineTransform();
             t.SetToRotation(angle, x, y);
             return t;
         }
@@ -255,17 +231,16 @@ namespace System.Graphics
         {
             Concatenate(GetRotateInstance(angle, px, py));
         }
-
-        /** 
-     * Multiply matrix of two AffineTransform objects 
-     * @param t1 - the AffineTransform object is a multiplicand
-     * @param t2 - the AffineTransform object is a multiplier
-     * @return an AffineTransform object that is a result of t1 multiplied by matrix t2. 
-     */
-
-        private EWAffineTransform Multiply(EWAffineTransform t1, EWAffineTransform t2)
+        
+        /// <summary>
+        /// Multiply two AffineTransform objects 
+        /// </summary>
+        /// <param name="t1">the multiplicand</param>
+        /// <param name="t2">the multiplier</param>
+        /// <returns>an AffineTransform object that is a result of t1 multiplied by t2</returns>
+        private AffineTransform Multiply(AffineTransform t1, AffineTransform t2)
         {
-            return new EWAffineTransform(
+            return new AffineTransform(
                 t1._m00 * t2._m00 + t1._m10 * t2._m01, // m00
                 t1._m00 * t2._m10 + t1._m10 * t2._m11, // m01
                 t1._m01 * t2._m00 + t1._m11 * t2._m01, // m10
@@ -274,32 +249,29 @@ namespace System.Graphics
                 t1._m02 * t2._m10 + t1._m12 * t2._m11 + t2._m12); // m12
         }
 
-        public void Concatenate(EWAffineTransform t)
+        public void Concatenate(AffineTransform t)
         {
             SetTransform(Multiply(t, this));
         }
 
-        public void PreConcatenate(EWAffineTransform t)
+        public void PreConcatenate(AffineTransform t)
         {
             SetTransform(Multiply(this, t));
         }
 
-        public EWAffineTransform CreateInverse()
+        public AffineTransform CreateInverse()
         {
             float det = GetDeterminant();
-            if (Math.Abs(det) < Zero)
-            {
-                // awt.204=Determinant is zero
+            if (Math.Abs(det) < Epsilon)
                 throw new Exception("Determinant is zero");
-            }
 
-            return new EWAffineTransform(
-                _m11 / det, // m00
-                -_m10 / det, // m10
-                -_m01 / det, // m01
-                _m00 / det, // m11
-                (_m01 * _m12 - _m11 * _m02) / det, // m02
-                (_m10 * _m02 - _m00 * _m12) / det // m12
+            return new AffineTransform(
+                _m11 / det, 
+                -_m10 / det,
+                -_m01 / det,
+                _m00 / det,
+                (_m01 * _m12 - _m11 * _m02) / det, 
+                (_m10 * _m02 - _m00 * _m12) / det
             );
         }
 
@@ -316,10 +288,8 @@ namespace System.Graphics
         public EWPoint InverseTransform(EWPoint src)
         {
             float det = GetDeterminant();
-            if (Math.Abs(det) < Zero)
-            {
+            if (Math.Abs(det) < Epsilon)
                 throw new Exception("Unable to inverse this transform.");
-            }
 
             float x = src.X - _m02;
             float y = src.Y - _m12;

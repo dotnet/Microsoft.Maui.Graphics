@@ -15,7 +15,7 @@ namespace System.Graphics.CoreGraphics
             _canvas = new CGCanvas(() => colorspace);
         }
 
-        public EWCanvas Canvas => _canvas;
+        public ICanvas Canvas => _canvas;
 
         public EWDrawable Drawable
         {

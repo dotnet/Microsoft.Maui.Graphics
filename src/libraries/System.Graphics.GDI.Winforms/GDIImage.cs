@@ -108,7 +108,7 @@ namespace System.Graphics.GDI
             return Task.Factory.StartNew(() => Save(stream, format, quality));
         }
 
-        public void Draw(EWCanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
         {
             canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, Math.Abs(dirtyRect.Width), Math.Abs(dirtyRect.Height));
         }

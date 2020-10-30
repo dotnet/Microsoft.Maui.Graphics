@@ -21,7 +21,7 @@ namespace System.Graphics.GDI
             };
         }
 
-        public override EWCanvas Canvas => _canvas;
+        public override ICanvas Canvas => _canvas;
 
         public override void Dispose()
         {

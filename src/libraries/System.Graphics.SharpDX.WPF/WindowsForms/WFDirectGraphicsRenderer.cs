@@ -59,7 +59,7 @@ namespace System.Graphics.SharpDX.WindowsForms
             set => _dirty = value;
         }
 
-        public EWCanvas Canvas => _canvas;
+        public ICanvas Canvas => _canvas;
 
         public EWDrawable Drawable
         {

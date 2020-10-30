@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        private void DrawArc(EWCanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
+        private void DrawArc(ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
         {
             canvas.FillColor = StandardColors.Black;
             canvas.FillArc(x, y, width, height, startAngle, endAngle, clockwise);
@@ -20,7 +20,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
 

@@ -5,7 +5,7 @@ namespace System.Graphics.Skia
     public interface ISkiaGraphicsRenderer : IDisposable
     {
         WDSkiaGraphicsView GraphicsView { set; }
-        EWCanvas Canvas { get; }
+        ICanvas Canvas { get; }
         EWDrawable Drawable { get; set; }
         EWColor BackgroundColor { get; set; }
         void Draw(SKCanvas canvas, EWRectangle dirtyRect);

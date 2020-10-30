@@ -5,7 +5,7 @@ namespace System.Graphics.CoreGraphics
     public interface MTGraphicsRenderer : IDisposable
     {
         MTGraphicsView GraphicsView { set; }
-        EWCanvas Canvas { get; }
+        ICanvas Canvas { get; }
         EWDrawable Drawable { get; set; }
         void Draw(CGContext coreGraphics, EWRectangle dirtyRect, bool inPanOrZoom);
         void SizeChanged(float width, float height);

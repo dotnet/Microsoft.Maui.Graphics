@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.DrawLine(50, 20.5f, 200, 20.5f);
 
@@ -25,24 +25,24 @@ namespace GraphicsTester.Scenarios
             canvas.DrawLine(50, 30.5f, 200, 30.5f);
         }
 
-        private static void DrawShadowedLine(EWCanvas canvas)
+        private static void DrawShadowedLine(ICanvas canvas)
         {
             canvas.SaveState();
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 10;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.DrawLine(50, 400, 200, 400);
             canvas.RestoreState();
 
             canvas.SaveState();
             canvas.StrokeColor = StandardColors.Salmon;
             canvas.StrokeSize = 10;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.DrawLine(50, 450, 200, 450);
             canvas.RestoreState();
         }
 
-        private static void DrawLinesWithLineCaps(EWCanvas canvas)
+        private static void DrawLinesWithLineCaps(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 20;
@@ -62,7 +62,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawLine(50, 350, 200, 350);
         }
 
-        private static void DrawDashedLinesOfDifferentSizes(EWCanvas canvas)
+        private static void DrawDashedLinesOfDifferentSizes(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Salmon;
             for (int i = 1; i < 5; i++)
@@ -74,7 +74,7 @@ namespace GraphicsTester.Scenarios
             }
         }
 
-        private static void DrawLinesOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void DrawLinesOfDifferentSizesAndColors(ICanvas canvas)
         {
             for (int i = 1; i < 5; i++)
             {
@@ -91,7 +91,7 @@ namespace GraphicsTester.Scenarios
             }
         }
 
-        private static void DrawLinesWithAlpha(EWCanvas canvas)
+        private static void DrawLinesWithAlpha(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.Black;
             canvas.StrokeSize = 2;

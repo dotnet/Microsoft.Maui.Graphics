@@ -6,7 +6,7 @@ namespace System.Graphics
         private EWSize _endLocationRatio;
         private EWImage _image;
         private EWPaintType _paintType = EWPaintType.LINEAR_GRADIENT;
-        private EWPattern _pattern;
+        private IPattern _pattern;
         private EWSize _startLocationRatio;
 
         private EWPaintStop[] _stops =
@@ -100,7 +100,7 @@ namespace System.Graphics
             set => _stops[_stops.Length - 1].Color = value;
         }
 
-        public EWPattern Pattern
+        public IPattern Pattern
         {
             get => _pattern;
 

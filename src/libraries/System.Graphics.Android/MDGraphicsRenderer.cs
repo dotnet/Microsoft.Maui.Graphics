@@ -5,7 +5,7 @@ namespace System.Graphics.Android
     public interface MDGraphicsRenderer : IDisposable
     {
         MDGraphicsView GraphicsView { set; }
-        EWCanvas Canvas { get; }
+        ICanvas Canvas { get; }
         EWDrawable Drawable { get; set; }
         EWColor BackgroundColor { get; set; }
         void Draw(Canvas androidCanvas, EWRectangle dirtyRect, bool inPanOrZoom);

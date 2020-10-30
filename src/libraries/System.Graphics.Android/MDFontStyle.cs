@@ -50,7 +50,7 @@ namespace System.Graphics.Android
         {
             unchecked
             {
-                return (Id != null ? Id.GetHashCode() : 0);
+                return Id != null ? Id.GetHashCode() : 0;
             }
         }
 

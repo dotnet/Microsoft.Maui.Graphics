@@ -83,16 +83,16 @@ namespace System.Graphics.Skia
             return vPath;
         } */
 
-        public static SKMatrix AsMatrix(this EWAffineTransform transform)
+        public static SKMatrix AsMatrix(this AffineTransform transform)
         {
             var matrix = new SKMatrix
             {
-                ScaleX = transform.GetScaleX(),
-                SkewX = transform.GetShearX(),
-                TransX = transform.GetTranslateX(),
-                SkewY = transform.GetShearY(),
-                ScaleY = transform.GetScaleY(),
-                TransY = transform.GetTranslateY(),
+                ScaleX = transform.ScaleX,
+                SkewX = transform.ShearX,
+                TransX = transform.TranslateX,
+                SkewY = transform.ShearY,
+                ScaleY = transform.ScaleY,
+                TransY = transform.TranslateY,
                 Persp0 = 0,
                 Persp1 = 0,
                 Persp2 = 1
@@ -361,7 +361,7 @@ namespace System.Graphics.Skia
             return new EWPoint(target.X, target.Y);
         }
 
-        public static SKBitmap GetPatternBitmap(this EWPaint paint, object currentFigure, float scale = 1)
+        public static SKBitmap GetPatternBitmap(this EWPaint paint, float scale = 1)
         {
             var pattern = paint?.Pattern;
             if (pattern == null)
@@ -371,18 +371,9 @@ namespace System.Graphics.Skia
             {
                 var canvas = context.Canvas;
 
-                if (currentFigure != null)
-                    canvas.StartFigure(currentFigure);
-
                 canvas.Scale(scale, scale);
                 pattern.Draw(canvas);
 
-                if (currentFigure != null)
-                    context.Canvas.StartFigure(currentFigure);
-
-                //var filename = "/storage/emulated/0/" + pattern.GetType().Name + ".png";
-                //System.Console.WriteLine("Writing to :{0}",filename);
-                //context.WriteToFile (filename);
                 return context.Bitmap;
             }
         }
@@ -398,13 +389,15 @@ namespace System.Graphics.Skia
                 var canvas = context.Canvas;
 
                 if (currentFigure != null)
-                    canvas.StartFigure(currentFigure);
+                {
+                }
 
                 canvas.Scale(scaleX, scaleY);
                 pattern.Draw(canvas);
 
                 if (currentFigure != null)
-                    context.Canvas.StartFigure(currentFigure);
+                {
+                }
 
                 //var filename = "/storage/emulated/0/" + pattern.GetType().Name + ".png";
                 //System.Console.WriteLine("Writing to :{0}",filename);

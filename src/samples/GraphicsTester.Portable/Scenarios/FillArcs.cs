@@ -12,7 +12,7 @@ namespace GraphicsTester.Scenarios
             this.includeOvals = includeOvals;
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             if (includeOvals)
             {
@@ -53,24 +53,24 @@ namespace GraphicsTester.Scenarios
             canvas.FillArc(250.5f, 30.5f, 150, 15, 90, 270, true);
         }
 
-        private static void OvalFillShadowedRect(EWCanvas canvas)
+        private static void OvalFillShadowedRect(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.LightGrey;
             canvas.FillOval(50.5f, 400.5f, 200, 50);
             canvas.FillColor = StandardColors.Black;
         }
 
-        private static void FillShadowedRect(EWCanvas canvas)
+        private static void FillShadowedRect(ICanvas canvas)
         {
             canvas.SaveState();
             canvas.FillColor = StandardColors.Black;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.FillArc(50.5f, 400.5f, 200, 50, 90, 270, true);
 
             canvas.RestoreState();
         }
 
-        private static void OvalFillArcsOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void OvalFillArcsOfDifferentSizesAndColors(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.LightGrey;
             for (int i = 1; i < 5; i++)
@@ -87,7 +87,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillColor = StandardColors.Black;
         }
 
-        private static void FillArcsOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void FillArcsOfDifferentSizesAndColors(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.Salmon;
             for (int i = 1; i < 5; i++)
@@ -103,7 +103,7 @@ namespace GraphicsTester.Scenarios
             }
         }
 
-        private static void FillArcsWithAlpha(EWCanvas canvas)
+        private static void FillArcsWithAlpha(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.Black;
             canvas.StrokeSize = 2;

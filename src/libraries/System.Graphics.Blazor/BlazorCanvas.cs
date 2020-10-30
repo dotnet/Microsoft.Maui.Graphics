@@ -39,7 +39,7 @@ namespace System.Graphics.Blazor
         public override float FontSize { set => CurrentState.FontSize = value; }
         public override float Alpha { set => _context.GlobalAlpha = value; }
         public override bool Antialias { set { /* do nothing */} }
-        public override EWBlendMode BlendMode { set { /* do nothing */ } }
+        public override BlendMode BlendMode { set { /* do nothing */ } }
 
         public void ClearRect(float x1, float y1, float width, float height)
         {
@@ -212,7 +212,7 @@ namespace System.Graphics.Blazor
             }
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
             Logger.Debug("BlazorCanvas.SetShadow - not yet supported.");
         }
@@ -234,7 +234,7 @@ namespace System.Graphics.Blazor
             _context.Clip("evenodd");
         }
         
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             transform.GetMatrix(_matrix);
             _context.SetTransform(_matrix[0], _matrix[1], _matrix[2], _matrix[3], _matrix[4], _matrix[5]);

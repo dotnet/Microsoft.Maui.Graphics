@@ -2,78 +2,78 @@ namespace System.Graphics
 {
     public static class EWCanvasExtensions
     {
-        public static void SetStrokeDashPattern(this EWCanvas target, float[] pattern, float strokeSize)
+        public static void SetStrokeDashPattern(this ICanvas target, float[] pattern, float strokeSize)
         {
             target.StrokeDashPattern = pattern;
         }
 
-        public static void DrawLine(this EWCanvas target, EWImmutablePoint point1, EWImmutablePoint point2)
+        public static void DrawLine(this ICanvas target, EWImmutablePoint point1, EWImmutablePoint point2)
         {
             target.DrawLine(point1.X, point1.Y, point2.X, point2.Y);
         }
 
-        public static void DrawRectangle(this EWCanvas target, EWRectangle rect)
+        public static void DrawRectangle(this ICanvas target, EWRectangle rect)
         {
             target.DrawRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void FillRectangle(this EWCanvas target, EWRectangle rect)
+        public static void FillRectangle(this ICanvas target, EWRectangle rect)
         {
             target.FillRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void DrawRoundedRectangle(this EWCanvas target, EWRectangle rect, float aCornerRadius)
+        public static void DrawRoundedRectangle(this ICanvas target, EWRectangle rect, float aCornerRadius)
         {
             target.DrawRoundedRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height), aCornerRadius);
         }
 
-        public static void FillRoundedRectangle(this EWCanvas target, EWRectangle rect, float aCornerRadius)
+        public static void FillRoundedRectangle(this ICanvas target, EWRectangle rect, float aCornerRadius)
         {
             target.FillRoundedRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height), aCornerRadius);
         }
 
-        public static void DrawOval(this EWCanvas target, EWRectangle rect)
+        public static void DrawOval(this ICanvas target, EWRectangle rect)
         {
             target.DrawOval(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void FillOval(this EWCanvas target, EWRectangle rect)
+        public static void FillOval(this ICanvas target, EWRectangle rect)
         {
             target.FillOval(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void DrawPath(this EWCanvas target, EWPath path)
+        public static void DrawPath(this ICanvas target, EWPath path)
         {
             target.DrawPath(path);
         }
 
-        public static void FillPath(this EWCanvas target, EWPath path)
+        public static void FillPath(this ICanvas target, EWPath path)
         {
             target.FillPath(path, EWWindingMode.NonZero);
         }
 
-        public static void FillPath(this EWCanvas target, EWPath path, EWWindingMode windingMode)
+        public static void FillPath(this ICanvas target, EWPath path, EWWindingMode windingMode)
         {
             target.FillPath(path, windingMode);
         }
 
-        public static void ClipPath(this EWCanvas target, EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public static void ClipPath(this ICanvas target, EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
             target.ClipPath(path, windingMode);
         }
 
-        public static void ClipRectangle(this EWCanvas target, EWRectangle rect)
+        public static void ClipRectangle(this ICanvas target, EWRectangle rect)
         {
             target.ClipRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void DrawString(this EWCanvas target, string value, EWRectangle bounds, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
+        public static void DrawString(this ICanvas target, string value, EWRectangle bounds, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
             target.DrawString(value, bounds.MinX, bounds.MinY, Math.Abs(bounds.Width), Math.Abs(bounds.Height), horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
         }
 
-        public static void FillCircle(this EWCanvas target, float centerX, float centerY, float radius)
+        public static void FillCircle(this ICanvas target, float centerX, float centerY, float radius)
         {
             var x = centerX - radius;
             var y = centerY - radius;
@@ -82,7 +82,7 @@ namespace System.Graphics
             target.FillOval(x, y, size, size);
         }
 
-        public static void FillCircle(this EWCanvas target, EWImmutablePoint center, float radius)
+        public static void FillCircle(this ICanvas target, EWImmutablePoint center, float radius)
         {
             var x = center.X - radius;
             var y = center.Y - radius;
@@ -91,7 +91,7 @@ namespace System.Graphics
             target.FillOval(x, y, size, size);
         }
 
-        public static void DrawCircle(this EWCanvas target, float centerX, float centerY, float radius)
+        public static void DrawCircle(this ICanvas target, float centerX, float centerY, float radius)
         {
             var x = centerX - radius;
             var y = centerY - radius;
@@ -100,7 +100,7 @@ namespace System.Graphics
             target.DrawOval(x, y, size, size);
         }
 
-        public static void DrawCircle(this EWCanvas target, EWImmutablePoint center, float radius)
+        public static void DrawCircle(this ICanvas target, EWImmutablePoint center, float radius)
         {
             var x = center.X - radius;
             var y = center.Y - radius;
@@ -123,7 +123,7 @@ namespace System.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="paint">The paint</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this EWCanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, EWPaint paint, bool clockwise)
+        public static void FillArc(this ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, EWPaint paint, bool clockwise)
         {
             var rectangle = new EWRectangle(x, y, width, height);
             canvas.SetFillPaint(paint, rectangle);
@@ -140,7 +140,7 @@ namespace System.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
         /// <param name="closed">If the arc is closed or not</param>
-        public static void DrawArc(this EWCanvas canvas, EWRectangle bounds, float startAngle, float endAngle, bool clockwise, bool closed)
+        public static void DrawArc(this ICanvas canvas, EWRectangle bounds, float startAngle, float endAngle, bool clockwise, bool closed)
         {
             canvas.DrawArc(bounds.X1, bounds.Y1, bounds.Width, bounds.Height, startAngle, endAngle, clockwise, closed);
         }
@@ -154,7 +154,7 @@ namespace System.Graphics
         /// <param name="startAngle">The start angle</param>
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this EWCanvas canvas, EWRectangle bounds, float startAngle, float endAngle, bool clockwise)
+        public static void FillArc(this ICanvas canvas, EWRectangle bounds, float startAngle, float endAngle, bool clockwise)
         {
             canvas.FillArc(bounds.X1, bounds.Y1, bounds.Width, bounds.Height, startAngle, endAngle, clockwise);
         }
@@ -164,9 +164,9 @@ namespace System.Graphics
         /// </summary>
         /// <param name="canvas">canvas</param>
         /// <param name="zoom">Zoom.</param>
-        public static void EnableDefaultShadow(this EWCanvas canvas, float zoom = 1)
+        public static void EnableDefaultShadow(this ICanvas canvas, float zoom = 1)
         {
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, zoom);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace System.Graphics
         ///  - Stroke Color: Black
         /// </summary>
         /// <param name="canvas">Canvas.</param>
-        public static void ResetStroke(this EWCanvas canvas)
+        public static void ResetStroke(this ICanvas canvas)
         {
             canvas.StrokeSize = 1;
             canvas.StrokeDashPattern = null;
@@ -188,6 +188,45 @@ namespace System.Graphics
             canvas.StrokeLineJoin = EWLineJoin.MITER;
             canvas.StrokeLineCap = EWLineCap.BUTT;
             canvas.StrokeColor = StandardColors.Black;
+        }
+        
+        public static void SetFillPattern(this ICanvas target, IPattern pattern)
+        {
+            SetFillPattern(target, pattern, StandardColors.Black);
+        }
+
+        public static void SetFillPattern(
+            this ICanvas target,
+            IPattern pattern,
+            EWColor foregroundColor)
+        {
+            if (target != null)
+            {
+                if (pattern != null)
+                {
+                    var paint = pattern.AsPaint(foregroundColor);
+                    target.SetFillPaint(paint, 0, 0, 0, 0);
+                }
+                else
+                {
+                    target.FillColor = StandardColors.White;
+                }
+            }
+        }
+        
+        public static void SubtractFromClip(this ICanvas target, EWRectangle rect)
+        {
+            target.SubtractFromClip(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+        }
+        
+        public static void SetFillPaint(this ICanvas target, EWPaint paint, EWImmutablePoint point1, EWImmutablePoint point2)
+        {
+            target.SetFillPaint(paint, point1.X, point1.Y, point2.X, point2.Y);
+        }
+        
+        public static void SetFillPaint(this ICanvas target, EWPaint paint, EWRectangle rectangle)
+        {
+            target.SetFillPaint(paint, rectangle.X1, rectangle.Y1, rectangle.X2, rectangle.Y2);
         }
     }
 }

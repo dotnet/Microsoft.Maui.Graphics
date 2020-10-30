@@ -3,246 +3,250 @@ using System.Graphics.Text;
 
 namespace System.Graphics
 {
-    public class ScalingCanvas : EWCanvas, BlurrableCanvas
+    public class ScalingCanvas : ICanvas, IBlurrableCanvas
     {
-        private readonly EWCanvas _canvas;
-        private readonly BlurrableCanvas _blurrableCanvas;
+        private readonly ICanvas _canvas;
+        private readonly IBlurrableCanvas _blurrableCanvas;
         private readonly Stack<float> _scaleXStack = new Stack<float>();
         private readonly Stack<float> _scaleYStack = new Stack<float>();
         private float _scaleX = 1f;
         private float _scaleY = 1f;
 
-        public ScalingCanvas(EWCanvas wrapped)
+        public ScalingCanvas(ICanvas wrapped)
         {
             _canvas = wrapped;
-            _blurrableCanvas = _canvas as BlurrableCanvas;
+            _blurrableCanvas = _canvas as IBlurrableCanvas;
         }
 
-        public override float DisplayScale => _canvas.DisplayScale;
+        public float RetinaScale
+        {
+            get => _canvas.RetinaScale;
+            set => _canvas.RetinaScale = value;
+        }
+        
+        public float DisplayScale
+        {
+            get => _canvas.DisplayScale;
+            set => _canvas.DisplayScale = value;
+        }
 
         public object Wrapped => _canvas;
 
-        public EWCanvas ParentCanvas => _canvas;
+        public ICanvas ParentCanvas => _canvas;
 
-        public override float StrokeSize
+        public float StrokeSize
         {
             set => _canvas.StrokeSize = value;
         }
 
-        public override float MiterLimit
+        public float MiterLimit
         {
             set => _canvas.MiterLimit = value;
         }
 
-        public override EWColor StrokeColor
+        public EWColor StrokeColor
         {
             set => _canvas.StrokeColor = value;
         }
 
-        public override EWLineCap StrokeLineCap
+        public EWLineCap StrokeLineCap
         {
             set => _canvas.StrokeLineCap = value;
         }
         
-        public override float Alpha
+        public float Alpha
         {
             set => _canvas.Alpha = value;
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public EWLineJoin StrokeLineJoin
         {
             set => _canvas.StrokeLineJoin = value;
         }
 
-        public override float[] StrokeDashPattern
+        public float[] StrokeDashPattern
         {
             set => _canvas.StrokeDashPattern = value;
         }
 
-        public override EWStrokeLocation StrokeLocation
+        public EWStrokeLocation StrokeLocation
         {
             set => _canvas.StrokeLocation = value;
         }
 
-        public override bool LimitStrokeScaling
+        public bool LimitStrokeScaling
         {
             set => _canvas.LimitStrokeScaling = value;
         }
 
-        public override float StrokeLimit
+        public float StrokeLimit
         {
             set => _canvas.StrokeLimit = value;
         }
 
-        public override EWColor FillColor
+        public EWColor FillColor
         {
             set => _canvas.FillColor = value;
         }
 
-        public override EWColor FontColor
+        public EWColor FontColor
         {
             set => _canvas.FontColor = value;
         }
 
-        public override string FontName
+        public string FontName
         {
             set => _canvas.FontName = value;
         }
 
-        public override float FontSize
+        public float FontSize
         {
             set => _canvas.FontSize = value;
         }
 
-        public override EWBlendMode BlendMode
+        public BlendMode BlendMode
         {
             set => _canvas.BlendMode = value;
         }
 
-        public override bool Antialias
+        public bool Antialias
         {
             set => _canvas.Antialias = value;
         }
 
-        public override void SubtractFromClip(float x1, float y1, float x2, float y2)
+        public void SubtractFromClip(float x1, float y1, float x2, float y2)
         {
             _canvas.SubtractFromClip(x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }
         
-        public override void DrawLine(float x1, float y1, float x2, float y2)
+        public void DrawLine(float x1, float y1, float x2, float y2)
         {
             _canvas.DrawLine(x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }
 
-        public override void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
+        public void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
         {
             _canvas.DrawArc(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, startAngle, endAngle, clockwise, closed);
         }
 
-        public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise)
+        public void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise)
         {
             _canvas.FillArc(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, startAngle, endAngle, clockwise);
         }
 
-        public override void DrawOval(float x, float y, float width, float height)
+        public void DrawOval(float x, float y, float width, float height)
         {
             _canvas.DrawOval(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public void DrawImage(EWImage image, float x, float y, float width, float height)
         {
             _canvas.DrawImage(image, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
         
-        public override void DrawRectangle(float x, float y, float width, float height)
+        public void DrawRectangle(float x, float y, float width, float height)
         {
             _canvas.DrawRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public override void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
             _canvas.DrawRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, horizontalAlignment);
         }
 
-        public override void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
+        public void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, horizontalAlignment, verticalAlignment, textFlow);
         }
-
-        public override void DrawString(EWPath path, string value, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
-        {
-            _canvas.DrawString(path, value, horizontalAlignment, verticalAlignment, textFlow);
-        }
-
-        public override void DrawText(IAttributedText value, float x, float y, float width, float height)
+        
+        public void DrawText(IAttributedText value, float x, float y, float width, float height)
         {
             _canvas.DrawText(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public override void FillOval(float x, float y, float width, float height)
+        public void FillOval(float x, float y, float width, float height)
         {
             _canvas.FillOval(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public override void FillRectangle(float x, float y, float width, float height)
+        public void FillRectangle(float x, float y, float width, float height)
         {
             _canvas.FillRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public override void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
             _canvas.FillRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public override void DrawPath(EWPath path)
+        public void DrawPath(EWPath path)
         {
             _canvas.DrawPath(path);
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public void FillPath(EWPath path, EWWindingMode windingMode)
         {
             _canvas.FillPath(path, windingMode);
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
             _canvas.ClipPath(path, windingMode);
         }
 
-        public override void ClipRectangle(float x, float y, float width, float height)
+        public void ClipRectangle(float x, float y, float width, float height)
         {
             _canvas.ClipRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public override void Rotate(float degrees, float x, float y)
+        public void Rotate(float degrees, float x, float y)
         {
             _canvas.Rotate(degrees, x * _scaleX, y * _scaleY);
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
             _canvas.SetFillPaint(paint, x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }
 
-        public override void Rotate(float degrees)
+        public void Rotate(float degrees)
         {
             _canvas.Rotate(degrees);
         }
 
-        public override void Scale(float sx, float sy)
+        public void Scale(float sx, float sy)
         {
             _scaleX *= Math.Abs(sx);
             _scaleY *= Math.Abs(sy);
             _canvas.Scale(sx, sy);
         }
 
-        public override void Translate(float tx, float ty)
+        public void Translate(float tx, float ty)
         {
             _canvas.Translate(tx, ty);
         }
 
-        public override void ConcatenateTransform(EWAffineTransform transform)
+        public void ConcatenateTransform(AffineTransform transform)
         {
-            _scaleX *= transform.GetScaleX();
-            _scaleY *= transform.GetScaleY();
+            _scaleX *= transform.ScaleX;
+            _scaleY *= transform.ScaleY;
             _canvas.ConcatenateTransform(transform);
         }
 
-        public override void SaveState()
+        public void SaveState()
         {
             _canvas.SaveState();
             _scaleXStack.Push(_scaleX);
             _scaleYStack.Push(_scaleY);
         }
 
-        public override void ResetState()
+        public void ResetState()
         {
             _canvas.ResetState();
             _scaleXStack.Clear();
@@ -251,7 +255,7 @@ namespace System.Graphics
             _scaleY = 1;
         }
 
-        public override bool RestoreState()
+        public bool RestoreState()
         {
             var restored = _canvas.RestoreState();
             if (_scaleXStack.Count > 0)
@@ -273,31 +277,19 @@ namespace System.Graphics
             return _scaleX;
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            _canvas.SetShadow(offset, blur, color, zoom);
+            _canvas.SetShadow(offset, blur, color);
         }
 
-        public override void SetToSystemFont()
+        public void SetToSystemFont()
         {
             _canvas.SetToSystemFont();
         }
 
-        public override void SetToBoldSystemFont()
+        public void SetToBoldSystemFont()
         {
             _canvas.SetToBoldSystemFont();
-        }
-
-        public override object CurrentFigure => _canvas.CurrentFigure;
-
-        public override void StartFigure(object figure)
-        {
-            _canvas.StartFigure(figure);
-        }
-
-        public override void EndFigure()
-        {
-            _canvas.EndFigure();
         }
 
         public void SetBlur(float blurRadius)

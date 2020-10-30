@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public enum EWBlendMode
+    public enum BlendMode
     {
         Normal,
         Multiply,
@@ -27,7 +27,7 @@ namespace System.Graphics
         DestinationIn,
         DestinationOut,
         DestinationAtop,
-        XOR,
+        Xor,
         PlusDarker,
         PlusLighter
     }

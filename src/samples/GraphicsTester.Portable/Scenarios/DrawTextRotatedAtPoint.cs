@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
             canvas.Rotate(90, 360, 640);
@@ -29,15 +29,15 @@ namespace GraphicsTester.Scenarios
             canvas.DrawString("Red - Align Right", 250, 150, EwHorizontalAlignment.Right);
 
             canvas.SaveState();
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.DrawString("Red - Shadowed", 50, 200, EwHorizontalAlignment.Left);
             canvas.RestoreState();
 
-            var blurrableCanvas = canvas as BlurrableCanvas;
+            var blurrableCanvas = canvas as IBlurrableCanvas;
             if (blurrableCanvas != null)
             {
                 canvas.SaveState();
-                blurrableCanvas.SetBlur(EWCanvas.DefaultShadowBlur);
+                blurrableCanvas.SetBlur(CanvasDefaults.DefaultShadowBlur);
                 canvas.DrawString("Red - Shadowed", 50, 250, EwHorizontalAlignment.Left);
                 canvas.RestoreState();
             }

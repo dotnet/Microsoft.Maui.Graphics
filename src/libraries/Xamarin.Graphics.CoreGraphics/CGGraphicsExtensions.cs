@@ -349,7 +349,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public static CGAffineTransform AsCGAffineTransform(this EWAffineTransform transform)
+        public static CGAffineTransform AsCGAffineTransform(this AffineTransform transform)
         {
             if (transform != null)
             {

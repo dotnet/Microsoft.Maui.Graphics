@@ -11,7 +11,7 @@ using Microsoft.Graphics.Canvas.Text;
 
 namespace System.Graphics.Win2D
 {
-    public class W2DCanvas : AbstractCanvas<W2DCanvasState>, BlurrableCanvas
+    public class W2DCanvas : AbstractCanvas<W2DCanvasState>, IBlurrableCanvas
     {
         private CanvasDrawingSession _session;
         private CanvasRenderTarget _patternContext;
@@ -117,7 +117,7 @@ namespace System.Graphics.Win2D
             set {  }
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set {  }
         }
@@ -382,9 +382,9 @@ namespace System.Graphics.Win2D
             Logger.Warn("Not implemented");
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            CurrentState.SetShadow(offset, blur, color, zoom);
+            CurrentState.SetShadow(offset, blur, color);
         }
 
         public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
@@ -488,7 +488,7 @@ namespace System.Graphics.Win2D
             }
         }
 
-        private CanvasCommandList CreatePatternCommandList(EWPattern pattern)
+        private CanvasCommandList CreatePatternCommandList(IPattern pattern)
         {
             var commandList = new CanvasCommandList(_session);
             using (var patternSession = commandList.CreateDrawingSession())
@@ -501,7 +501,7 @@ namespace System.Graphics.Win2D
         }
 
 
-        private CanvasBitmap CreatePatternBitmap(EWPattern pattern)
+        private CanvasBitmap CreatePatternBitmap(IPattern pattern)
         {
             var context = GetOrCreatePatternContext(new Size(pattern.Width, pattern.Height));
             if (context != null)
@@ -808,7 +808,7 @@ namespace System.Graphics.Win2D
             _session.Transform = CurrentState.AppendTranslate(tx, ty);
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             _session.Transform = CurrentState.AppendConcatenateTransform(transform);
         }

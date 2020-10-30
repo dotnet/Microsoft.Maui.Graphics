@@ -67,7 +67,7 @@ namespace System.Graphics
             float scale)
         {
             var scaledPath = new EWPath(target);
-            var transform = EWAffineTransform.GetScaleInstance(scale, scale);
+            var transform = AffineTransform.GetScaleInstance(scale, scale);
             scaledPath.Transform(transform);
             return scaledPath;
         }

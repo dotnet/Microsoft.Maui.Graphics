@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
 
@@ -165,7 +165,7 @@ namespace GraphicsTester.Scenarios
             path.LineTo(590, 120);
             canvas.DrawPath(path);
 
-            canvas.MiterLimit = EWCanvas.DefaultMiterLimit;
+            canvas.MiterLimit = CanvasDefaults.DefaultMiterLimit;
 
             //
             // Stroke Dash Pattern
@@ -256,16 +256,16 @@ namespace GraphicsTester.Scenarios
 
             canvas.SaveState();
             canvas.FillColor = StandardColors.CornflowerBlue;
-            canvas.SetShadow(new EWSize(5, 5), 0, StandardColors.Grey, 1);
+            canvas.SetShadow(new EWSize(5, 5), 0, StandardColors.Grey);
             canvas.FillRectangle(50, 900, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 2, StandardColors.Red, 1);
+            canvas.SetShadow(new EWSize(5, 5), 2, StandardColors.Red);
             canvas.FillOval(200, 900, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 5, StandardColors.Green, 1);
+            canvas.SetShadow(new EWSize(5, 5), 5, StandardColors.Green);
             canvas.FillRoundedRectangle(350, 900, 100, 50, 25);
 
-            canvas.SetShadow(new EWSize(10, 10), 5, StandardColors.Blue, 1);
+            canvas.SetShadow(new EWSize(10, 10), 5, StandardColors.Blue);
 
             path = new EWPath();
             path.MoveTo(550, 900);
@@ -280,16 +280,16 @@ namespace GraphicsTester.Scenarios
             //
 
             canvas.StrokeColor = StandardColors.Black;
-            canvas.SetShadow(new EWSize(5, 5), 0, StandardColors.Grey, 1);
+            canvas.SetShadow(new EWSize(5, 5), 0, StandardColors.Grey);
             canvas.DrawRectangle(50, 1000, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 2, StandardColors.Red, 1);
+            canvas.SetShadow(new EWSize(5, 5), 2, StandardColors.Red);
             canvas.DrawOval(200, 1000, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 5, StandardColors.Green, 1);
+            canvas.SetShadow(new EWSize(5, 5), 5, StandardColors.Green);
             canvas.DrawRoundedRectangle(350, 1000, 100, 50, 25);
 
-            canvas.SetShadow(new EWSize(10, 10), 5, StandardColors.Blue, 1);
+            canvas.SetShadow(new EWSize(10, 10), 5, StandardColors.Blue);
             path = new EWPath();
             path.MoveTo(550, 1000);
             path.LineTo(500, 1050);
@@ -325,19 +325,19 @@ namespace GraphicsTester.Scenarios
 
             canvas.Alpha = .25f;
             canvas.FillColor = StandardColors.CornflowerBlue;
-            canvas.SetShadow(new EWSize(5, 5), 0, StandardColors.Grey, 1);
+            canvas.SetShadow(new EWSize(5, 5), 0, StandardColors.Grey);
             canvas.FillRectangle(50, 1200, 100, 50);
 
             canvas.Alpha = .5f;
-            canvas.SetShadow(new EWSize(5, 5), 2, StandardColors.Red, 1);
+            canvas.SetShadow(new EWSize(5, 5), 2, StandardColors.Red);
             canvas.FillOval(200, 1200, 100, 50);
 
             canvas.Alpha = .75f;
-            canvas.SetShadow(new EWSize(5, 5), 5, StandardColors.Green, 1);
+            canvas.SetShadow(new EWSize(5, 5), 5, StandardColors.Green);
             canvas.FillRoundedRectangle(350, 1200, 100, 50, 25);
 
             canvas.Alpha = 1;
-            canvas.SetShadow(new EWSize(10, 10), 5, StandardColors.Blue, 1);
+            canvas.SetShadow(new EWSize(10, 10), 5, StandardColors.Blue);
 
             path = new EWPath();
             path.MoveTo(550, 1200);
@@ -371,7 +371,7 @@ namespace GraphicsTester.Scenarios
             //
 
             canvas.SaveState();
-            canvas.SetShadow(new EWSize(2, 0), 2, StandardColors.Black, 1);
+            canvas.SetShadow(new EWSize(2, 0), 2, StandardColors.Black);
             canvas.StrokeColor = StandardColors.CornflowerBlue;
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);
@@ -434,7 +434,7 @@ namespace GraphicsTester.Scenarios
             }
 
             canvas.SaveState();
-            canvas.SetShadow(new EWSize(2, 2), 2, StandardColors.DarkGrey, 1);
+            canvas.SetShadow(new EWSize(2, 2), 2, StandardColors.DarkGrey);
 
             for (int x = 0; x < 4; x++)
             {

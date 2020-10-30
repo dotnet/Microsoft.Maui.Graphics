@@ -11,7 +11,7 @@ namespace GraphicsTester.Scenarios
             this.includeOvals = includeOvals;
         }
 
-        private void DrawArc(EWCanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
+        private void DrawArc(ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
         {
             if (includeOvals)
             {
@@ -27,7 +27,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawPath(path);
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
 

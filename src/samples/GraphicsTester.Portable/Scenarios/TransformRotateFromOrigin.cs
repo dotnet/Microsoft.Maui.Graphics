@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
             canvas.StrokeColor = StandardColors.LightGrey;
@@ -37,7 +37,7 @@ namespace GraphicsTester.Scenarios
             canvas.SaveState();
             canvas.FillColor = StandardColors.Black;
             canvas.FillOval(60, 60, 10, 10);
-            canvas.SetShadow(new EWSize(2, 0), 2, StandardColors.Black, 1);
+            canvas.SetShadow(new EWSize(2, 0), 2, StandardColors.Black);
             canvas.StrokeColor = StandardColors.CornflowerBlue;
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);

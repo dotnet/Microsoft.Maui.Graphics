@@ -3,14 +3,13 @@ using System.Graphics.Text;
 
 namespace System.Graphics
 {
-    public class PictureCanvas : EWCanvas, IDisposable
+    public class PictureCanvas : ICanvas, IDisposable
     {
         private readonly float _x;
         private readonly float _y;
         private readonly float _width;
         private readonly float _height;
         private readonly List<DrawingCommand> _commands;
-        private readonly Stack<object> _figureStack = new Stack<object>();
 
         public PictureCanvas(float x, float y, float width, float height)
         {
@@ -24,100 +23,92 @@ namespace System.Graphics
 
         public EWPicture Picture => new StandardPicture(_x, _y, _width, _height, _commands.ToArray());
 
-        public override object CurrentFigure => _figureStack.Count > 0 ? _figureStack.Peek() : null;
-
-        public override void StartFigure(object figure)
-        {
-            _figureStack.Push(figure);
-        }
-
-        public override void EndFigure()
-        {
-            _figureStack.Pop();
-        }
-
         public void Dispose()
         {
             _commands.Clear();
         }
 
-        public override float StrokeSize
+        public float DisplayScale { get; set; } = 1;
+
+        public float RetinaScale { get; set; } = 1;
+
+        public float StrokeSize
         {
             set
             {
                 _commands.Add(
-                    (canvas, zoom) =>
+                    canvas =>
                         canvas.StrokeSize = value
                 );
             }
         }
 
-        public override float MiterLimit
+        public float MiterLimit
         {
-            set { _commands.Add((canvas, zoom) => canvas.MiterLimit = value); }
+            set { _commands.Add(canvas => canvas.MiterLimit = value); }
         }
 
-        public override EWColor StrokeColor
+        public EWColor StrokeColor
         {
-            set { _commands.Add((canvas, zoom) => canvas.StrokeColor = value); }
+            set { _commands.Add(canvas => canvas.StrokeColor = value); }
         }
 
-        public override EWLineCap StrokeLineCap
+        public EWLineCap StrokeLineCap
         {
-            set { _commands.Add((canvas, zoom) => canvas.StrokeLineCap = value); }
+            set { _commands.Add(canvas => canvas.StrokeLineCap = value); }
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public EWLineJoin StrokeLineJoin
         {
-            set { _commands.Add((canvas, zoom) => canvas.StrokeLineJoin = value); }
+            set { _commands.Add(canvas => canvas.StrokeLineJoin = value); }
         }
 
-        public override float[] StrokeDashPattern
+        public float[] StrokeDashPattern
         {
-            set { _commands.Add((canvas, zoom) => canvas.StrokeDashPattern = value); }
+            set { _commands.Add(canvas => canvas.StrokeDashPattern = value); }
         }
 
-        public override EWStrokeLocation StrokeLocation
+        public EWStrokeLocation StrokeLocation
         {
-            set { _commands.Add((canvas, zoom) => canvas.StrokeLocation = value); }
+            set { _commands.Add(canvas => canvas.StrokeLocation = value); }
         }
 
-        public override bool LimitStrokeScaling
+        public bool LimitStrokeScaling
         {
-            set { _commands.Add((canvas, zoom) => canvas.LimitStrokeScaling = value); }
+            set { _commands.Add(canvas => canvas.LimitStrokeScaling = value); }
         }
 
-        public override float StrokeLimit
+        public float StrokeLimit
         {
-            set { _commands.Add((canvas, zoom) => canvas.StrokeLimit = value); }
+            set { _commands.Add(canvas => canvas.StrokeLimit = value); }
         }
         
-        public override EWColor FillColor
+        public EWColor FillColor
         {
-            set { _commands.Add((canvas, zoom) => canvas.FillColor = value); }
+            set { _commands.Add(canvas => canvas.FillColor = value); }
         }
 
-        public override EWColor FontColor
+        public EWColor FontColor
         {
-            set { _commands.Add((canvas, zoom) => canvas.FontColor = value); }
+            set { _commands.Add(canvas => canvas.FontColor = value); }
         }
 
-        public override string FontName
+        public string FontName
         {
-            set { _commands.Add((canvas, zoom) => canvas.FontName = value); }
+            set { _commands.Add(canvas => canvas.FontName = value); }
         }
 
-        public override float FontSize
+        public float FontSize
         {
-            set { _commands.Add((canvas, zoom) => canvas.FontSize = value); }
+            set { _commands.Add(canvas => canvas.FontSize = value); }
         }
 
-        public override float Alpha
+        public float Alpha
         {
-            set { _commands.Add((canvas, zoom) => canvas.Alpha = value); }
+            set { _commands.Add(canvas => canvas.Alpha = value); }
         }
 
-        public override bool Antialias
+        public bool Antialias
         {
             set
             {
@@ -125,169 +116,178 @@ namespace System.Graphics
             }
         }
 
-        public override EWBlendMode BlendMode
+        public BlendMode BlendMode
         {
-            set { _commands.Add((canvas, zoom) => canvas.BlendMode = value); }
+            set { _commands.Add(canvas => canvas.BlendMode = value); }
         }
 
-        public override void SubtractFromClip(float x, float y, float width, float height)
+        public void SubtractFromClip(float x, float y, float width, float height)
         {
-            _commands.Add((canvas, zoom) => canvas.SubtractFromClip(x, y, width, height));
+            _commands.Add(canvas => canvas.SubtractFromClip(x, y, width, height));
         }
         
-        public override void DrawLine(float x1, float y1, float x2, float y2)
+        public void DrawLine(float x1, float y1, float x2, float y2)
         {
             _commands.Add(
-                (canvas, zoom)
+                canvas
                     => canvas.DrawLine(x1, y1, x2, y2)
             );
         }
 
-        public override void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
+        public void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawArc(x, y, width, height, startAngle, endAngle, clockwise, closed));
+            _commands.Add(canvas => canvas.DrawArc(x, y, width, height, startAngle, endAngle, clockwise, closed));
         }
 
-        public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise)
+        public void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise)
         {
-            _commands.Add((canvas, zoom) => canvas.FillArc(x, y, width, height, startAngle, endAngle, clockwise));
+            _commands.Add(canvas => canvas.FillArc(x, y, width, height, startAngle, endAngle, clockwise));
         }
 
-        public override void DrawRectangle(float x, float y, float width, float height)
+        public void DrawRectangle(float x, float y, float width, float height)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawRectangle(x, y, width, height));
+            _commands.Add(canvas => canvas.DrawRectangle(x, y, width, height));
         }
 
-        public override void FillRectangle(float x, float y, float width, float height)
+        public void FillRectangle(float x, float y, float width, float height)
         {
-            _commands.Add((canvas, zoom) => canvas.FillRectangle(x, y, width, height));
+            _commands.Add(canvas => canvas.FillRectangle(x, y, width, height));
         }
 
-        public override void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawRoundedRectangle(x, y, width, height, cornerRadius));
+            _commands.Add(canvas => canvas.DrawRoundedRectangle(x, y, width, height, cornerRadius));
         }
 
-        public override void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
-            _commands.Add((canvas, zoom) => canvas.FillRoundedRectangle(x, y, width, height, cornerRadius));
+            _commands.Add(canvas => canvas.FillRoundedRectangle(x, y, width, height, cornerRadius));
         }
 
-        public override void DrawOval(float x, float y, float width, float height)
+        public void DrawOval(float x, float y, float width, float height)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawOval(x, y, width, height));
+            _commands.Add(canvas => canvas.DrawOval(x, y, width, height));
         }
 
-        public override void FillOval(float x, float y, float width, float height)
+        public void FillOval(float x, float y, float width, float height)
         {
-            _commands.Add((canvas, zoom) => canvas.FillOval(x, y, width, height));
+            _commands.Add(canvas => canvas.FillOval(x, y, width, height));
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawString(value, x, y, horizontalAlignment));
+            _commands.Add(canvas => canvas.DrawString(value, x, y, horizontalAlignment));
         }
 
-        public override void DrawString(string value,float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
+        public void DrawString(string value,float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawString(value, x, y, width, height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment));
+            _commands.Add(canvas => canvas.DrawString(value, x, y, width, height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment));
         }
 
-        public override void DrawString(EWPath path, string value, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
+        public void DrawText(IAttributedText value, float x, float y, float width, float height)
         {
-            _commands.Add((canvas, zoomx) => canvas.DrawString(path, value, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment));
+            _commands.Add(canvas => canvas.DrawText(value, x, y, width, height));
         }
 
-        public override void DrawText(IAttributedText value, float x, float y, float width, float height)
+        public void DrawPath(EWPath path)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawText(value, x, y, width, height));
+            _commands.Add(canvas => canvas.DrawPath(path));
         }
 
-        public override void DrawPath(EWPath path)
+        public void FillPath(EWPath path, EWWindingMode windingMode)
         {
-            _commands.Add((canvas, zoomx) => canvas.DrawPath(path));
+            _commands.Add(canvas => canvas.FillPath(path, windingMode));
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
         {
-            _commands.Add((canvas, zoomx) => canvas.FillPath(path, windingMode));
+            _commands.Add(canvas => canvas.ClipPath(path, windingMode));
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
-        {
-            _commands.Add((canvas, zoomx) => canvas.ClipPath(path, windingMode));
-        }
-
-        public override void ClipRectangle(
+        public void ClipRectangle(
             float x,
             float y,
             float width,
             float height)
         {
-            _commands.Add((canvas, zoomx) => canvas.ClipRectangle(x, y, width, height));
+            _commands.Add(canvas => canvas.ClipRectangle(x, y, width, height));
         }
 
-        public override void Rotate(float degrees, float x, float y)
+        public void Rotate(float degrees, float x, float y)
         {
-            _commands.Add((canvas, zoom) => canvas.Rotate(degrees, x, y));
+            _commands.Add(canvas => canvas.Rotate(degrees, x, y));
         }
 
-        public override void Rotate(float degrees)
+        public void Rotate(float degrees)
         {
-            _commands.Add((canvas, zoom) => canvas.Rotate(degrees));
+            _commands.Add(canvas => canvas.Rotate(degrees));
         }
 
-        public override void Scale(float sx, float sy)
+        public void Scale(float sx, float sy)
         {
-            _commands.Add((canvas, zoom) => canvas.Scale(sx, sy));
+            _commands.Add(canvas => canvas.Scale(sx, sy));
         }
 
-        public override void Translate(float tx, float ty)
+        public void Translate(float tx, float ty)
         {
-            _commands.Add((canvas, zoom) => canvas.Translate(tx, ty));
+            _commands.Add(canvas => canvas.Translate(tx, ty));
         }
 
-        public override void ConcatenateTransform(EWAffineTransform transform)
+        public void ConcatenateTransform(AffineTransform transform)
         {
-            _commands.Add((canvas, zoom) => canvas.ConcatenateTransform(transform));
+            _commands.Add(canvas => canvas.ConcatenateTransform(transform));
         }
 
-        public override void SaveState()
+        public void SaveState()
         {
-            _commands.Add((canvas, zoom) => canvas.SaveState());
+            _commands.Add(canvas => canvas.SaveState());
         }
 
-        public override bool RestoreState()
+        public bool RestoreState()
         {
-            _commands.Add((canvas, zoom) => canvas.RestoreState());
+            _commands.Add(canvas => canvas.RestoreState());
             return true;
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public void ResetState()
         {
-            _commands.Add((canvas, zoomx) => canvas.SetShadow(offset, blur, color, zoomx));
+             
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            _commands.Add((canvas, zoom) => canvas.SetFillPaint(paint, x1, y1, x2, y2));
+            _commands.Add(canvas => canvas.SetShadow(offset, blur, color));
         }
 
-        public override void SetToSystemFont()
+        public void SetFillPaint(EWPaint paint, EWImmutablePoint point1, EWImmutablePoint point2)
         {
-            _commands.Add((canvas, zoom) => canvas.SetToSystemFont());
+            _commands.Add(canvas => canvas.SetFillPaint(paint, point1, point2));
         }
 
-        public override void SetToBoldSystemFont()
+        public void SetFillPaint(EWPaint paint, EWRectangle rectangle)
         {
-            _commands.Add((canvas, zoom) => canvas.SetToBoldSystemFont());
+            _commands.Add(canvas => canvas.SetFillPaint(paint, rectangle));
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
-            _commands.Add((canvas, zoom) => canvas.DrawImage(image, x, y, width, height));
+            _commands.Add(canvas => canvas.SetFillPaint(paint, x1, y1, x2, y2));
+        }
+
+        public void SetToSystemFont()
+        {
+            _commands.Add(canvas => canvas.SetToSystemFont());
+        }
+
+        public void SetToBoldSystemFont()
+        {
+            _commands.Add(canvas => canvas.SetToBoldSystemFont());
+        }
+
+        public void DrawImage(EWImage image, float x, float y, float width, float height)
+        {
+            _commands.Add(canvas => canvas.DrawImage(image, x, y, width, height));
         }
     }
 }

@@ -14,7 +14,7 @@ namespace System.Graphics.CoreGraphics
             _canvas = new CGCanvas(() => CGColorSpace.CreateDeviceRGB());
         }
 
-        public EWCanvas Canvas => _canvas;
+        public ICanvas Canvas => _canvas;
 
         public EWDrawable Drawable
         {

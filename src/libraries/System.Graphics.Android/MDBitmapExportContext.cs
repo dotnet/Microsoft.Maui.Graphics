@@ -31,7 +31,7 @@ namespace System.Graphics.Android
             _disposeBitmap = disposeBitmap;
         }
 
-        public override EWCanvas Canvas => _canvas;
+        public override ICanvas Canvas => _canvas;
 
         public override EWImage Image => new MDImage(Bitmap);
 

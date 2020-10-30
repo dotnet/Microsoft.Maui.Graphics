@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             DrawLineSegment(canvas);
             DrawQuadraticSegment(canvas);
@@ -19,7 +19,7 @@ namespace GraphicsTester.Scenarios
             DrawSubPaths(canvas);
         }
 
-        private void DrawLineSegment(EWCanvas canvas)
+        private void DrawLineSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(50.5f, 50.5f, 50, 50);
@@ -29,7 +29,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawPath(path);
         }
 
-        private void DrawQuadraticSegment(EWCanvas canvas)
+        private void DrawQuadraticSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(150.5f, 50.5f, 50, 50);
@@ -39,7 +39,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawPath(path);
         }
 
-        private void DrawCubicSegment(EWCanvas canvas)
+        private void DrawCubicSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(250.5f, 50.5f, 50, 50);
@@ -49,7 +49,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawPath(path);
         }
 
-        private void DrawArcSegment(EWCanvas canvas)
+        private void DrawArcSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(350.5f, 50.5f, 50, 50);
@@ -59,7 +59,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawPath(path);
         }
 
-        private void DrawPie(EWCanvas canvas)
+        private void DrawPie(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(350.5f, 150.5f, 50, 50);
@@ -73,7 +73,7 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeDashPattern = null;
         }
 
-        private void DrawCubicAndQuad(EWCanvas canvas)
+        private void DrawCubicAndQuad(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(250.5f, 150.5f, 50, 50);
@@ -85,7 +85,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawPath(path);
         }
 
-        private void DrawSubPaths(EWCanvas canvas)
+        private void DrawSubPaths(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(150.5f, 150.5f, 50, 50);

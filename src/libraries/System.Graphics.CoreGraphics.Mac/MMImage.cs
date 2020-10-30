@@ -149,7 +149,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public void Draw(EWCanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
         {
             canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
         }

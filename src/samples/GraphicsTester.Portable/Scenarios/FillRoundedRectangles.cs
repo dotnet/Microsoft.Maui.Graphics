@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             FillRoundedRectanglesOfDifferentSizesAndColors(canvas);
             FillRoundedRectanglesWithAlpha(canvas);
@@ -17,16 +17,16 @@ namespace GraphicsTester.Scenarios
             FillRoundedRectWithZeroAndLargeRadius(canvas);
         }
 
-        private static void FillShadowedRect(EWCanvas canvas)
+        private static void FillShadowedRect(ICanvas canvas)
         {
             canvas.SaveState();
             canvas.FillColor = StandardColors.Black;
-            canvas.SetShadow(EWCanvas.DefaultShadowOffset, EWCanvas.DefaultShadowBlur, EWCanvas.DefaultShadowColor, 1);
+            canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             canvas.FillRoundedRectangle(50.5f, 400.5f, 200, 50, 10);
             canvas.RestoreState();
         }
 
-        private static void FillRoundedRectanglesOfDifferentSizesAndColors(EWCanvas canvas)
+        private static void FillRoundedRectanglesOfDifferentSizesAndColors(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.Salmon;
             for (int i = 1; i < 5; i++)
@@ -41,7 +41,7 @@ namespace GraphicsTester.Scenarios
             }
         }
 
-        private static void FillRoundedRectanglesWithAlpha(EWCanvas canvas)
+        private static void FillRoundedRectanglesWithAlpha(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.Black;
             for (int i = 1; i <= 10; i++)
@@ -53,7 +53,7 @@ namespace GraphicsTester.Scenarios
             canvas.Alpha = 1;
         }
 
-        private void FillRoundedRectWithZeroAndLargeRadius(EWCanvas canvas)
+        private void FillRoundedRectWithZeroAndLargeRadius(ICanvas canvas)
         {
             canvas.FillColor = StandardColors.Blue;
             canvas.FillRoundedRectangle(250.5f, 700.5f, 150, 20, 0);

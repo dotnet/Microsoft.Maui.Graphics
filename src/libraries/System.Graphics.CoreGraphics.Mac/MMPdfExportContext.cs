@@ -72,7 +72,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public override EWCanvas Canvas => _canvas;
+        public override ICanvas Canvas => _canvas;
 
         private void Close()
         {

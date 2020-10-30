@@ -347,7 +347,7 @@ namespace System.Graphics.SharpDX
             {
                 if (!_shadowColorValid)
                 {
-                    _shadowColor = _sourceShadowColor?.AsDxColor(_alpha) ?? EWCanvas.DefaultShadowColor.AsDxColor(_alpha);
+                    _shadowColor = _sourceShadowColor?.AsDxColor(_alpha) ?? CanvasDefaults.DefaultShadowColor.AsDxColor(_alpha);
                 }
 
                 return _shadowColor;
@@ -478,7 +478,7 @@ namespace System.Graphics.SharpDX
             _strokeStyleProperties.DashStyle = DashStyle.Solid;
             _strokeStyleProperties.EndCap = CapStyle.Flat;
             _strokeStyleProperties.LineJoin = LineJoin.Miter;
-            _strokeStyleProperties.MiterLimit = EWCanvas.DefaultMiterLimit;
+            _strokeStyleProperties.MiterLimit = CanvasDefaults.DefaultMiterLimit;
             _strokeStyleProperties.StartCap = CapStyle.Flat;
             _dashes = null;
 
@@ -488,7 +488,7 @@ namespace System.Graphics.SharpDX
             Matrix = Matrix3x2.Identity;
 
             IsShadowed = false;
-            _sourceShadowColor = EWCanvas.DefaultShadowColor;
+            _sourceShadowColor = CanvasDefaults.DefaultShadowColor;
 
             FontName = "Arial";
             FontSize = 12;
@@ -573,7 +573,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public void SetShadow(EWSize aOffset, float aBlur, EWColor aColor, float aZoom)
+        public void SetShadow(EWSize aOffset, float aBlur, EWColor aColor)
         {
             if (aOffset != null)
             {
@@ -610,7 +610,7 @@ namespace System.Graphics.SharpDX
             return Matrix;
         }
 
-        public Matrix3x2 DxConcatenateTransform(EWAffineTransform transform)
+        public Matrix3x2 DxConcatenateTransform(AffineTransform transform)
         {
             var values = new float[6];
             transform.GetMatrix(values);

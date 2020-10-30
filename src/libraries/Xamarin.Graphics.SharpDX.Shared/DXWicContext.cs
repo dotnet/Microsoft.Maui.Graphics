@@ -28,7 +28,7 @@ namespace System.Graphics.SharpDX
             _canvas = new DXCanvas(_renderTarget);
         }
 
-        public EWCanvas Canvas => _canvas;
+        public ICanvas Canvas => _canvas;
 
         public d2.RenderTarget RenderTarget => _renderTarget;
 

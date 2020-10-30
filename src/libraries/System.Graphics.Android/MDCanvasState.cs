@@ -4,7 +4,7 @@ using Color = Android.Graphics.Color;
 
 namespace System.Graphics.Android
 {
-    public class MDCanvasState : CanvasState, BlurrableCanvas
+    public class MDCanvasState : CanvasState, IBlurrableCanvas
     {
         public float Alpha = 1;
         private Paint _fillPaint;
@@ -195,7 +195,7 @@ namespace System.Graphics.Android
         {
             set
             {
-                if (_fontName != value && (_fontName != null && !_fontName.Equals(value)))
+                if (_fontName != value && _fontName != null && !_fontName.Equals(value))
                 {
                     _fontName = value;
                     _typefaceInvalid = true;
@@ -256,7 +256,7 @@ namespace System.Graphics.Android
                     var paint = new Paint();
                     paint.SetARGB(1, 0, 0, 0);
                     paint.StrokeWidth = 1;
-                    paint.StrokeMiter = EWCanvas.DefaultMiterLimit;
+                    paint.StrokeMiter = CanvasDefaults.DefaultMiterLimit;
                     paint.SetStyle(Paint.Style.Stroke);
                     paint.AntiAlias = true;
 

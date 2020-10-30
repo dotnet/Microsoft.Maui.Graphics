@@ -34,7 +34,7 @@ namespace System.Graphics.Android
                 _defaultStrokePaint = new Paint();
                 _defaultStrokePaint.SetARGB(255, 0, 0, 0);
                 _defaultStrokePaint.StrokeWidth = 1;
-                _defaultStrokePaint.StrokeMiter = DefaultMiterLimit;
+                _defaultStrokePaint.StrokeMiter = CanvasDefaults.DefaultMiterLimit;
                 _defaultStrokePaint.SetStyle(Paint.Style.Stroke);
                 _defaultStrokePaint.AntiAlias = true;
 
@@ -59,8 +59,6 @@ namespace System.Graphics.Android
 
             return state;
         }
-
-        public override float DisplayScale { get; set; }
 
         private static MDCanvasState CreateStateCopy(MDCanvasState prototype)
         {
@@ -142,7 +140,7 @@ namespace System.Graphics.Android
             set => CurrentState.FillColor = value ?? StandardColors.White;
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set
             {
@@ -323,7 +321,7 @@ namespace System.Graphics.Android
             }
             else if (paint.PaintType == EWPaintType.PATTERN)
             {
-                var bitmap = paint.GetPatternBitmap(CurrentFigure, DisplayScale);
+                var bitmap = paint.GetPatternBitmap(DisplayScale);
 
                 if (bitmap != null)
                 {
@@ -503,15 +501,15 @@ namespace System.Graphics.Android
             }
             else if (strokeLocation == EWStrokeLocation.INSIDE)
             {
-                rectX = x + (strokeSize / 2);
-                rectY = y + (strokeSize / 2);
+                rectX = x + strokeSize / 2;
+                rectY = y + strokeSize / 2;
                 rectWidth = width - strokeSize;
                 rectHeight = height - strokeSize;
             }
             else if (strokeLocation == EWStrokeLocation.OUTSIDE)
             {
-                rectX = x - (strokeSize / 2);
-                rectY = y - (strokeSize / 2);
+                rectX = x - strokeSize / 2;
+                rectY = y - strokeSize / 2;
                 rectWidth = width + strokeSize;
                 rectHeight = height + strokeSize;
             }
@@ -548,19 +546,19 @@ namespace System.Graphics.Android
             var strokeLocation = CurrentState.StrokeLocation;
             if (strokeLocation == EWStrokeLocation.INSIDE)
             {
-                rectX += (strokeSize / 2);
-                rectY += (strokeSize / 2);
+                rectX += strokeSize / 2;
+                rectY += strokeSize / 2;
                 rectWidth -= strokeSize;
                 rectHeight -= strokeSize;
-                radius -= (strokeSize / 2);
+                radius -= strokeSize / 2;
             }
             else if (strokeLocation == EWStrokeLocation.OUTSIDE)
             {
-                rectX -= (strokeSize / 2);
-                rectY -= (strokeSize / 2);
+                rectX -= strokeSize / 2;
+                rectY -= strokeSize / 2;
                 rectWidth += strokeSize;
                 rectHeight += strokeSize;
-                radius += (strokeSize / 2);
+                radius += strokeSize / 2;
             }
 
             var rect = new RectF(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
@@ -594,15 +592,15 @@ namespace System.Graphics.Android
             var strokeLocation = CurrentState.StrokeLocation;
             if (strokeLocation == EWStrokeLocation.INSIDE)
             {
-                rectX += (strokeSize / 2);
-                rectY += (strokeSize / 2);
+                rectX += strokeSize / 2;
+                rectY += strokeSize / 2;
                 rectWidth -= strokeSize;
                 rectHeight -= strokeSize;
             }
             else if (strokeLocation == EWStrokeLocation.OUTSIDE)
             {
-                rectX -= (strokeSize / 2);
-                rectY -= (strokeSize / 2);
+                rectX -= strokeSize / 2;
+                rectY -= strokeSize / 2;
                 rectWidth += strokeSize;
                 rectHeight += strokeSize;
             }
@@ -629,7 +627,7 @@ namespace System.Graphics.Android
 
         public override void SubtractFromClip(float x, float y, float width, float height)
         {
-            _canvas.ClipRect(x, y, (x + width), (y + height), Region.Op.Difference);
+            _canvas.ClipRect(x, y, x + width, y + height, Region.Op.Difference);
         }
 
         protected override void NativeDrawPath(EWPath aPath)
@@ -719,7 +717,7 @@ namespace System.Graphics.Android
                     value,
                     CurrentState.FontName,
                     CurrentState.ScaledFontSize);
-                x -= (vSize.Width / 2f);
+                x -= vSize.Width / 2f;
                 DrawString(value, x, y);
             }
         }
@@ -730,7 +728,7 @@ namespace System.Graphics.Android
                 return;
 
             _canvas.Save();
-            _canvas.Translate(x, (y - CurrentState.ScaledFontSize));
+            _canvas.Translate(x, y - CurrentState.ScaledFontSize);
             var layout = new StaticLayout(
                 value,
                 CurrentState.FontPaint,
@@ -769,23 +767,11 @@ namespace System.Graphics.Android
                 alignment = Layout.Alignment.AlignOpposite;
             }
 
-            var layout = MDTextLayout.CreateLayout(value, CurrentState.FontPaint, (int) (width), alignment);
+            var layout = MDTextLayout.CreateLayout(value, CurrentState.FontPaint, (int) width, alignment);
             var offset = layout.GetOffsetsToDrawText(x, y, width, height, horizAlignment, vertAlignment);
             _canvas.Translate(offset.Width, offset.Height);
             layout.Draw(_canvas);
             _canvas.Restore();
-        }
-
-        public override void DrawString(EWPath aPath,
-            string aString,
-            EwHorizontalAlignment aHorizontalAlignment,
-            EwVerticalAlignment aVerticalAlignment,
-            EWTextFlow aTextFlow = EWTextFlow.CLIP_BOUNDS,
-            float lineSpacingAdjustment = 0)
-        {
-            /* todo: implement me */
-            if (string.IsNullOrEmpty(aString))
-                return;
         }
 
         public override void DrawText(IAttributedText value, float x, float y, float width, float height)
@@ -830,24 +816,22 @@ namespace System.Graphics.Android
             _canvas.Restore();
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            EWSize actualOffset = offset ?? DefaultShadowOffset;
+            EWSize actualOffset = offset ?? CanvasDefaults.DefaultShadowOffset;
 
-            var sx = (actualOffset.Width * zoom);
-            var sy = (actualOffset.Height * zoom);
-
-            var vBlur = (blur * zoom);
-
+            var sx = actualOffset.Width;
+            var sy = actualOffset.Height;
+            
             if (color == null)
             {
                 var actualColor = StandardColors.Black.AsColorMultiplyAlpha(CurrentState.Alpha);
-                CurrentState.SetShadow(vBlur, sx, sy, actualColor);
+                CurrentState.SetShadow(blur, sx, sy, actualColor);
             }
             else
             {
                 var actualColor = color.AsColorMultiplyAlpha(CurrentState.Alpha);
-                CurrentState.SetShadow(vBlur, sx, sy, actualColor);
+                CurrentState.SetShadow(blur, sx, sy, actualColor);
             }
         }
 
@@ -863,12 +847,9 @@ namespace System.Graphics.Android
 
         protected override void NativeScale(float xFactor, float yFactor)
         {
-            //canvas.Scale((float)aXFactor, (float)aYFactor);
             CurrentState.SetScale(Math.Abs(xFactor), Math.Abs(yFactor));
             if (xFactor < 0 || yFactor < 0)
-            {
                 _canvas.Scale(xFactor < 0 ? -1 : 1, yFactor < 0 ? -1 : 1);
-            }
         }
 
         protected override void NativeTranslate(float tx, float ty)
@@ -876,7 +857,7 @@ namespace System.Graphics.Android
             _canvas.Translate(tx * CurrentState.ScaleX, ty * CurrentState.ScaleY);
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             var matrix = new Matrix(_canvas.Matrix);
             matrix.PostConcat(transform.AsMatrix());

@@ -1,6 +1,6 @@
 ﻿namespace System.Graphics
 {
-    public interface BlurrableCanvas
+    public interface IBlurrableCanvas
     {
         void SetBlur(float blurRadius);
     }

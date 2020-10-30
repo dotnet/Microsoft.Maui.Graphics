@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Graphics.Text;
 
 namespace System.Graphics
 {
-    public abstract class AbstractCanvas<TState> : EWCanvas, IDisposable where TState : CanvasState
+    public abstract class AbstractCanvas<TState> : ICanvas, IDisposable where TState : CanvasState
     {
-        private readonly Stack<object> _figureStack = new Stack<object>();
         private readonly Stack<TState> _stateStack = new Stack<TState>();
         private readonly Func<object, TState> _createNew;
         private readonly Func<TState, TState> _createCopy;
@@ -26,7 +26,7 @@ namespace System.Graphics
         protected abstract void NativeRotate(float degrees, float radians);
         protected abstract void NativeScale(float fx, float fy);
         protected abstract void NativeTranslate(float tx, float ty);
-        protected abstract void NativeConcatenateTransform(EWAffineTransform transform);
+        protected abstract void NativeConcatenateTransform(AffineTransform transform);
 
         protected AbstractCanvas(Func<object, TState> createNew, Func<TState, TState> createCopy)
         {
@@ -35,11 +35,7 @@ namespace System.Graphics
             _currentState = createNew(this);
         }
 
-        public TState CurrentState
-        {
-            get => _currentState;
-            protected set => _currentState = value;
-        }
+        protected TState CurrentState => _currentState;
 
         public virtual void Dispose()
         {
@@ -50,33 +46,33 @@ namespace System.Graphics
             }
         }
 
-        public override object CurrentFigure => _figureStack.Count > 0 ? _figureStack.Peek() : null;
-
-        public override void StartFigure(object figure)
-        {
-            _figureStack.Push(figure);
-        }
-
-        public override void EndFigure()
-        {
-            _figureStack.Pop();
-        }
-
-        public override bool LimitStrokeScaling
+        public bool LimitStrokeScaling
         {
             set => _limitStrokeScaling = value;
         }
 
         protected bool LimitStrokeScalingEnabled => _limitStrokeScaling;
 
-        public override float StrokeLimit
+        public float StrokeLimit
         {
             set => _strokeLimit = value;
         }
 
+        public abstract EWColor FillColor { set; }
+        public abstract EWColor FontColor { set; }
+        public abstract string FontName { set; }
+        public abstract float FontSize { set; }
+        public abstract float Alpha { set; }
+        public abstract bool Antialias { set; }
+        public abstract BlendMode BlendMode { set; }
+
         protected float AssignedStrokeLimit => _strokeLimit;
 
-        public override float StrokeSize
+        public virtual float DisplayScale { get; set; }
+        
+        public float RetinaScale { get; set; }
+
+        public float StrokeSize
         {
             set
             {
@@ -96,8 +92,13 @@ namespace System.Graphics
                 NativeStrokeSize = size;
             }
         }
-        
-        public override float[] StrokeDashPattern
+
+        public abstract float MiterLimit { set; }
+        public abstract EWColor StrokeColor { set; }
+        public abstract EWLineCap StrokeLineCap { set; }
+        public abstract EWLineJoin StrokeLineJoin { set; }
+
+        public float[] StrokeDashPattern
         {
             set
             {
@@ -109,7 +110,7 @@ namespace System.Graphics
             }
         }
 
-        public void EnsureStrokePatternSet()
+        private void EnsureStrokePatternSet()
         {
             if (_strokeDashPatternDirty)
             {
@@ -118,39 +119,36 @@ namespace System.Graphics
             }
         }
 
-        public override EWStrokeLocation StrokeLocation
+        public EWStrokeLocation StrokeLocation
         {
             set => _currentState.StrokeLocation = value;
         }
-        
-        public override void DrawLine(float x1, float y1, float x2, float y2)
+
+        public abstract void ClipRectangle(float x, float y, float width, float height);
+
+        public void DrawLine(float x1, float y1, float x2, float y2)
         {
             EnsureStrokePatternSet();
             NativeDrawLine(x1, y1, x2, y2);
         }
 
-        public override void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
+        public void DrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
         {
             EnsureStrokePatternSet();
             NativeDrawArc(x, y, width, height, startAngle, endAngle, clockwise, closed);
         }
 
-        private void DrawBrushLine(Action action)
-        {
-            var dashPattern = _currentState.StrokeDashPattern;
-            NativeSetStrokeDashPattern(null, 1);
-            action();
-            NativeSetStrokeDashPattern(dashPattern, _currentState.StrokeSize);
-            _strokeDashPatternDirty = false;
-        }
+        public abstract void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise);
 
-        public override void DrawRectangle(float x, float y, float width, float height)
+        public void DrawRectangle(float x, float y, float width, float height)
         {
             EnsureStrokePatternSet();
             NativeDrawRectangle(x, y, width, height);
         }
 
-        public override void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
+        public abstract void FillRectangle(float x, float y, float width, float height);
+
+        public void DrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
             var halfHeight = Math.Abs(height / 2);
             if (cornerRadius > halfHeight)
@@ -164,19 +162,41 @@ namespace System.Graphics
             NativeDrawRoundedRectangle(x, y, width, height, cornerRadius);
         }
 
-        public override void DrawOval(float x, float y, float width, float height)
+        public abstract void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius);
+
+        public void DrawOval(float x, float y, float width, float height)
         {
             EnsureStrokePatternSet();
             NativeDrawOval(x, y, width, height);
         }
 
-        public override void DrawPath(EWPath path)
+        public abstract void FillOval(float x, float y, float width, float height);
+        public abstract void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment);
+
+        public abstract void DrawString(
+            string value, 
+            float x, 
+            float y, 
+            float width, 
+            float height, 
+            EwHorizontalAlignment horizontalAlignment,
+            EwVerticalAlignment verticalAlignment, 
+            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            float lineSpacingAdjustment = 0);
+        
+        public abstract void DrawText(IAttributedText value, float x, float y, float width, float height);
+
+        public void DrawPath(EWPath path)
         {
             EnsureStrokePatternSet();
             NativeDrawPath(path);
         }
-        
-        public override void ResetState()
+
+        public abstract void FillPath(EWPath path, EWWindingMode windingMode);
+        public abstract void SubtractFromClip(float x, float y, float width, float height);
+        public abstract void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero);
+
+        public virtual void ResetState()
         {
             while (_stateStack.Count > 0)
             {
@@ -197,10 +217,15 @@ namespace System.Graphics
             }
 
             _currentState = _createNew(this);
-            _figureStack.Clear();
         }
 
-        public override bool RestoreState()
+        public abstract void SetShadow(EWSize offset, float blur, EWColor color);
+        public abstract void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2);
+        public abstract void SetToSystemFont();
+        public abstract void SetToBoldSystemFont();
+        public abstract void DrawImage(EWImage image, float x, float y, float width, float height);
+
+        public virtual bool RestoreState()
         {
             _strokeDashPatternDirty = true;
 
@@ -226,7 +251,7 @@ namespace System.Graphics
             // Do nothing
         }
 
-        public override void SaveState()
+        public virtual void SaveState()
         {
             var previousState = _currentState;
             _stateStack.Push(previousState);
@@ -234,7 +259,7 @@ namespace System.Graphics
             _strokeDashPatternDirty = true;
         }
 
-        public override void Rotate(float degrees, float x, float y)
+        public void Rotate(float degrees, float x, float y)
         {
             var radians = Geometry.DegreesToRadians(degrees);
 
@@ -246,7 +271,7 @@ namespace System.Graphics
             NativeRotate(degrees, radians, x, y);
         }
 
-        public override void Rotate(float degrees)
+        public void Rotate(float degrees)
         {
             var radians = Geometry.DegreesToRadians(degrees);
             _currentState.Transform.Rotate(radians);
@@ -254,7 +279,7 @@ namespace System.Graphics
             NativeRotate(degrees, radians);
         }
 
-        public override void Scale(float fx, float fy)
+        public void Scale(float fx, float fy)
         {
             _currentState.Scale *= fx;
             _currentState.Transform.Scale(fx, fy);
@@ -262,15 +287,15 @@ namespace System.Graphics
             NativeScale(fx, fy);
         }
 
-        public override void Translate(float tx, float ty)
+        public void Translate(float tx, float ty)
         {
             _currentState.Transform.Translate(tx, ty);
             NativeTranslate(tx, ty);
         }
 
-        public override void ConcatenateTransform(EWAffineTransform transform)
+        public void ConcatenateTransform(AffineTransform transform)
         {
-            _currentState.Scale *= transform.GetScaleX();
+            _currentState.Scale *= transform.ScaleX;
             _currentState.Transform.Concatenate(transform);
             NativeConcatenateTransform(transform);
         }

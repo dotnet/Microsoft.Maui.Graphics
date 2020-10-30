@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             FillQuadraticSegment(canvas);
             FillCubicSegment(canvas);
@@ -18,7 +18,7 @@ namespace GraphicsTester.Scenarios
             FillSubPaths(canvas);
         }
 
-        private void FillQuadraticSegment(EWCanvas canvas)
+        private void FillQuadraticSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(150.5f, 50.5f, 50, 50);
@@ -28,7 +28,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        private void FillCubicSegment(EWCanvas canvas)
+        private void FillCubicSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(250.5f, 50.5f, 50, 50);
@@ -38,7 +38,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        private void FillArcSegment(EWCanvas canvas)
+        private void FillArcSegment(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(350.5f, 50.5f, 50, 50);
@@ -48,7 +48,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        private void FillPie(EWCanvas canvas)
+        private void FillPie(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(350.5f, 150.5f, 50, 50);
@@ -60,7 +60,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        private void FillCubicAndQuad(EWCanvas canvas)
+        private void FillCubicAndQuad(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(250.5f, 150.5f, 50, 50);
@@ -72,7 +72,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillPath(path);
         }
 
-        private void FillSubPaths(EWCanvas canvas)
+        private void FillSubPaths(ICanvas canvas)
         {
             canvas.StrokeColor = StandardColors.LightGrey;
             canvas.DrawRectangle(150.5f, 150.5f, 50, 50);

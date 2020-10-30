@@ -14,7 +14,7 @@
             _picture = picture;
         }
 
-        public override void Draw(EWCanvas canvas)
+        public override void Draw(ICanvas canvas)
         {
             _picture.Draw(canvas, 1, 1);
         }

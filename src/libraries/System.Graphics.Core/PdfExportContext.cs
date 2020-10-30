@@ -65,7 +65,7 @@ namespace System.Graphics
 
         protected abstract void AddPageImpl(float width, float height);
 
-        public abstract EWCanvas Canvas { get; }
+        public abstract ICanvas Canvas { get; }
 
         public abstract void WriteToStream(Stream stream);
     }

@@ -10,7 +10,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             EWImage image;
             var assembly = GetType().GetTypeInfo().Assembly;

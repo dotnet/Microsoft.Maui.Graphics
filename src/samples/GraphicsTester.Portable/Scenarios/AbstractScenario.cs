@@ -59,12 +59,12 @@ namespace GraphicsTester.Scenarios
             this.height = height;
         }
 
-        public virtual void Draw(EWCanvas canvas, float zoom, float ppu)
+        public virtual void Draw(ICanvas canvas, float zoom, float ppu)
         {
             // Do nothing by default
         }
 
-        public void Draw(EWCanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
         {
             Draw(canvas, 1f, 1f);
         }

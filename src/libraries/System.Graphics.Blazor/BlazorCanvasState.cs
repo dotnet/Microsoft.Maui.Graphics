@@ -7,7 +7,7 @@ namespace System.Graphics.Blazor
         private static readonly float[] EmptyFloatArray = new float[] { };
 
         private bool _strokeDirty = true;
-        private float _miterLimit = EWCanvas.DefaultMiterLimit;
+        private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
         private EWColor _strokeColor = StandardColors.Black;
         private float _lineWidth = 1;
         private EWLineJoin _lineJoin;

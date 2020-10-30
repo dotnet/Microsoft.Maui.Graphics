@@ -58,7 +58,7 @@ namespace System.Graphics
             return new EWPaint {Image = target};
         }
 
-        public static void SetFillImage(this EWCanvas canvas, EWImage image)
+        public static void SetFillImage(this ICanvas canvas, EWImage image)
         {
             if (canvas != null)
             {

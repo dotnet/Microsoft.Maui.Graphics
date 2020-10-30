@@ -147,7 +147,7 @@ namespace System.Graphics.Xaml
             return geometry;
         }
 
-        public static Transform AsTransform(this EWAffineTransform transform)
+        public static Transform AsTransform(this AffineTransform transform)
         {
             if (transform.IsIdentity)
             {

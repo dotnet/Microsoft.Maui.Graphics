@@ -6,11 +6,11 @@
         public float StrokeSize { get; set; } = 1;
         public EWStrokeLocation StrokeLocation { get; set; } = EWStrokeLocation.CENTER;
         public float Scale { get; set; } = 1;
-        public EWAffineTransform Transform { get; set; }
+        public AffineTransform Transform { get; set; }
 
         public CanvasState()
         {
-            Transform = new EWAffineTransform();
+            Transform = new AffineTransform();
         }
 
         public CanvasState(CanvasState prototype)
@@ -18,7 +18,7 @@
             StrokeDashPattern = prototype.StrokeDashPattern;
             StrokeSize = prototype.StrokeSize;
             StrokeLocation = prototype.StrokeLocation;
-            Transform = new EWAffineTransform(prototype.Transform);
+            Transform = new AffineTransform(prototype.Transform);
             Scale = prototype.Scale;
         }
 

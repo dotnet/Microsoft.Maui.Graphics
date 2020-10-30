@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.StrokeSize = 1;
             canvas.StrokeColor = StandardColors.Blue;
@@ -19,7 +19,7 @@ namespace GraphicsTester.Scenarios
             const string textShort = "Lorem ipsum dolor sit amet";
 
             canvas.SaveState();
-            canvas.SetShadow(new EWSize(2, 2), 2, StandardColors.DarkGrey, 1);
+            canvas.SetShadow(new EWSize(2, 2), 2, StandardColors.DarkGrey);
 
             for (int x = 0; x < 4; x++)
             {

@@ -96,11 +96,6 @@ namespace System.Graphics.GDI
             }
         }
 
-        public override EWStrokeLocation StrokeLocation
-        {
-            set => CurrentState.StrokeLocation = value;
-        }
-
         public override EWColor FillColor
         {
             set => CurrentState.FillColor = value?.AsColor() ?? Color.White;
@@ -143,7 +138,7 @@ namespace System.Graphics.GDI
             set => Logger.Debug("Not implemented");
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set => Logger.Debug("Not implemented");
         }
@@ -529,12 +524,12 @@ namespace System.Graphics.GDI
             CurrentState.NativeTranslate(tx, ty);
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             CurrentState.NativeConcatenateTransform(transform);
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
             Logger.Debug("Not implemented");
         }

@@ -8,15 +8,14 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
 
             canvas.SetShadow(
-                EWCanvas.DefaultShadowOffset,
-                EWCanvas.DefaultShadowBlur,
-                EWCanvas.DefaultShadowColor,
-                1);
+                CanvasDefaults.DefaultShadowOffset,
+                CanvasDefaults.DefaultShadowBlur,
+                CanvasDefaults.DefaultShadowColor);
 
             canvas.FillColor = StandardColors.Blue;
             var path = new EWPath(10, 10);

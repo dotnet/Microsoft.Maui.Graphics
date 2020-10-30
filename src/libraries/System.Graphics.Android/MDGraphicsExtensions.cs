@@ -105,7 +105,7 @@ namespace System.Graphics.Android
             return vPath;
         } */
 
-        public static Matrix AsMatrix(this EWAffineTransform transform)
+        public static Matrix AsMatrix(this AffineTransform transform)
         {
             var values = new float[9];
             transform.GetMatrix(values);
@@ -152,27 +152,27 @@ namespace System.Graphics.Android
                 if (vType == PathOperation.MOVE_TO)
                 {
                     var point = path[pointIndex++];
-                    nativePath.MoveTo((ox + point.X * ppux), (oy + point.Y * ppuy));
+                    nativePath.MoveTo(ox + point.X * ppux, oy + point.Y * ppuy);
                 }
                 else if (vType == PathOperation.LINE)
                 {
                     var point = path[pointIndex++];
-                    nativePath.LineTo((ox + point.X * ppux), (oy + point.Y * ppuy));
+                    nativePath.LineTo(ox + point.X * ppux, oy + point.Y * ppuy);
                 }
 
                 else if (vType == PathOperation.QUAD)
                 {
                     var controlPoint = path[pointIndex++];
                     var point = path[pointIndex++];
-                    nativePath.QuadTo((ox + controlPoint.X * ppux), (oy + controlPoint.Y * ppuy), (ox + point.X * ppux), (oy + point.Y * ppuy));
+                    nativePath.QuadTo(ox + controlPoint.X * ppux, oy + controlPoint.Y * ppuy, ox + point.X * ppux, oy + point.Y * ppuy);
                 }
                 else if (vType == PathOperation.CUBIC)
                 {
                     var controlPoint1 = path[pointIndex++];
                     var controlPoint2 = path[pointIndex++];
                     var point = path[pointIndex++];
-                    nativePath.CubicTo((ox + controlPoint1.X * ppux), (oy + controlPoint1.Y * ppuy), (ox + controlPoint2.X * ppux), (oy + controlPoint2.Y * ppuy), (ox + point.X * ppux),
-                        (oy + point.Y * ppuy));
+                    nativePath.CubicTo(ox + controlPoint1.X * ppux, oy + controlPoint1.Y * ppuy, ox + controlPoint2.X * ppux, oy + controlPoint2.Y * ppuy, ox + point.X * ppux,
+                        oy + point.Y * ppuy);
                 }
                 else if (vType == PathOperation.ARC)
                 {
@@ -387,7 +387,7 @@ namespace System.Graphics.Android
             return new EWPoint(target.X, target.Y);
         }
 
-        public static Bitmap GetPatternBitmap(this EWPaint paint, object currentFigure = null, float scale = 1)
+        public static Bitmap GetPatternBitmap(this EWPaint paint, float scale = 1)
         {
             var pattern = paint?.Pattern;
             if (pattern == null)
@@ -396,19 +396,8 @@ namespace System.Graphics.Android
             using (var context = new MDBitmapExportContext((int) (pattern.Width * scale), (int) (pattern.Height * scale), scale, disposeBitmap: false))
             {
                 var canvas = context.Canvas;
-
-                if (currentFigure != null)
-                    canvas.StartFigure(currentFigure);
-
                 canvas.Scale(scale, scale);
                 pattern.Draw(canvas);
-
-                if (currentFigure != null)
-                    canvas.EndFigure();
-
-                //var filename = "/storage/emulated/0/" + pattern.GetType().Name + ".png";
-                //System.Console.WriteLine("Writing to :{0}",filename);
-                //context.WriteToFile (filename);
                 return context.Bitmap;
             }
         }
@@ -416,8 +405,7 @@ namespace System.Graphics.Android
         public static Bitmap GetPatternBitmap(
             this EWPaint paint,
             float scaleX,
-            float scaleY,
-            object currentFigure = null)
+            float scaleY)
         {
             var pattern = paint?.Pattern;
             if (pattern == null)
@@ -427,18 +415,9 @@ namespace System.Graphics.Android
             {
                 var scalingCanvas = new ScalingCanvas(context.Canvas);
                 scalingCanvas.Scale(scaleX, scaleY);
-
-                if (currentFigure != null)
-                    scalingCanvas.StartFigure(currentFigure);
-
+                
                 pattern.Draw(scalingCanvas);
 
-                if (currentFigure != null)
-                    scalingCanvas.EndFigure();
-
-                //var filename = "/storage/emulated/0/" + pattern.GetType().Name + ".png";
-                //System.Console.WriteLine("Writing to :{0}",filename);
-                //context.WriteToFile (filename);
                 return context.Bitmap;
             }
         }

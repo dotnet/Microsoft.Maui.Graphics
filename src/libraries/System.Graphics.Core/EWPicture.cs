@@ -2,7 +2,7 @@ namespace System.Graphics
 {
     public interface EWPicture
     {
-        void Draw(EWCanvas canvas, float zoom, float ppu);
+        void Draw(ICanvas canvas, float zoom, float ppu);
 
         float X { get; }
 

@@ -1016,7 +1016,7 @@ namespace System.Graphics
          vPath.
        */
 
-        public void Transform(EWAffineTransform aTransform)
+        public void Transform(AffineTransform aTransform)
         {
             foreach (EWPoint vPoint in _points)
             {

@@ -1,4 +1,5 @@
 #if MONOMAC
+using AppKit;
 #else
 using UIKit;
 #endif
@@ -30,7 +31,7 @@ namespace System.Graphics.CoreGraphics
 
         private CGCanvas _fillPatternCanvas;
 
-        private EWPattern _fillPattern;
+        private IPattern _fillPattern;
         private CGRect _fillPatternRect;
 
         private EWImage _fillImage;
@@ -211,7 +212,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set
             {
@@ -219,88 +220,88 @@ namespace System.Graphics.CoreGraphics
 
                 switch (value)
                 {
-                    case EWBlendMode.Clear:
+                    case BlendMode.Clear:
                         blendMode = CGBlendMode.Clear;
                         break;
-                    case EWBlendMode.Color:
+                    case BlendMode.Color:
                         blendMode = CGBlendMode.Color;
                         break;
-                    case EWBlendMode.ColorBurn:
+                    case BlendMode.ColorBurn:
                         blendMode = CGBlendMode.ColorBurn;
                         break;
-                    case EWBlendMode.ColorDodge:
+                    case BlendMode.ColorDodge:
                         blendMode = CGBlendMode.ColorDodge;
                         break;
-                    case EWBlendMode.Copy:
+                    case BlendMode.Copy:
                         blendMode = CGBlendMode.Copy;
                         break;
-                    case EWBlendMode.Darken:
+                    case BlendMode.Darken:
                         blendMode = CGBlendMode.Darken;
                         break;
-                    case EWBlendMode.DestinationAtop:
+                    case BlendMode.DestinationAtop:
                         blendMode = CGBlendMode.DestinationAtop;
                         break;
-                    case EWBlendMode.DestinationIn:
+                    case BlendMode.DestinationIn:
                         blendMode = CGBlendMode.DestinationIn;
                         break;
-                    case EWBlendMode.DestinationOut:
+                    case BlendMode.DestinationOut:
                         blendMode = CGBlendMode.DestinationOut;
                         break;
-                    case EWBlendMode.DestinationOver:
+                    case BlendMode.DestinationOver:
                         blendMode = CGBlendMode.DestinationOver;
                         break;
-                    case EWBlendMode.Difference:
+                    case BlendMode.Difference:
                         blendMode = CGBlendMode.Difference;
                         break;
-                    case EWBlendMode.Exclusion:
+                    case BlendMode.Exclusion:
                         blendMode = CGBlendMode.Exclusion;
                         break;
-                    case EWBlendMode.HardLight:
+                    case BlendMode.HardLight:
                         blendMode = CGBlendMode.HardLight;
                         break;
-                    case EWBlendMode.Hue:
+                    case BlendMode.Hue:
                         blendMode = CGBlendMode.Hue;
                         break;
-                    case EWBlendMode.Lighten:
+                    case BlendMode.Lighten:
                         blendMode = CGBlendMode.Lighten;
                         break;
-                    case EWBlendMode.Luminosity:
+                    case BlendMode.Luminosity:
                         blendMode = CGBlendMode.Luminosity;
                         break;
-                    case EWBlendMode.Multiply:
+                    case BlendMode.Multiply:
                         blendMode = CGBlendMode.Multiply;
                         break;
-                    case EWBlendMode.Normal:
+                    case BlendMode.Normal:
                         blendMode = CGBlendMode.Normal;
                         break;
-                    case EWBlendMode.Overlay:
+                    case BlendMode.Overlay:
                         blendMode = CGBlendMode.Overlay;
                         break;
-                    case EWBlendMode.PlusDarker:
+                    case BlendMode.PlusDarker:
                         blendMode = CGBlendMode.PlusDarker;
                         break;
-                    case EWBlendMode.PlusLighter:
+                    case BlendMode.PlusLighter:
                         blendMode = CGBlendMode.PlusLighter;
                         break;
-                    case EWBlendMode.Saturation:
+                    case BlendMode.Saturation:
                         blendMode = CGBlendMode.Saturation;
                         break;
-                    case EWBlendMode.Screen:
+                    case BlendMode.Screen:
                         blendMode = CGBlendMode.Screen;
                         break;
-                    case EWBlendMode.SoftLight:
+                    case BlendMode.SoftLight:
                         blendMode = CGBlendMode.SoftLight;
                         break;
-                    case EWBlendMode.SourceAtop:
+                    case BlendMode.SourceAtop:
                         blendMode = CGBlendMode.SourceAtop;
                         break;
-                    case EWBlendMode.SourceIn:
+                    case BlendMode.SourceIn:
                         blendMode = CGBlendMode.SourceIn;
                         break;
-                    case EWBlendMode.SourceOut:
+                    case BlendMode.SourceOut:
                         blendMode = CGBlendMode.SourceOut;
                         break;
-                    case EWBlendMode.XOR:
+                    case BlendMode.Xor:
                         blendMode = CGBlendMode.XOR;
                         break;
                 }
@@ -694,24 +695,15 @@ namespace System.Graphics.CoreGraphics
             return (float) Math.Sqrt(a * a + b * b);
         }
 
-        private void DrawPatternCallback(CGContext context, EWPattern fillPattern, object currentFigure)
+        private void DrawPatternCallback(CGContext context, IPattern fillPattern)
         {
             if (fillPattern != null)
             {
                 context.SetLineDash(0, EmptyNFloatArray);
-
                 if (_fillPatternCanvas == null)
                     _fillPatternCanvas = new CGCanvas(_getColorspace);
-
                 _fillPatternCanvas.Context = context;
-
-                if (currentFigure != null)
-                    _fillPatternCanvas.StartFigure(currentFigure);
-
                 fillPattern.Draw(_fillPatternCanvas);
-
-                if (currentFigure != null)
-                    _fillPatternCanvas.EndFigure();
             }
         }
 
@@ -822,9 +814,8 @@ namespace System.Graphics.CoreGraphics
             // creating PDF documents, the callback is called with the PDF context is closed, not immediately as when rendering
             // to the screen.
             var patternToDraw = _fillPattern;
-            var currentFigure = CurrentFigure;
             var pattern = new CGPattern(_fillPatternRect, transform, _fillPattern.StepX, _fillPattern.StepY, CGPatternTiling.ConstantSpacing, true,
-                (handle) => DrawPatternCallback(handle, patternToDraw, currentFigure));
+                (handle) => DrawPatternCallback(handle, patternToDraw));
             _context.SetFillPattern(pattern, new nfloat[] {1});
             drawingAction();
 
@@ -1235,21 +1226,6 @@ namespace System.Graphics.CoreGraphics
             path.Dispose();
         }
 
-        public override void DrawString(EWPath path,
-            string value,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
-            float lineSpacingAdjustment = 0)
-        {
-            float fx = 1;
-            float fy = 1;
-
-            var nativePath = _context.AddPath(path, 0,0, fx, fy);
-            DrawStringInNativePath(nativePath, value, horizontalAlignment, verticalAlignment, textFlow, _context, _fontName, _fontSize, _fontColor, 0, 0);
-            nativePath.Dispose();
-        }
-
         public override void DrawText(IAttributedText value, float x, float y, float width, float height)
         {
             var rect = new CGRect(x, y, width, height);
@@ -1462,19 +1438,17 @@ namespace System.Graphics.CoreGraphics
             context.RestoreState();
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            var actualOffset = offset ?? DefaultShadowOffset;
+            var actualOffset = offset ?? CanvasDefaults.DefaultShadowOffset;
 
             var sizeF = actualOffset.AsSizeF();
-            sizeF.Width *= zoom;
-            sizeF.Height *= zoom;
 
 #if MONOMAC
 			sizeF.Height *= -1;
 #endif
 
-            var actualBlur = (blur * zoom);
+            var actualBlur = blur;
 
             if (color == null)
             {
@@ -1510,7 +1484,7 @@ namespace System.Graphics.CoreGraphics
             _context.TranslateCTM(tx, ty);
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             _context.ConcatCTM(transform.AsCGAffineTransform());
         }

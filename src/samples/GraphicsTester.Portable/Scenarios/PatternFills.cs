@@ -9,11 +9,11 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(EWCanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
 
-            EWPattern pattern;
+            IPattern pattern;
             using (var picture = new PictureCanvas(0, 0, 12, 12))
             {
                 picture.StrokeColor = StandardColors.LimeGreen;
@@ -31,7 +31,7 @@ namespace GraphicsTester.Scenarios
             canvas.RestoreState();
         }
 
-        private EWPattern AddPictureAsPattern(EWPicture picture, float stepX, float stepY)
+        private IPattern AddPictureAsPattern(EWPicture picture, float stepX, float stepY)
         {
             return new EWPicturePattern(picture, stepX, stepY);
         }

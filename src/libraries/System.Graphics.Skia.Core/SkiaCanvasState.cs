@@ -3,7 +3,7 @@ using Color = SkiaSharp.SKColor;
 
 namespace System.Graphics.Skia
 {
-    public class SkiaCanvasState : CanvasState, BlurrableCanvas
+    public class SkiaCanvasState : CanvasState, IBlurrableCanvas
     {
         public float Alpha = 1;
         private SKPaint _fillPaint;
@@ -264,7 +264,7 @@ namespace System.Graphics.Skia
                     {
                         Color = SKColors.Black,
                         StrokeWidth = 1,
-                        StrokeMiter = EWCanvas.DefaultMiterLimit,
+                        StrokeMiter = CanvasDefaults.DefaultMiterLimit,
                         IsStroke = true,
                         IsAntialias = true
                     };

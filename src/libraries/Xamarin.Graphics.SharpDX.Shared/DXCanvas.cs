@@ -15,7 +15,7 @@ using TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode;
 
 namespace System.Graphics.SharpDX
 {
-    public class DXCanvas : AbstractCanvas<DXCanvasState>, BlurrableCanvas
+    public class DXCanvas : AbstractCanvas<DXCanvasState>, IBlurrableCanvas
     {
         private static readonly RectangleF InfiniteRect = new RectangleF(
             float.NegativeInfinity,
@@ -74,7 +74,11 @@ namespace System.Graphics.SharpDX
             set => _dpi = value;
         }
 
-        public override float DisplayScale => _dpi / 96;
+        public override float DisplayScale
+        {
+            get { return _dpi / 96; }
+            set { base.DisplayScale = value; }
+        }
 
         public bool BitmapPatternFills
         {
@@ -192,7 +196,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public override EWBlendMode BlendMode
+        public override BlendMode BlendMode
         {
             set
             {
@@ -864,7 +868,7 @@ namespace System.Graphics.SharpDX
             _renderTarget.Transform = CurrentState.DxTranslate(tx, ty);
         }
 
-        protected override void NativeConcatenateTransform(EWAffineTransform transform)
+        protected override void NativeConcatenateTransform(AffineTransform transform)
         {
             _renderTarget.Transform = CurrentState.DxConcatenateTransform(transform);
         }
@@ -881,9 +885,9 @@ namespace System.Graphics.SharpDX
                 state?.RestoreRenderTargetState();
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color, float zoom)
+        public override void SetShadow(EWSize offset, float blur, EWColor color)
         {
-            CurrentState.SetShadow(offset, blur, color, zoom);
+            CurrentState.SetShadow(offset, blur, color);
         }
 
         protected override void NativeSetStrokeDashPattern(float[] pattern, float strokeSize)
@@ -1003,7 +1007,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        private Bitmap1 CreatePatternBitmap(EWPattern pattern)
+        private Bitmap1 CreatePatternBitmap(IPattern pattern)
         {
             var context = GetOrCreatePatternContext(new Size2((int) pattern.Width, (int) pattern.Height));
             if (context != null)
@@ -1020,7 +1024,7 @@ namespace System.Graphics.SharpDX
             return null;
         }
 
-        private CommandList CreatePatternCommandList(EWPattern pattern)
+        private CommandList CreatePatternCommandList(IPattern pattern)
         {
             var context = GetOrCreateVectorContext();
             if (context != null)
@@ -1029,15 +1033,9 @@ namespace System.Graphics.SharpDX
                 context.Target = commandList;
                 context.BeginDraw();
                 var canvas = new DXCanvas(context);
-
-                if (CurrentFigure != null)
-                    canvas.StartFigure(CurrentFigure);
-
+                
                 pattern.Draw(canvas);
-
-                if (CurrentFigure != null)
-                    canvas.EndFigure();
-
+                
                 context.EndDraw();
                 commandList.Close();
 

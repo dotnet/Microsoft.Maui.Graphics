@@ -37,7 +37,7 @@ namespace System.Graphics.CoreGraphics
             _canvas.Translate(border, -border);
         }
 
-        public override EWCanvas Canvas => _canvas;
+        public override ICanvas Canvas => _canvas;
 
         public UIImage UIImage => UIImage.FromImage(_bitmapContext.ToImage());
 

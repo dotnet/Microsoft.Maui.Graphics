@@ -39,7 +39,7 @@ namespace System.Graphics.CoreGraphics
 
         public CGBitmapContext BitmapContext => _bitmapContext;
 
-        public override EWCanvas Canvas => _canvas;
+        public override ICanvas Canvas => _canvas;
 
         public NSImage NSImage
         {
