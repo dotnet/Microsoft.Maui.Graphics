@@ -1,10 +1,10 @@
 using System;
+using System.Graphics;
 using AppKit;
-using GraphicsTester.Scenarios;
 using Foundation;
-using Xamarin.Graphics;
+using GraphicsTester.Scenarios;
 
-namespace GraphicsTester.Mac
+namespace GraphicsTester.Skia
 {
     public class TesterTableViewSource : NSTableViewSource
     {

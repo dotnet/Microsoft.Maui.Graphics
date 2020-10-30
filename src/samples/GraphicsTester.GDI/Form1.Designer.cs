@@ -1,4 +1,6 @@
-﻿namespace GraphicsTester.GDI
+﻿using System.Graphics.GDI;
+
+namespace GraphicsTester.GDI
 {
     partial class Form1
     {
@@ -28,10 +30,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Elevenworks.Graphics.GDIDirectGraphicsRenderer gdiDirectGraphicsRenderer1 = new Elevenworks.Graphics.GDIDirectGraphicsRenderer();
+            GDIDirectGraphicsRenderer gdiDirectGraphicsRenderer1 = new GDIDirectGraphicsRenderer();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.gdiGraphicsView1 = new Elevenworks.Graphics.GDIGraphicsView();
+            this.gdiGraphicsView1 = new GDIGraphicsView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,7 +105,7 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox listBox1;
-        private Elevenworks.Graphics.GDIGraphicsView gdiGraphicsView1;
+        private GDIGraphicsView gdiGraphicsView1;
     }
 }
 

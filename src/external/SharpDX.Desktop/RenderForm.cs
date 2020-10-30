@@ -43,13 +43,12 @@
 * THE SOFTWARE.
 */
 
-using SharpDX.Mathematics.Interop;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SharpDX.Windows
+namespace SharpDX.Desktop
 {
     /// <summary>
     /// Default Rendering Form.

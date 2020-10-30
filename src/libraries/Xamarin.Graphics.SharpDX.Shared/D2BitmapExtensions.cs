@@ -1,11 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using SharpDX;
 using SharpDX.DXGI;
 using d2 = SharpDX.Direct2D1;
 using wic = SharpDX.WIC;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class D2BitmapExtensions
     {

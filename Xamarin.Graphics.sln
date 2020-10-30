@@ -3,53 +3,53 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Systems.Graphics.Core", "src\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj", "{76F3031E-341E-43CC-BD92-B23F83495DB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Core", "src\libraries\System.Graphics.Core\System.Graphics.Core.csproj", "{76F3031E-341E-43CC-BD92-B23F83495DB7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Text.Core", "src\libraries\Xamarin.Text.Core\Xamarin.Text.Core.csproj", "{29F2DEBB-7346-4284-B7D9-82937622AB2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Text.Core", "src\libraries\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj", "{29F2DEBB-7346-4284-B7D9-82937622AB2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Text.iOS", "src\libraries\Xamarin.Text.iOS\Xamarin.Text.iOS.csproj", "{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Text.iOS", "src\libraries\System.Graphics.Text.iOS\System.Graphics.Text.iOS.csproj", "{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Text.Mac", "src\libraries\Xamarin.Text.Mac\Xamarin.Text.Mac.csproj", "{87E2FB65-B701-4009-9509-6EFACA2DDA7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Text.Mac", "src\libraries\System.Graphics.Text.Mac\System.Graphics.Text.Mac.csproj", "{87E2FB65-B701-4009-9509-6EFACA2DDA7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Text.Markdig", "src\libraries\Xamarin.Text.Markdig\Xamarin.Text.Markdig.csproj", "{ED36FB6D-7278-465D-9C44-D01927258BA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Text.Markdig", "src\libraries\System.Graphics.Text.Markdig\System.Graphics.Text.Markdig.csproj", "{ED36FB6D-7278-465D-9C44-D01927258BA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Text.Android", "src\libraries\Xamarin.Text.Android\Xamarin.Text.Android.csproj", "{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Text.Android", "src\libraries\System.Graphics.Text.Android\System.Graphics.Text.Android.csproj", "{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Text.WPF", "src\libraries\Xamarin.Text.WPF\Xamarin.Text.WPF.csproj", "{029785AD-50DB-4DA0-8882-126483BF0F2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Text.WPF", "src\libraries\System.Graphics.Text.WPF\System.Graphics.Text.WPF.csproj", "{029785AD-50DB-4DA0-8882-126483BF0F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Android", "src\libraries\Xamarin.Graphics.Android\Xamarin.Graphics.Android.csproj", "{F63D421B-A5E5-4107-9BAC-9C45ED1363DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Android", "src\libraries\System.Graphics.Android\System.Graphics.Android.csproj", "{F63D421B-A5E5-4107-9BAC-9C45ED1363DE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Blazor", "src\libraries\Xamarin.Graphics.Blazor\Xamarin.Graphics.Blazor.csproj", "{B755D39B-1AD8-48FA-B56F-53FCA7478085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Blazor", "src\libraries\System.Graphics.Blazor\System.Graphics.Blazor.csproj", "{B755D39B-1AD8-48FA-B56F-53FCA7478085}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Blazor.JS", "src\libraries\Xamarin.Graphics.Blazor.JS\Xamarin.Graphics.Blazor.JS.csproj", "{0E1E4EF4-9415-43FF-971F-204311403A2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Blazor.JS", "src\libraries\System.Graphics.Blazor.JS\System.Graphics.Blazor.JS.csproj", "{0E1E4EF4-9415-43FF-971F-204311403A2D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Forms.Core", "src\libraries\Xamarin.Graphics.Forms.Core\Xamarin.Graphics.Forms.Core.csproj", "{BE7203D5-B616-4F38-9D9F-B5D4D92DBDF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Forms.Core", "src\libraries\System.Graphics.Forms.Core\System.Graphics.Forms.Core.csproj", "{BE7203D5-B616-4F38-9D9F-B5D4D92DBDF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Forms.Android", "src\libraries\Xamarin.Graphics.Forms.Android\Xamarin.Graphics.Forms.Android.csproj", "{A1FE5CA7-45EE-4BB0-9FDF-8698BB22568B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Forms.Android", "src\libraries\System.Graphics.Forms.Android\System.Graphics.Forms.Android.csproj", "{A1FE5CA7-45EE-4BB0-9FDF-8698BB22568B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Forms.iOS", "src\libraries\Xamarin.Graphics.Forms.iOS\Xamarin.Graphics.Forms.iOS.csproj", "{7B6503A2-DA2C-4512-BBA5-95BF85CF63C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Forms.iOS", "src\libraries\System.Graphics.Forms.iOS\System.Graphics.Forms.iOS.csproj", "{7B6503A2-DA2C-4512-BBA5-95BF85CF63C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Forms.Win2D.UWP", "src\libraries\Xamarin.Graphics.Forms.Win2D.UWP\Xamarin.Graphics.Forms.Win2D.UWP.csproj", "{8B29A316-4194-4051-A9A2-1F55428F6E87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Forms.Win2D.UWP", "src\libraries\System.Graphics.Forms.Win2D.UWP\System.Graphics.Forms.Win2D.UWP.csproj", "{8B29A316-4194-4051-A9A2-1F55428F6E87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.GDI.Winforms", "src\libraries\Xamarin.Graphics.GDI.Winforms\Xamarin.Graphics.GDI.Winforms.csproj", "{3C3BF90F-C579-463D-B33F-8B9B16D2DAB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.GDI.Winforms", "src\libraries\System.Graphics.GDI.Winforms\System.Graphics.GDI.Winforms.csproj", "{3C3BF90F-C579-463D-B33F-8B9B16D2DAB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.CoreGraphics.iOS", "src\libraries\Xamarin.Graphics.CoreGraphics.iOS\Xamarin.Graphics.CoreGraphics.iOS.csproj", "{F8D43F64-AF09-4E06-8473-5BDC37281908}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.CoreGraphics.iOS", "src\libraries\System.Graphics.CoreGraphics.iOS\System.Graphics.CoreGraphics.iOS.csproj", "{F8D43F64-AF09-4E06-8473-5BDC37281908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.CoreGraphics.Mac", "src\libraries\Xamarin.Graphics.CoreGraphics.Mac\Xamarin.Graphics.CoreGraphics.Mac.csproj", "{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.CoreGraphics.Mac", "src\libraries\System.Graphics.CoreGraphics.Mac\System.Graphics.CoreGraphics.Mac.csproj", "{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Skia.Core", "src\libraries\Xamarin.Graphics.Skia.Core\Xamarin.Graphics.Skia.Core.csproj", "{C7613109-6198-402E-953F-57EA81E8238E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Skia.Core", "src\libraries\System.Graphics.Skia.Core\System.Graphics.Skia.Core.csproj", "{C7613109-6198-402E-953F-57EA81E8238E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Skia.WPF", "src\libraries\Xamarin.Graphics.Skia.WPF\Xamarin.Graphics.Skia.WPF.csproj", "{28044370-E6F2-43AA-A164-19B142503DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Skia.WPF", "src\libraries\System.Graphics.Skia.WPF\System.Graphics.Skia.WPF.csproj", "{28044370-E6F2-43AA-A164-19B142503DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Win2D.UWP", "src\libraries\Xamarin.Graphics.Win2D.UWP\Xamarin.Graphics.Win2D.UWP.csproj", "{20794E60-3BFD-46F4-BC0B-87B3959AA3C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Win2D.UWP", "src\libraries\System.Graphics.Win2D.UWP\System.Graphics.Win2D.UWP.csproj", "{20794E60-3BFD-46F4-BC0B-87B3959AA3C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.Xaml.WPF", "src\libraries\Xamarin.Graphics.Xaml.WPF\Xamarin.Graphics.Xaml.WPF.csproj", "{7CFA3483-D337-406C-A077-F284CBE6A552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Xaml.WPF", "src\libraries\System.Graphics.Xaml.WPF\System.Graphics.Xaml.WPF.csproj", "{7CFA3483-D337-406C-A077-F284CBE6A552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.Xaml.UWP", "src\libraries\Xamarin.Graphics.Xaml.UWP\Xamarin.Graphics.Xaml.UWP.csproj", "{9DF3C198-5B93-47B1-A8C4-11A25CA6DEF2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Xaml.UWP", "src\libraries\System.Graphics.Xaml.UWP\System.Graphics.Xaml.UWP.csproj", "{9DF3C198-5B93-47B1-A8C4-11A25CA6DEF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Graphics.SharpDX.UWP", "src\libraries\Xamarin.Graphics.SharpDX.UWP\Xamarin.Graphics.SharpDX.UWP.csproj", "{694E970D-5C18-483F-BC48-D6D86DA8E78F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.SharpDX.UWP", "src\libraries\System.Graphics.SharpDX.UWP\System.Graphics.SharpDX.UWP.csproj", "{694E970D-5C18-483F-BC48-D6D86DA8E78F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Graphics.SharpDX.WPF", "src\libraries\Xamarin.Graphics.SharpDX.WPF\Xamarin.Graphics.SharpDX.WPF.csproj", "{BC291304-FDC0-4E1D-A673-39F5E446B0E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.SharpDX.WPF", "src\libraries\System.Graphics.SharpDX.WPF\System.Graphics.SharpDX.WPF.csproj", "{BC291304-FDC0-4E1D-A673-39F5E446B0E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}"
 EndProject

@@ -20,12 +20,10 @@
 
 using System;
 using System.Globalization;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-using SharpDX.Win32;
-
-namespace SharpDX.Windows
+namespace SharpDX.Desktop
 {
     /// <summary>
     /// RenderLoop provides a rendering loop infrastructure. See remarks for usage. 

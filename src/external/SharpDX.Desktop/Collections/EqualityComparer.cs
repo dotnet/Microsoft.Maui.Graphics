@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SharpDX.Collections
+namespace SharpDX.Desktop.Collections
 {
     /// <summary>
     /// Provides <see cref="IEqualityComparer{T}"/> for default value types.

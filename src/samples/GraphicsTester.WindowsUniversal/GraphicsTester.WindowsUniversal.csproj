@@ -130,17 +130,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
+    <ProjectReference Include="..\..\libraries\System.Graphics.Core\System.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Systems.Graphics.Core</Name>
+      <Name>System.Graphics.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.SharpDX.UWP\Xamarin.Graphics.SharpDX.UWP.csproj">
+    <ProjectReference Include="..\..\libraries\System.Graphics.SharpDX.UWP\System.Graphics.SharpDX.UWP.csproj">
       <Project>{694e970d-5c18-483f-bc48-d6d86da8e78f}</Project>
-      <Name>Xamarin.Graphics.SharpDX.UWP</Name>
+      <Name>System.Graphics.SharpDX.UWP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Win2D.UWP\Xamarin.Graphics.Win2D.UWP.csproj">
+    <ProjectReference Include="..\..\libraries\System.Graphics.Win2D.UWP\System.Graphics.Win2D.UWP.csproj">
       <Project>{20794e60-3bfd-46f4-bc0b-87b3959aa3c7}</Project>
-      <Name>Xamarin.Graphics.Win2D.UWP</Name>
+      <Name>System.Graphics.Win2D.UWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{5f0cd247-afcb-4b1e-86e1-85d59e650fff}</Project>

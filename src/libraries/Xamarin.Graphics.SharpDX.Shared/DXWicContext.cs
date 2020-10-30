@@ -1,10 +1,8 @@
-﻿using System;
-using Xamarin.Graphics;
-using d2 = SharpDX.Direct2D1;
+﻿using d2 = SharpDX.Direct2D1;
 using dxgi = SharpDX.DXGI;
 using wic = SharpDX.WIC;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public class DXWicContext : IDisposable
     {

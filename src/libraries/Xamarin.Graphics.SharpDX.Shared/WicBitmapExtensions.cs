@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using SharpDX.WIC;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class WicBitmapExtensions
     {

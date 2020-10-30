@@ -1,9 +1,8 @@
-﻿using System;
-using CoreGraphics;
+﻿using CoreGraphics;
 using CoreText;
 using Foundation;
 
-namespace Xamarin.Graphics.CoreGraphics
+namespace System.Graphics.CoreGraphics
 {
     public static class CGCanvasExtensions
     {

@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using Elevenworks.Graphics;
-using Elevenworks.Graphics.SharpDX;
+﻿using System.Graphics;
+using System.Graphics.SharpDX;
+using System.Windows;
 using GraphicsTester.Scenarios;
-using Xamarin.Graphics;
 
 namespace GraphicsTester.WPF.SharpDX
 {

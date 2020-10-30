@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:graphics1="clr-namespace:Elevenworks.Graphics;assembly=Xamarin.Graphics.Skia.WPF"
-        xmlns:skia="clr-namespace:Xamarin.Graphics.Skia;assembly=Xamarin.Graphics.Skia.WPF"
+        xmlns:skia="clr-namespace:System.Graphics.Skia;assembly=System.Graphics.Skia.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>

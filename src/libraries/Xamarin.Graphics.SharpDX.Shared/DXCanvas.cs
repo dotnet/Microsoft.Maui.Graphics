@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using Elevenworks.Graphics.SharpDX.Shared;
+using System.Graphics.Text;
+#if WINDOWS_UWP
+using Windows.Graphics.Display;
+#endif
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Direct2D1.Effects;
 using SharpDX.DirectWrite;
 using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
-using Xamarin.Graphics;
-using Xamarin.Text;
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;
-using Geometry = Xamarin.Graphics.Geometry;
 using TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode;
 
-#if WINDOWS_UWP
-using Windows.Graphics.Display;
-#endif
-
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public class DXCanvas : AbstractCanvas<DXCanvasState>, BlurrableCanvas
     {
@@ -80,8 +75,6 @@ namespace Elevenworks.Graphics.SharpDX
         }
 
         public override float DisplayScale => _dpi / 96;
-
-        public override bool PixelShifted { get; set; }
 
         public bool BitmapPatternFills
         {

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
+using System.Graphics;
+using System.Graphics.Android;
 using Android.Runtime;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
-using Elevenworks.Graphics;
 using GraphicsTester.Scenarios;
-using Xamarin.Graphics;
 
 namespace GraphicsTester.Android
 {

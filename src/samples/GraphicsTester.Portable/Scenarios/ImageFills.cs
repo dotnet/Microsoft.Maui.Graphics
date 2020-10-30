@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using Xamarin.Graphics;
+﻿using System.Graphics;
+using System.Reflection;
 
 namespace GraphicsTester.Scenarios
 {

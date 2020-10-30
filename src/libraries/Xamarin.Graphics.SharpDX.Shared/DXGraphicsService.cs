@@ -3,11 +3,10 @@ using System.Threading;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
 using SharpDX.WIC;
-using Xamarin.Graphics;
 using Factory = SharpDX.Direct2D1.Factory;
 using FactoryType = SharpDX.Direct2D1.FactoryType;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public class DXGraphicsService : IGraphicsService
     {

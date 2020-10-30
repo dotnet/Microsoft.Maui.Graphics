@@ -1,7 +1,8 @@
-﻿using System.Windows;
-using Elevenworks.Graphics;
+﻿using System.Graphics;
+using System.Graphics.GDI;
+using System.Graphics.Skia;
+using System.Windows;
 using GraphicsTester.Scenarios;
-using Xamarin.Graphics;
 
 namespace GraphicsTester.WPF.Skia
 {

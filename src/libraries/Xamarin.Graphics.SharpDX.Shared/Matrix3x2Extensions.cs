@@ -1,6 +1,6 @@
 ﻿using SharpDX;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     // ReSharper disable once InconsistentNaming
     public static class Matrix3x2Extensions

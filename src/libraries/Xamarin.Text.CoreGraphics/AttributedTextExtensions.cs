@@ -6,7 +6,7 @@ using NSStringAttributeKey = UIKit.UIStringAttributeKey;
 using CoreText;
 using Foundation;
 
-namespace Xamarin.Text
+namespace System.Graphics.Text
 {
     public static class AttributedTextExtensions
     {

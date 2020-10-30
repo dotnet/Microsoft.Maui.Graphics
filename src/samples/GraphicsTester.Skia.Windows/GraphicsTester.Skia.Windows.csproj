@@ -59,8 +59,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.GDI.Winforms\Xamarin.Graphics.GDI.Winforms.csproj" />
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Skia.WPF\Xamarin.Graphics.Skia.WPF.csproj" />
+    <ProjectReference Include="..\..\libraries\System.Graphics.GDI.Winforms\System.Graphics.GDI.Winforms.csproj" />
+    <ProjectReference Include="..\..\libraries\System.Graphics.Skia.WPF\System.Graphics.Skia.WPF.csproj" />
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{5F0CD247-AFCB-4B1E-86E1-85D59E650FFF}</Project>
       <Name>GraphicsTester.Portable</Name>

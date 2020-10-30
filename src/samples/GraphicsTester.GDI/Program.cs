@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Graphics;
+using System.Graphics.GDI;
 using System.Windows.Forms;
-using Elevenworks.Graphics;
-using Xamarin.Graphics;
 
 namespace GraphicsTester.GDI
 {

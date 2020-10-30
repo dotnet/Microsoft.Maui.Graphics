@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SharpDX.DirectWrite;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class DXFontManager
     {

@@ -1,9 +1,9 @@
-﻿using AppKit;
+﻿using System.Graphics;
+using System.Graphics.CoreGraphics;
+using AppKit;
 using CoreGraphics;
-using Xamarin.Graphics;
-using Xamarin.Graphics.CoreGraphics;
 
-namespace GraphicsTester.Mac
+namespace GraphicsTester.Skia
 {
     public class TesterView : NSView
     {

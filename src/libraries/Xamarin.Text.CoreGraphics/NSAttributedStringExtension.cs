@@ -6,11 +6,11 @@ using NSFont = UIKit.UIFont;
 using NSColor = UIKit.UIColor;
 #endif
 using System.Collections.Generic;
+using System.Graphics.Text.Immutable;
 using System.IO;
 using Foundation;
-using Xamarin.Text.Immutable;
 
-namespace Xamarin.Text
+namespace System.Graphics.Text
 {
     public static class NSAttributedStringExtension
     {

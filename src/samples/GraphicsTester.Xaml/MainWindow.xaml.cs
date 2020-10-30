@@ -1,8 +1,7 @@
-﻿using System.Windows;
-using Elevenworks.Graphics;
+﻿using System.Graphics;
+using System.Graphics.Xaml;
+using System.Windows;
 using GraphicsTester.Scenarios;
-using Xamarin.Graphics;
-using Xamarin.Graphics.Xaml;
 
 namespace GraphicsTester.Xaml
 {

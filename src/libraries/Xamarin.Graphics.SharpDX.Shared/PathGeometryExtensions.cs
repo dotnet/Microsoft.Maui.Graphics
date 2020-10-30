@@ -1,7 +1,7 @@
 ﻿using SharpDX;
 using SharpDX.Direct2D1;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class PathGeometryExtensions
     {

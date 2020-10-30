@@ -70,21 +70,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libraries\Systems.Graphics.Core\Systems.Graphics.Core.csproj">
-      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Systems.Graphics.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libraries\Xamarin.Graphics.Android\Xamarin.Graphics.Android.csproj">
+    <ProjectReference Include="..\..\libraries\System.Graphics.Android\System.Graphics.Android.csproj">
       <Project>{f63d421b-a5e5-4107-9bac-9c45ed1363de}</Project>
-      <Name>Xamarin.Graphics.Android</Name>
+      <Name>System.Graphics.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Android\Elevenworks.Graphics.Android.csproj">
-      <Project>{F63D421B-A5E5-4107-9BAC-9C45ED1363DE}</Project>
-      <Name>Xamarin.Graphics.Android</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{90EFC12E-8B00-4E15-AD76-809A3E9421E3}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
+    <ProjectReference Include="..\..\libraries\System.Graphics.Core\System.Graphics.Core.csproj">
+      <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
+      <Name>System.Graphics.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{D1878E17-08A7-4858-94B8-DE8B38BE2632}</Project>

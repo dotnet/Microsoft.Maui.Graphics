@@ -1,6 +1,6 @@
 ﻿using CoreGraphics;
 
-namespace Xamarin.Text
+namespace System.Graphics.Text
 {
     public static class CGColorExtensions
     {

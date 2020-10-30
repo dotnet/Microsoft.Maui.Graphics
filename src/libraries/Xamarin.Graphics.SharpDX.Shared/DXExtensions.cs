@@ -1,10 +1,7 @@
-﻿using System;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Direct2D1;
-using Xamarin.Graphics;
-using Geometry = Xamarin.Graphics.Geometry;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class DXExtensions
     {

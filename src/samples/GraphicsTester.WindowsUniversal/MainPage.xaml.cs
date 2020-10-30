@@ -1,10 +1,9 @@
-﻿using Windows.UI;
+﻿using System.Graphics;
+using System.Graphics.Win2D;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Elevenworks.Graphics;
-using Elevenworks.Graphics.Win2D;
 using GraphicsTester.Scenarios;
-using Xamarin.Graphics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 

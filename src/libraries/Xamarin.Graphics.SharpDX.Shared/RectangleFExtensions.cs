@@ -1,7 +1,6 @@
 ﻿using SharpDX.Mathematics.Interop;
-using Xamarin.Graphics;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class RectangleFExtensions
     {

@@ -1,4 +1,4 @@
-﻿using Xamarin.Graphics;
+﻿using System.Graphics;
 
 namespace GraphicsTester.Scenarios
 {

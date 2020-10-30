@@ -2,7 +2,7 @@
 using d2 = SharpDX.Direct2D1;
 using wic = SharpDX.WIC;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public static class RenderTargetExtensions
     {

@@ -1,7 +1,6 @@
-﻿using System;
-using CoreGraphics;
+﻿using CoreGraphics;
 
-namespace Xamarin.Graphics.CoreGraphics
+namespace System.Graphics.CoreGraphics
 {
     public static class CGGraphicsExtensions
     {

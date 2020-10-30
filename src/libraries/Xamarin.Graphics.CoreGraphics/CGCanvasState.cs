@@ -1,4 +1,4 @@
-namespace Xamarin.Graphics.CoreGraphics
+namespace System.Graphics.CoreGraphics
 {
     public class CGCanvasState : CanvasState
     {

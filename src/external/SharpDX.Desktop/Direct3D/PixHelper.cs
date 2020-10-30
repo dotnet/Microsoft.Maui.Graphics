@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using SharpDX.Mathematics.Interop;
 using System.Runtime.InteropServices;
+using SharpDX.Mathematics.Interop;
 
-namespace SharpDX.Direct3D
+namespace SharpDX.Desktop.Direct3D
 {
     /// <summary>
     /// Helper class for PIX.

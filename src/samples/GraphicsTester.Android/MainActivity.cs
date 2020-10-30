@@ -1,8 +1,8 @@
-﻿using Android.App;
+﻿using System.Graphics;
+using System.Graphics.Android;
+using Android.App;
 using Android.Widget;
 using Android.OS;
-using Elevenworks.Graphics;
-using Xamarin.Graphics;
 
 namespace GraphicsTester.Android
 {

@@ -1,11 +1,9 @@
-﻿using System;
-using Elevenworks.Graphics.SharpDX.Shared;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
 using SharpDX.Mathematics.Interop;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public class CustomBrushTextRenderer : TextRendererBase
     {

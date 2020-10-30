@@ -2,13 +2,12 @@
 #else
 using UIKit;
 #endif
-using System;
+using System.Graphics.Text;
 using CoreGraphics;
 using CoreText;
 using Foundation;
-using Xamarin.Text;
 
-namespace Xamarin.Graphics.CoreGraphics
+namespace System.Graphics.CoreGraphics
 {
     public class CGCanvas : AbstractCanvas<CGCanvasState>
     {
@@ -43,7 +42,6 @@ namespace Xamarin.Graphics.CoreGraphics
 
         // A local instance of a rectangle to avoid lots of object creation.
         private CGRect _rect = new CGRect(0, 0, 0, 0);
-        public override bool PixelShifted { get; set; }
 
         public CGCanvas(Func<CGColorSpace> getColorspace) : base(CreateNewState, CreateStateCopy)
         {
@@ -705,7 +703,6 @@ namespace Xamarin.Graphics.CoreGraphics
                 if (_fillPatternCanvas == null)
                     _fillPatternCanvas = new CGCanvas(_getColorspace);
 
-                _fillPatternCanvas.PixelShifted = PixelShifted;
                 _fillPatternCanvas.Context = context;
 
                 if (currentFigure != null)

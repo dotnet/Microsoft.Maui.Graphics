@@ -1,11 +1,8 @@
-﻿using System;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
-using Xamarin.Graphics;
-using Geometry = Xamarin.Graphics.Geometry;
 
-namespace Elevenworks.Graphics.SharpDX
+namespace System.Graphics.SharpDX
 {
     public class DXCanvasState : CanvasState
     {
