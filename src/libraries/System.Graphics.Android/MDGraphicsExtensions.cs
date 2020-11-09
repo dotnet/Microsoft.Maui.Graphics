@@ -154,13 +154,13 @@ namespace System.Graphics.Android
                     var point = path[pointIndex++];
                     nativePath.MoveTo(ox + point.X * ppux, oy + point.Y * ppuy);
                 }
-                else if (vType == PathOperation.LineTo)
+                else if (vType == PathOperation.Line)
                 {
                     var point = path[pointIndex++];
                     nativePath.LineTo(ox + point.X * ppux, oy + point.Y * ppuy);
                 }
 
-                else if (vType == PathOperation.QuadTo)
+                else if (vType == PathOperation.Quad)
                 {
                     var controlPoint = path[pointIndex++];
                     var point = path[pointIndex++];
@@ -224,7 +224,7 @@ namespace System.Graphics.Android
             var path = new Path();
 
             var type = target.GetSegmentType(segmentIndex);
-            if (type == PathOperation.LineTo)
+            if (type == PathOperation.Line)
             {
                 int pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -233,7 +233,7 @@ namespace System.Graphics.Android
                 var endPoint = target[pointIndex];
                 path.LineTo(endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.QuadTo)
+            else if (type == PathOperation.Quad)
             {
                 int pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -306,12 +306,12 @@ namespace System.Graphics.Android
                     var point = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.MoveTo(point.X * ppu, point.Y * ppu);
                 }
-                else if (type == PathOperation.LineTo)
+                else if (type == PathOperation.Line)
                 {
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.LineTo(endPoint.X * ppu, endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.QuadTo)
+                else if (type == PathOperation.Quad)
                 {
                     var controlPoint1 = target.GetRotatedPoint(pointIndex++, center, angle);
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
