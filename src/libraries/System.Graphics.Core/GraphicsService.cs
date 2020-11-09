@@ -10,9 +10,9 @@ namespace System.Graphics
         string BoldSystemFontName { get; }
         
         EWSize GetStringSize(string value, string fontName, float textSize);
-        EWSize GetStringSize(string value, string fontName, float textSize, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment);
+        EWSize GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment);
         
-        EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png);
+        IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png);
         BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1);
 
         bool IsRetina { get; }
@@ -20,7 +20,7 @@ namespace System.Graphics
 
     public static class GraphicServiceExtensions
     {
-        public static EWImage LoadImageFromBytes(this IGraphicsService target, byte[] bytes)
+        public static IImage LoadImageFromBytes(this IGraphicsService target, byte[] bytes)
         {
             using (var stream = new MemoryStream(bytes))
             {

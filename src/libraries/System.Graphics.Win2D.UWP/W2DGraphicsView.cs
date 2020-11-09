@@ -10,7 +10,7 @@ namespace System.Graphics.Win2D
         private CanvasControl _canvasControl;
         private readonly W2DCanvas _canvas = new W2DCanvas();
 
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private readonly EWRectangle _dirty = new EWRectangle();
         //private bool _resizeDrawable = true;
 
@@ -20,7 +20,7 @@ namespace System.Graphics.Win2D
             Unloaded += UserControl_Unloaded;
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

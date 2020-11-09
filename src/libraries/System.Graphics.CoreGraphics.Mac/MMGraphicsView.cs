@@ -9,12 +9,12 @@ namespace System.Graphics.CoreGraphics
     {
         private MMGraphicsRenderer _renderer;
         private CGColorSpace _colorSpace;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private bool _inPanOrZoom;
         private CGRect _lastBounds;
         private Color _backgroundColor;
 
-        public MMGraphicsView(EWDrawable drawable = null, MMGraphicsRenderer renderer = null)
+        public MMGraphicsView(IDrawable drawable = null, MMGraphicsRenderer renderer = null)
         {
             Drawable = drawable;
             Renderer = renderer;
@@ -58,7 +58,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

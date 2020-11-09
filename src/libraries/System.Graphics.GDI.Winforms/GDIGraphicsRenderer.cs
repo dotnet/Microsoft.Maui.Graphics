@@ -8,7 +8,7 @@
 
         Color BackgroundColor { get; set; }
 
-        EWDrawable Drawable { get; set; }
+        IDrawable Drawable { get; set; }
 
         void Draw(System.Drawing.Graphics graphics, EWRectangle dirtyRect);
 

@@ -9,7 +9,7 @@ namespace System.Graphics.Xaml
     {
         private Color _strokeColor = Colors.Black;
         private Color _fillColor = Colors.White;
-		private EWPaint _fillPaint;
+		private Paint _fillPaint;
 		private float _fillPaintX1;
 		private float _fillPaintX2;
 		private float _fillPaintY1;
@@ -21,8 +21,8 @@ namespace System.Graphics.Xaml
         private float _shadowBlur;
         private Color _shadowColor;
         private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
-        private EWLineCap _strokeLineCap = EWLineCap.BUTT;
-        private EWLineJoin _strokeLineJoin = EWLineJoin.MITER;
+        private LineCap _strokeLineCap = LineCap.Butt;
+        private LineJoin _strokeLineJoin = LineJoin.Miter;
         private TransformGroup _transformGroup;
         private bool _transformUsed;
         private double _fontSize;
@@ -67,10 +67,10 @@ namespace System.Graphics.Xaml
 
 				if (_fillPaint != null)
 				{
-                    if (_fillPaint.PaintType == EWPaintType.SOLID)
+                    if (_fillPaint.PaintType == PaintType.Solid)
                         return new SolidColorBrush(_fillPaint.StartColor.AsColor());
 
-                    if (_fillPaint.PaintType == EWPaintType.LINEAR_GRADIENT)
+                    if (_fillPaint.PaintType == PaintType.LinearGradient)
 					{
 					    var brush = new LinearGradientBrush
 					    {
@@ -80,7 +80,7 @@ namespace System.Graphics.Xaml
 					    };
 
 					    foreach (var stop in _fillPaint.Stops)
-							brush.GradientStops.Add(new GradientStop() { Color = stop.Color.AsColor(), Offset = stop.Offset });
+							brush.GradientStops.Add(new global::Windows.UI.Xaml.Media.GradientStop() { Color = stop.Color.AsColor(), Offset = stop.Offset });
 
 						return brush;
 					}
@@ -121,7 +121,7 @@ namespace System.Graphics.Xaml
             set => _miterLimit = value;
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             get => _strokeLineCap;
             set => _strokeLineCap = value;
@@ -133,7 +133,7 @@ namespace System.Graphics.Xaml
             set => _fontSize = value;
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             get => _strokeLineJoin;
             set => _strokeLineJoin = value;
@@ -185,11 +185,11 @@ namespace System.Graphics.Xaml
             {
                 switch (_strokeLineJoin)
                 {
-                    case EWLineJoin.MITER:
+                    case LineJoin.Miter:
                         return PenLineJoin.Miter;
-                    case EWLineJoin.BEVEL:
+                    case LineJoin.Bevel:
                         return PenLineJoin.Bevel;
-                    case EWLineJoin.ROUND:
+                    case LineJoin.Round:
                         return PenLineJoin.Round;
                 }
 
@@ -203,11 +203,11 @@ namespace System.Graphics.Xaml
             {
                 switch (_strokeLineCap)
                 {
-                    case EWLineCap.BUTT:
+                    case LineCap.Butt:
                         return PenLineCap.Flat;
-                    case EWLineCap.SQUARE:
+                    case LineCap.Square:
                         return PenLineCap.Square;
-                    case EWLineCap.ROUND:
+                    case LineCap.Round:
                         return PenLineCap.Round;
                 }
 
@@ -220,12 +220,12 @@ namespace System.Graphics.Xaml
             set => _font = value;
         }
 
-        public FontFamily FontFamily
+        public global::Windows.UI.Xaml.Media.FontFamily FontFamily
         {
             get
             {
                 var style = Fonts.CurrentService.GetFontStyleById(_font ?? "Arial");
-                return new FontFamily(style.FontFamily.Name);
+                return new global::Windows.UI.Xaml.Media.FontFamily(style.FontFamily.Name);
             }
         }
 
@@ -425,7 +425,7 @@ namespace System.Graphics.Xaml
             return group;
         }
 
-		internal void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+		internal void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
 		{
 			_fillColor = null;
 			_fillPaint = paint;

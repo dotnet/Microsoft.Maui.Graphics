@@ -126,17 +126,17 @@ namespace System.Graphics.Android
             return matrix;
         }
 
-        public static Path AsAndroidPath(this EWPath target)
+        public static Path AsAndroidPath(this PathF target)
         {
             return AsAndroidPath(target, 1);
         }
 
-        public static Path AsAndroidPath(this EWPath path, float ppu)
+        public static Path AsAndroidPath(this PathF path, float ppu)
         {
             return AsAndroidPath(path, ppu, 0, 0, 1, 1);
         }
 
-        public static Path AsAndroidPath(this EWPath path, float ppu, float ox, float oy, float fx, float fy)
+        public static Path AsAndroidPath(this PathF path, float ppu, float ox, float oy, float fx, float fy)
         {
             var nativePath = new Path();
 
@@ -149,24 +149,24 @@ namespace System.Graphics.Android
 
             foreach (PathOperation vType in path.SegmentTypes)
             {
-                if (vType == PathOperation.MOVE_TO)
+                if (vType == PathOperation.Move)
                 {
                     var point = path[pointIndex++];
                     nativePath.MoveTo(ox + point.X * ppux, oy + point.Y * ppuy);
                 }
-                else if (vType == PathOperation.LINE)
+                else if (vType == PathOperation.LineTo)
                 {
                     var point = path[pointIndex++];
                     nativePath.LineTo(ox + point.X * ppux, oy + point.Y * ppuy);
                 }
 
-                else if (vType == PathOperation.QUAD)
+                else if (vType == PathOperation.QuadTo)
                 {
                     var controlPoint = path[pointIndex++];
                     var point = path[pointIndex++];
                     nativePath.QuadTo(ox + controlPoint.X * ppux, oy + controlPoint.Y * ppuy, ox + point.X * ppux, oy + point.Y * ppuy);
                 }
-                else if (vType == PathOperation.CUBIC)
+                else if (vType == PathOperation.Cubic)
                 {
                     var controlPoint1 = path[pointIndex++];
                     var controlPoint2 = path[pointIndex++];
@@ -174,7 +174,7 @@ namespace System.Graphics.Android
                     nativePath.CubicTo(ox + controlPoint1.X * ppux, oy + controlPoint1.Y * ppuy, ox + controlPoint2.X * ppux, oy + controlPoint2.Y * ppuy, ox + point.X * ppux,
                         oy + point.Y * ppuy);
                 }
-                else if (vType == PathOperation.ARC)
+                else if (vType == PathOperation.Arc)
                 {
                     var topLeft = path[pointIndex++];
                     var bottomRight = path[pointIndex++];
@@ -203,7 +203,7 @@ namespace System.Graphics.Android
 
                     nativePath.ArcTo(rect, startAngle, sweep);
                 }
-                else if (vType == PathOperation.CLOSE)
+                else if (vType == PathOperation.Close)
                 {
                     nativePath.Close();
                 }
@@ -212,19 +212,19 @@ namespace System.Graphics.Android
             return nativePath;
         }
 
-        public static Path AsAndroidPath(this EWPath path, float ppu, float zoom)
+        public static Path AsAndroidPath(this PathF path, float ppu, float zoom)
         {
             return AsAndroidPath(path, ppu * zoom);
         }
 
-        public static Path AsAndroidPathFromSegment(this EWPath target, int segmentIndex, float ppu, float zoom)
+        public static Path AsAndroidPathFromSegment(this PathF target, int segmentIndex, float ppu, float zoom)
         {
             ppu = zoom * ppu;
 
             var path = new Path();
 
             var type = target.GetSegmentType(segmentIndex);
-            if (type == PathOperation.LINE)
+            if (type == PathOperation.LineTo)
             {
                 int pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -233,7 +233,7 @@ namespace System.Graphics.Android
                 var endPoint = target[pointIndex];
                 path.LineTo(endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.QUAD)
+            else if (type == PathOperation.QuadTo)
             {
                 int pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -243,7 +243,7 @@ namespace System.Graphics.Android
                 var endPoint = target[pointIndex];
                 path.QuadTo(controlPoint.X * ppu, controlPoint.Y * ppu, endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.CUBIC)
+            else if (type == PathOperation.Cubic)
             {
                 int pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -254,7 +254,7 @@ namespace System.Graphics.Android
                 var endPoint = target[pointIndex];
                 path.CubicTo(controlPoint1.X * ppu, controlPoint1.Y * ppu, controlPoint2.X * ppu, controlPoint2.Y * ppu, endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.ARC)
+            else if (type == PathOperation.Arc)
             {
                 target.GetSegmentInfo(segmentIndex, out var pointIndex, out var arcAngleIndex, out var arcClockwiseIndex);
 
@@ -289,7 +289,7 @@ namespace System.Graphics.Android
             return path;
         }
 
-        public static Path AsRotatedAndroidPath(this EWPath target, EWPoint center, float ppu, float zoom, float angle)
+        public static Path AsRotatedAndroidPath(this PathF target, EWPoint center, float ppu, float zoom, float angle)
         {
             ppu = zoom * ppu;
 
@@ -301,17 +301,17 @@ namespace System.Graphics.Android
 
             foreach (var type in target.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     var point = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.MoveTo(point.X * ppu, point.Y * ppu);
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.LineTo)
                 {
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.LineTo(endPoint.X * ppu, endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.QuadTo)
                 {
                     var controlPoint1 = target.GetRotatedPoint(pointIndex++, center, angle);
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
@@ -321,7 +321,7 @@ namespace System.Graphics.Android
                         endPoint.X * ppu,
                         endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var controlPoint1 = target.GetRotatedPoint(pointIndex++, center, angle);
                     var controlPoint2 = target.GetRotatedPoint(pointIndex++, center, angle);
@@ -334,7 +334,7 @@ namespace System.Graphics.Android
                         endPoint.X * ppu,
                         endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = target[pointIndex++];
                     var bottomRight = target[pointIndex++];
@@ -363,7 +363,7 @@ namespace System.Graphics.Android
 
                     path.ArcTo(rect, startAngle, sweep);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     path.Close();
                 }
@@ -387,7 +387,7 @@ namespace System.Graphics.Android
             return new EWPoint(target.X, target.Y);
         }
 
-        public static Bitmap GetPatternBitmap(this EWPaint paint, float scale = 1)
+        public static Bitmap GetPatternBitmap(this Paint paint, float scale = 1)
         {
             var pattern = paint?.Pattern;
             if (pattern == null)
@@ -403,7 +403,7 @@ namespace System.Graphics.Android
         }
 
         public static Bitmap GetPatternBitmap(
-            this EWPaint paint,
+            this Paint paint,
             float scaleX,
             float scaleY)
         {
@@ -450,10 +450,10 @@ namespace System.Graphics.Android
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment)
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         {
-            if (verticalAlignment != EwVerticalAlignment.Top)
+            if (verticalAlignment != VerticalAlignment.Top)
             {
                 SizeF vTextFrameSize = target.GetTextSize();
 
@@ -462,7 +462,7 @@ namespace System.Graphics.Android
 
                 if (height > 0)
                 {
-                    if (verticalAlignment == EwVerticalAlignment.Bottom)
+                    if (verticalAlignment == VerticalAlignment.Bottom)
                         vOffsetY = height - vTextFrameSize.Height;
                     else
                         vOffsetY = (height - vTextFrameSize.Height) / 2;

@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 
@@ -21,7 +21,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawOval(200, 0, 100, 100);
             canvas.DrawRoundedRectangle(300, 0, 100, 100, 25);
 
-            var path = new EWPath();
+            var path = new PathF();
             path.MoveTo(400, 0);
             path.LineTo(400, 100);
             path.QuadTo(500, 100, 500, 0);
@@ -47,7 +47,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillRoundedRectangle(410, 210, 80, 80, 10);
 
             canvas.FillColor = Colors.CornflowerBlue;
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(510, 210);
             path.LineTo(550, 290);
             path.LineTo(590, 210);
@@ -64,7 +64,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawOval(200, 400, 100, 50);
             canvas.DrawRoundedRectangle(350, 400, 100, 50, 25);
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 400);
             path.LineTo(500, 450);
             path.LineTo(600, 450);
@@ -79,18 +79,18 @@ namespace GraphicsTester.Scenarios
             canvas.DrawLine(100, 120, 300, 120);
 
             canvas.StrokeColor = Colors.Red;
-            canvas.StrokeLineCap = EWLineCap.BUTT;
+            canvas.StrokeLineCap = LineCap.Butt;
             canvas.DrawLine(100, 140, 300, 140);
 
             canvas.StrokeColor = Colors.Green;
-            canvas.StrokeLineCap = EWLineCap.ROUND;
+            canvas.StrokeLineCap = LineCap.Round;
             canvas.DrawLine(100, 160, 300, 160);
 
             canvas.StrokeColor = Colors.Blue;
-            canvas.StrokeLineCap = EWLineCap.SQUARE;
+            canvas.StrokeLineCap = LineCap.Square;
             canvas.DrawLine(100, 180, 300, 180);
 
-            canvas.StrokeLineCap = EWLineCap.BUTT;
+            canvas.StrokeLineCap = LineCap.Butt;
 
             //
             // Line Joins
@@ -98,36 +98,36 @@ namespace GraphicsTester.Scenarios
 
             canvas.StrokeColor = Colors.Black;
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(350, 120);
             path.LineTo(370, 180);
             path.LineTo(390, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.MITER;
-            path = new EWPath();
+            canvas.StrokeLineJoin = LineJoin.Miter;
+            path = new PathF();
             path.MoveTo(400, 120);
             path.LineTo(420, 180);
             path.LineTo(440, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.ROUND;
-            path = new EWPath();
+            canvas.StrokeLineJoin = LineJoin.Round;
+            path = new PathF();
             path.MoveTo(450, 120);
             path.LineTo(470, 180);
             path.LineTo(490, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.BEVEL;
-            path = new EWPath();
+            canvas.StrokeLineJoin = LineJoin.Bevel;
+            path = new PathF();
             path.MoveTo(500, 120);
             path.LineTo(520, 180);
             path.LineTo(540, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.MITER;
+            canvas.StrokeLineJoin = LineJoin.Miter;
             canvas.MiterLimit = 2;
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 120);
             path.LineTo(570, 180);
             path.LineTo(590, 120);
@@ -152,15 +152,15 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeDashPattern = SOLID;
             canvas.DrawLine(650, 180, 800, 180);
 
-            canvas.StrokeLineCap = EWLineCap.BUTT;
+            canvas.StrokeLineCap = LineCap.Butt;
 
             //
             // Linear Gradient Fill
             //
             
-            var vPaint = new EWPaint
+            var vPaint = new Paint
             {
-                PaintType = EWPaintType.LINEAR_GRADIENT,
+                PaintType = PaintType.LinearGradient,
                 StartColor = Colors.White,
                 EndColor = Colors.Black
             };
@@ -175,7 +175,7 @@ namespace GraphicsTester.Scenarios
             canvas.SetFillPaint(vPaint, 350, 700, 450, 700);
             canvas.FillRoundedRectangle(350, 700, 100, 50, 25);
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 700);
             path.LineTo(500, 750);
             path.LineTo(600, 750);
@@ -188,9 +188,9 @@ namespace GraphicsTester.Scenarios
             // Radial Gradient Fill
             //
             
-            vPaint = new EWPaint
+            vPaint = new Paint
             {
-                PaintType = EWPaintType.RADIAL_GRADIENT,
+                PaintType = PaintType.RadialGradient,
                 StartColor = Colors.White,
                 EndColor = Colors.Black
             };
@@ -205,7 +205,7 @@ namespace GraphicsTester.Scenarios
             canvas.SetFillPaint(vPaint, 400, 825, 450, 800);
             canvas.FillRoundedRectangle(350, 800, 100, 50, 25);
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 800);
             path.LineTo(500, 850);
             path.LineTo(600, 850);
@@ -231,7 +231,7 @@ namespace GraphicsTester.Scenarios
 
             canvas.SetShadow(new EWSize(10, 10), 5, Colors.Blue);
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 900);
             path.LineTo(500, 950);
             path.LineTo(600, 950);
@@ -254,7 +254,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawRoundedRectangle(350, 1000, 100, 50, 25);
 
             canvas.SetShadow(new EWSize(10, 10), 5, Colors.Blue);
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 1000);
             path.LineTo(500, 1050);
             path.LineTo(600, 1050);
@@ -273,7 +273,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillOval(200, 1100, 100, 50);
             canvas.FillRoundedRectangle(350, 1100, 100, 50, 25);
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 1100);
             path.LineTo(500, 1150);
             path.LineTo(600, 1150);
@@ -303,7 +303,7 @@ namespace GraphicsTester.Scenarios
             canvas.Alpha = 1;
             canvas.SetShadow(new EWSize(10, 10), 5, Colors.Blue);
 
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 1200);
             path.LineTo(500, 1250);
             path.LineTo(600, 1250);
@@ -388,8 +388,8 @@ namespace GraphicsTester.Scenarios
 
                     canvas.DrawRectangle(dx, dy, 190, 140);
 
-                    var vHorizontalAlignment = (EwHorizontalAlignment) x;
-                    var vVerticalAlignment = (EwVerticalAlignment) y;
+                    var vHorizontalAlignment = (HorizontalAlignment) x;
+                    var vVerticalAlignment = (VerticalAlignment) y;
 
                     canvas.FontName = "Arial";
                     canvas.FontSize = 12f;
@@ -409,8 +409,8 @@ namespace GraphicsTester.Scenarios
 
                     canvas.DrawRectangle(dx, dy, 190, 140);
 
-                    var vHorizontalAlignment = (EwHorizontalAlignment) x;
-                    var vVerticalAlignment = (EwVerticalAlignment) y;
+                    var vHorizontalAlignment = (HorizontalAlignment) x;
+                    var vVerticalAlignment = (VerticalAlignment) y;
 
                     canvas.FontName = "Arial";
                     canvas.FontSize = 12f;
@@ -427,8 +427,8 @@ namespace GraphicsTester.Scenarios
 
                 canvas.DrawRectangle(dx, dy, 190, 140);
 
-                const EwHorizontalAlignment vHorizontalAlignment = EwHorizontalAlignment.Left;
-                var vVerticalAlignment = (EwVerticalAlignment) y;
+                const HorizontalAlignment vHorizontalAlignment = HorizontalAlignment.Left;
+                var vVerticalAlignment = (VerticalAlignment) y;
 
                 canvas.FontName = "Arial";
                 canvas.FontSize = 12f;
@@ -440,7 +440,7 @@ namespace GraphicsTester.Scenarios
                     140,
                     vHorizontalAlignment,
                     vVerticalAlignment,
-                    EWTextFlow.OVERFLOW_BOUNDS);
+                    TextFlow.OverflowBounds);
             }
 
             //
@@ -451,10 +451,10 @@ namespace GraphicsTester.Scenarios
             canvas.DrawLine(1000, 1350, 1200, 1350);
             canvas.DrawLine(1000, 1375, 1200, 1375);
             canvas.DrawLine(1100, 1300, 1100, 1400);
-            canvas.DrawString("This is a test.", 1100, 1300, EwHorizontalAlignment.Left);
-            canvas.DrawString("This is a test.", 1100, 1325, EwHorizontalAlignment.Center);
-            canvas.DrawString("This is a test.", 1100, 1350, EwHorizontalAlignment.Right);
-            canvas.DrawString("This is a test.", 1100, 1375, EwHorizontalAlignment.Justified);
+            canvas.DrawString("This is a test.", 1100, 1300, HorizontalAlignment.Left);
+            canvas.DrawString("This is a test.", 1100, 1325, HorizontalAlignment.Center);
+            canvas.DrawString("This is a test.", 1100, 1350, HorizontalAlignment.Right);
+            canvas.DrawString("This is a test.", 1100, 1375, HorizontalAlignment.Justified);
 
             //
             // Test inverse clipping area
@@ -478,7 +478,7 @@ namespace GraphicsTester.Scenarios
                 for (int i = 0; i < 4; i++)
                 {
                     canvas.FontSize = 12 + i * 6;
-                    canvas.DrawString("Test String Length", 650, 400 + (100 * i), EwHorizontalAlignment.Left);
+                    canvas.DrawString("Test String Length", 650, 400 + (100 * i), HorizontalAlignment.Left);
 
                     var size = graphicsPlatform.GetStringSize("Test String Length", "Arial", 12 + i * 6);
                     canvas.DrawRectangle(650, 400 + (100 * i), size.Width, size.Height);
@@ -488,7 +488,7 @@ namespace GraphicsTester.Scenarios
                 // Test Path Measuring
                 //
 
-                var vBuilder = new EWPathBuilder();
+                var vBuilder = new PathBuilder();
                 path =
                     vBuilder.BuildPath(
                         "M0 52.5 C60 -17.5 60 -17.5 100 52.5 C140 122.5 140 122.5 100 152.5 Q60 182.5 0 152.5 Z");

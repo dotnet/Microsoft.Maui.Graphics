@@ -21,7 +21,7 @@ namespace System.Graphics
             _commands = new List<DrawingCommand>();
         }
 
-        public EWPicture Picture => new StandardPicture(_x, _y, _width, _height, _commands.ToArray());
+        public Picture Picture => new StandardPicture(_x, _y, _width, _height, _commands.ToArray());
 
         public void Dispose()
         {
@@ -53,12 +53,12 @@ namespace System.Graphics
             set { _commands.Add(canvas => canvas.StrokeColor = value); }
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             set { _commands.Add(canvas => canvas.StrokeLineCap = value); }
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             set { _commands.Add(canvas => canvas.StrokeLineJoin = value); }
         }
@@ -159,13 +159,13 @@ namespace System.Graphics
             _commands.Add(canvas => canvas.FillOval(x, y, width, height));
         }
 
-        public void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
         {
             _commands.Add(canvas => canvas.DrawString(value, x, y, horizontalAlignment));
         }
 
-        public void DrawString(string value,float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
+        public void DrawString(string value,float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0)
         {
             _commands.Add(canvas => canvas.DrawString(value, x, y, width, height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment));
         }
@@ -175,17 +175,17 @@ namespace System.Graphics
             _commands.Add(canvas => canvas.DrawText(value, x, y, width, height));
         }
 
-        public void DrawPath(EWPath path)
+        public void DrawPath(PathF path)
         {
             _commands.Add(canvas => canvas.DrawPath(path));
         }
 
-        public void FillPath(EWPath path, EWWindingMode windingMode)
+        public void FillPath(PathF path, WindingMode windingMode)
         {
             _commands.Add(canvas => canvas.FillPath(path, windingMode));
         }
 
-        public void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             _commands.Add(canvas => canvas.ClipPath(path, windingMode));
         }
@@ -245,17 +245,17 @@ namespace System.Graphics
             _commands.Add(canvas => canvas.SetShadow(offset, blur, color));
         }
 
-        public void SetFillPaint(EWPaint paint, EWImmutablePoint point1, EWImmutablePoint point2)
+        public void SetFillPaint(Paint paint, EWImmutablePoint point1, EWImmutablePoint point2)
         {
             _commands.Add(canvas => canvas.SetFillPaint(paint, point1, point2));
         }
 
-        public void SetFillPaint(EWPaint paint, EWRectangle rectangle)
+        public void SetFillPaint(Paint paint, EWRectangle rectangle)
         {
             _commands.Add(canvas => canvas.SetFillPaint(paint, rectangle));
         }
 
-        public void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             _commands.Add(canvas => canvas.SetFillPaint(paint, x1, y1, x2, y2));
         }
@@ -270,7 +270,7 @@ namespace System.Graphics
             _commands.Add(canvas => canvas.SetToBoldSystemFont());
         }
 
-        public void DrawImage(EWImage image, float x, float y, float width, float height)
+        public void DrawImage(IImage image, float x, float y, float width, float height)
         {
             _commands.Add(canvas => canvas.DrawImage(image, x, y, width, height));
         }

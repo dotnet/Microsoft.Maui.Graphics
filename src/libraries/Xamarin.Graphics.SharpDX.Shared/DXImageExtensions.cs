@@ -5,7 +5,7 @@ namespace System.Graphics.SharpDX
 {
     public static class DXImageExtensions
     {
-        public static Bitmap AsBitmap(this EWImage image)
+        public static Bitmap AsBitmap(this IImage image)
         {
             if (image is DXImage dxImage)
             {

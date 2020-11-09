@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public enum EWImageFormat
+    public enum ImageFormat
     {
         Png,
         Jpeg,

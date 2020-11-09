@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.DrawRoundedRectangle(50.5f, 10.5f, 150, 15, 5);
 

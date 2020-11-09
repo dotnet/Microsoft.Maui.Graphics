@@ -31,8 +31,8 @@ namespace System.Graphics.Blazor
 
         public override float MiterLimit { set => CurrentState.MiterLimit = value; }
         public override Color StrokeColor { set => CurrentState.StrokeColor = value; }
-        public override EWLineCap StrokeLineCap { set => CurrentState.LineCap = value; }
-        public override EWLineJoin StrokeLineJoin { set => CurrentState.LineJoin = value; }
+        public override LineCap StrokeLineCap { set => CurrentState.LineCap = value; }
+        public override LineJoin StrokeLineJoin { set => CurrentState.LineJoin = value; }
         public override Color FillColor { set => CurrentState.FillColor = value; }
         public override Color FontColor { set => CurrentState.TextColor = value; }
         public override string FontName { set => CurrentState.Font = value; }
@@ -52,10 +52,10 @@ namespace System.Graphics.Blazor
 
         protected override float NativeStrokeSize { set => CurrentState.LineWidth = value; }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             AddPath(path,1,1);
-            _context.Clip(windingMode == EWWindingMode.NonZero ? "nonzero" : "evenodd");
+            _context.Clip(windingMode == WindingMode.NonZero ? "nonzero" : "evenodd");
         }
 
         public override void ClipRectangle(float x, float y, float width, float height)
@@ -64,7 +64,7 @@ namespace System.Graphics.Blazor
             _context.Clip();
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
             Logger.Debug("BlazorCanvas.DrawImage - not yet supported.");
         }
@@ -83,7 +83,7 @@ namespace System.Graphics.Blazor
             string value, 
             float x, 
             float y, 
-            EwHorizontalAlignment horizontalAlignment)
+            HorizontalAlignment horizontalAlignment)
         {
             if (string.IsNullOrWhiteSpace(value))
                 return;
@@ -93,11 +93,11 @@ namespace System.Graphics.Blazor
 
             y += (float)(metrics.FontBoundingBoxAscent + metrics.FontBoundingBoxDescent);
             
-            if (horizontalAlignment == EwHorizontalAlignment.Right)
+            if (horizontalAlignment == HorizontalAlignment.Right)
             {
                 x -= (float)metrics.Width;
             }
-            else if (horizontalAlignment == EwHorizontalAlignment.Center)
+            else if (horizontalAlignment == HorizontalAlignment.Center)
             {
                 x -= (float)(metrics.Width / 2);
             }
@@ -112,9 +112,9 @@ namespace System.Graphics.Blazor
             float y, 
             float width, 
             float height, 
-            EwHorizontalAlignment horizontalAlignment, 
-            EwVerticalAlignment verticalAlignment, 
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, 
+            HorizontalAlignment horizontalAlignment, 
+            VerticalAlignment verticalAlignment, 
+            TextFlow textFlow = TextFlow.ClipBounds, 
             float lineSpacingAdjustment = 0)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -127,22 +127,22 @@ namespace System.Graphics.Blazor
             float dx = 0;
             float dy = 0;
 
-            if (horizontalAlignment == EwHorizontalAlignment.Center)
+            if (horizontalAlignment == HorizontalAlignment.Center)
             {
                 var diff = width - size.Width;
                 dx = diff / 4;
             }
-            else if (horizontalAlignment == EwHorizontalAlignment.Right)
+            else if (horizontalAlignment == HorizontalAlignment.Right)
             {
                 var diff = width - size.Width;
                 dx = diff / 2;
             }
 
-            if (verticalAlignment == EwVerticalAlignment.Top)
+            if (verticalAlignment == VerticalAlignment.Top)
                 dy = CurrentState.FontSize * .8f;
-            else if (verticalAlignment == EwVerticalAlignment.Center)
+            else if (verticalAlignment == VerticalAlignment.Center)
                 dy = ((height - size.Height) / 2) + (CurrentState.FontSize *.6f / 2);
-            else if (verticalAlignment == EwVerticalAlignment.Bottom)
+            else if (verticalAlignment == VerticalAlignment.Bottom)
                 dy = height - size.Height - CurrentState.FontSize * .3f;
                
             x += dx;
@@ -175,7 +175,7 @@ namespace System.Graphics.Blazor
             _context.GlobalAlpha = alpha;
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
             var alpha = CurrentState.SetFillStyle(_context);
             _context.BeginPath();
@@ -200,9 +200,9 @@ namespace System.Graphics.Blazor
             _context.GlobalAlpha = alpha;
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
-            if (paint.PaintType == EWPaintType.SOLID)
+            if (paint.PaintType == PaintType.Solid)
             {
                 FillColor = paint.StartColor;
             }
@@ -272,7 +272,7 @@ namespace System.Graphics.Blazor
             _context.GlobalAlpha = alpha;
         }
 
-        protected override void NativeDrawPath(EWPath path)
+        protected override void NativeDrawPath(PathF path)
         {
             var alpha = CurrentState.SetStrokeStyle(_context);
             _context.BeginPath();
@@ -389,7 +389,7 @@ namespace System.Graphics.Blazor
             _context.ClosePath();
         }
 
-        private void AddPath(EWPath target, float scaleX, float scaleY)
+        private void AddPath(PathF target, float scaleX, float scaleY)
         {
             int pointIndex = 0;
             int arcAngleIndex = 0;
@@ -397,18 +397,18 @@ namespace System.Graphics.Blazor
 
             foreach (var type in target.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     var point = target[pointIndex++];
                     _context.MoveTo((point.X * scaleX), (point.Y * scaleY));
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     var endPoint = target[pointIndex++];
                     _context.LineTo((endPoint.X * scaleX), (endPoint.Y * scaleY));
                 }
 
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     var controlPoint = target[pointIndex++];
                     var endPoint = target[pointIndex++];
@@ -416,7 +416,7 @@ namespace System.Graphics.Blazor
                         (controlPoint.X * scaleX), (controlPoint.Y * scaleY),
                         (endPoint.X * scaleX), (endPoint.Y * scaleY));
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var controlPoint1 = target[pointIndex++];
                     var controlPoint2 = target[pointIndex++];
@@ -426,7 +426,7 @@ namespace System.Graphics.Blazor
                         (controlPoint2.X * scaleX), (controlPoint2.Y * scaleY),
                         (endPoint.X * scaleX), (endPoint.Y * scaleY));
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = target[pointIndex++];
                     var bottomRight = target[pointIndex++];
@@ -459,7 +459,7 @@ namespace System.Graphics.Blazor
 
                     _context.Arc(cx, cy, r, startAngle, endAngle, !clockwise);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     _context.ClosePath();
                 }

@@ -41,7 +41,7 @@ namespace System.Graphics.Text
 
             var fontName = attributes.GetFontName();
             if (fontName != null)
-                span.FontFamily = new FontFamily(fontName);
+                span.FontFamily = new Windows.Media.FontFamily(fontName);
 
             if (attributes.GetBold())
                 span.FontWeight = FontWeights.Bold;

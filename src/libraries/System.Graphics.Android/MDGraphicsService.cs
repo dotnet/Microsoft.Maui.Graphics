@@ -13,8 +13,8 @@ namespace System.Graphics.Android
         private static string _systemFontName;
         private static string _boldSystemFontName;
 
-        private static Paint _strokePaint;
-        private static Paint _fillPaint;
+        private static global::Android.Graphics.Paint _strokePaint;
+        private static global::Android.Graphics.Paint _fillPaint;
         private static Bitmap _b;
 
         private static float _pixelDensityFactor = 1;
@@ -23,13 +23,13 @@ namespace System.Graphics.Android
         {
             if (_strokePaint == null)
             {
-                _strokePaint = new Paint();
+                _strokePaint = new global::Android.Graphics.Paint();
                 _strokePaint.SetARGB(255, 255, 255, 255);
-                _strokePaint.SetStyle(Paint.Style.Stroke);
+                _strokePaint.SetStyle(global::Android.Graphics.Paint.Style.Stroke);
 
-                _fillPaint = new Paint();
+                _fillPaint = new global::Android.Graphics.Paint();
                 _fillPaint.SetARGB(255, 255, 255, 255);
-                _fillPaint.SetStyle(Paint.Style.Fill);
+                _fillPaint.SetStyle(global::Android.Graphics.Paint.Style.Fill);
 
                 _b = Bitmap.CreateBitmap(1, 1, Bitmap.Config.Argb8888);
             }
@@ -37,7 +37,7 @@ namespace System.Graphics.Android
 
         public bool IsRetina => false;
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat formatHint = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, ImageFormat formatHint = ImageFormat.Png)
         {
             var bitmap = BitmapFactory.DecodeStream(stream);
             return new MDImage(bitmap);
@@ -113,7 +113,7 @@ namespace System.Graphics.Android
 
        
 
-        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, EwHorizontalAlignment aHorizontalAlignment, EwVerticalAlignment aVerticalAlignment)
+        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
         {
             if (aString == null) return new EWSize();
 
@@ -123,10 +123,10 @@ namespace System.Graphics.Android
             Layout.Alignment vAlignment;
             switch (aHorizontalAlignment)
             {
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     vAlignment = Layout.Alignment.AlignCenter;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     vAlignment = Layout.Alignment.AlignOpposite;
                     break;
                 default:

@@ -52,7 +52,7 @@ namespace System.Graphics.CoreGraphics
 
         public CGImage CGImage => _bitmapContext.ToImage();
 
-        public override EWImage Image => new MMImage(NSImage);
+        public override IImage Image => new MMImage(NSImage);
 
         public override void Dispose()
         {

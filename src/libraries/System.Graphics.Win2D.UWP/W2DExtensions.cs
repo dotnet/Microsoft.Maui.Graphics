@@ -53,12 +53,12 @@ namespace System.Graphics.Win2D
             return vMatrix;
         }
 
-        public static CanvasGeometry AsPath(this EWPath path, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
+        public static CanvasGeometry AsPath(this PathF path, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
         {
             return AsPath(path, 0, 0, 1, 1, creator, fillMode);
         }
 
-        public static CanvasGeometry AsPath(this EWPath path, float ox, float oy, float fx, float fy, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
+        public static CanvasGeometry AsPath(this PathF path, float ox, float oy, float fx, float fy, ICanvasResourceCreator creator, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
         {
             var builder = new CanvasPathBuilder(creator);
 
@@ -74,15 +74,15 @@ namespace System.Graphics.Win2D
                 var figureOpen = false;
                 var segmentIndex = -1;
 
-                var lastOperation = PathOperation.MOVE_TO;
+                var lastOperation = PathOperation.Move;
 
                 foreach (var type in path.SegmentTypes)
                 {
                     segmentIndex++;
 
-                    if (type == PathOperation.MOVE_TO)
+                    if (type == PathOperation.Move)
                     {
-                        if (lastOperation != PathOperation.CLOSE && lastOperation != PathOperation.MOVE_TO)
+                        if (lastOperation != PathOperation.Close && lastOperation != PathOperation.Move)
                         {
                             builder.EndFigure(CanvasFigureLoop.Open);
                         }
@@ -92,13 +92,13 @@ namespace System.Graphics.Win2D
                         builder.BeginFigure(ox + point.X * fx, oy + point.Y * fy, begin);
                         figureOpen = true;
                     }
-                    else if (type == PathOperation.LINE)
+                    else if (type == PathOperation.Line)
                     {
                         var point = path[pointIndex++];
                         builder.AddLine(ox + point.X * fx, oy + point.Y * fy);
                     }
 
-                    else if (type == PathOperation.QUAD)
+                    else if (type == PathOperation.Quad)
                     {
                         var controlPoint = path[pointIndex++];
                         var endPoint = path[pointIndex++];
@@ -107,7 +107,7 @@ namespace System.Graphics.Win2D
                             new Vector2(ox + controlPoint.X * fx, oy + controlPoint.Y * fy),
                             new Vector2(ox + endPoint.X * fx, oy + endPoint.Y * fy));
                     }
-                    else if (type == PathOperation.CUBIC)
+                    else if (type == PathOperation.Cubic)
                     {
                         var controlPoint1 = path[pointIndex++];
                         var controlPoint2 = path[pointIndex++];
@@ -117,7 +117,7 @@ namespace System.Graphics.Win2D
                             new Vector2(ox + controlPoint2.X * fx,oy + controlPoint2.Y * fy),
                             new Vector2(ox + endPoint.X * fx,oy + endPoint.Y * fy));
                     }
-                    else if (type == PathOperation.ARC)
+                    else if (type == PathOperation.Arc)
                     {
                         var topLeft = path[pointIndex++];
                         var bottomRight = path[pointIndex++];
@@ -167,7 +167,7 @@ namespace System.Graphics.Win2D
                              absRotation >= 180 ? CanvasArcSize.Large : CanvasArcSize.Small
                             );
                     }
-                    else if (type == PathOperation.CLOSE)
+                    else if (type == PathOperation.Close)
                     {
                         builder.EndFigure(CanvasFigureLoop.Closed);
                     }
@@ -175,7 +175,7 @@ namespace System.Graphics.Win2D
                     lastOperation = type;
                 }
 
-                if (segmentIndex >= 0 && lastOperation != PathOperation.CLOSE)
+                if (segmentIndex >= 0 && lastOperation != PathOperation.Close)
                 {
                     builder.EndFigure(CanvasFigureLoop.Open);
                 }
@@ -195,14 +195,14 @@ namespace System.Graphics.Win2D
 #endif
         }
         
-        public static CanvasGeometry AsPathFromSegment(this EWPath path, int segmentIndex, float zoom, ICanvasResourceCreator creator)
+        public static CanvasGeometry AsPathFromSegment(this PathF path, int segmentIndex, float zoom, ICanvasResourceCreator creator)
         {
             float scale = 1 / zoom;
 
             var builder = new CanvasPathBuilder(creator);
 
             var type = path.GetSegmentType(segmentIndex);
-            if (type == PathOperation.LINE)
+            if (type == PathOperation.Line)
             {
                 int segmentStartingPointIndex = path.GetSegmentPointIndex(segmentIndex);
                 var startPoint = path[segmentStartingPointIndex - 1];
@@ -211,7 +211,7 @@ namespace System.Graphics.Win2D
                 var point = path[segmentStartingPointIndex];
                 builder.AddLine(point.X * scale, point.Y * scale);
             }
-            else if (type == PathOperation.QUAD)
+            else if (type == PathOperation.Quad)
             {
                 int segmentStartingPointIndex = path.GetSegmentPointIndex(segmentIndex);
                 var startPoint = path[segmentStartingPointIndex - 1];
@@ -223,7 +223,7 @@ namespace System.Graphics.Win2D
                     new Vector2(controlPoint.X * scale, controlPoint.Y * scale),
                     new Vector2(endPoint.X * scale, endPoint.Y * scale));
             }
-            else if (type == PathOperation.CUBIC)
+            else if (type == PathOperation.Cubic)
             {
                 int segmentStartingPointIndex = path.GetSegmentPointIndex(segmentIndex);
                 var startPoint = path[segmentStartingPointIndex - 1];
@@ -237,7 +237,7 @@ namespace System.Graphics.Win2D
                     new Vector2(controlPoint2.X * scale, controlPoint2.Y * scale),
                     new Vector2(endPoint.X * scale, endPoint.Y * scale));
             }
-            else if (type == PathOperation.ARC)
+            else if (type == PathOperation.Arc)
             {
                 path.GetSegmentInfo(segmentIndex, out var pointIndex, out var arcAngleIndex, out var arcClockwiseIndex);
 

@@ -2,7 +2,7 @@
 
 namespace GraphicsTester.Scenarios
 {
-    public abstract class AbstractScenario : EWPicture, EWDrawable
+    public abstract class AbstractScenario : Picture, IDrawable
     {
         public static readonly float[] SOLID = null;
         public static readonly float[] DOT_DOT = {1, 1};
@@ -59,14 +59,14 @@ namespace GraphicsTester.Scenarios
             this.height = height;
         }
 
-        public virtual void Draw(ICanvas canvas, float zoom, float ppu)
+        public virtual void Draw(ICanvas canvas)
         {
             // Do nothing by default
         }
 
         public void Draw(ICanvas canvas, EWRectangle dirtyRect)
         {
-            Draw(canvas, 1f, 1f);
+            Draw(canvas);
         }
 
         public string Hash

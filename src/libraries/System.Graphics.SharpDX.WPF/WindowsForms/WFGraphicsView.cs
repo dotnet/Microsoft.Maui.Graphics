@@ -7,9 +7,9 @@ namespace System.Graphics.SharpDX.WindowsForms
     {
         private readonly EWRectangle _dirtyRect = new EWRectangle();
         private IGraphicsRenderer _renderer;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
 
-        public WFGraphicsView(EWDrawable drawable = null, IGraphicsRenderer renderer = null)
+        public WFGraphicsView(IDrawable drawable = null, IGraphicsRenderer renderer = null)
         {
             Drawable = drawable;
             Renderer = renderer;
@@ -47,7 +47,7 @@ namespace System.Graphics.SharpDX.WindowsForms
             }
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

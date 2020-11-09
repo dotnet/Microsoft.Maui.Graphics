@@ -10,8 +10,8 @@ namespace System.Graphics
 
         Color TextFontColor { get; set; }
 
-        EwHorizontalAlignment HorizontalAlignment { get; set; }
+        HorizontalAlignment HorizontalAlignment { get; set; }
 
-        EwVerticalAlignment VerticalAlignment { get; set; }
+        VerticalAlignment VerticalAlignment { get; set; }
     }
 }

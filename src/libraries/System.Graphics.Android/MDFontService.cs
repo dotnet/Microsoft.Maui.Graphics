@@ -14,7 +14,7 @@ namespace System.Graphics.Android
 
         public static MDFontService Instance = new MDFontService();
 
-        private IFontFamily[] _fontFamilies;
+        private FontFamily[] _fontFamilies;
         private readonly Dictionary<string, Typeface> _typeFaces = new Dictionary<string, Typeface>();
 
         public MDFontService() : base("Droid Sans", "Roboto", "Aramo")
@@ -36,15 +36,15 @@ namespace System.Graphics.Android
             "Symbol Std"
         };
 
-        public override IFontFamily[] GetFontFamilies()
+        public override FontFamily[] GetFontFamilies()
         {
             return _fontFamilies ?? (_fontFamilies = InitializeFonts());
         }
 
-        public IFontFamily[] InitializeFonts()
+        public FontFamily[] InitializeFonts()
         {
             var families = new Dictionary<string, MDFontFamily>();
-            var familyList = new List<IFontFamily>();
+            var familyList = new List<FontFamily>();
             var analyzer = new FontAnalyzer();
 
             var assembly = typeof(MDFontService).Assembly;

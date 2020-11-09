@@ -6,7 +6,7 @@ namespace System.Graphics.Skia
     {
         private readonly SkiaCanvas _canvas;
         private readonly ScalingCanvas _scalingCanvas;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private WDSkiaGraphicsView _graphicsView;
         private Color _backgroundColor;
 
@@ -18,7 +18,7 @@ namespace System.Graphics.Skia
 
         public ICanvas Canvas => _scalingCanvas;
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

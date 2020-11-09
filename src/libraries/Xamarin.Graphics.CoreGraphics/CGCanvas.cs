@@ -34,12 +34,12 @@ namespace System.Graphics.CoreGraphics
         private IPattern _fillPattern;
         private CGRect _fillPatternRect;
 
-        private EWImage _fillImage;
+        private IImage _fillImage;
 
         private CGPoint _gradientEnd = new CGPoint(0, 0);
         private CGPoint _gradientStart = new CGPoint(0, 0);
         private CGPoint _radialFocalPoint = new CGPoint(0, 0);
-        private EWPaint _paint;
+        private Paint _paint;
 
         // A local instance of a rectangle to avoid lots of object creation.
         private CGRect _rect = new CGRect(0, 0, 0, 0);
@@ -119,38 +119,38 @@ namespace System.Graphics.CoreGraphics
             set => _context.SetAlpha(value);
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set
             {
-                if (value == EWLineCap.BUTT)
+                if (value == LineCap.Butt)
                 {
                     _context.SetLineCap(CGLineCap.Butt);
                 }
-                else if (value == EWLineCap.ROUND)
+                else if (value == LineCap.Round)
                 {
                     _context.SetLineCap(CGLineCap.Round);
                 }
-                else if (value == EWLineCap.SQUARE)
+                else if (value == LineCap.Square)
                 {
                     _context.SetLineCap(CGLineCap.Square);
                 }
             }
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set
             {
-                if (value == EWLineJoin.MITER)
+                if (value == LineJoin.Miter)
                 {
                     _context.SetLineJoin(CGLineJoin.Miter);
                 }
-                else if (value == EWLineJoin.ROUND)
+                else if (value == LineJoin.Round)
                 {
                     _context.SetLineJoin(CGLineJoin.Round);
                 }
-                else if (value == EWLineJoin.BEVEL)
+                else if (value == LineJoin.Bevel)
                 {
                     _context.SetLineJoin(CGLineJoin.Bevel);
                 }
@@ -350,7 +350,7 @@ namespace System.Graphics.CoreGraphics
         }
 
         public override void SetFillPaint(
-            EWPaint paint,
+            Paint paint,
             float x1,
             float y1,
             float x2,
@@ -378,11 +378,11 @@ namespace System.Graphics.CoreGraphics
             _fillImage = null;
             _paint = null;
 
-            if (paint.PaintType == EWPaintType.SOLID)
+            if (paint.PaintType == PaintType.Solid)
             {
                 FillColor = paint.StartColor;
             }
-            else if (paint.PaintType == EWPaintType.LINEAR_GRADIENT)
+            else if (paint.PaintType == PaintType.LinearGradient)
             {
                 var gradientColors = new nfloat[paint.Stops.Length * 4];
                 var offsets = new nfloat[paint.Stops.Length];
@@ -405,7 +405,7 @@ namespace System.Graphics.CoreGraphics
                 _gradient = new CGGradient(colorspace, gradientColors, offsets);
                 _paint = paint;
             }
-            else if (paint.PaintType == EWPaintType.RADIAL_GRADIENT)
+            else if (paint.PaintType == PaintType.RadialGradient)
             {
                 var gradientColors = new nfloat[paint.Stops.Length * 4];
                 var offsets = new nfloat[paint.Stops.Length];
@@ -428,11 +428,11 @@ namespace System.Graphics.CoreGraphics
                 _gradient = new CGGradient(colorspace, gradientColors, offsets);
                 _paint = paint;
             }
-            else if (paint.PaintType == EWPaintType.PATTERN)
+            else if (paint.PaintType == PaintType.Pattern)
             {
                 _fillPattern = paint.Pattern;
             }
-            else if (paint.PaintType == EWPaintType.IMAGE)
+            else if (paint.PaintType == PaintType.Image)
             {
                 _fillImage = paint.Image;
             }
@@ -630,11 +630,11 @@ namespace System.Graphics.CoreGraphics
 
         private void DrawGradient()
         {
-            if (_paint.PaintType == EWPaintType.LINEAR_GRADIENT)
+            if (_paint.PaintType == PaintType.LinearGradient)
             {
                 _context.DrawLinearGradient(_gradient, _gradientStart, _gradientEnd, CGGradientDrawingOptions.DrawsAfterEndLocation | CGGradientDrawingOptions.DrawsBeforeStartLocation);
             }
-            else if (_paint.PaintType == EWPaintType.RADIAL_GRADIENT)
+            else if (_paint.PaintType == PaintType.RadialGradient)
             {
                 float vDistance = GetDistance(_gradientStart, _gradientEnd);
                 _context.DrawRadialGradient(_gradient, _radialFocalPoint, 0, _gradientStart, vDistance,
@@ -696,7 +696,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
 #if MONOMAC
 			var nativeWrapper = image as MMImage;
@@ -911,7 +911,7 @@ namespace System.Graphics.CoreGraphics
             clip.Dispose();
         }
         
-        private CGPath GetNativePath(EWPath path)
+        private CGPath GetNativePath(PathF path)
         {
             var nativePath = path.NativePath as CGPath;
 
@@ -924,19 +924,19 @@ namespace System.Graphics.CoreGraphics
             return nativePath;
         }
 
-        protected override void NativeDrawPath(EWPath path)
+        protected override void NativeDrawPath(PathF path)
         {
             var nativePath = GetNativePath(path);
             _context.AddPath(nativePath);
             _context.DrawPath(CGPathDrawingMode.Stroke);
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             var nativePath = GetNativePath(path);
             _context.AddPath(nativePath);
 
-            if (windingMode == EWWindingMode.EvenOdd)
+            if (windingMode == WindingMode.EvenOdd)
             {
                 _context.EOClip();
             }
@@ -961,7 +961,7 @@ namespace System.Graphics.CoreGraphics
             _context.Clip();
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
             var nativePath = GetNativePath(path);
 
@@ -971,7 +971,7 @@ namespace System.Graphics.CoreGraphics
                     () =>
                     {
                         _context.AddPath(nativePath);
-                        if (windingMode == EWWindingMode.EvenOdd)
+                        if (windingMode == WindingMode.EvenOdd)
                         {
                             _context.EOClip();
                             return false;
@@ -987,7 +987,7 @@ namespace System.Graphics.CoreGraphics
                 var y = boundingBox.Top;
 
                 _context.AddPath(nativePath);
-                if (windingMode == EWWindingMode.EvenOdd)
+                if (windingMode == WindingMode.EvenOdd)
                 {
                     FillWithPattern(x, y, _context.EOFillPath);
                 }
@@ -1003,7 +1003,7 @@ namespace System.Graphics.CoreGraphics
                 var y = boundingBox.Top;
 
                 _context.AddPath(nativePath);
-                if (windingMode == EWWindingMode.EvenOdd)
+                if (windingMode == WindingMode.EvenOdd)
                 {
                     FillWithImage(x, y, _context.EOFillPath);
                 }
@@ -1015,7 +1015,7 @@ namespace System.Graphics.CoreGraphics
             else
             {
                 _context.AddPath(nativePath);
-                if (windingMode == EWWindingMode.EvenOdd)
+                if (windingMode == WindingMode.EvenOdd)
                 {
                     _context.EOFillPath();
                 }
@@ -1030,16 +1030,16 @@ namespace System.Graphics.CoreGraphics
             string value,
             float x,
             float y,
-            EwHorizontalAlignment horizontalAlignment)
+            HorizontalAlignment horizontalAlignment)
         {
             if (_fontName != null && _fontName[0] == '.')
                 _fontName = "Helvetica";
 
-            if (horizontalAlignment == EwHorizontalAlignment.Left)
+            if (horizontalAlignment == HorizontalAlignment.Left)
             {
                 DrawString(value, x, y);
             }
-            else if (horizontalAlignment == EwHorizontalAlignment.Right)
+            else if (horizontalAlignment == HorizontalAlignment.Right)
             {
                 var size = GraphicsPlatform.CurrentService.GetStringSize(value, _fontName, _fontSize);
                 x -= size.Width;
@@ -1068,9 +1068,9 @@ namespace System.Graphics.CoreGraphics
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineSpacingAdjustment = 0)
         {
             if (width == 0 || height == 0 || string.IsNullOrEmpty(value))
@@ -1115,9 +1115,9 @@ namespace System.Graphics.CoreGraphics
         private void DrawStringInNativePath(
             CGPath path,
             string value,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow,
             CGContext context,
             String fontName,
             float fontSize,
@@ -1150,11 +1150,11 @@ namespace System.Graphics.CoreGraphics
             if (font != null && font.Handle != IntPtr.Zero)
                 attributes.Font = font;
 
-            if (verticalAlignment ==  EwVerticalAlignment.Center)
+            if (verticalAlignment ==  VerticalAlignment.Center)
             {
                iy += -(float)(font.DescentMetric / 2);
             }
-            else if (verticalAlignment == EwVerticalAlignment.Bottom)
+            else if (verticalAlignment == VerticalAlignment.Bottom)
             {
                 iy += -(float)(font.DescentMetric);
             }
@@ -1163,16 +1163,16 @@ namespace System.Graphics.CoreGraphics
             var paragraphSettings = new CTParagraphStyleSettings();
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     paragraphSettings.Alignment = CTTextAlignment.Left;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     paragraphSettings.Alignment = CTTextAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     paragraphSettings.Alignment = CTTextAlignment.Right;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     paragraphSettings.Alignment = CTTextAlignment.Justified;
                     break;
             }
@@ -1191,7 +1191,7 @@ namespace System.Graphics.CoreGraphics
 
             if (frame != null)
             {
-                if (verticalAlignment != EwVerticalAlignment.Top)
+                if (verticalAlignment != VerticalAlignment.Top)
                 {
 #if MONOMAC
                     var textFrameSize = MMGraphicsService.GetTextSize(frame);
@@ -1201,7 +1201,7 @@ namespace System.Graphics.CoreGraphics
 
                     if (textFrameSize.Height > 0)
                     {
-                        if (verticalAlignment == EwVerticalAlignment.Bottom)
+                        if (verticalAlignment == VerticalAlignment.Bottom)
                         {
                             var dy = rect.Height - textFrameSize.Height + iy;
                             context.TranslateCTM(-ix, -dy);
@@ -1238,7 +1238,7 @@ namespace System.Graphics.CoreGraphics
             string fontName,
             float fontSize,
             Color fontColor,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float ix = 0,
             float iy = 0)
         {
@@ -1255,12 +1255,12 @@ namespace System.Graphics.CoreGraphics
             string fontName,
             float fontSize,
             Color fontColor,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float ix = 0,
             float iy = 0)
         {
             var rect = path.PathBoundingBox;
-            var verticalAlignment = EwVerticalAlignment.Top;
+            var verticalAlignment = VerticalAlignment.Top;
 
             context.SaveState();
             context.TranslateCTM(0, rect.Height);
@@ -1282,7 +1282,7 @@ namespace System.Graphics.CoreGraphics
 
             if (frame != null)
             {
-                if (verticalAlignment != EwVerticalAlignment.Top)
+                if (verticalAlignment != VerticalAlignment.Top)
                 {
 #if MONOMAC
 					var textSize = MMGraphicsService.GetTextSize(frame);
@@ -1292,7 +1292,7 @@ namespace System.Graphics.CoreGraphics
 
                     if (textSize.Height > 0)
                     {
-                        if (verticalAlignment == EwVerticalAlignment.Bottom)
+                        if (verticalAlignment == VerticalAlignment.Bottom)
                         {
                             var dy = rect.Height - textSize.Height + iy;
                             context.TranslateCTM(-ix, -dy);
@@ -1408,7 +1408,7 @@ namespace System.Graphics.CoreGraphics
 
     public static class CgContextExtensions
     {
-        public static CGPath AddPath(this CGContext target, EWPath path, float ox, float oy, float fx, float fy)
+        public static CGPath AddPath(this CGContext target, PathF path, float ox, float oy, float fx, float fy)
         {
             var nativePath = path.AsCGPath(ox, oy, fx, fy);
             target.AddPath(nativePath);

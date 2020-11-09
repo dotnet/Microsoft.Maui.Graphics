@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.StrokeSize = 1;
             canvas.StrokeColor = Colors.Blue;
@@ -30,8 +30,8 @@ namespace GraphicsTester.Scenarios
 
                     canvas.DrawRectangle(dx, dy, 190, 140);
 
-                    var horizontalAlignment = (EwHorizontalAlignment) x;
-                    var verticalAlignment = (EwVerticalAlignment) y;
+                    var horizontalAlignment = (HorizontalAlignment) x;
+                    var verticalAlignment = (VerticalAlignment) y;
 
                     canvas.DrawString(textShort, dx, dy, 190, 140, horizontalAlignment, verticalAlignment);
                 }

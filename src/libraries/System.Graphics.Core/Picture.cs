@@ -1,8 +1,8 @@
 namespace System.Graphics
 {
-    public interface EWPicture
+    public interface Picture
     {
-        void Draw(ICanvas canvas, float zoom, float ppu);
+        void Draw(ICanvas canvas);
 
         float X { get; }
 

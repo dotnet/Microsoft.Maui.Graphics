@@ -58,39 +58,39 @@ namespace System.Graphics.GDI
             set => CurrentState.StrokeColor = value?.AsColor() ?? Drawing.Color.Black;
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set
             {
                 switch (value)
                 {
-                    case EWLineCap.ROUND:
-                        CurrentState.StrokeLineCap = LineCap.Round;
+                    case LineCap.Round:
+                        CurrentState.StrokeLineCap = Drawing.Drawing2D.LineCap.Round;
                         break;
-                    case EWLineCap.SQUARE:
-                        CurrentState.StrokeLineCap = LineCap.Square;
+                    case LineCap.Square:
+                        CurrentState.StrokeLineCap = Drawing.Drawing2D.LineCap.Square;
                         break;
                     default:
-                        CurrentState.StrokeLineCap = LineCap.Flat;
+                        CurrentState.StrokeLineCap = Drawing.Drawing2D.LineCap.Flat;
                         break;
                 }
             }
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set
             {
                 switch (value)
                 {
-                    case EWLineJoin.BEVEL:
-                        CurrentState.StrokeLineJoin = LineJoin.Bevel;
+                    case LineJoin.Bevel:
+                        CurrentState.StrokeLineJoin = Drawing.Drawing2D.LineJoin.Bevel;
                         break;
-                    case EWLineJoin.ROUND:
-                        CurrentState.StrokeLineJoin = LineJoin.Round;
+                    case LineJoin.Round:
+                        CurrentState.StrokeLineJoin = Drawing.Drawing2D.LineJoin.Round;
                         break;
                     default:
-                        CurrentState.StrokeLineJoin = LineJoin.Miter;
+                        CurrentState.StrokeLineJoin = Drawing.Drawing2D.LineJoin.Miter;
                         break;
                 }
             }
@@ -263,7 +263,7 @@ namespace System.Graphics.GDI
             path.Dispose();
         }
 
-        private GraphicsPath GetPath(EWPath path)
+        private GraphicsPath GetPath(PathF path)
         {
             var graphicsPath = path.NativePath as GraphicsPath;
 
@@ -276,7 +276,7 @@ namespace System.Graphics.GDI
             return graphicsPath;
         }
 
-        protected override void NativeDrawPath(EWPath path)
+        protected override void NativeDrawPath(PathF path)
         {
             if (path == null)
             {
@@ -291,7 +291,7 @@ namespace System.Graphics.GDI
             });
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
             if (path == null)
             {
@@ -299,11 +299,11 @@ namespace System.Graphics.GDI
             }
 
             var graphicsPath = GetPath(path);
-            graphicsPath.FillMode = windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate;
+            graphicsPath.FillMode = windingMode == WindingMode.NonZero ? FillMode.Winding : FillMode.Alternate;
             Draw(g => g.FillPath(CurrentState.FillBrush, graphicsPath));
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             if (path == null)
             {
@@ -311,7 +311,7 @@ namespace System.Graphics.GDI
             }
 
             var graphicsPath = GetPath(path);
-            graphicsPath.FillMode = windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate;
+            graphicsPath.FillMode = windingMode == WindingMode.NonZero ? FillMode.Winding : FillMode.Alternate;
             var region = new Region(graphicsPath);
             _graphics.IntersectClip(region);
         }
@@ -350,18 +350,18 @@ namespace System.Graphics.GDI
             Draw(g => g.FillEllipse(CurrentState.FillBrush, _rect));
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
         {
             var font = CurrentState.Font;
             var size = _graphics.MeasureString(value, font);
 
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     x -= size.Width;
                     break;
-                case EwHorizontalAlignment.Center:
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Center:
+                case HorizontalAlignment.Justified:
                     x -= size.Width / 2;
                     break;
             }
@@ -369,21 +369,21 @@ namespace System.Graphics.GDI
             Draw(g => g.DrawString(value, font, CurrentState.TextBrush, x, y - size.Height));
         }
 
-        public override void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineAdjustment = 0)
+        public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, float lineAdjustment = 0)
         {
             var font = CurrentState.Font;
             var format = new StringFormat();
 
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     format.Alignment = StringAlignment.Near;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     format.Alignment = StringAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     format.Alignment = StringAlignment.Far;
                     break;
                 default:
@@ -393,20 +393,20 @@ namespace System.Graphics.GDI
 
             switch (verticalAlignment)
             {
-                case EwVerticalAlignment.Top:
+                case VerticalAlignment.Top:
                     format.LineAlignment = StringAlignment.Near;
                     break;
-                case EwVerticalAlignment.Center:
+                case VerticalAlignment.Center:
                     format.LineAlignment = StringAlignment.Center;
                     break;
-                case EwVerticalAlignment.Bottom:
+                case VerticalAlignment.Bottom:
                     format.LineAlignment = StringAlignment.Far;
                     break;
             }
 
             SetRect(x, y, width, height);
 
-            if (textFlow == EWTextFlow.OVERFLOW_BOUNDS)
+            if (textFlow == TextFlow.OverflowBounds)
             {
                 var size = _graphics.MeasureString(value, font, (int) width, format);
 
@@ -416,10 +416,10 @@ namespace System.Graphics.GDI
 
                     switch (verticalAlignment)
                     {
-                        case EwVerticalAlignment.Center:
+                        case VerticalAlignment.Center:
                             _rect.Y -= difference / 2;
                             break;
-                        case EwVerticalAlignment.Bottom:
+                        case VerticalAlignment.Bottom:
                             _rect.Y -= difference;
                             break;
                     }
@@ -474,7 +474,7 @@ namespace System.Graphics.GDI
         {
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
             {
@@ -482,13 +482,13 @@ namespace System.Graphics.GDI
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.SOLID)
+            if (paint.PaintType == PaintType.Solid)
             {
                 CurrentState.FillColor = paint.StartColor.AsColor();
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.PATTERN)
+            if (paint.PaintType == PaintType.Pattern)
             {
                 CurrentState.StrokeColor = paint.ForegroundColor.AsColor();
                 CurrentState.FillColor = paint.BackgroundColor.AsColor();
@@ -524,7 +524,7 @@ namespace System.Graphics.GDI
             CurrentState.FontStyle = FontStyle.Bold;
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
             if (image is GDIImage nativeImage)
             {

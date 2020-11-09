@@ -60,12 +60,12 @@ namespace System.Graphics.Win2D
             set => CurrentState.StrokeColor = value;
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set => CurrentState.StrokeLineCap = value;
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set => CurrentState.StrokeLineJoin = value;
         }
@@ -122,9 +122,9 @@ namespace System.Graphics.Win2D
             set {  }
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
-            var geometry = GetPath(path, windingMode == EWWindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
+            var geometry = GetPath(path, windingMode == WindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
             Draw(s => s.FillGeometry(geometry, CurrentState.NativeFillBrush));
         }
 
@@ -134,7 +134,7 @@ namespace System.Graphics.Win2D
             CurrentState.SubtractFromClip(x, y, width, height);
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             CurrentState.ClipPath(path, windingMode);
         }
@@ -230,7 +230,7 @@ namespace System.Graphics.Win2D
             Draw(s => s.FillEllipse(_point1, radiusX, radiusY, CurrentState.NativeFillBrush));
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
         {
             // Initialize a TextFormat
 #if DEBUG
@@ -248,12 +248,12 @@ namespace System.Graphics.Win2D
 
                 switch (horizontalAlignment)
                 {
-                    case EwHorizontalAlignment.Left:
+                    case HorizontalAlignment.Left:
                         _rect.X = x;
                         _rect.Width = CanvasSize.Width;
                         textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
                         break;
-                    case EwHorizontalAlignment.Right:
+                    case HorizontalAlignment.Right:
                         _rect.X = x - CanvasSize.Width;
                         _rect.Width = CanvasSize.Width;
                         textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Right;
@@ -296,9 +296,9 @@ namespace System.Graphics.Win2D
             float y, 
             float width, 
             float height,
-            EwHorizontalAlignment horizontalAlignment, 
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, 
+            HorizontalAlignment horizontalAlignment, 
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, 
 			float lineAdjustment = 0)
         {
             var textFormat = new CanvasTextFormat
@@ -311,29 +311,29 @@ namespace System.Graphics.Win2D
 
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Right;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Justified;
                     break;
             }
 
             switch (verticalAlignment)
             {
-                case EwVerticalAlignment.Top:
+                case VerticalAlignment.Top:
                     textFormat.VerticalAlignment = CanvasVerticalAlignment.Top;
                     break;
-                case EwVerticalAlignment.Center:
+                case VerticalAlignment.Center:
                     textFormat.VerticalAlignment = CanvasVerticalAlignment.Center;
                     break;
-                case EwVerticalAlignment.Bottom:
+                case VerticalAlignment.Bottom:
                     textFormat.VerticalAlignment = CanvasVerticalAlignment.Bottom;
                     break;
             }
@@ -346,7 +346,7 @@ namespace System.Graphics.Win2D
                 width,
                 height)
             {
-                Options = textFlow == EWTextFlow.OVERFLOW_BOUNDS
+                Options = textFlow == TextFlow.OverflowBounds
                     ? CanvasDrawTextOptions.Default
                     : CanvasDrawTextOptions.Clip
             };
@@ -368,7 +368,7 @@ namespace System.Graphics.Win2D
             CurrentState.SetShadow(offset, blur, color);
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
             {
@@ -376,13 +376,13 @@ namespace System.Graphics.Win2D
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.SOLID)
+            if (paint.PaintType == PaintType.Solid)
             {
                 CurrentState.FillColor = paint.StartColor;
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.IMAGE)
+            if (paint.PaintType == PaintType.Image)
             {
                 if (paint.Image is W2DImage image)
                 {
@@ -400,7 +400,7 @@ namespace System.Graphics.Win2D
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.PATTERN)
+            if (paint.PaintType == PaintType.Pattern)
             {
                 var pattern = paint.Pattern;
 	            if (pattern == null)
@@ -451,7 +451,7 @@ namespace System.Graphics.Win2D
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.LINEAR_GRADIENT)
+            if (paint.PaintType == PaintType.LinearGradient)
             {
                 _point1.X = x1;
                 _point1.Y = y1;
@@ -514,7 +514,7 @@ namespace System.Graphics.Win2D
             CurrentState.FontStyle = FontStyle.Normal;
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
             if (image is W2DImage nativeImage)
             {
@@ -638,7 +638,7 @@ namespace System.Graphics.Win2D
             Draw(s => s.DrawEllipse(px, py, radiusX, radiusY, CurrentState.NativeStrokeBrush, CurrentState.StrokeSize, CurrentState.NativeStrokeStyle));
         }
         
-        private CanvasGeometry GetPath(EWPath path, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
+        private CanvasGeometry GetPath(PathF path, CanvasFilledRegionDetermination fillMode = CanvasFilledRegionDetermination.Winding)
         {
             var geometry = path.NativePath as CanvasGeometry;
             
@@ -651,7 +651,7 @@ namespace System.Graphics.Win2D
             return geometry;
         }
         
-        protected override void NativeDrawPath(EWPath path)
+        protected override void NativeDrawPath(PathF path)
         {
             if (path == null)
                 return;

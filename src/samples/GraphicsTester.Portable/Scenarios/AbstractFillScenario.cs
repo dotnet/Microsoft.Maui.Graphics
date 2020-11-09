@@ -13,7 +13,7 @@ namespace GraphicsTester.Scenarios
             this.action = action;
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             FillRectanglesOfDifferentSizesAndColors(canvas);
             FillRectanglesWithAlpha(canvas);

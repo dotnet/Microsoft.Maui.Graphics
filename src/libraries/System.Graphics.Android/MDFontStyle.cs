@@ -18,7 +18,7 @@ namespace System.Graphics.Android
             Resource = resource;
         }
 
-        public IFontFamily FontFamily => _family;
+        public FontFamily FontFamily => _family;
 
         public string Id { get; }
 

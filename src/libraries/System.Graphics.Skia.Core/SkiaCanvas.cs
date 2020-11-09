@@ -52,12 +52,12 @@ namespace System.Graphics.Skia
             set => CurrentState.Alpha = value;
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set => CurrentState.StrokeLineCap = value;
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set => CurrentState.StrokeLineJoin = value;
         }
@@ -280,7 +280,7 @@ namespace System.Graphics.Skia
         }
 
         public override void SetFillPaint(
-            EWPaint paint,
+            Paint paint,
             float x1,
             float y1,
             float x2,
@@ -296,7 +296,7 @@ namespace System.Graphics.Skia
                 _shader = null;
             }
 
-            if (paint.PaintType == EWPaintType.LINEAR_GRADIENT)
+            if (paint.PaintType == PaintType.LinearGradient)
             {
                 var colors = new SKColor[paint.Stops.Length];
                 var stops = new float[colors.Length];
@@ -326,7 +326,7 @@ namespace System.Graphics.Skia
                     FillColor = paint.BlendStartAndEndColors();
                 }
             }
-            else if (paint.PaintType == EWPaintType.RADIAL_GRADIENT)
+            else if (paint.PaintType == PaintType.RadialGradient)
             {
                 var colors = new SKColor[paint.Stops.Length];
                 var stops = new float[colors.Length];
@@ -357,7 +357,7 @@ namespace System.Graphics.Skia
                     FillColor = paint.BlendStartAndEndColors();
                 }
             }
-            else if (paint.PaintType == EWPaintType.PATTERN)
+            else if (paint.PaintType == PaintType.Pattern)
             {
                 SKBitmap bitmap = paint.GetPatternBitmap(DisplayScale);
 
@@ -387,7 +387,7 @@ namespace System.Graphics.Skia
                     FillColor = paint.BackgroundColor;
                 }
             }
-            else if (paint.PaintType == EWPaintType.IMAGE)
+            else if (paint.PaintType == PaintType.Image)
             {
                 var image = paint.Image as SkiaImage;
                 if (image != null)
@@ -636,26 +636,26 @@ namespace System.Graphics.Skia
         }
 
         protected override void NativeDrawPath(
-            EWPath path)
+            PathF path)
         {
             var nativePath = path.AsSkiaPath();
             _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
             nativePath.Dispose();
         }
 
-        public override void ClipPath(EWPath path,
-            EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path,
+            WindingMode windingMode = WindingMode.NonZero)
         {
             var nativePath = path.AsSkiaPath();
-            nativePath.FillType = windingMode == EWWindingMode.NonZero ? SKPathFillType.Winding : SKPathFillType.EvenOdd;
+            nativePath.FillType = windingMode == WindingMode.NonZero ? SKPathFillType.Winding : SKPathFillType.EvenOdd;
             _canvas.ClipPath(nativePath);
         }
 
-        public override void FillPath(EWPath path,
-            EWWindingMode windingMode)
+        public override void FillPath(PathF path,
+            WindingMode windingMode)
         {
             var nativePath = path.AsSkiaPath();
-            nativePath.FillType = windingMode == EWWindingMode.NonZero ? SKPathFillType.Winding : SKPathFillType.EvenOdd;
+            nativePath.FillType = windingMode == WindingMode.NonZero ? SKPathFillType.Winding : SKPathFillType.EvenOdd;
             _canvas.DrawPath(nativePath, CurrentState.FillPaintWithAlpha);
             nativePath.Dispose();
         }
@@ -664,16 +664,16 @@ namespace System.Graphics.Skia
             string value,
             float x,
             float y,
-            EwHorizontalAlignment horizAlignment)
+            HorizontalAlignment horizAlignment)
         {
             if (string.IsNullOrEmpty(value))
                 return;
 
-            if (horizAlignment == EwHorizontalAlignment.Left)
+            if (horizAlignment == HorizontalAlignment.Left)
             {
                 _canvas.DrawText(value, x, y, CurrentState.FontPaint);
             }
-            else if (horizAlignment == EwHorizontalAlignment.Right)
+            else if (horizAlignment == HorizontalAlignment.Right)
             {
                 var paint = CurrentState.FontPaint;
                 var width = paint.MeasureText(value);
@@ -695,9 +695,9 @@ namespace System.Graphics.Skia
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizAlignment,
-            EwVerticalAlignment vertAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizAlignment,
+            VerticalAlignment vertAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineSpacingAdjustment = 0)
         {
             if (string.IsNullOrEmpty(value))
@@ -733,7 +733,7 @@ namespace System.Graphics.Skia
         public override void DrawText(IAttributedText value, float x, float y, float width, float height)
         {
             Logger.Debug("Not yet implemented.");
-            DrawString(value?.Text, x, y, width, height, EwHorizontalAlignment.Left, EwVerticalAlignment.Top);
+            DrawString(value?.Text, x, y, width, height, HorizontalAlignment.Left, VerticalAlignment.Top);
         }
 
         public override void ResetState()
@@ -847,7 +847,7 @@ namespace System.Graphics.Skia
         }
 
         public override void DrawImage(
-            EWImage image,
+            IImage image,
             float x,
             float y,
             float width,

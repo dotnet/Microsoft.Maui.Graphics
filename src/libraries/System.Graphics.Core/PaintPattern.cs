@@ -3,7 +3,7 @@ namespace System.Graphics
     public class PaintPattern : IPattern
     {
         public IPattern Wrapped { get; }
-        public EWPaint Paint { get; set; }
+        public Paint Paint { get; set; }
 
         public float Width => Wrapped?.Width ?? 0;
         public float Height => Wrapped?.Height ?? 0;

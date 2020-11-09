@@ -23,6 +23,6 @@ namespace System.Graphics
 
         public abstract void WriteToStream(Stream stream);
 
-        public abstract EWImage Image { get; }
+        public abstract IImage Image { get; }
     }
 }

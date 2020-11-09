@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace System.Graphics.SharpDX
 {
-    public class DXFontFamily : IFontFamily, IComparable<DXFontFamily>
+    public class DXFontFamily : FontFamily, IComparable<DXFontFamily>
     {
         private readonly string _name;
         private readonly List<DXFontStyle> _styleList = new List<DXFontStyle>();

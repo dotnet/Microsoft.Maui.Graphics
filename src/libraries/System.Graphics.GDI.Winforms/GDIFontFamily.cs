@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace System.Graphics.GDI
 {
-    public class GDIFontFamily : IFontFamily, IComparable<GDIFontFamily>
+    public class GDIFontFamily : FontFamily, IComparable<GDIFontFamily>
     {
         private readonly string _name;
         private readonly List<GDIFontStyle> _styleList = new List<GDIFontStyle>();

@@ -2,16 +2,16 @@ namespace System.Graphics
 {
     public static class PatternExtensions
     {
-        public static EWPaint AsPaint(this IPattern target)
+        public static Paint AsPaint(this IPattern target)
         {
             return AsPaint(target, Colors.Black);
         }
 
-        public static EWPaint AsPaint(this IPattern target, Color foregroundColor)
+        public static Paint AsPaint(this IPattern target, Color foregroundColor)
         {
             if (target != null)
             {
-                var paint = new EWPaint
+                var paint = new Paint
                 {
                     Pattern = target,
                     ForegroundColor = foregroundColor,

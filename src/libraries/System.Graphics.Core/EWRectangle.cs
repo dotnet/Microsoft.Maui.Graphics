@@ -571,9 +571,9 @@ namespace System.Graphics
             return position;
         }
 
-        public EWPath AsPath()
+        public PathF AsPath()
         {
-            var path = new EWPath(new EWPoint(MinX, MinY));
+            var path = new PathF(new EWPoint(MinX, MinY));
             path.LineTo(new EWPoint(MaxX, MinY));
             path.LineTo(new EWPoint(MaxX, MaxY));
             path.LineTo(new EWPoint(MinX, MaxY));

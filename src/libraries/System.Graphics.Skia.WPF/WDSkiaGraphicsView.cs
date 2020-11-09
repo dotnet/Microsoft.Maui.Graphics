@@ -7,7 +7,7 @@ namespace System.Graphics.Skia
     public class WDSkiaGraphicsView : SKElement
     {
         private readonly EWRectangle _dirtyRect = new EWRectangle();
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private ISkiaGraphicsRenderer _renderer;
 
         public WDSkiaGraphicsView()
@@ -46,7 +46,7 @@ namespace System.Graphics.Skia
             set => _renderer.BackgroundColor = value;
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

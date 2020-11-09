@@ -215,11 +215,11 @@ namespace System.Graphics.GDI
             }
         }
 
-        public LineJoin StrokeLineJoin { get; set; }
+        public Drawing.Drawing2D.LineJoin StrokeLineJoin { get; set; }
 
         public float StrokeMiterLimit { get; set; }
 
-        public LineCap StrokeLineCap { get; set; }
+        public Drawing.Drawing2D.LineCap StrokeLineCap { get; set; }
 
         public override void Dispose()
         {
@@ -274,8 +274,8 @@ namespace System.Graphics.GDI
             _strokeWidth = 1;
             StrokeColor = Drawing.Color.Black;
             StrokeDashPattern = null;
-            StrokeLineJoin = LineJoin.Miter;
-            StrokeLineCap = LineCap.Flat;
+            StrokeLineJoin = Drawing.Drawing2D.LineJoin.Miter;
+            StrokeLineCap = Drawing.Drawing2D.LineCap.Flat;
             StrokeMiterLimit = CanvasDefaults.DefaultMiterLimit;
 
             FillColor = Drawing.Color.White;

@@ -6,13 +6,13 @@ namespace System.Graphics.Forms
     {
         public static readonly BindableProperty DrawableProperty = BindableProperty.Create(
             nameof(Drawable),
-            typeof(EWDrawable),
+            typeof(IDrawable),
             typeof(GraphicsView),
             null);
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
-            get => (EWDrawable) GetValue(DrawableProperty);
+            get => (IDrawable) GetValue(DrawableProperty);
             set => SetValue(DrawableProperty, value);
         }
     }

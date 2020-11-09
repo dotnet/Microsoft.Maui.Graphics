@@ -3,7 +3,7 @@
     public class GDIDirectGraphicsRenderer : GDIGraphicsRenderer
     {
         private readonly GDICanvas _canvas = new GDICanvas();
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private Color _backgroundColor;
         private GDIGraphicsView _owner;
         private bool _dirty;
@@ -21,7 +21,7 @@
 
         public ICanvas Canvas => _canvas;
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

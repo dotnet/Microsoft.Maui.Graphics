@@ -10,9 +10,9 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
-            EWImage image;
+            IImage image;
             var assembly = GetType().GetTypeInfo().Assembly;
             using (var stream = assembly.GetManifestResourceStream("GraphicsTester.Resources.swirl_pattern.png"))
             {

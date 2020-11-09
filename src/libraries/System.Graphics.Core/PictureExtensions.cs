@@ -1,8 +1,8 @@
 namespace System.Graphics
 {
-    public static class EWPictureExtensions
+    public static class PictureExtensions
     {
-        public static EWRectangle GetBounds(this EWPicture target)
+        public static EWRectangle GetBounds(this Picture target)
         {
             if (target == null) return null;
 

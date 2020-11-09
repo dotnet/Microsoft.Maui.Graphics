@@ -3,19 +3,19 @@ using System.Threading.Tasks;
 
 namespace System.Graphics
 {
-    public class VirtualImage : EWImage
+    public class VirtualImage : IImage
     {
         private readonly byte[] _bytes;
         private readonly int _width;
         private readonly int _height;
-        private readonly EWImageFormat _originalFormat;
+        private readonly ImageFormat _originalFormat;
 
-        public VirtualImage(byte[] bytes, EWImageFormat originalFormat = EWImageFormat.Png)
+        public VirtualImage(byte[] bytes, ImageFormat originalFormat = ImageFormat.Png)
         {
             _bytes = bytes;
             _originalFormat = originalFormat;
 
-            if (originalFormat == EWImageFormat.Jpeg)
+            if (originalFormat == ImageFormat.Jpeg)
             {
                 GetJpegDimension(out _width, out _height);
             }
@@ -27,7 +27,7 @@ namespace System.Graphics
 
         public byte[] Bytes => _bytes;
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
 #if DEBUG
             Logger.Debug("Downsizing not supported in virtual image.");
@@ -35,7 +35,7 @@ namespace System.Graphics
             return this;
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
 #if DEBUG
             Logger.Debug("Downsizing not supported in virtual image.");
@@ -43,7 +43,7 @@ namespace System.Graphics
             return this;
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
 #if DEBUG
             Logger.Debug("Resizing not supported in virtual image.");
@@ -51,7 +51,7 @@ namespace System.Graphics
             return this;
         }
         
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             if (format == _originalFormat)
             {
@@ -63,7 +63,7 @@ namespace System.Graphics
             }
         }
 
-        public Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             if (format == _originalFormat)
             {

@@ -7,7 +7,7 @@ namespace System.Graphics.Android
     {
         private readonly MDCanvas _canvas;
         private readonly ScalingCanvas _scalingCanvas;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private MDGraphicsView _graphicsView;
         private Color _backgroundColor;
 
@@ -19,7 +19,7 @@ namespace System.Graphics.Android
 
         public ICanvas Canvas => _scalingCanvas;
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

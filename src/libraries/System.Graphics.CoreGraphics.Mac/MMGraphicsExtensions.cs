@@ -4,7 +4,7 @@ namespace System.Graphics.CoreGraphics
 {
     public static class MMGraphicsExtensions
     {
-        public static MMImage ToMultiResolutionImage(this EWDrawable drawable, int width, int height)
+        public static MMImage ToMultiResolutionImage(this IDrawable drawable, int width, int height)
         {
             if (drawable == null)
                 return null;

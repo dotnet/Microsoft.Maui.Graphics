@@ -11,7 +11,7 @@ namespace GraphicsTester.Scenarios
             this.includeOvals = includeOvals;
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 

@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 
@@ -16,36 +16,36 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeSize = 10;
             canvas.Translate(-300, -60);
 
-            var path = new EWPath();
+            var path = new PathF();
             path.MoveTo(350, 120);
             path.LineTo(370, 180);
             path.LineTo(390, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.MITER;
-            path = new EWPath();
+            canvas.StrokeLineJoin = LineJoin.Miter;
+            path = new PathF();
             path.MoveTo(400, 120);
             path.LineTo(420, 180);
             path.LineTo(440, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.ROUND;
-            path = new EWPath();
+            canvas.StrokeLineJoin = LineJoin.Round;
+            path = new PathF();
             path.MoveTo(450, 120);
             path.LineTo(470, 180);
             path.LineTo(490, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.BEVEL;
-            path = new EWPath();
+            canvas.StrokeLineJoin = LineJoin.Bevel;
+            path = new PathF();
             path.MoveTo(500, 120);
             path.LineTo(520, 180);
             path.LineTo(540, 120);
             canvas.DrawPath(path);
 
-            canvas.StrokeLineJoin = EWLineJoin.MITER;
+            canvas.StrokeLineJoin = LineJoin.Miter;
             canvas.MiterLimit = 2;
-            path = new EWPath();
+            path = new PathF();
             path.MoveTo(550, 120);
             path.LineTo(570, 180);
             path.LineTo(590, 120);

@@ -9,7 +9,7 @@ namespace System.Graphics.Skia
         private readonly EWRectangle _rect;
         private readonly ITextAttributes _textAttributes;
         private readonly string _value;
-        private readonly EWTextFlow _textFlow;
+        private readonly TextFlow _textFlow;
         private readonly SKPaint _paint;
         private readonly bool _disposePaint;
         private readonly float _lineHeight;
@@ -22,7 +22,7 @@ namespace System.Graphics.Skia
             EWRectangle rect,
             ITextAttributes textAttributes,
             LayoutLine callback,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            TextFlow textFlow = TextFlow.ClipBounds,
             SKPaint paint = null)
         {
             _value = value;
@@ -66,18 +66,18 @@ namespace System.Graphics.Skia
             var top = y;
             var bottom = y + height;
 
-            if (_textAttributes.HorizontalAlignment == EwHorizontalAlignment.Right)
+            if (_textAttributes.HorizontalAlignment == HorizontalAlignment.Right)
                 _paint.TextAlign = SKTextAlign.Right;
-            else if (_textAttributes.HorizontalAlignment == EwHorizontalAlignment.Center)
+            else if (_textAttributes.HorizontalAlignment == HorizontalAlignment.Center)
                 _paint.TextAlign = SKTextAlign.Center;
 
             var lines = CreateLines(y, bottom, width);
             switch (_textAttributes.VerticalAlignment)
             {
-                case EwVerticalAlignment.Center:
+                case VerticalAlignment.Center:
                     LayoutCenterAligned(lines, x, width, top, height);
                     break;
-                case EwVerticalAlignment.Bottom:
+                case VerticalAlignment.Bottom:
                     LayoutBottomAligned(lines, x, width, bottom, top);
                     break;
                 default:
@@ -97,7 +97,7 @@ namespace System.Graphics.Skia
         {
             var linesToDraw = lines.Count;
 
-            if (_textFlow == EWTextFlow.CLIP_BOUNDS)
+            if (_textFlow == TextFlow.ClipBounds)
             {
                 var maxLines = Math.Floor(height / _lineHeight);
                 linesToDraw = (int) Math.Min(maxLines, lines.Count);
@@ -129,10 +129,10 @@ namespace System.Graphics.Skia
                 var point = new EWPoint(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
-                    case EwHorizontalAlignment.Center:
+                    case HorizontalAlignment.Center:
                         point.X = x + width / 2;
                         break;
-                    case EwHorizontalAlignment.Right:
+                    case HorizontalAlignment.Right:
                         point.X = x + width;
                         break;
                 }
@@ -154,16 +154,16 @@ namespace System.Graphics.Skia
             {
                 var line = lines[i];
 
-                if (_textFlow == EWTextFlow.CLIP_BOUNDS && y - _lineHeight < top)
+                if (_textFlow == TextFlow.ClipBounds && y - _lineHeight < top)
                     return;
 
                 var point = new EWPoint(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
-                    case EwHorizontalAlignment.Center:
+                    case HorizontalAlignment.Center:
                         point.X = x + width / 2;
                         break;
-                    case EwHorizontalAlignment.Right:
+                    case HorizontalAlignment.Right:
                         point.X = x + width;
                         break;
                 }
@@ -189,10 +189,10 @@ namespace System.Graphics.Skia
                 var point = new EWPoint(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
-                    case EwHorizontalAlignment.Center:
+                    case HorizontalAlignment.Center:
                         point.X = x + width / 2;
                         break;
-                    case EwHorizontalAlignment.Right:
+                    case HorizontalAlignment.Right:
                         point.X = x + width;
                         break;
                 }
@@ -211,7 +211,7 @@ namespace System.Graphics.Skia
             {
                 y += _lineHeight;
 
-                if (_textFlow == EWTextFlow.CLIP_BOUNDS && _textAttributes.VerticalAlignment == EwVerticalAlignment.Top && y > bottom)
+                if (_textFlow == TextFlow.ClipBounds && _textAttributes.VerticalAlignment == VerticalAlignment.Top && y > bottom)
                     return lines;
 
                 var count = (int) _paint.BreakText(_value.Substring(index), width, out var textWidth);

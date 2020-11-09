@@ -5,9 +5,9 @@ namespace System.Graphics
 {
     public class VirtualGraphicsPlatform : IGraphicsService
     {
-        public List<EWPath> ConvertToPaths(EWPath aPath, string text, ITextAttributes textAttributes, float ppu, float zoom)
+        public List<PathF> ConvertToPaths(PathF aPath, string text, ITextAttributes textAttributes, float ppu, float zoom)
         {
-            return new List<EWPath>();
+            return new List<PathF>();
         }
 
         public EWSize GetStringSize(string value, string fontName, float textSize)
@@ -15,42 +15,42 @@ namespace System.Graphics
             return new EWSize(value.Length * 10, textSize + 2);
         }
 
-        public EWSize GetStringSize(string value, string fontName, float textSize, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment)
+        public EWSize GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             return new EWSize(value.Length * 10, textSize + 2);
         }
 
-        public void LayoutText(EWPath path, string text, ITextAttributes textAttributes, LayoutLine callback)
+        public void LayoutText(PathF path, string text, ITextAttributes textAttributes, LayoutLine callback)
         {
             // Do nothing
         }
 
-        public EWRectangle GetPathBounds(EWPath path)
+        public EWRectangle GetPathBounds(PathF path)
         {
             throw new NotImplementedException();
         }
 
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint center, EWPath path, float angle)
+        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint center, PathF path, float angle)
         {
             throw new NotImplementedException();
         }
 
-        public bool PathContainsPoint(EWPath path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
+        public bool PathContainsPoint(PathF path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public bool PointIsOnPath(EWPath path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
+        public bool PointIsOnPath(PathF path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public bool PointIsOnPathSegment(EWPath path, int segmentIndex, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
+        public bool PointIsOnPathSegment(PathF path, int segmentIndex, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png)
         {
             using (var memoryStream = new MemoryStream())
             {

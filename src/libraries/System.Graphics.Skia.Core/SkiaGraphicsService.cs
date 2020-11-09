@@ -36,7 +36,7 @@ namespace System.Graphics.Skia
 
         public bool IsRetina => false;
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat formatHint = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, ImageFormat formatHint = ImageFormat.Png)
         {
             using (var s = new SKManagedStream(stream))
             {
@@ -71,7 +71,7 @@ namespace System.Graphics.Skia
             return new EWSize(width, fontSize);
         }
 
-        public EWSize GetStringSize(string value, string fontName, float fontSize, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment)
+        public EWSize GetStringSize(string value, string fontName, float fontSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             if (string.IsNullOrEmpty(value))
                 return new EWSize();

@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.StrokeSize = 1;
             canvas.StrokeColor = Colors.Blue;
@@ -26,7 +26,7 @@ namespace GraphicsTester.Scenarios
 
                 canvas.DrawRectangle(dx, dy, 190, 140);
 
-                var verticalAlignment = (EwVerticalAlignment) y;
+                var verticalAlignment = (VerticalAlignment) y;
 
                 canvas.DrawString(
                     longText,
@@ -34,9 +34,9 @@ namespace GraphicsTester.Scenarios
                     dy,
                     190,
                     140,
-                    EwHorizontalAlignment.Left,
+                    HorizontalAlignment.Left,
                     verticalAlignment,
-                    EWTextFlow.CLIP_BOUNDS);
+                    TextFlow.ClipBounds);
             }
         }
     }

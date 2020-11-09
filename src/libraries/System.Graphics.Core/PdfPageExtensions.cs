@@ -5,7 +5,7 @@ namespace System.Graphics
 {
     public static class PdfPageExtensions
     {
-        public static byte[] AsBytes(this EWPdfPage target)
+        public static byte[] AsBytes(this IPdfPage target)
         {
             if (target == null)
                 return null;
@@ -17,7 +17,7 @@ namespace System.Graphics
             }
         }
 
-        public static Stream AsStream(this EWPdfPage target)
+        public static Stream AsStream(this IPdfPage target)
         {
             if (target == null)
                 return null;
@@ -29,7 +29,7 @@ namespace System.Graphics
             return stream;
         }
 
-        public static async Task<byte[]> AsBytesAsync(this EWPdfPage target)
+        public static async Task<byte[]> AsBytesAsync(this IPdfPage target)
         {
             if (target == null)
                 return null;
@@ -41,7 +41,7 @@ namespace System.Graphics
             }
         }
         
-        public static string AsBase64(this EWPdfPage target)
+        public static string AsBase64(this IPdfPage target)
         {
             if (target == null)
                 return null;

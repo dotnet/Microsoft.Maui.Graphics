@@ -6,7 +6,7 @@ namespace System.Graphics.CoreGraphics
     {
         MTGraphicsView GraphicsView { set; }
         ICanvas Canvas { get; }
-        EWDrawable Drawable { get; set; }
+        IDrawable Drawable { get; set; }
         void Draw(CGContext coreGraphics, EWRectangle dirtyRect, bool inPanOrZoom);
         void SizeChanged(float width, float height);
         void Detached();

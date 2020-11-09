@@ -2,7 +2,7 @@
 
 namespace System.Graphics.Android
 {
-    public class MDFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
+    public class MDFontFamily : FontFamily, IComparable<FontFamily>, IComparable
     {
         private readonly string _name;
         private IFontStyle[] _fontStyles;
@@ -62,14 +62,14 @@ namespace System.Graphics.Android
             return Name;
         }
 
-        public int CompareTo(IFontFamily other)
+        public int CompareTo(FontFamily other)
         {
             return String.Compare(_name, other.Name, StringComparison.Ordinal);
         }
 
         public int CompareTo(object obj)
         {
-            if (obj is IFontFamily other)
+            if (obj is FontFamily other)
                 return CompareTo(other);
 
             return -1;

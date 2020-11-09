@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace System.Graphics.GDI
 {
-    internal class GDIImage : EWImage
+    internal class GDIImage : IImage
     {
         private Bitmap _bitmap;
 
@@ -23,7 +23,7 @@ namespace System.Graphics.GDI
             bitmap?.Dispose();
         }
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             if (Width > maxWidthOrHeight || Height > maxWidthOrHeight)
             {
@@ -49,12 +49,12 @@ namespace System.Graphics.GDI
             return this;
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             throw new NotImplementedException();
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
             throw new NotImplementedException();
         }
@@ -63,13 +63,13 @@ namespace System.Graphics.GDI
 
         public float Height => _bitmap.Size.Height;
         
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             try
             {
-                if (format == EWImageFormat.Jpeg)
+                if (format == ImageFormat.Jpeg)
                 {
-                    var jgpEncoder = GetEncoder(ImageFormat.Jpeg);
+                    var jgpEncoder = GetEncoder(Drawing.Imaging.ImageFormat.Jpeg);
                     var myEncoder = Encoder.Quality;
                     var myEncoderParameters = new EncoderParameters(1);
                     var myEncoderParameter = new EncoderParameter(myEncoder, (long) (quality * 100));
@@ -79,7 +79,7 @@ namespace System.Graphics.GDI
                 }
                 else
                 {
-                    _bitmap.Save(stream, ImageFormat.Png);
+                    _bitmap.Save(stream, Drawing.Imaging.ImageFormat.Png);
                 }
             }
             catch (Exception exc)
@@ -88,7 +88,7 @@ namespace System.Graphics.GDI
             }
         }
 
-        private ImageCodecInfo GetEncoder(ImageFormat format)
+        private ImageCodecInfo GetEncoder(Drawing.Imaging.ImageFormat format)
         {
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
 
@@ -103,7 +103,7 @@ namespace System.Graphics.GDI
             return null;
         }
 
-        public Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             return Task.Factory.StartNew(() => Save(stream, format, quality));
         }

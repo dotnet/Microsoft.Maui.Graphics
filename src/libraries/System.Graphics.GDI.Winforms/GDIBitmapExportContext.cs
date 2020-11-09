@@ -36,11 +36,11 @@ namespace System.Graphics.GDI
             base.Dispose();
         }
 
-        public override EWImage Image => new GDIImage(_bitmap);
+        public override IImage Image => new GDIImage(_bitmap);
 
         public override void WriteToStream(Stream stream)
         {
-            Image.Save(stream, EWImageFormat.Png);
+            Image.Save(stream, ImageFormat.Png);
         }
     }
 }

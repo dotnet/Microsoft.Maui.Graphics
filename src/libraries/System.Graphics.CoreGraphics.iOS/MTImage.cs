@@ -6,7 +6,7 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTImage : EWImage
+    public class MTImage : IImage
     {
         private UIImage _image;
 
@@ -19,19 +19,19 @@ namespace System.Graphics.CoreGraphics
 
         public float Height => (float) (_image?.Size.Height ?? 0);
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidthOrHeight, maxWidthOrHeight, disposeOriginal);
             return new MTImage(scaledImage);
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidth, maxHeight, disposeOriginal);
             return new MTImage(scaledImage);
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
             using (var context = new MTBitmapExportContext((int) width, (int) height, 1))
             {
@@ -89,24 +89,24 @@ namespace System.Graphics.CoreGraphics
 
         public UIImage NativeImage => _image;
         
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             var data = CreateData(format, quality);
             data.AsStream().CopyTo(stream);
         }
 
-        public async Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             var data = CreateData(format, quality);
             await data.AsStream().CopyToAsync(stream);
         }
 
-        private NSData CreateData(EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        private NSData CreateData(ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             NSData data;
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case ImageFormat.Jpeg:
                     data = _image.AsJPEG(quality);
                     break;
                 default:
@@ -136,7 +136,7 @@ namespace System.Graphics.CoreGraphics
 
     public static class MTImageExtensions
     {
-        public static UIImage AsUIImage(this EWImage image)
+        public static UIImage AsUIImage(this IImage image)
         {
             if (image is MTImage mtimage)
             {

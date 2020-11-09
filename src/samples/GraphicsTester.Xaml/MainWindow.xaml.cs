@@ -8,7 +8,7 @@ namespace GraphicsTester.Xaml
     public partial class MainWindow : Window
     {
         private readonly XamlCanvas canvas = new XamlCanvas();
-        private EWDrawable drawable;
+        private IDrawable drawable;
 
         public MainWindow()
         {
@@ -24,14 +24,14 @@ namespace GraphicsTester.Xaml
             {
                 List.Items.Add(scenario);
             }
-            List.SelectionChanged += (source, args) => Drawable = List.SelectedItem as EWDrawable;
+            List.SelectionChanged += (source, args) => Drawable = List.SelectedItem as IDrawable;
 
             List.SelectedIndex = 0;
 
             this.SizeChanged += (source,args) => Draw();
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => drawable;
             set

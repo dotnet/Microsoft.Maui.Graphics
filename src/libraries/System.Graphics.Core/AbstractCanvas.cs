@@ -21,7 +21,7 @@ namespace System.Graphics
         protected abstract void NativeDrawRectangle(float x, float y, float width, float height);
         protected abstract void NativeDrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius);
         protected abstract void NativeDrawOval(float x, float y, float width, float height);
-        protected abstract void NativeDrawPath(EWPath path);
+        protected abstract void NativeDrawPath(PathF path);
         protected abstract void NativeRotate(float degrees, float radians, float x, float y);
         protected abstract void NativeRotate(float degrees, float radians);
         protected abstract void NativeScale(float fx, float fy);
@@ -95,8 +95,8 @@ namespace System.Graphics
 
         public abstract float MiterLimit { set; }
         public abstract Color StrokeColor { set; }
-        public abstract EWLineCap StrokeLineCap { set; }
-        public abstract EWLineJoin StrokeLineJoin { set; }
+        public abstract LineCap StrokeLineCap { set; }
+        public abstract LineJoin StrokeLineJoin { set; }
 
         public float[] StrokeDashPattern
         {
@@ -166,7 +166,7 @@ namespace System.Graphics
         }
 
         public abstract void FillOval(float x, float y, float width, float height);
-        public abstract void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment);
+        public abstract void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment);
 
         public abstract void DrawString(
             string value, 
@@ -174,22 +174,22 @@ namespace System.Graphics
             float y, 
             float width, 
             float height, 
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment, 
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment, 
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineSpacingAdjustment = 0);
         
         public abstract void DrawText(IAttributedText value, float x, float y, float width, float height);
 
-        public void DrawPath(EWPath path)
+        public void DrawPath(PathF path)
         {
             EnsureStrokePatternSet();
             NativeDrawPath(path);
         }
 
-        public abstract void FillPath(EWPath path, EWWindingMode windingMode);
+        public abstract void FillPath(PathF path, WindingMode windingMode);
         public abstract void SubtractFromClip(float x, float y, float width, float height);
-        public abstract void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero);
+        public abstract void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero);
 
         public virtual void ResetState()
         {
@@ -215,10 +215,10 @@ namespace System.Graphics
         }
 
         public abstract void SetShadow(EWSize offset, float blur, Color color);
-        public abstract void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2);
+        public abstract void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2);
         public abstract void SetToSystemFont();
         public abstract void SetToBoldSystemFont();
-        public abstract void DrawImage(EWImage image, float x, float y, float width, float height);
+        public abstract void DrawImage(IImage image, float x, float y, float width, float height);
 
         public virtual bool RestoreState()
         {

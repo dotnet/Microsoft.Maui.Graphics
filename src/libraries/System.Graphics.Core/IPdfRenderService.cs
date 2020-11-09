@@ -4,6 +4,6 @@ namespace System.Graphics
 {
     public interface IPdfRenderService
     {
-        EWPdfPage CreatePage(Stream stream, int pageNumber = -1);
+        IPdfPage CreatePage(Stream stream, int pageNumber = -1);
     }
 }

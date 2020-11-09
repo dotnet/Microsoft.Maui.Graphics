@@ -36,7 +36,7 @@ namespace System.Graphics.Win2D
         private global::Windows.UI.Color _shadowColor;
         private bool _shadowColorValid;
         private Color _sourceFillColor;
-        private EWPaint _sourceFillpaint;
+        private Paint _sourceFillpaint;
 
         private Color _sourceFontColor;
         private Color _sourceShadowColor;
@@ -208,16 +208,16 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             set
             {
                 switch (value)
                 {
-                    case EWLineCap.BUTT:
+                    case LineCap.Butt:
                         _lineCap = CanvasCapStyle.Flat;
                         break;
-                    case EWLineCap.ROUND:
+                    case LineCap.Round:
                         _lineCap = CanvasCapStyle.Round;
                         break;
                     default:
@@ -230,16 +230,16 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             set
             {
                 switch (value)
                 {
-                    case EWLineJoin.BEVEL:
+                    case LineJoin.Bevel:
                         _lineJoin = CanvasLineJoin.Bevel;
                         break;
-                    case EWLineJoin.ROUND:
+                    case LineJoin.Round:
                         _lineJoin = CanvasLineJoin.Round;
                         break;
                     default:
@@ -279,7 +279,7 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public void SetLinearGradient(EWPaint aPaint, Vector2 aPoint1, Vector2 aPoint2)
+        public void SetLinearGradient(Paint aPaint, Vector2 aPoint1, Vector2 aPoint2)
         {
             ReleaseFillBrush();
             _fillBrushValid = false;
@@ -289,7 +289,7 @@ namespace System.Graphics.Win2D
             _gradientPoint2 = aPoint2;
         }
 
-        public void SetRadialGradient(EWPaint aPaint, Vector2 aPoint1, Vector2 aPoint2)
+        public void SetRadialGradient(Paint aPaint, Vector2 aPoint1, Vector2 aPoint2)
         {
             ReleaseFillBrush();
             _fillBrushValid = false;
@@ -318,7 +318,7 @@ namespace System.Graphics.Win2D
                     }
                     else if (_sourceFillpaint != null)
                     {
-                        if (_sourceFillpaint.PaintType == EWPaintType.LINEAR_GRADIENT)
+                        if (_sourceFillpaint.PaintType == PaintType.LinearGradient)
                         {
                             var gradientStops = new CanvasGradientStop[_sourceFillpaint.Stops.Length];
                             for (int i = 0; i < _sourceFillpaint.Stops.Length; i++)
@@ -464,14 +464,14 @@ namespace System.Graphics.Win2D
             return Matrix;
         }
 
-        public void ClipPath(EWPath path, EWWindingMode windingMode)
+        public void ClipPath(PathF path, WindingMode windingMode)
         {
             if (_layerMask != null)
                 throw new Exception("Only one clip operation currently supported.");
 
             var layerRect = new Rect(0, 0, _owner.CanvasSize.Width, _owner.CanvasSize.Height);
             _layerBounds = CanvasGeometry.CreateRectangle(_owner.Session, layerRect);
-            var clipGeometry = path.AsPath(_owner.Session, windingMode == EWWindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
+            var clipGeometry = path.AsPath(_owner.Session, windingMode == WindingMode.NonZero ? CanvasFilledRegionDetermination.Winding : CanvasFilledRegionDetermination.Alternate);
 
             _layerMask = _layerBounds.CombineWith(clipGeometry, Matrix3x2.Identity, CanvasGeometryCombine.Intersect);
 
@@ -481,9 +481,9 @@ namespace System.Graphics.Win2D
 
         public void ClipRectangle(float x, float y, float width, float height)
         {
-            var path = new EWPath();
+            var path = new PathF();
             path.AppendRectangle(x, y, width, height);
-            ClipPath(path, EWWindingMode.NonZero);
+            ClipPath(path, WindingMode.NonZero);
         }
 
         public void SubtractFromClip(float x, float y, float width, float height)

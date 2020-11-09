@@ -5,7 +5,7 @@ using SharpDX.Direct2D1;
 
 namespace System.Graphics.SharpDX
 {
-    public class DXImage : EWImage
+    public class DXImage : IImage
     {
         private Bitmap _bitmap;
 
@@ -22,7 +22,7 @@ namespace System.Graphics.SharpDX
             bitmap?.Dispose();
         }
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             if (Width > maxWidthOrHeight || Height > maxWidthOrHeight)
             {
@@ -64,12 +64,12 @@ namespace System.Graphics.SharpDX
             return this;
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             throw new NotImplementedException();
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit,
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit,
             bool disposeOriginal = false)
         {
             throw new NotImplementedException();
@@ -79,11 +79,11 @@ namespace System.Graphics.SharpDX
 
         public float Height => _bitmap.Size.Height;
 
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, Graphics.ImageFormat format = Graphics.ImageFormat.Png, float quality = 1)
         {
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case Graphics.ImageFormat.Jpeg:
                     _bitmap.EncodeImage(ImageFormat.Jpeg, stream);
                     break;
                 default:
@@ -92,7 +92,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public Task SaveAsync(Stream stream, Graphics.ImageFormat format = Graphics.ImageFormat.Png, float quality = 1)
         {
             return Task.Factory.StartNew(() => Save(stream, format, quality));
         }

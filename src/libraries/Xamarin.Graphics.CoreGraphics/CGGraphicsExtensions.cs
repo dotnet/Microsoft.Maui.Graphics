@@ -30,22 +30,22 @@ namespace System.Graphics.CoreGraphics
             return new CGPoint(target.X, target.Y);
         }
 
-        public static EWPath AsEWPath(this CGPath target)
+        public static PathF AsEWPath(this CGPath target)
         {
-            var path = new EWPath();
+            var path = new PathF();
             var converter = new PathConverter(path);
             target.Apply(converter.ApplyCGPathFunction);
             return path;
         }
 
         public static CGPath AsCGPath(
-            this EWPath target)
+            this PathF target)
         {
             return AsCGPath(target, 0, 0, 1, 1);
         }
 
         public static CGPath AsCGPath(
-            this EWPath target,
+            this PathF target,
             float ox,
             float oy,
             float fx,
@@ -59,18 +59,18 @@ namespace System.Graphics.CoreGraphics
 
             foreach (var type in target.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     var point = target[pointIndex++];
                     path.MoveToPoint((ox + point.X * fx), (oy + point.Y * fy));
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     var endPoint = target[pointIndex++];
                     path.AddLineToPoint((ox + endPoint.X * fx), (oy + endPoint.Y * fy));
                 }
 
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     var controlPoint = target[pointIndex++];
                     var endPoint = target[pointIndex++];
@@ -80,7 +80,7 @@ namespace System.Graphics.CoreGraphics
                         (ox + endPoint.X * fx),
                         (oy + endPoint.Y * fy));
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var controlPoint1 = target[pointIndex++];
                     var controlPoint2 = target[pointIndex++];
@@ -93,7 +93,7 @@ namespace System.Graphics.CoreGraphics
                         (ox + endPoint.X * fx),
                         (oy + endPoint.Y * fy));
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = target[pointIndex++];
                     var bottomRight = target[pointIndex++];
@@ -125,7 +125,7 @@ namespace System.Graphics.CoreGraphics
 
                     path.AddArc(transform, 0, 0, r * fx, startAngleInRadians, endAngleInRadians, !clockwise);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     path.CloseSubpath();
                 }
@@ -135,7 +135,7 @@ namespace System.Graphics.CoreGraphics
         }
 
         public static CGPath AsCGPath(
-            this EWPath target,
+            this PathF target,
             float scale,
             float zoom)
         {
@@ -144,7 +144,7 @@ namespace System.Graphics.CoreGraphics
         }
 
         public static CGPath AsCGPathFromSegment(
-            this EWPath target,
+            this PathF target,
             int segmentIndex,
             float ppu,
             float zoom)
@@ -153,7 +153,7 @@ namespace System.Graphics.CoreGraphics
             var path = new CGPath();
 
             var type = target.GetSegmentType(segmentIndex);
-            if (type == PathOperation.LINE)
+            if (type == PathOperation.Line)
             {
                 var pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -161,7 +161,7 @@ namespace System.Graphics.CoreGraphics
                 var endPoint = target[pointIndex];
                 path.AddLineToPoint(endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.QUAD)
+            else if (type == PathOperation.Quad)
             {
                 var pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -170,7 +170,7 @@ namespace System.Graphics.CoreGraphics
                 var endPoint = target[pointIndex];
                 path.AddQuadCurveToPoint(controlPoint.X * ppu, controlPoint.Y * ppu, endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.CUBIC)
+            else if (type == PathOperation.Cubic)
             {
                 var pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -180,7 +180,7 @@ namespace System.Graphics.CoreGraphics
                 var endPoint = target[pointIndex];
                 path.AddCurveToPoint(controlPoint1.X * ppu, controlPoint1.Y * ppu, controlPoint2.X * ppu, controlPoint2.Y * ppu, endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.ARC)
+            else if (type == PathOperation.Arc)
             {
                 target.GetSegmentInfo(segmentIndex, out var pointIndex, out var arcAngleIndex, out var arcClockwiseIndex);
 
@@ -218,7 +218,7 @@ namespace System.Graphics.CoreGraphics
             return path;
         }
 
-        public static CGPath AsRotatedCGPath(this EWPath target, EWImmutablePoint center, float ppu, float zoom, float angle)
+        public static CGPath AsRotatedCGPath(this PathF target, EWImmutablePoint center, float ppu, float zoom, float angle)
         {
             ppu = ppu * zoom;
             var path = new CGPath();
@@ -229,17 +229,17 @@ namespace System.Graphics.CoreGraphics
 
             foreach (var type in target.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     var point = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.MoveToPoint(point.X * ppu, point.Y * ppu);
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.AddLineToPoint(endPoint.X * ppu, endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     var controlPoint = target.GetRotatedPoint(pointIndex++, center, angle);
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
@@ -249,7 +249,7 @@ namespace System.Graphics.CoreGraphics
                         endPoint.X * ppu,
                         endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var controlPoint1 = target.GetRotatedPoint(pointIndex++, center, angle);
                     var controlPoint2 = target.GetRotatedPoint(pointIndex++, center, angle);
@@ -262,7 +262,7 @@ namespace System.Graphics.CoreGraphics
                         endPoint.X * ppu,
                         endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = target[pointIndex++];
                     var bottomRight = target[pointIndex++];
@@ -296,7 +296,7 @@ namespace System.Graphics.CoreGraphics
 
                     path.AddArc(transform, 0, 0, r * ppu, startAngleInRadians, endAngleInRadians, !clockwise);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     path.CloseSubpath();
                 }
@@ -317,9 +317,9 @@ namespace System.Graphics.CoreGraphics
 
         public class PathConverter
         {
-            private readonly EWPath _path;
+            private readonly PathF _path;
 
-            public PathConverter(EWPath aPath)
+            public PathConverter(PathF aPath)
             {
                 _path = aPath;
             }

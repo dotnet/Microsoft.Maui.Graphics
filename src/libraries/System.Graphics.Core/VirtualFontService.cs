@@ -2,9 +2,9 @@
 {
     public class VirtualFontService : AbstractFontService
     {
-        private static readonly IFontFamily[] EmptyArray = { };
+        private static readonly FontFamily[] EmptyArray = { };
 
-        public override IFontFamily[] GetFontFamilies()
+        public override FontFamily[] GetFontFamilies()
         {
             return EmptyArray;
         }

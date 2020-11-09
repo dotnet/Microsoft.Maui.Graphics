@@ -9,7 +9,7 @@ namespace System.Graphics
         string FullName { get; }
         int Weight { get; }
         FontStyleType StyleType { get; }
-        IFontFamily FontFamily { get; }
+        FontFamily FontFamily { get; }
         Stream OpenStream();
     }
 

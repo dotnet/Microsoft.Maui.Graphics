@@ -22,12 +22,12 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeColor = Colors.Black;
             canvas.DrawArc(x, y, width, height, startAngle, endAngle, clockwise, closed);
 
-            var path = new EWPath();
+            var path = new PathF();
             path.AddArc(x, y + 400, x + width, y + 400 + width, startAngle, endAngle, clockwise);
             canvas.DrawPath(path);
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 

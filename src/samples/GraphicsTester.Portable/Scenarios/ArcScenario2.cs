@@ -14,13 +14,13 @@ namespace GraphicsTester.Scenarios
             canvas.FillColor = Colors.Black;
             canvas.FillArc(x, y, width, height, startAngle, endAngle, clockwise);
 
-            var path = new EWPath();
+            var path = new PathF();
             path.AddArc(x, y + 400, x + width, y + 400 + width, startAngle, endAngle, clockwise);
             path.Close();
             canvas.FillPath(path);
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
             DrawArc(canvas, 400, 100, 80, 80, -315, 300, false, false);

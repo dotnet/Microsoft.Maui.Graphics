@@ -16,7 +16,7 @@ namespace System.Graphics.Blazor
         
         public static Task<bool> PointIsInPath(
             this IJSRuntime runtime,
-            EWPath path,
+            PathF path,
             float x,
             float y)
         {

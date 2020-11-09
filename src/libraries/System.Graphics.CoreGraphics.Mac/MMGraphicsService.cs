@@ -25,7 +25,7 @@ namespace System.Graphics.CoreGraphics
             vBoldFont.Dispose();
         }
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat formatHint = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, ImageFormat formatHint = ImageFormat.Png)
         {
             if (stream == null)
                 return null;
@@ -171,7 +171,7 @@ namespace System.Graphics.CoreGraphics
             return size.AsEWSize();
         }
 
-        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, EwHorizontalAlignment aHorizontalAlignment, EwVerticalAlignment aVerticalAlignment)
+        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
         {
             var fontSize = aFontSize;
             float factor = 1;
@@ -197,16 +197,16 @@ namespace System.Graphics.CoreGraphics
             var vParagraphSettings = new CTParagraphStyleSettings();
             switch (aHorizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     vParagraphSettings.Alignment = CTTextAlignment.Left;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     vParagraphSettings.Alignment = CTTextAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     vParagraphSettings.Alignment = CTTextAlignment.Right;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     vParagraphSettings.Alignment = CTTextAlignment.Justified;
                     break;
             }
@@ -281,7 +281,7 @@ namespace System.Graphics.CoreGraphics
             return new EWRectangle(0f, minY, width, Math.Max(0, maxY - minY));
         }
 
-        public EWRectangle GetPathBounds(EWPath path)
+        public EWRectangle GetPathBounds(PathF path)
         {
             var nativePath = path.NativePath as CGPath;
 
@@ -295,7 +295,7 @@ namespace System.Graphics.CoreGraphics
             return bounds.AsEWRectangle();
         }
 
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint centerOfRotation, EWPath path, float angle)
+        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint centerOfRotation, PathF path, float angle)
         {
             var nativePath = path.AsRotatedCGPath(centerOfRotation, 1, 1f, angle);
             var bounds = nativePath.PathBoundingBox;

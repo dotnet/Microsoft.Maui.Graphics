@@ -5,14 +5,14 @@ using System.Text.RegularExpressions;
 
 namespace System.Graphics
 {
-    public class EWPathBuilder
+    public class PathBuilder
     {
-        public static EWPath CreatePathFromDefinition(string definition)
+        public static PathF CreatePathFromDefinition(string definition)
         {
             if (string.IsNullOrEmpty(definition))
-                return new EWPath();
+                return new PathF();
 
-            var pathBuilder = new EWPathBuilder();
+            var pathBuilder = new PathBuilder();
             var path = pathBuilder.BuildPath(definition);
             return path;
         }
@@ -23,7 +23,7 @@ namespace System.Graphics
         private EWPoint _lastCurveControlPoint;
         private EWPoint _lastMoveTo;
 
-        private EWPath _path;
+        private PathF _path;
         private EWImmutablePoint _relativePoint;
         
         private bool NextBoolValue
@@ -98,7 +98,7 @@ namespace System.Graphics
             return builder.ToString();
         }
 
-        public EWPath BuildPath(string pathAsString)
+        public PathF BuildPath(string pathAsString)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace System.Graphics
                 {
                     if (_path == null)
                     {
-                        _path = new EWPath();
+                        _path = new PathF();
                     }
 
                     string topCommand = _commandStack.Pop();
@@ -189,19 +189,6 @@ namespace System.Graphics
 
                 if (_path != null && !_path.Closed)
                 {
-                    /*if (path.SubPathCount == 1)
-                    {
-                  float x1 = path.FirstPoint.X;
-                  float y1 = path.FirstPoint.Y;
-                  float x2 = path.LastPoint.X;
-                  float y2 = path.LastPoint.Y;
-     
-                        if (Math.Abs(x1 - x2) <= Geometry.Epsilon && Math.Abs(y1 - y2) <= Geometry.Epsilon)
-                        {
-                            closeWhenDone = true;
-                        }
-                    }*/
-
                     if (_closeWhenDone)
                     {
                         _path.Close();
@@ -575,7 +562,7 @@ namespace System.Graphics
             var sweepFlag = NextBoolValue;
             var endPoint = NewPoint(NextValue, NextValue, isRelative, false);
 
-            var arcPath = new EWPath(startPoint);
+            var arcPath = new PathF(startPoint);
             arcPath.SVGArcTo(rx, ry, r, largeArcFlag, sweepFlag, endPoint.X, endPoint.Y, startPoint.X, startPoint.Y);
 
             for (int s = 0; s < arcPath.SegmentCount; s++)
@@ -583,19 +570,19 @@ namespace System.Graphics
                 var segmentType = arcPath.GetSegmentType(s);
                 var pointsInSegment = arcPath.GetPointsForSegment(s);
 
-                if (segmentType == PathOperation.MOVE_TO)
+                if (segmentType == PathOperation.Move)
                 {
                     // do nothing   
                 }
-                else if (segmentType == PathOperation.LINE)
+                else if (segmentType == PathOperation.Line)
                 {
                     _path.LineTo(new EWPoint(pointsInSegment[0]));
                 }
-                else if (segmentType == PathOperation.CUBIC)
+                else if (segmentType == PathOperation.Cubic)
                 {
                     _path.CurveTo(new EWPoint(pointsInSegment[0]), new EWPoint(pointsInSegment[1]), new EWPoint(pointsInSegment[2]));
                 }
-                else if (segmentType == PathOperation.QUAD)
+                else if (segmentType == PathOperation.Quad)
                 {
                     _path.QuadTo(new EWPoint(pointsInSegment[0]), new EWPoint(pointsInSegment[1]));
                 }

@@ -5,7 +5,7 @@ using Android.Graphics;
 
 namespace System.Graphics.Android
 {
-    public class MDImage : EWImage
+    public class MDImage : IImage
     {
         private Bitmap _image;
 
@@ -18,19 +18,19 @@ namespace System.Graphics.Android
 
         public float Height => _image.Height;
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             var downsizedImage = _image.Downsize((int) maxWidthOrHeight, disposeOriginal);
             return new MDImage(downsizedImage);
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             var downsizedImage = _image.Downsize((int) maxWidth, (int) maxHeight, disposeOriginal);
             return new MDImage(downsizedImage);
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
             using (var context = new MDBitmapExportContext((int) width, (int) height))
             {
@@ -88,11 +88,11 @@ namespace System.Graphics.Android
 
         public Bitmap NativeImage => _image;
         
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case ImageFormat.Jpeg:
                     _image.Compress(Bitmap.CompressFormat.Jpeg, (int) (quality * 100), stream);
                     break;
                 default:
@@ -101,11 +101,11 @@ namespace System.Graphics.Android
             }
         }
 
-        public async Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case ImageFormat.Jpeg:
                     await _image.CompressAsync(Bitmap.CompressFormat.Jpeg, (int) (quality * 100), stream);
                     break;
                 default:
@@ -128,7 +128,7 @@ namespace System.Graphics.Android
 
     public static class MDImageExtensions
     {
-        public static Bitmap AsBitmap(this EWImage image)
+        public static Bitmap AsBitmap(this IImage image)
         {
             if (image is MDImage mdimage)
             {

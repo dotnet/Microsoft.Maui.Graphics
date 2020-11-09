@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public enum EwVerticalAlignment
+    public enum VerticalAlignment
     {
         Top = 0,
         Center = 1,

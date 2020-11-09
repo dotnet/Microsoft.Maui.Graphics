@@ -1,32 +1,32 @@
 namespace System.Graphics
 {
-    public class EWPaint
+    public class Paint
     {
         private float _angle;
         private EWSize _endLocationRatio;
-        private EWImage _image;
-        private EWPaintType _paintType = EWPaintType.LINEAR_GRADIENT;
+        private IImage _image;
+        private PaintType _paintType = Graphics.PaintType.LinearGradient;
         private IPattern _pattern;
         private EWSize _startLocationRatio;
 
-        private EWPaintStop[] _stops =
+        private GradientStop[] _stops =
         {
-            new EWPaintStop(0, Colors.White),
-            new EWPaintStop(1, Colors.White)
+            new GradientStop(0, Colors.White),
+            new GradientStop(1, Colors.White)
         };
 
-        public EWPaint()
+        public Paint()
         {
         }
 
-        public EWPaint(EWPaint source)
+        public Paint(Paint source)
         {
             if (source != null)
             {
-                _stops = new EWPaintStop[source.Stops.Length];
+                _stops = new GradientStop[source.Stops.Length];
                 for (var i = 0; i < _stops.Length; i++)
                 {
-                    _stops[i] = new EWPaintStop(source.Stops[i]);
+                    _stops[i] = new GradientStop(source.Stops[i]);
                 }
 
                 _paintType = source.PaintType;
@@ -47,7 +47,7 @@ namespace System.Graphics
             }
         }
 
-        public EWPaintStop[] Stops
+        public GradientStop[] Stops
         {
             get => _stops;
             set
@@ -55,7 +55,7 @@ namespace System.Graphics
                 _stops = value;
                 if (_stops == null || _stops.Length == 0)
                 {
-                    _stops = new[] {new EWPaintStop(0, Colors.White), new EWPaintStop(1, Colors.White)};
+                    _stops = new[] {new GradientStop(0, Colors.White), new GradientStop(1, Colors.White)};
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace System.Graphics
             set
             {
                 _pattern = value;
-                _paintType = EWPaintType.PATTERN;
+                _paintType = Graphics.PaintType.Pattern;
 
                 if (!(_pattern is PaintPattern))
                 {
@@ -118,13 +118,13 @@ namespace System.Graphics
             }
         }
 
-        public EWImage Image
+        public IImage Image
         {
             get => _image;
             set
             {
                 _image = value;
-                _paintType = EWPaintType.IMAGE;
+                _paintType = Graphics.PaintType.Image;
             }
         }
 
@@ -166,7 +166,7 @@ namespace System.Graphics
             }
         }
 
-        public EWPaintType PaintType
+        public PaintType PaintType
         {
             get => _paintType;
             set => _paintType = value;
@@ -192,9 +192,9 @@ namespace System.Graphics
 
         public EWSize FocalPointRatio { get; set; }
 
-        public EWPaintStop[] GetSortedStops()
+        public GradientStop[] GetSortedStops()
         {
-            var vStops = new EWPaintStop[_stops.Length];
+            var vStops = new GradientStop[_stops.Length];
             Array.Copy(_stops, vStops, _stops.Length);
             Array.Sort(vStops);
             return vStops;
@@ -208,12 +208,12 @@ namespace System.Graphics
         public void AddOffset(float offset, Color color)
         {
             var oldStops = Stops;
-            var newStops = new EWPaintStop[oldStops.Length + 1];
+            var newStops = new GradientStop[oldStops.Length + 1];
             
             for (var i = 0; i < oldStops.Length; i++)
                 newStops[i] = oldStops[i];
 
-            newStops[oldStops.Length] = new EWPaintStop(offset, color);
+            newStops[oldStops.Length] = new GradientStop(offset, color);
 
             Stops = newStops;
         }
@@ -226,7 +226,7 @@ namespace System.Graphics
             }
 
             var oldStops = Stops;
-            var newStops = new EWPaintStop[oldStops.Length - 1];
+            var newStops = new GradientStop[oldStops.Length - 1];
             for (var i = 0; i < oldStops.Length; i++)
             {
                 if (i < index)
@@ -323,16 +323,16 @@ namespace System.Graphics
 
         public override string ToString()
         {
-            return $"[{nameof(EWPaint)}: StartColor={StartColor}, EndColor={EndColor}, PaintType={PaintType}, Angle={Angle}]";
+            return $"[{nameof(Paint)}: StartColor={StartColor}, EndColor={EndColor}, PaintType={PaintType}, Angle={Angle}]";
         }
         
         public void SetStops(float[] offsets, Color[] colors)
         {
             var stopCount = Math.Min(colors.Length, offsets.Length);
-            _stops = new EWPaintStop[stopCount];
+            _stops = new GradientStop[stopCount];
             for (var p = 0; p < stopCount; p++)
             {
-                _stops[p] = new EWPaintStop(offsets[p], colors[p]);
+                _stops[p] = new GradientStop(offsets[p], colors[p]);
             }
         }
 
@@ -340,12 +340,12 @@ namespace System.Graphics
         {
             get
             {
-                if (_paintType == EWPaintType.SOLID)
+                if (_paintType == PaintType.Solid)
                 {
                     return StartColor.Alpha < 1;
                 }
 
-                if (_paintType == EWPaintType.LINEAR_GRADIENT || _paintType == EWPaintType.RADIAL_GRADIENT)
+                if (_paintType == PaintType.LinearGradient || _paintType == PaintType.RadialGradient)
                 {
                     foreach (var stop in Stops)
                     {
@@ -358,7 +358,7 @@ namespace System.Graphics
                     return false;
                 }
 
-                if (_paintType == EWPaintType.PATTERN)
+                if (_paintType == PaintType.Pattern)
                 {
                     if (BackgroundColor == null || BackgroundColor.Alpha < 1)
                         return true;

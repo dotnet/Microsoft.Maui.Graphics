@@ -10,18 +10,18 @@ namespace System.Graphics.CoreGraphics
     {
         private MTGraphicsRenderer _renderer;
         private CGColorSpace _colorSpace;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private bool _inPanOrZoom;
         private CGRect _lastBounds;
 
-        public MTGraphicsView(RectangleF frame, EWDrawable drawable = null, MTGraphicsRenderer renderer = null) : base(frame)
+        public MTGraphicsView(RectangleF frame, IDrawable drawable = null, MTGraphicsRenderer renderer = null) : base(frame)
         {
             Drawable = drawable;
             Renderer = renderer;
             BackgroundColor = UIColor.White;
         }
 
-        public MTGraphicsView(EWDrawable drawable = null, MTGraphicsRenderer renderer = null)
+        public MTGraphicsView(IDrawable drawable = null, MTGraphicsRenderer renderer = null)
         {
             Drawable = drawable;
             Renderer = renderer;
@@ -61,7 +61,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

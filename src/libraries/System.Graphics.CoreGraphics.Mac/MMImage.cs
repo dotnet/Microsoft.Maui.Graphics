@@ -7,7 +7,7 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMImage : EWImage
+    public class MMImage : IImage
     {
         private NSImage _image;
 
@@ -22,19 +22,19 @@ namespace System.Graphics.CoreGraphics
 
         public NSImage NativeImage => _image;
 
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             var data = CreateRepresentation(format, quality);
             data.AsStream().CopyTo(stream);
         }
 
-        public async Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             var data = CreateRepresentation(format, quality);
             await data.AsStream().CopyToAsync(stream);
         }
 
-        private NSData CreateRepresentation(EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        private NSData CreateRepresentation(ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             var previous = NSApplication.CheckForIllegalCrossThreadCalls;
             NSApplication.CheckForIllegalCrossThreadCalls = false;
@@ -43,19 +43,19 @@ namespace System.Graphics.CoreGraphics
             NSDictionary dictionary;
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case ImageFormat.Jpeg:
                     type = NSBitmapImageFileType.Jpeg;
                     dictionary = new NSDictionary(new NSNumber(quality), AppKitConstants.NSImageCompressionFactor);
                     break;
-                case EWImageFormat.Tiff:
+                case ImageFormat.Tiff:
                     type = NSBitmapImageFileType.Tiff;
                     dictionary = new NSDictionary();
                     break;
-                case EWImageFormat.Gif:
+                case ImageFormat.Gif:
                     type = NSBitmapImageFileType.Gif;
                     dictionary = new NSDictionary();
                     break;
-                case EWImageFormat.Bmp:
+                case ImageFormat.Bmp:
                     type = NSBitmapImageFileType.Bmp;
                     dictionary = new NSDictionary();
                     break;
@@ -81,19 +81,19 @@ namespace System.Graphics.CoreGraphics
             disp?.Dispose();
         }
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidthOrHeight, maxWidthOrHeight, disposeOriginal);
             return new MMImage(scaledImage);
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidth, maxHeight, disposeOriginal);
             return new MMImage(scaledImage);
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
             using (var context = new MMBitmapExportContext((int) width, (int) height))
             {
@@ -157,7 +157,7 @@ namespace System.Graphics.CoreGraphics
 
     public static class MMImageExtensions
     {
-        public static NSImage AsNSImage(this EWImage image)
+        public static NSImage AsNSImage(this IImage image)
         {
             if (image is MMImage macImage)
                 return macImage.NativeImage;

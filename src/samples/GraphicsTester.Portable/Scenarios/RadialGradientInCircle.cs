@@ -8,13 +8,13 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
             
-            var paint = new EWPaint
+            var paint = new Paint
             {
-                PaintType = EWPaintType.RADIAL_GRADIENT,
+                PaintType = PaintType.RadialGradient,
                 StartColor = Colors.White,
                 EndColor = Colors.Black
             };

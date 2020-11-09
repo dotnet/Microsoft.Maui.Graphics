@@ -9,7 +9,7 @@ namespace System.Graphics.SharpDX
     public class DXGraphicsView : DirectXPanelBase
     {
         private readonly DXCanvas canvas;
-        private EWDrawable drawable;
+        private IDrawable drawable;
         private Color backgroundColor;
 
         public DXGraphicsView()
@@ -24,7 +24,7 @@ namespace System.Graphics.SharpDX
             BackgroundColor = Colors.Green;
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => drawable;
             set

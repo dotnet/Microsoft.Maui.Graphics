@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace System.Graphics
 {
-    public interface EWPdfPage : EWDrawable, IDisposable
+    public interface IPdfPage : IDrawable, IDisposable
     {
         float Width { get; }
         float Height { get; }

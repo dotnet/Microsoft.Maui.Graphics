@@ -15,7 +15,7 @@ namespace System.Graphics.SharpDX.WindowsForms
         public RenderTarget DeviceContext { get; private set; }
 
         private readonly DXCanvas _canvas = new DXCanvas();
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private Color _backgroundColor;
         private WindowRenderTarget _renderTarget2D;
         private WFGraphicsView _owner;
@@ -61,7 +61,7 @@ namespace System.Graphics.SharpDX.WindowsForms
 
         public ICanvas Canvas => _canvas;
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set => _drawable = value;

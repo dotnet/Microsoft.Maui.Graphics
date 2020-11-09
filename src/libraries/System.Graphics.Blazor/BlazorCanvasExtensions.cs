@@ -4,36 +4,36 @@ namespace System.Graphics.Blazor
 {
     public static class BlazorCanvasExtensions
     {
-        public static LineCap AsCanvasValue(
-            this EWLineCap target)
+        public static Canvas2D.LineCap AsCanvasValue(
+            this LineCap target)
         {
             switch (target)
             {
-                case EWLineCap.BUTT:
-                    return LineCap.Butt;
-                case EWLineCap.ROUND:
-                    return LineCap.Round;
-                case EWLineCap.SQUARE:
-                    return LineCap.Square;
+                case LineCap.Butt:
+                    return Canvas2D.LineCap.Butt;
+                case LineCap.Round:
+                    return Canvas2D.LineCap.Round;
+                case LineCap.Square:
+                    return Canvas2D.LineCap.Square;
             }
 
-            return LineCap.Butt;
+            return Canvas2D.LineCap.Butt;
         }
 
-        public static LineJoin AsCanvasValue(
-            this EWLineJoin target)
+        public static Canvas2D.LineJoin AsCanvasValue(
+            this LineJoin target)
         {
             switch (target)
             {
-                case EWLineJoin.MITER:
-                    return LineJoin.Miter;
-                case EWLineJoin.ROUND:
-                    return LineJoin.Round;
-                case EWLineJoin.BEVEL:
-                    return LineJoin.Bevel;
+                case LineJoin.Miter:
+                    return Canvas2D.LineJoin.Miter;
+                case LineJoin.Round:
+                    return Canvas2D.LineJoin.Round;
+                case LineJoin.Bevel:
+                    return Canvas2D.LineJoin.Bevel;
             }
 
-            return LineJoin.Miter;
+            return Canvas2D.LineJoin.Miter;
         }
 
         public static string AsCanvasValue(

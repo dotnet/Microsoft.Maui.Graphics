@@ -86,11 +86,11 @@ namespace System.Graphics
 			return "#" + ToHexString(Red) + ToHexString(Green) + ToHexString(Blue);
 		}
 
-		public EWPaint AsPaint()
+		public Paint AsPaint()
 		{
-			return new EWPaint()
+			return new Paint()
 			{
-				PaintType = EWPaintType.SOLID,
+				PaintType = PaintType.Solid,
 				StartColor = this
 			};
 		}

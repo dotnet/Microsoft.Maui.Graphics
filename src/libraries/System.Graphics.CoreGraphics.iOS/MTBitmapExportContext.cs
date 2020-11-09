@@ -43,7 +43,7 @@ namespace System.Graphics.CoreGraphics
 
         public CGImage CGImage => _bitmapContext.ToImage();
 
-        public override EWImage Image => new MTImage(UIImage);
+        public override IImage Image => new MTImage(UIImage);
 
         public override void Dispose()
         {

@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 
@@ -17,7 +17,7 @@ namespace GraphicsTester.Scenarios
                 CanvasDefaults.DefaultShadowBlur,
                 CanvasDefaults.DefaultShadowColor);
             canvas.FillColor = Colors.Blue;
-            var path = new EWPath(10, 10);
+            var path = new PathF(10, 10);
             path.LineTo(30, 10);
             path.LineTo(20, 30);
             path.Close();

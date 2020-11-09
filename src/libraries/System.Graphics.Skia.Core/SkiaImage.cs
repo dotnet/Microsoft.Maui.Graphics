@@ -5,7 +5,7 @@ using SkiaSharp;
 
 namespace System.Graphics.Skia
 {
-    public class SkiaImage : EWImage
+    public class SkiaImage : IImage
     {
         private SKBitmap _image;
 
@@ -18,7 +18,7 @@ namespace System.Graphics.Skia
 
         public float Height => _image.Height;
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             // todo: implement
             /*
@@ -28,7 +28,7 @@ namespace System.Graphics.Skia
             return null;
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             /*
          var downsizedImage = image.Downsize ((int)maxWidth, (int)maxHeight, disposeOriginal);
@@ -37,7 +37,7 @@ namespace System.Graphics.Skia
             return null;
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
             using (var context = new SkiaBitmapExportContext((int) width, (int) height, 1))
             {
@@ -95,7 +95,7 @@ namespace System.Graphics.Skia
 
         public SKBitmap NativeImage => _image;
 
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             // todo: implement me
 
@@ -112,7 +112,7 @@ namespace System.Graphics.Skia
             */
         }
 
-        public async Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             // todo: implement me
 
@@ -143,7 +143,7 @@ namespace System.Graphics.Skia
 
     public static class SkiaImageExtensions
     {
-        public static SKBitmap AsBitmap(this EWImage image)
+        public static SKBitmap AsBitmap(this IImage image)
         {
             if (image is SkiaImage skiaImage)
                 return skiaImage.NativeImage;

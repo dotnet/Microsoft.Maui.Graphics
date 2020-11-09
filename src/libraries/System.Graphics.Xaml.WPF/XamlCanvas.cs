@@ -253,14 +253,14 @@ namespace System.Graphics.Xaml
             CurrentState.XamlRotate(degrees, radians, x, y);
         }
 
-        protected override void NativeDrawPath(EWPath path)
+        protected override void NativeDrawPath(PathF path)
         {
             var item = GetOrCreateItem(ItemType.DrawPath);
             var element = (Path) item.Element;
             var transformedPath = path;
             if (!CurrentState.Transform.IsIdentity)
             {
-                transformedPath = new EWPath(path);
+                transformedPath = new PathF(path);
                 transformedPath.Transform(CurrentState.Transform);
             }
 
@@ -458,7 +458,7 @@ namespace System.Graphics.Xaml
             set { }
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
         }
 
@@ -492,9 +492,9 @@ namespace System.Graphics.Xaml
             }
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
-            if (paint.PaintType == EWPaintType.SOLID)
+            if (paint.PaintType == PaintType.Solid)
                 FillColor = paint.StartColor;
 
             CurrentState.SetFillPaint(paint, x1, y1, x2, y2);
@@ -511,9 +511,9 @@ namespace System.Graphics.Xaml
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineAdjustment = 0)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -534,30 +534,30 @@ namespace System.Graphics.Xaml
 
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     block.TextAlignment = TextAlignment.Left;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     block.TextAlignment = TextAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     block.TextAlignment = TextAlignment.Right;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     block.TextAlignment = TextAlignment.Justify;
                     break;
             }
 
             switch (verticalAlignment)
             {
-                case EwVerticalAlignment.Top:
-                    block.VerticalAlignment = VerticalAlignment.Top;
+                case VerticalAlignment.Top:
+                    block.VerticalAlignment = Windows.VerticalAlignment.Top;
                     break;
-                case EwVerticalAlignment.Center:
-                    block.VerticalAlignment = VerticalAlignment.Center;
+                case VerticalAlignment.Center:
+                    block.VerticalAlignment = Windows.VerticalAlignment.Center;
                     break;
-                case EwVerticalAlignment.Bottom:
-                    block.VerticalAlignment = VerticalAlignment.Bottom;
+                case VerticalAlignment.Bottom:
+                    block.VerticalAlignment = Windows.VerticalAlignment.Bottom;
                     break;
             }
 
@@ -574,7 +574,7 @@ namespace System.Graphics.Xaml
             block.RenderTransform = CurrentState.GetXamlTransform(_rectX, _rectY);
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
         {
             var item = GetOrCreateItem(ItemType.DrawText);
             var element = (TextBlock) item.Element;
@@ -582,16 +582,16 @@ namespace System.Graphics.Xaml
 
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     element.TextAlignment = TextAlignment.Left;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     element.TextAlignment = TextAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     element.TextAlignment = TextAlignment.Right;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     element.TextAlignment = TextAlignment.Justify;
                     break;
             }
@@ -693,12 +693,12 @@ namespace System.Graphics.Xaml
             set => CurrentState.StrokeColor = value;
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set => CurrentState.StrokeLineCap = value;
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set => CurrentState.StrokeLineJoin = value;
         }
@@ -738,7 +738,7 @@ namespace System.Graphics.Xaml
             set { }
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
             var item = GetOrCreateItem(ItemType.FillPath);
             var element = (Path) item.Element;
@@ -746,7 +746,7 @@ namespace System.Graphics.Xaml
             var transformedPath = path;
             if (!CurrentState.Transform.IsIdentity)
             {
-                transformedPath = new EWPath(path);
+                transformedPath = new PathF(path);
                 transformedPath.Transform(CurrentState.Transform);
             }
 
@@ -756,14 +756,14 @@ namespace System.Graphics.Xaml
             element.Fill = CurrentState.XamlFillBrush;
             element.Opacity = CurrentState.Alpha;
             element.Effect = CurrentState.XamlEffect;
-            geometry.FillRule = windingMode == EWWindingMode.NonZero ? FillRule.Nonzero : FillRule.EvenOdd;
+            geometry.FillRule = windingMode == WindingMode.NonZero ? FillRule.Nonzero : FillRule.EvenOdd;
         }
 
         public override void SubtractFromClip(float x, float y, float width, float height)
         {
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
         }
 

@@ -113,7 +113,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public override EWImage Image
+        public override IImage Image
         {
             get
             {

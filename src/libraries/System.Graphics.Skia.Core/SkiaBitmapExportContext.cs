@@ -50,7 +50,7 @@ namespace System.Graphics.Skia
 
         public override ICanvas Canvas => _canvas;
 
-        public override EWImage Image => new SkiaImage(Bitmap);
+        public override IImage Image => new SkiaImage(Bitmap);
 
         public SKImage SKImage => _image ?? (_image = _surface.Snapshot());
 

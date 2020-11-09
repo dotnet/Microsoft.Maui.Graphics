@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.StrokeSize = 1;
             canvas.StrokeColor = Colors.Blue;
@@ -21,25 +21,25 @@ namespace GraphicsTester.Scenarios
             var rectHeight = 32;
             canvas.Translate(0, 10);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 1", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Really Short 1", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 2", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Really Short 2", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 3", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Really Short 3", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 4", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Really Short 4", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             canvas.RestoreState();
@@ -50,25 +50,25 @@ namespace GraphicsTester.Scenarios
             rectHeight = 32;
             canvas.Translate(0, 10);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 1", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Really Short 1", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 2", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Really Short 2", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 3", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Really Short 3", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 4", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Really Short 4", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             canvas.RestoreState();
@@ -79,25 +79,25 @@ namespace GraphicsTester.Scenarios
             rectHeight = 32;
             canvas.Translate(0, 10);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 1", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Really Short 1", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 2", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Really Short 2", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 3", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Really Short 3", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Really Short 4", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Really Short 4", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             canvas.RestoreState();
@@ -109,25 +109,25 @@ namespace GraphicsTester.Scenarios
             rectHeight = 32;
             canvas.Translate(0, 10);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 1", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Sys Font R 1", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 2", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Sys Font R 2", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 3", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Sys Font R 3", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 4", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Center);
+            canvas.DrawString("Sys Font R 4", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Center);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             canvas.RestoreState();
@@ -139,25 +139,25 @@ namespace GraphicsTester.Scenarios
             rectHeight = 32;
             canvas.Translate(0, 10);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 1", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Sys Font R 1", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 2", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Sys Font R 2", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 3", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Sys Font R 3", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 4", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Top);
+            canvas.DrawString("Sys Font R 4", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Top);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             canvas.RestoreState();
@@ -169,25 +169,25 @@ namespace GraphicsTester.Scenarios
             rectHeight = 32;
             canvas.Translate(0, 10);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 1", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Sys Font R 1", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 2", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Sys Font R 2", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 3", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Sys Font R 3", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             rectHeight -= 2;
             canvas.Translate(0, 45);
             canvas.DrawRectangle(10, 0, 200, rectHeight);
-            canvas.DrawString("Sys Font R 4", 10, 0, 200, rectHeight, EwHorizontalAlignment.Center, EwVerticalAlignment.Bottom);
+            canvas.DrawString("Sys Font R 4", 10, 0, 200, rectHeight, HorizontalAlignment.Center, VerticalAlignment.Bottom);
             canvas.DrawLine(10, rectHeight / 2, 200, rectHeight / 2);
 
             canvas.RestoreState();

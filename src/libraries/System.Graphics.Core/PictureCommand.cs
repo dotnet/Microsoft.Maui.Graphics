@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public enum EWPictureCommand
+    public enum PictureCommand
     {
         DrawLine = 0,
         DrawRectangle = 1,

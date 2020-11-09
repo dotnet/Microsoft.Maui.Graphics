@@ -2,7 +2,7 @@
 
 namespace System.Graphics.Skia
 {
-    public class SkiaFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
+    public class SkiaFontFamily : FontFamily, IComparable<FontFamily>, IComparable
     {
         private readonly string _name;
         private IFontStyle[] _fontStyles;
@@ -58,14 +58,14 @@ namespace System.Graphics.Skia
             return Name;
         }
 
-        public int CompareTo(IFontFamily other)
+        public int CompareTo(FontFamily other)
         {
             return string.Compare(_name, other.Name, StringComparison.Ordinal);
         }
 
         public int CompareTo(object obj)
         {
-            if (obj is IFontFamily other)
+            if (obj is FontFamily other)
                 return CompareTo(other);
 
             return -1;

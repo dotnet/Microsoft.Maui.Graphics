@@ -26,7 +26,7 @@ namespace System.Graphics.CoreGraphics
         }
 
 
-        public static UIBezierPath AsUIBezierPath(this EWPath target)
+        public static UIBezierPath AsUIBezierPath(this PathF target)
         {
             if (target == null)
                 return null;

@@ -2,7 +2,7 @@
 {
     public delegate void DrawingCommand(ICanvas canvas);
 
-    public class StandardPicture : EWPicture
+    public class StandardPicture : Picture
     {
         private readonly DrawingCommand[] _commands;
 
@@ -23,7 +23,7 @@
             Hash = hash;
         }
 
-        public void Draw(ICanvas canvas, float zoom, float ppu)
+        public void Draw(ICanvas canvas)
         {
             if (_commands != null)
                 foreach (var command in _commands)

@@ -134,12 +134,12 @@ namespace System.Graphics.SharpDX
             set => CurrentState.StrokeColor = value;
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set => CurrentState.StrokeLineCap = value;
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set => CurrentState.StrokeLineJoin = value;
         }
@@ -397,7 +397,7 @@ namespace System.Graphics.SharpDX
             Draw(ctx => ctx.DrawEllipse(_ellipse, CurrentState.DxStrokeBrush, strokeWidth, CurrentState.StrokeStyle));
         }
 
-        private PathGeometry GetPath(EWPath path, FillMode fillMode = FillMode.Winding)
+        private PathGeometry GetPath(PathF path, FillMode fillMode = FillMode.Winding)
         {
             var geometry = path.NativePath as PathGeometry;
 
@@ -410,7 +410,7 @@ namespace System.Graphics.SharpDX
             return geometry;
         }
 
-        protected override void NativeDrawPath(EWPath path)
+        protected override void NativeDrawPath(PathF path)
         {
             if (path == null)
                 return;
@@ -425,7 +425,7 @@ namespace System.Graphics.SharpDX
             });
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             CurrentState.ClipPath(path, windingMode);
         }
@@ -497,13 +497,13 @@ namespace System.Graphics.SharpDX
             Draw(ctx => ctx.FillEllipse(_ellipse, CurrentState.DxFillBrush));
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
-            var geometry = GetPath(path, windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
+            var geometry = GetPath(path, windingMode == WindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
             Draw(ctx => ctx.FillGeometry(geometry, CurrentState.DxFillBrush));
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
         {
             // Initialize a TextFormat
 #if DEBUG
@@ -517,13 +517,13 @@ namespace System.Graphics.SharpDX
                     CurrentState.FontStyle,
                     CurrentState.FontSize);
 
-                if (horizontalAlignment == EwHorizontalAlignment.Left)
+                if (horizontalAlignment == HorizontalAlignment.Left)
                 {
                     _rect.Left = x;
                     _rect.Right = x + _renderTarget.PixelSize.Width;
                     textFormat.TextAlignment = TextAlignment.Leading;
                 }
-                else if (horizontalAlignment == EwHorizontalAlignment.Right)
+                else if (horizontalAlignment == HorizontalAlignment.Right)
                 {
                     _rect.Right = x;
                     _rect.Left = x - _renderTarget.PixelSize.Width;
@@ -560,9 +560,9 @@ namespace System.Graphics.SharpDX
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineAdjustment = 0)
         {
             // Initialize a TextFormat
@@ -571,35 +571,35 @@ namespace System.Graphics.SharpDX
 
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     textFormat.TextAlignment = TextAlignment.Leading;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     textFormat.TextAlignment = TextAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     textFormat.TextAlignment = TextAlignment.Trailing;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     textFormat.TextAlignment = TextAlignment.Justified;
                     break;
             }
 
             switch (verticalAlignment)
             {
-                case EwVerticalAlignment.Top:
+                case VerticalAlignment.Top:
                     textFormat.ParagraphAlignment = ParagraphAlignment.Near;
                     break;
-                case EwVerticalAlignment.Center:
+                case VerticalAlignment.Center:
                     textFormat.ParagraphAlignment = ParagraphAlignment.Center;
                     break;
-                case EwVerticalAlignment.Bottom:
+                case VerticalAlignment.Bottom:
                     textFormat.ParagraphAlignment = ParagraphAlignment.Far;
                     break;
             }
 
             var options = DrawTextOptions.Clip;
-            if (textFlow == EWTextFlow.OVERFLOW_BOUNDS)
+            if (textFlow == TextFlow.OverflowBounds)
                 options = DrawTextOptions.None;
 
             // Initialize a TextLayout
@@ -775,7 +775,7 @@ namespace System.Graphics.SharpDX
             set { }
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
             {
@@ -783,13 +783,13 @@ namespace System.Graphics.SharpDX
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.SOLID)
+            if (paint.PaintType == PaintType.Solid)
             {
                 CurrentState.FillColor = paint.StartColor;
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.IMAGE)
+            if (paint.PaintType == PaintType.Image)
             {
                 if (paint.Image is DXImage image)
                 {
@@ -810,7 +810,7 @@ namespace System.Graphics.SharpDX
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.PATTERN)
+            if (paint.PaintType == PaintType.Pattern)
             {
                 var parentContext = _renderTarget as DeviceContext;
                 var pattern = paint.Pattern;
@@ -864,7 +864,7 @@ namespace System.Graphics.SharpDX
                 return;
             }
 
-            if (paint.PaintType == EWPaintType.LINEAR_GRADIENT)
+            if (paint.PaintType == PaintType.LinearGradient)
             {
                 _point1.X = x1;
                 _point1.Y = y1;
@@ -958,7 +958,7 @@ namespace System.Graphics.SharpDX
             Draw(ctx => ctx.DrawBitmap(bitmap, targetRect, opacity, BitmapInterpolationMode.Linear));
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
             SetRect(x, y, width, height);
             var bitmap = image.AsBitmap();

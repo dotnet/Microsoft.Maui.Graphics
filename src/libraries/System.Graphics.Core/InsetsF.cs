@@ -2,14 +2,14 @@ using System.Globalization;
 
 namespace System.Graphics
 {
-    public class EWInsets
+    public class InsetsF
     {
         private float _bottom;
         private float _left;
         private float _right;
         private float _top;
 
-        public EWInsets(float top, float left, float bottom, float right)
+        public InsetsF(float top, float left, float bottom, float right)
         {
             _top = top;
             _left = left;
@@ -17,7 +17,7 @@ namespace System.Graphics
             _right = right;
         }
 
-        public EWInsets(EWInsets insets) : this(insets.Top, insets.Left, insets.Bottom, insets.Right)
+        public InsetsF(InsetsF insets) : this(insets.Top, insets.Left, insets.Bottom, insets.Right)
         {
         }
 
@@ -63,7 +63,7 @@ namespace System.Graphics
 
         public override bool Equals(object obj)
         {
-            if (obj is EWInsets vCompareTo)
+            if (obj is InsetsF vCompareTo)
             {
                 return Math.Abs(vCompareTo.Top - Top) < Geometry.Epsilon && Math.Abs(vCompareTo.Left - Left) < Geometry.Epsilon && Math.Abs(vCompareTo.Bottom - Bottom) < Geometry.Epsilon &&
                        Math.Abs(vCompareTo.Right - Right) < Geometry.Epsilon;
@@ -88,7 +88,7 @@ namespace System.Graphics
             return $"[EWInsets: Top={_top}, Left={_left}, Bottom={_bottom}, Right={_right}]";
         }
 
-        public static EWInsets Parse(string value)
+        public static InsetsF Parse(string value)
         {
             try
             {
@@ -97,14 +97,14 @@ namespace System.Graphics
                 float left = float.Parse(values[1], CultureInfo.InvariantCulture);
                 float bottom = float.Parse(values[2], CultureInfo.InvariantCulture);
                 float right = float.Parse(values[3], CultureInfo.InvariantCulture);
-                return new EWInsets(top, left, bottom, right);
+                return new InsetsF(top, left, bottom, right);
             }
             catch (Exception exc)
             {
 #if DEBUG
                 Logger.Debug(exc);
 #endif
-                return new EWInsets(0, 0, 0, 0);
+                return new InsetsF(0, 0, 0, 0);
             }
         }
     }

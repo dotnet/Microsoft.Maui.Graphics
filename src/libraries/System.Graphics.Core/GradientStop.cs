@@ -1,17 +1,17 @@
 namespace System.Graphics
 {
-    public class EWPaintStop : IComparable<EWPaintStop>
+    public class GradientStop : IComparable<GradientStop>
     {
         private Color _color;
         private float _offset;
 
-        public EWPaintStop(float offset, Color color)
+        public GradientStop(float offset, Color color)
         {
             _color = color;
             _offset = offset;
         }
 
-        public EWPaintStop(EWPaintStop source)
+        public GradientStop(GradientStop source)
         {
             _color = source._color;
             _offset = source._offset;
@@ -29,7 +29,7 @@ namespace System.Graphics
             set => _offset = value;
         }
 
-        public int CompareTo(EWPaintStop obj)
+        public int CompareTo(GradientStop obj)
         {
             if (_offset < obj._offset)
                 return -1;

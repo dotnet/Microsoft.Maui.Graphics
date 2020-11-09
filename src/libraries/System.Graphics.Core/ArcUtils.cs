@@ -2,7 +2,7 @@ namespace System.Graphics
 {
     public static class ArcUtils
     {
-        public static void SVGArcTo(this EWPath aTarget, float rx, float ry, float angle, bool largeArcFlag, bool sweepFlag, float x, float y, float lastPointX, float lastPointY)
+        public static void SVGArcTo(this PathF aTarget, float rx, float ry, float angle, bool largeArcFlag, bool sweepFlag, float x, float y, float lastPointX, float lastPointY)
         {
             float[] vValues = ComputeSvgArc(rx, ry, angle, largeArcFlag, sweepFlag, x, y, lastPointX, lastPointY);
             DrawArc(vValues[0], vValues[1], vValues[2], vValues[3], vValues[4], vValues[5], vValues[6], aTarget);
@@ -101,7 +101,7 @@ namespace System.Graphics
         * Draws an arc of type "open" only. Accepts an optional x axis rotation value
         **/
 
-        public static void DrawArc(float x, float y, float startAngle, float arc, float radius, float yRadius, float xAxisRotation, EWPath aPath)
+        public static void DrawArc(float x, float y, float startAngle, float arc, float radius, float yRadius, float xAxisRotation, PathF aPath)
         {
             // Circumvent drawing more than is needed
             if (Math.Abs(arc) > 360)

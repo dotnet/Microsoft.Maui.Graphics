@@ -100,18 +100,18 @@ namespace System.Graphics.Skia
             return matrix;
         }
 
-        public static SKPath AsSkiaPath(this EWPath target)
+        public static SKPath AsSkiaPath(this PathF target)
         {
             return AsSkiaPath(target, 1);
         }
 
-        public static SKPath AsSkiaPath(this EWPath path, float ppu)
+        public static SKPath AsSkiaPath(this PathF path, float ppu)
         {
             return AsSkiaPath(path, ppu, 0, 0, 1, 1);
         }
 
         public static SKPath AsSkiaPath(
-            this EWPath path,
+            this PathF path,
             float ppu,
             float ox,
             float oy,
@@ -129,24 +129,24 @@ namespace System.Graphics.Skia
 
             foreach (var type in path.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     var point = path[pointIndex++];
                     nativePath.MoveTo((ox + point.X * ppux), (oy + point.Y * ppuy));
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     var point = path[pointIndex++];
                     nativePath.LineTo((ox + point.X * ppux), (oy + point.Y * ppuy));
                 }
 
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     var controlPoint = path[pointIndex++];
                     var point = path[pointIndex++];
                     nativePath.QuadTo((ox + controlPoint.X * ppux), (oy + controlPoint.Y * ppuy), (ox + point.X * ppux), (oy + point.Y * ppuy));
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var controlPoint1 = path[pointIndex++];
                     var controlPoint2 = path[pointIndex++];
@@ -154,7 +154,7 @@ namespace System.Graphics.Skia
                     nativePath.CubicTo((ox + controlPoint1.X * ppux), (oy + controlPoint1.Y * ppuy), (ox + controlPoint2.X * ppux), (oy + controlPoint2.Y * ppuy), (ox + point.X * ppux),
                         (oy + point.Y * ppuy));
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = path[pointIndex++];
                     var bottomRight = path[pointIndex++];
@@ -181,7 +181,7 @@ namespace System.Graphics.Skia
 
                     nativePath.AddArc(rect, startAngle, sweep);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     nativePath.Close();
                 }
@@ -190,19 +190,19 @@ namespace System.Graphics.Skia
             return nativePath;
         }
 
-        public static SKPath AsSkiaPath(this EWPath path, float ppu, float zoom)
+        public static SKPath AsSkiaPath(this PathF path, float ppu, float zoom)
         {
             return AsSkiaPath(path, ppu * zoom);
         }
 
-        public static SKPath AsSkiaPathFromSegment(this EWPath target, int segmentIndex, float ppu, float zoom)
+        public static SKPath AsSkiaPathFromSegment(this PathF target, int segmentIndex, float ppu, float zoom)
         {
             ppu = zoom * ppu;
 
             var path = new SKPath();
 
             var type = target.GetSegmentType(segmentIndex);
-            if (type == PathOperation.LINE)
+            if (type == PathOperation.Line)
             {
                 var pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -211,7 +211,7 @@ namespace System.Graphics.Skia
                 var endPoint = target[pointIndex];
                 path.LineTo(endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.QUAD)
+            else if (type == PathOperation.Quad)
             {
                 var pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -221,7 +221,7 @@ namespace System.Graphics.Skia
                 var endPoint = target[pointIndex];
                 path.QuadTo(controlPoint.X * ppu, controlPoint.Y * ppu, endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.CUBIC)
+            else if (type == PathOperation.Cubic)
             {
                 var pointIndex = target.GetSegmentPointIndex(segmentIndex);
                 var startPoint = target[pointIndex - 1];
@@ -232,7 +232,7 @@ namespace System.Graphics.Skia
                 var endPoint = target[pointIndex];
                 path.CubicTo(controlPoint1.X * ppu, controlPoint1.Y * ppu, controlPoint2.X * ppu, controlPoint2.Y * ppu, endPoint.X * ppu, endPoint.Y * ppu);
             }
-            else if (type == PathOperation.ARC)
+            else if (type == PathOperation.Arc)
             {
                 target.GetSegmentInfo(segmentIndex, out var pointIndex, out var arcAngleIndex, out var arcClockwiseIndex);
 
@@ -265,7 +265,7 @@ namespace System.Graphics.Skia
             return path;
         }
 
-        public static SKPath AsRotatedAndroidPath(this EWPath target, EWPoint center, float ppu, float zoom, float angle)
+        public static SKPath AsRotatedAndroidPath(this PathF target, EWPoint center, float ppu, float zoom, float angle)
         {
             ppu = zoom * ppu;
 
@@ -277,17 +277,17 @@ namespace System.Graphics.Skia
 
             foreach (var type in target.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     var point = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.MoveTo(point.X * ppu, point.Y * ppu);
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
                     path.LineTo(endPoint.X * ppu, endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     var controlPoint1 = target.GetRotatedPoint(pointIndex++, center, angle);
                     var endPoint = target.GetRotatedPoint(pointIndex++, center, angle);
@@ -297,7 +297,7 @@ namespace System.Graphics.Skia
                         endPoint.X * ppu,
                         endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var controlPoint1 = target.GetRotatedPoint(pointIndex++, center, angle);
                     var controlPoint2 = target.GetRotatedPoint(pointIndex++, center, angle);
@@ -310,7 +310,7 @@ namespace System.Graphics.Skia
                         endPoint.X * ppu,
                         endPoint.Y * ppu);
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = target[pointIndex++];
                     var bottomRight = target[pointIndex++];
@@ -337,7 +337,7 @@ namespace System.Graphics.Skia
 
                     path.AddArc(rect, startAngle, sweep);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     path.Close();
                 }
@@ -361,7 +361,7 @@ namespace System.Graphics.Skia
             return new EWPoint(target.X, target.Y);
         }
 
-        public static SKBitmap GetPatternBitmap(this EWPaint paint, float scale = 1)
+        public static SKBitmap GetPatternBitmap(this Paint paint, float scale = 1)
         {
             var pattern = paint?.Pattern;
             if (pattern == null)
@@ -378,7 +378,7 @@ namespace System.Graphics.Skia
             }
         }
 
-        public static SKBitmap GetPatternBitmap(this EWPaint paint, float scaleX, float scaleY, object currentFigure)
+        public static SKBitmap GetPatternBitmap(this Paint paint, float scaleX, float scaleY, object currentFigure)
         {
             var pattern = paint?.Pattern;
             if (pattern == null)

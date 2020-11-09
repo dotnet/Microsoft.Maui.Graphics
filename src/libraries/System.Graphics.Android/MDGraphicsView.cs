@@ -9,18 +9,18 @@ namespace System.Graphics.Android
     {
         private readonly EWRectangle _dirtyRect = new EWRectangle();
         private MDGraphicsRenderer _renderer;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private int _width, _height;
         private bool _inPanOrZoom;
 
-        public MDGraphicsView(Context context, IAttributeSet attrs, EWDrawable drawable = null, MDGraphicsRenderer renderer = null) : base(context, attrs)
+        public MDGraphicsView(Context context, IAttributeSet attrs, IDrawable drawable = null, MDGraphicsRenderer renderer = null) : base(context, attrs)
         {
             Drawable = drawable;
             Renderer = renderer;
             SetLayerType(LayerType.Software, null);
         }
 
-        public MDGraphicsView(Context context, EWDrawable drawable = null, MDGraphicsRenderer renderer = null) : base(context)
+        public MDGraphicsView(Context context, IDrawable drawable = null, MDGraphicsRenderer renderer = null) : base(context)
         {
             Drawable = drawable;
             Renderer = renderer;
@@ -65,7 +65,7 @@ namespace System.Graphics.Android
             set => _renderer.BackgroundColor = value;
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set

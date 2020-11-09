@@ -11,7 +11,7 @@ namespace System.Graphics.SharpDX.WPF
         {
         }
 
-        public WDGraphicsView(EWDrawable drawable = null, IGraphicsRenderer renderer = null)
+        public WDGraphicsView(IDrawable drawable = null, IGraphicsRenderer renderer = null)
         {
             _graphicsView = new WFGraphicsView(drawable, renderer);
             Child = _graphicsView;
@@ -25,7 +25,7 @@ namespace System.Graphics.SharpDX.WPF
             set => _graphicsView.Renderer = value;
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _graphicsView.Drawable;
             set => _graphicsView.Drawable = value;

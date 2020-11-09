@@ -10,14 +10,14 @@ namespace System.Graphics.Blazor
         private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
         private Color _strokeColor = Colors.Black;
         private float _lineWidth = 1;
-        private EWLineJoin _lineJoin;
-        private EWLineCap _lineCap;
+        private LineJoin _lineJoin;
+        private LineCap _lineCap;
         private float _alpha = 1;
         private float[] _dashPattern;
 
         private bool _fillDirty = true;
         private Color _fillColor = Colors.White;
-        private EWPaint _fillPaint = null;
+        private Paint _fillPaint = null;
         private double _fillX1;
         private double _fillY1;
         private double _fillX2;
@@ -83,7 +83,7 @@ namespace System.Graphics.Blazor
             }
         }
 
-        public EWLineJoin LineJoin
+        public LineJoin LineJoin
         {
             get => _lineJoin;
             set
@@ -96,7 +96,7 @@ namespace System.Graphics.Blazor
             }
         }
 
-        public EWLineCap LineCap
+        public LineCap LineCap
         {
             get => _lineCap;
             set
@@ -267,7 +267,7 @@ namespace System.Graphics.Blazor
             _textDirty = true;
         }
 
-        internal void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        internal void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             _fillColor = null;
             _fillPaint = paint;

@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             var blurrableCanvas = canvas as IBlurrableCanvas;
 
@@ -64,7 +64,7 @@ namespace GraphicsTester.Scenarios
             canvas.FillRoundedRectangle(10, 10, 80, 80, 10);
 
             canvas.FillColor = Colors.CornflowerBlue;
-            var path = new EWPath();
+            var path = new PathF();
             path.MoveTo(10, 10);
             path.LineTo(50, 90);
             path.LineTo(90, 10);
@@ -86,7 +86,7 @@ namespace GraphicsTester.Scenarios
             canvas.Translate(100, 0);
             canvas.DrawRoundedRectangle(0, 0, 100, 100, 25);
 
-            var vPath = new EWPath();
+            var vPath = new PathF();
             vPath.MoveTo(0, 0);
             vPath.LineTo(0, 100);
             vPath.QuadTo(100, 100, 100, 0);

@@ -48,17 +48,17 @@ namespace System.Graphics.GDI
         }
 
 
-        public static GraphicsPath AsGDIPath(this EWPath target)
+        public static GraphicsPath AsGDIPath(this PathF target)
         {
             return AsGDIPath(target, 1);
         }
 
-        public static GraphicsPath AsGDIPath(this EWPath target, float ppu)
+        public static GraphicsPath AsGDIPath(this PathF target, float ppu)
         {
             return AsGDIPath(target, ppu, 0, 0, 1, 1);
         }
 
-        public static GraphicsPath AsGDIPath(this EWPath target, float ppu, float ox, float oy, float fx, float fy)
+        public static GraphicsPath AsGDIPath(this PathF target, float ppu, float ox, float oy, float fx, float fy)
         {
             var path = new GraphicsPath();
 
@@ -76,12 +76,12 @@ namespace System.Graphics.GDI
 
                 foreach (var type in target.SegmentTypes)
                 {
-                    if (type == PathOperation.MOVE_TO)
+                    if (type == PathOperation.Move)
                     {
                         path.StartFigure();
                         pointIndex++;
                     }
-                    else if (type == PathOperation.LINE)
+                    else if (type == PathOperation.Line)
                     {
                         var startPoint = target[pointIndex - 1];
                         var endPoint = target[pointIndex++];
@@ -91,29 +91,29 @@ namespace System.Graphics.GDI
                             ox + endPoint.X * ppux,
                             oy + endPoint.Y * ppuy);
                     }
-                    else if (type == PathOperation.QUAD)
+                    else if (type == PathOperation.Quad)
                     {
                         var startPoint = target[pointIndex - 1];
                         var quadControlPoint = target[pointIndex++];
                         var endPoint = target[pointIndex++];
 
-                        var cubicControlPoint1_X = startPoint.X + 2.0f * (quadControlPoint.X - startPoint.X) / 3.0f;
-                        var cubicControlPoint1_Y = startPoint.Y + 2.0f * (quadControlPoint.Y - startPoint.Y) / 3.0f;
+                        var cubicControlPoint1X = startPoint.X + 2.0f * (quadControlPoint.X - startPoint.X) / 3.0f;
+                        var cubicControlPoint1Y = startPoint.Y + 2.0f * (quadControlPoint.Y - startPoint.Y) / 3.0f;
 
-                        var cubicControlPoint2_X = endPoint.X + 2.0f * (quadControlPoint.X - endPoint.X) / 3.0f;
-                        var cubicControlPoint2_Y = endPoint.Y + 2.0f * (quadControlPoint.Y - endPoint.Y) / 3.0f;
+                        var cubicControlPoint2X = endPoint.X + 2.0f * (quadControlPoint.X - endPoint.X) / 3.0f;
+                        var cubicControlPoint2Y = endPoint.Y + 2.0f * (quadControlPoint.Y - endPoint.Y) / 3.0f;
 
                         path.AddBezier(
                             ox + startPoint.X * ppux,
                             oy + startPoint.Y * ppuy,
-                            ox + cubicControlPoint1_X * ppux,
-                            oy + cubicControlPoint1_Y * ppuy,
-                            ox + cubicControlPoint2_X * ppux,
-                            oy + cubicControlPoint2_Y * ppuy,
+                            ox + cubicControlPoint1X * ppux,
+                            oy + cubicControlPoint1Y * ppuy,
+                            ox + cubicControlPoint2X * ppux,
+                            oy + cubicControlPoint2Y * ppuy,
                             ox + endPoint.X * ppux,
                             oy + endPoint.Y * ppuy);
                     }
-                    else if (type == PathOperation.CUBIC)
+                    else if (type == PathOperation.Cubic)
                     {
                         var startPoint = target[pointIndex - 1];
                         var cubicControlPoint1 = target[pointIndex++];
@@ -130,7 +130,7 @@ namespace System.Graphics.GDI
                             ox + endPoint.X * ppux,
                             oy + endPoint.Y * ppuy);
                     }
-                    else if (type == PathOperation.ARC)
+                    else if (type == PathOperation.Arc)
                     {
                         var topLeft = target[pointIndex++];
                         var bottomRight = target[pointIndex++];
@@ -163,7 +163,7 @@ namespace System.Graphics.GDI
 
                         path.AddArc(x, y, width, height, startAngle, sweep);
                     }
-                    else if (type == PathOperation.CLOSE)
+                    else if (type == PathOperation.Close)
                     {
                         path.CloseFigure();
                     }

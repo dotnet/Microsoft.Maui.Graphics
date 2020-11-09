@@ -7,8 +7,8 @@ namespace System.Graphics.Android
     public class MDCanvasState : CanvasState, IBlurrableCanvas
     {
         public float Alpha = 1;
-        private Paint _fillPaint;
-        private Paint _strokePaint;
+        private global::Android.Graphics.Paint _fillPaint;
+        private global::Android.Graphics.Paint _strokePaint;
         private string _fontName = "Arial";
         private TextPaint _fontPaint;
         private float _fontSize = 10f;
@@ -39,8 +39,8 @@ namespace System.Graphics.Android
             _fontColor = prototype._fontColor;
 
             _fontPaint = new TextPaint(prototype.FontPaint);
-            _fillPaint = new Paint(prototype.FillPaint);
-            _strokePaint = new Paint(prototype.StrokePaint);
+            _fillPaint = new global::Android.Graphics.Paint(prototype.FillPaint);
+            _strokePaint = new global::Android.Graphics.Paint(prototype.StrokePaint);
             _fontName = prototype._fontName;
             _fontSize = prototype._fontSize;
             Alpha = prototype.Alpha;
@@ -80,29 +80,29 @@ namespace System.Graphics.Android
             }
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             set
             {
-                if (value == EWLineCap.BUTT)
-                    StrokePaint.StrokeCap = Paint.Cap.Butt;
-                else if (value == EWLineCap.ROUND)
-                    StrokePaint.StrokeCap = Paint.Cap.Round;
-                else if (value == EWLineCap.SQUARE)
-                    StrokePaint.StrokeCap = Paint.Cap.Square;
+                if (value == LineCap.Butt)
+                    StrokePaint.StrokeCap = global::Android.Graphics.Paint.Cap.Butt;
+                else if (value == LineCap.Round)
+                    StrokePaint.StrokeCap = global::Android.Graphics.Paint.Cap.Round;
+                else if (value == LineCap.Square)
+                    StrokePaint.StrokeCap = global::Android.Graphics.Paint.Cap.Square;
             }
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             set
             {
-                if (value == EWLineJoin.MITER)
-                    StrokePaint.StrokeJoin = Paint.Join.Miter;
-                else if (value == EWLineJoin.ROUND)
-                    StrokePaint.StrokeJoin = Paint.Join.Round;
-                else if (value == EWLineJoin.BEVEL)
-                    StrokePaint.StrokeJoin = Paint.Join.Bevel;
+                if (value == LineJoin.Miter)
+                    StrokePaint.StrokeJoin = global::Android.Graphics.Paint.Join.Miter;
+                else if (value == LineJoin.Round)
+                    StrokePaint.StrokeJoin = global::Android.Graphics.Paint.Join.Round;
+                else if (value == LineJoin.Bevel)
+                    StrokePaint.StrokeJoin = global::Android.Graphics.Paint.Join.Bevel;
             }
         }
 
@@ -229,15 +229,15 @@ namespace System.Graphics.Android
             set => _fontPaint = value;
         }
 
-        public Paint FillPaint
+        public global::Android.Graphics.Paint FillPaint
         {
             private get
             {
                 if (_fillPaint == null)
                 {
-                    _fillPaint = new Paint();
+                    _fillPaint = new global::Android.Graphics.Paint();
                     _fillPaint.SetARGB(1, 1, 1, 1);
-                    _fillPaint.SetStyle(Paint.Style.Fill);
+                    _fillPaint.SetStyle(global::Android.Graphics.Paint.Style.Fill);
                     _fillPaint.AntiAlias = true;
                 }
 
@@ -247,17 +247,17 @@ namespace System.Graphics.Android
             set { _fillPaint = value; }
         }
 
-        public Paint StrokePaint
+        public global::Android.Graphics.Paint StrokePaint
         {
             private get
             {
                 if (_strokePaint == null)
                 {
-                    var paint = new Paint();
+                    var paint = new global::Android.Graphics.Paint();
                     paint.SetARGB(1, 0, 0, 0);
                     paint.StrokeWidth = 1;
                     paint.StrokeMiter = CanvasDefaults.DefaultMiterLimit;
-                    paint.SetStyle(Paint.Style.Stroke);
+                    paint.SetStyle(global::Android.Graphics.Paint.Style.Stroke);
                     paint.AntiAlias = true;
 
                     _strokePaint = paint;
@@ -271,7 +271,7 @@ namespace System.Graphics.Android
             set { _strokePaint = value; }
         }
 
-        public Paint StrokePaintWithAlpha
+        public global::Android.Graphics.Paint StrokePaintWithAlpha
         {
             get
             {
@@ -287,7 +287,7 @@ namespace System.Graphics.Android
             }
         }
 
-        public Paint FillPaintWithAlpha
+        public global::Android.Graphics.Paint FillPaintWithAlpha
         {
             get
             {
@@ -361,13 +361,13 @@ namespace System.Graphics.Android
             _shadowColor = color;
         }
 
-        public Paint GetShadowPaint(float sx, float sy)
+        public global::Android.Graphics.Paint GetShadowPaint(float sx, float sy)
         {
             if (_shadowed)
             {
-                var shadowPaint = new Paint();
+                var shadowPaint = new global::Android.Graphics.Paint();
                 shadowPaint.SetARGB(255, 0, 0, 0);
-                shadowPaint.SetStyle(Paint.Style.Fill);
+                shadowPaint.SetStyle(global::Android.Graphics.Paint.Style.Fill);
                 shadowPaint.AntiAlias = true;
                 shadowPaint.SetShadowLayer(_shadowBlur, _shadowX * sx, _shadowY * sy, _shadowColor);
                 shadowPaint.Alpha = (int) (Alpha * 255f);
@@ -377,14 +377,14 @@ namespace System.Graphics.Android
             return null;
         }
 
-        public Paint GetImagePaint(float sx, float sy)
+        public global::Android.Graphics.Paint GetImagePaint(float sx, float sy)
         {
             var imagePaint = GetShadowPaint(sx, sy);
             if (imagePaint == null && Alpha < 1)
             {
-                imagePaint = new Paint();
+                imagePaint = new global::Android.Graphics.Paint();
                 imagePaint.SetARGB(255, 0, 0, 0);
-                imagePaint.SetStyle(Paint.Style.Fill);
+                imagePaint.SetStyle(global::Android.Graphics.Paint.Style.Fill);
                 imagePaint.AntiAlias = true;
                 imagePaint.Alpha = (int) (Alpha * 255f);
             }
@@ -401,16 +401,16 @@ namespace System.Graphics.Android
             FontPaint.TextSize = _fontSize * _scaleX;
         }
 
-        public void Reset(Paint aFontPaint, Paint aFillPaint, Paint aStrokePaint)
+        public void Reset(global::Android.Graphics.Paint aFontPaint, global::Android.Graphics.Paint aFillPaint, global::Android.Graphics.Paint aStrokePaint)
         {
             _fontPaint?.Dispose();
             _fontPaint = new TextPaint(aFontPaint);
 
             _fillPaint?.Dispose();
-            _fillPaint = new Paint(aFillPaint);
+            _fillPaint = new global::Android.Graphics.Paint(aFillPaint);
 
             _strokePaint?.Dispose();
-            _strokePaint = new Paint(aStrokePaint);
+            _strokePaint = new global::Android.Graphics.Paint(aStrokePaint);
 
             _fontName = "Arial";
             _fontSize = 10f;

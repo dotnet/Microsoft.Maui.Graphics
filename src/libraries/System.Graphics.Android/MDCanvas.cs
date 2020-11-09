@@ -8,9 +8,9 @@ namespace System.Graphics.Android
 {
     public class MDCanvas : AbstractCanvas<MDCanvasState>
     {
-        private static Paint _defaultFillPaint;
+        private static global::Android.Graphics.Paint _defaultFillPaint;
         private static TextPaint _defaultFontPaint;
-        private static Paint _defaultStrokePaint;
+        private static global::Android.Graphics.Paint _defaultStrokePaint;
 
         private Canvas _canvas;
         private Shader _shader;
@@ -26,16 +26,16 @@ namespace System.Graphics.Android
         {
             if (_defaultFillPaint == null)
             {
-                _defaultFillPaint = new Paint();
+                _defaultFillPaint = new global::Android.Graphics.Paint();
                 _defaultFillPaint.SetARGB(255, 255, 255, 255);
-                _defaultFillPaint.SetStyle(Paint.Style.Fill);
+                _defaultFillPaint.SetStyle(global::Android.Graphics.Paint.Style.Fill);
                 _defaultFillPaint.AntiAlias = true;
 
-                _defaultStrokePaint = new Paint();
+                _defaultStrokePaint = new global::Android.Graphics.Paint();
                 _defaultStrokePaint.SetARGB(255, 0, 0, 0);
                 _defaultStrokePaint.StrokeWidth = 1;
                 _defaultStrokePaint.StrokeMiter = CanvasDefaults.DefaultMiterLimit;
-                _defaultStrokePaint.SetStyle(Paint.Style.Stroke);
+                _defaultStrokePaint.SetStyle(global::Android.Graphics.Paint.Style.Stroke);
                 _defaultStrokePaint.AntiAlias = true;
 
                 _defaultFontPaint = new TextPaint();
@@ -51,8 +51,8 @@ namespace System.Graphics.Android
 
             var state = new MDCanvasState
             {
-                FillPaint = new Paint(_defaultFillPaint),
-                StrokePaint = new Paint(_defaultStrokePaint),
+                FillPaint = new global::Android.Graphics.Paint(_defaultFillPaint),
+                StrokePaint = new global::Android.Graphics.Paint(_defaultStrokePaint),
                 FontPaint = new TextPaint(_defaultFontPaint),
                 FontName = MDFontService.SystemFont
             };
@@ -105,12 +105,12 @@ namespace System.Graphics.Android
             set => CurrentState.Alpha = value;
         }
 
-        public override EWLineCap StrokeLineCap
+        public override LineCap StrokeLineCap
         {
             set => CurrentState.StrokeLineCap = value;
         }
 
-        public override EWLineJoin StrokeLineJoin
+        public override LineJoin StrokeLineJoin
         {
             set => CurrentState.StrokeLineJoin = value;
         }
@@ -256,7 +256,7 @@ namespace System.Graphics.Android
             CurrentState.FontName = MDFontService.SystemBoldFont;
         }
 
-        public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
                 paint = System.Graphics.Colors.White.AsPaint();
@@ -268,12 +268,12 @@ namespace System.Graphics.Android
                 _shader = null;
             }
 
-            if (paint.PaintType == EWPaintType.LINEAR_GRADIENT)
+            if (paint.PaintType == PaintType.LinearGradient)
             {
                 var colors = new int[paint.Stops.Length];
                 var stops = new float[colors.Length];
 
-                EWPaintStop[] vStops = paint.GetSortedStops();
+                GradientStop[] vStops = paint.GetSortedStops();
 
                 for (int i = 0; i < vStops.Length; i++)
                 {
@@ -293,12 +293,12 @@ namespace System.Graphics.Android
                     FillColor = paint.BlendStartAndEndColors();
                 }
             }
-            else if (paint.PaintType == EWPaintType.RADIAL_GRADIENT)
+            else if (paint.PaintType == PaintType.RadialGradient)
             {
                 var colors = new int[paint.Stops.Length];
                 var stops = new float[colors.Length];
 
-                EWPaintStop[] vStops = paint.GetSortedStops();
+                GradientStop[] vStops = paint.GetSortedStops();
 
                 for (int i = 0; i < vStops.Length; i++)
                 {
@@ -319,7 +319,7 @@ namespace System.Graphics.Android
                     FillColor = paint.BlendStartAndEndColors();
                 }
             }
-            else if (paint.PaintType == EWPaintType.PATTERN)
+            else if (paint.PaintType == PaintType.Pattern)
             {
                 var bitmap = paint.GetPatternBitmap(DisplayScale);
 
@@ -348,7 +348,7 @@ namespace System.Graphics.Android
                     FillColor = paint.BackgroundColor;
                 }
             }
-            else if (paint.PaintType == EWPaintType.IMAGE)
+            else if (paint.PaintType == PaintType.Image)
             {
                 if (paint.Image is MDImage image)
                 {
@@ -577,17 +577,17 @@ namespace System.Graphics.Android
             _canvas.ClipRect(x, y, x + width, y + height, Region.Op.Difference);
         }
 
-        protected override void NativeDrawPath(EWPath aPath)
+        protected override void NativeDrawPath(PathF aPath)
         {
             var nativePath = aPath.AsAndroidPath();
             _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
             nativePath.Dispose();
         }
 
-        public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             var nativePath = path.AsAndroidPath();
-            nativePath.SetFillType(windingMode == EWWindingMode.NonZero ? Path.FillType.Winding : Path.FillType.EvenOdd);
+            nativePath.SetFillType(windingMode == WindingMode.NonZero ? Path.FillType.Winding : Path.FillType.EvenOdd);
             _canvas.ClipPath(nativePath);
         }
 
@@ -596,19 +596,19 @@ namespace System.Graphics.Android
             _canvas.ClipRect(x, y, x + width, y + height);
         }
 
-        public override void FillPath(EWPath path, EWWindingMode windingMode)
+        public override void FillPath(PathF path, WindingMode windingMode)
         {
             var nativePath = path.AsAndroidPath();
-            nativePath.SetFillType(windingMode == EWWindingMode.NonZero ? Path.FillType.Winding : Path.FillType.EvenOdd);
+            nativePath.SetFillType(windingMode == WindingMode.NonZero ? Path.FillType.Winding : Path.FillType.EvenOdd);
             _canvas.DrawPath(nativePath, CurrentState.FillPaintWithAlpha);
             nativePath.Dispose();
         }
 
-        public override void DrawString(string value, float x, float y, EwHorizontalAlignment horizAlignment)
+        public override void DrawString(string value, float x, float y, HorizontalAlignment horizAlignment)
         {
-            if (horizAlignment == EwHorizontalAlignment.Left)
+            if (horizAlignment == HorizontalAlignment.Left)
                 DrawString(value, x, y);
-            else if (horizAlignment == EwHorizontalAlignment.Right)
+            else if (horizAlignment == HorizontalAlignment.Right)
             {
                 EWSize vSize = MDGraphicsService.Instance.GetStringSize(
                     value,
@@ -653,9 +653,9 @@ namespace System.Graphics.Android
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizAlignment,
-            EwVerticalAlignment vertAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizAlignment,
+            VerticalAlignment vertAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineSpacingAdjustment = 0)
         {
             if (value == null || value.Length == 0 || width == 0 || height == 0)
@@ -664,11 +664,11 @@ namespace System.Graphics.Android
             _canvas.Save();
 
             var alignment = Layout.Alignment.AlignNormal;
-            if (horizAlignment == EwHorizontalAlignment.Center)
+            if (horizAlignment == HorizontalAlignment.Center)
             {
                 alignment = Layout.Alignment.AlignCenter;
             }
-            else if (horizAlignment == EwHorizontalAlignment.Right)
+            else if (horizAlignment == HorizontalAlignment.Right)
             {
                 alignment = Layout.Alignment.AlignOpposite;
             }
@@ -685,7 +685,7 @@ namespace System.Graphics.Android
             _canvas.Save();
             var span = value.AsSpannableString();
             var layout = MDTextLayout.CreateLayoutForSpannedString(span, CurrentState.FontPaint, (int) width, Layout.Alignment.AlignNormal);
-            var offset = layout.GetOffsetsToDrawText(x, y, width, height, EwHorizontalAlignment.Left, EwVerticalAlignment.Top);
+            var offset = layout.GetOffsetsToDrawText(x, y, width, height, HorizontalAlignment.Left, VerticalAlignment.Top);
             _canvas.Translate(offset.Width, offset.Height);
             layout.Draw(_canvas);
             layout.Dispose();
@@ -781,7 +781,7 @@ namespace System.Graphics.Android
             CurrentState.SetBlur(radius);
         }
 
-        public override void DrawImage(EWImage image, float x, float y, float width, float height)
+        public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
             if (image is MDImage mdimage)
             {

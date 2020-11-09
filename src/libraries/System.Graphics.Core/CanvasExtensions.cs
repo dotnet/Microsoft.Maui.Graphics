@@ -42,22 +42,22 @@ namespace System.Graphics
             target.FillOval(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void DrawPath(this ICanvas target, EWPath path)
+        public static void DrawPath(this ICanvas target, PathF path)
         {
             target.DrawPath(path);
         }
 
-        public static void FillPath(this ICanvas target, EWPath path)
+        public static void FillPath(this ICanvas target, PathF path)
         {
-            target.FillPath(path, EWWindingMode.NonZero);
+            target.FillPath(path, WindingMode.NonZero);
         }
 
-        public static void FillPath(this ICanvas target, EWPath path, EWWindingMode windingMode)
+        public static void FillPath(this ICanvas target, PathF path, WindingMode windingMode)
         {
             target.FillPath(path, windingMode);
         }
 
-        public static void ClipPath(this ICanvas target, EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public static void ClipPath(this ICanvas target, PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             target.ClipPath(path, windingMode);
         }
@@ -67,8 +67,8 @@ namespace System.Graphics
             target.ClipRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
 
-        public static void DrawString(this ICanvas target, string value, EWRectangle bounds, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
+        public static void DrawString(this ICanvas target, string value, EWRectangle bounds, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0)
         {
             target.DrawString(value, bounds.MinX, bounds.MinY, Math.Abs(bounds.Width), Math.Abs(bounds.Height), horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
         }
@@ -123,7 +123,7 @@ namespace System.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="paint">The paint</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, EWPaint paint, bool clockwise)
+        public static void FillArc(this ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, Paint paint, bool clockwise)
         {
             var rectangle = new EWRectangle(x, y, width, height);
             canvas.SetFillPaint(paint, rectangle);
@@ -184,8 +184,8 @@ namespace System.Graphics
         {
             canvas.StrokeSize = 1;
             canvas.StrokeDashPattern = null;
-            canvas.StrokeLineJoin = EWLineJoin.MITER;
-            canvas.StrokeLineCap = EWLineCap.BUTT;
+            canvas.StrokeLineJoin = LineJoin.Miter;
+            canvas.StrokeLineCap = LineCap.Butt;
             canvas.StrokeColor = Colors.Black;
         }
         
@@ -218,12 +218,12 @@ namespace System.Graphics
             target.SubtractFromClip(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
         }
         
-        public static void SetFillPaint(this ICanvas target, EWPaint paint, EWImmutablePoint point1, EWImmutablePoint point2)
+        public static void SetFillPaint(this ICanvas target, Paint paint, EWImmutablePoint point1, EWImmutablePoint point2)
         {
             target.SetFillPaint(paint, point1.X, point1.Y, point2.X, point2.Y);
         }
         
-        public static void SetFillPaint(this ICanvas target, EWPaint paint, EWRectangle rectangle)
+        public static void SetFillPaint(this ICanvas target, Paint paint, EWRectangle rectangle)
         {
             target.SetFillPaint(paint, rectangle.X1, rectangle.Y1, rectangle.X2, rectangle.Y2);
         }

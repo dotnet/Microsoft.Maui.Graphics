@@ -23,17 +23,17 @@ namespace System.Graphics.SharpDX
             return new Color4(target.Red, target.Green, target.Blue, target.Alpha * aAlphaMultiplier);
         }
 
-        public static PathGeometry AsDxPath(this EWPath target, Factory factory, FillMode fillMode = FillMode.Winding)
+        public static PathGeometry AsDxPath(this PathF target, Factory factory, FillMode fillMode = FillMode.Winding)
         {
             return AsDxPath(target, 1, factory, fillMode);
         }
 
-        public static PathGeometry AsDxPath(this EWPath path, float ppu, Factory factory, FillMode fillMode = FillMode.Winding)
+        public static PathGeometry AsDxPath(this PathF path, float ppu, Factory factory, FillMode fillMode = FillMode.Winding)
         {
             return AsDxPath(path, ppu, 0, 0, 1, 1, factory, fillMode);
         }
 
-        public static PathGeometry AsDxPath(this EWPath path, float ppu, float ox, float oy, float fx, float fy, Factory factory, FillMode fillMode = FillMode.Winding)
+        public static PathGeometry AsDxPath(this PathF path, float ppu, float ox, float oy, float fx, float fy, Factory factory, FillMode fillMode = FillMode.Winding)
         {
             var geometry = new PathGeometry(factory);
 
@@ -54,15 +54,15 @@ namespace System.Graphics.SharpDX
                 var figureOpen = false;
                 var segmentIndex = -1;
 
-                var lastOperation = PathOperation.MOVE_TO;
+                var lastOperation = PathOperation.Move;
 
                 foreach (var type in path.SegmentTypes)
                 {
                     segmentIndex++;
 
-                    if (type == PathOperation.MOVE_TO)
+                    if (type == PathOperation.Move)
                     {
-                        if (lastOperation != PathOperation.CLOSE && lastOperation != PathOperation.MOVE_TO)
+                        if (lastOperation != PathOperation.Close && lastOperation != PathOperation.Move)
                         {
                             sink.EndFigure(FigureEnd.Open);
                             //vPath = vPathGeometry.Open();
@@ -78,13 +78,13 @@ namespace System.Graphics.SharpDX
                         sink.BeginFigure(ox + point.X * ppux, oy + point.Y * ppuy, begin);
                         figureOpen = true;
                     }
-                    else if (type == PathOperation.LINE)
+                    else if (type == PathOperation.Line)
                     {
                         var point = path[pointIndex++];
                         sink.LineTo(ox + point.X * ppux, oy + point.Y * ppuy);
                     }
 
-                    else if (type == PathOperation.QUAD)
+                    else if (type == PathOperation.Quad)
                     {
                         var controlPoint = path[pointIndex++];
                         var endPoint = path[pointIndex++];
@@ -95,7 +95,7 @@ namespace System.Graphics.SharpDX
                             ox + endPoint.X * ppux,
                             oy + endPoint.Y * ppuy);
                     }
-                    else if (type == PathOperation.CUBIC)
+                    else if (type == PathOperation.Cubic)
                     {
                         var controlPoint1 = path[pointIndex++];
                         var controlPoint2 = path[pointIndex++];
@@ -108,7 +108,7 @@ namespace System.Graphics.SharpDX
                             ox + endPoint.X * ppux,
                             oy + endPoint.Y * ppuy);
                     }
-                    else if (type == PathOperation.ARC)
+                    else if (type == PathOperation.Arc)
                     {
                         var topLeft = path[pointIndex++];
                         var bottomRight = path[pointIndex++];
@@ -163,7 +163,7 @@ namespace System.Graphics.SharpDX
                         };
                         sink.AddArc(arcSegment);
                     }
-                    else if (type == PathOperation.CLOSE)
+                    else if (type == PathOperation.Close)
                     {
                         sink.EndFigure(FigureEnd.Closed);
                     }
@@ -171,7 +171,7 @@ namespace System.Graphics.SharpDX
                     lastOperation = type;
                 }
 
-                if (segmentIndex >= 0 && lastOperation != PathOperation.CLOSE)
+                if (segmentIndex >= 0 && lastOperation != PathOperation.Close)
                 {
                     sink.EndFigure(FigureEnd.Open);
                 }

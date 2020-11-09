@@ -33,7 +33,7 @@ namespace System.Graphics.Android
 
         public override ICanvas Canvas => _canvas;
 
-        public override EWImage Image => new MDImage(Bitmap);
+        public override IImage Image => new MDImage(Bitmap);
 
         public Bitmap Bitmap => _bitmap;
 

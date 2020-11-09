@@ -21,7 +21,7 @@ namespace System.Graphics.GDI
         }
 
 
-        public EWSize GetStringSize(string aString, string aFontName, float fontSize, EwHorizontalAlignment aHorizontalAlignment, EwVerticalAlignment aVerticalAlignment)
+        public EWSize GetStringSize(string aString, string aFontName, float fontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
         {
             var fontEntry = GDIFontManager.GetMapping(aFontName);
             var font = new Font(fontEntry.Name, fontSize * .75f);
@@ -30,7 +30,7 @@ namespace System.Graphics.GDI
             return new EWSize(size.Width, size.Height);
         }
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png)
         {
             var bitmap = new Bitmap(stream);
             return new GDIImage(bitmap);

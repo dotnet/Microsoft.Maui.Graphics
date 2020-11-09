@@ -6,7 +6,7 @@ namespace System.Graphics.CoreGraphics
     public class MMDirectRenderer : MMGraphicsRenderer
     {
         private readonly CGCanvas _canvas;
-        private EWDrawable _drawable;
+        private IDrawable _drawable;
         private MMGraphicsView _graphicsView;
 
         public MMDirectRenderer()
@@ -17,7 +17,7 @@ namespace System.Graphics.CoreGraphics
 
         public ICanvas Canvas => _canvas;
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => _drawable;
             set => _drawable = value;

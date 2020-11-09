@@ -31,7 +31,7 @@ namespace System.Graphics.Xaml
         }
 
         [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
-        public static PathGeometry AsPathGeometry(this EWPath target, float scale = 1)
+        public static PathGeometry AsPathGeometry(this PathF target, float scale = 1)
         {
             var geometry = new PathGeometry();
             PathFigure figure = null;
@@ -42,18 +42,18 @@ namespace System.Graphics.Xaml
 
             foreach (var type in target.SegmentTypes)
             {
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     figure = new PathFigure();
                     geometry.Figures.Add(figure);
                     figure.StartPoint = target[pointIndex++].AsPoint(scale);
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     var lineSegment = new LineSegment {Point = target[pointIndex++].AsPoint(scale)};
                     figure.Segments.Add(lineSegment);
                 }
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     var quadSegment = new QuadraticBezierSegment
                     {
@@ -62,7 +62,7 @@ namespace System.Graphics.Xaml
                     };
                     figure.Segments.Add(quadSegment);
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     var cubicSegment = new BezierSegment()
                     {
@@ -72,7 +72,7 @@ namespace System.Graphics.Xaml
                     };
                     figure.Segments.Add(cubicSegment);
                 }
-                else if (type == PathOperation.ARC)
+                else if (type == PathOperation.Arc)
                 {
                     var topLeft = target[pointIndex++];
                     var bottomRight = target[pointIndex++];
@@ -125,7 +125,7 @@ namespace System.Graphics.Xaml
                     };
                     figure.Segments.Add(arcSegment);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     figure.IsClosed = true;
                 }

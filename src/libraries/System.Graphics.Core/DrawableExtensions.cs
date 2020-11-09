@@ -1,8 +1,8 @@
 ﻿namespace System.Graphics
 {
-    public static class EWDrawableExtensions
+    public static class DrawableExtensions
     {
-        public static EWImage ToImage(this EWDrawable drawable, int width, int height, float scale = 1)
+        public static IImage ToImage(this IDrawable drawable, int width, int height, float scale = 1)
         {
             if (drawable == null) return null;
 

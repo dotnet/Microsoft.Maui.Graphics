@@ -1,16 +1,16 @@
 ﻿namespace System.Graphics
 {
-    public static class IFontFamilyExtensions
+    public static class FontFamilyExtensions
     {
         public static IFontStyle GetBoldStyle(
-            this IFontFamily family,
+            this FontFamily family,
             FontStyleType type = FontStyleType.Normal)
         {
             return family?.GetStyleWithWeightNearestTo(500, type);
         }
 
         public static IFontStyle GetStyleWithWeightNearestTo(
-            this IFontFamily family,
+            this FontFamily family,
             int weight,
             FontStyleType type = FontStyleType.Normal)
         {

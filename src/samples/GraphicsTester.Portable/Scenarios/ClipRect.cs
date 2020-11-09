@@ -8,11 +8,11 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 
-            var path = new EWPath();
+            var path = new PathF();
             path.AppendRectangle(100, 100, 100, 100);
 
             canvas.ClipPath(path);

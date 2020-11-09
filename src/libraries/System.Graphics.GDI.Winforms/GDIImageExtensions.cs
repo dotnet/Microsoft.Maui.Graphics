@@ -5,7 +5,7 @@ namespace System.Graphics.GDI
 {
     public static class GDIImageExtensions
     {
-        public static Bitmap AsBitmap(this EWImage image)
+        public static Bitmap AsBitmap(this IImage image)
         {
             if (image is GDIImage dxImage)
                 return dxImage.NativeImage;

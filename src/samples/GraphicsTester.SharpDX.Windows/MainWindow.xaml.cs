@@ -22,14 +22,14 @@ namespace GraphicsTester.WPF.SharpDX
             {
                 List.Items.Add(scenario);
             }
-            List.SelectionChanged += (source, args) => Drawable = List.SelectedItem as EWDrawable;
+            List.SelectionChanged += (source, args) => Drawable = List.SelectedItem as IDrawable;
 
             List.SelectedIndex = 0;
 
             this.SizeChanged += (source, args) => Draw();
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             set
             {

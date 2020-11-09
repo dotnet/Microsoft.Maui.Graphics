@@ -3,9 +3,9 @@ using System.IO;
 
 namespace System.Graphics
 {
-    public static class EWPathExtensions
+    public static class PathExtensions
     {
-        public static string ToDefinitionString(this EWPath path, float ppu = 1)
+        public static string ToDefinitionString(this PathF path, float ppu = 1)
         {
             var writer = new StringWriter();
 
@@ -14,24 +14,24 @@ namespace System.Graphics
                 var type = path.GetSegmentType(i);
                 var points = path.GetPointsForSegment(i);
 
-                if (type == PathOperation.MOVE_TO)
+                if (type == PathOperation.Move)
                 {
                     writer.Write("M");
                     WritePoint(writer, points[0], ppu);
                 }
-                else if (type == PathOperation.LINE)
+                else if (type == PathOperation.Line)
                 {
                     writer.Write(" L");
                     WritePoint(writer, points[0], ppu);
                 }
-                else if (type == PathOperation.QUAD)
+                else if (type == PathOperation.Quad)
                 {
                     writer.Write(" Q");
                     WritePoint(writer, points[0], ppu);
                     writer.Write(" ");
                     WritePoint(writer, points[1], ppu);
                 }
-                else if (type == PathOperation.CUBIC)
+                else if (type == PathOperation.Cubic)
                 {
                     writer.Write(" C");
                     WritePoint(writer, points[0], ppu);
@@ -40,7 +40,7 @@ namespace System.Graphics
                     writer.Write(" ");
                     WritePoint(writer, points[2], ppu);
                 }
-                else if (type == PathOperation.CLOSE)
+                else if (type == PathOperation.Close)
                 {
                     writer.Write(" Z ");
                 }
@@ -62,30 +62,14 @@ namespace System.Graphics
             writer.Write(cy);
         }
 
-        public static EWPath AsScaledPath(
-            this EWPath target,
+        public static PathF AsScaledPath(
+            this PathF target,
             float scale)
         {
-            var scaledPath = new EWPath(target);
+            var scaledPath = new PathF(target);
             var transform = AffineTransform.GetScaleInstance(scale, scale);
             scaledPath.Transform(transform);
             return scaledPath;
-        }
-
-        public static bool IsPolyline(this EWPath target)
-        {
-            foreach (var segment in target.SegmentTypes)
-            {
-                switch (segment)
-                {
-                    case PathOperation.ARC:
-                    case PathOperation.CUBIC:
-                    case PathOperation.QUAD:
-                        return false;
-                }
-            }
-
-            return true;
         }
     }
 }

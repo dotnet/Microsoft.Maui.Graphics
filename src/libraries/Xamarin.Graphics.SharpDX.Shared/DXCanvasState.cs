@@ -28,7 +28,7 @@ namespace System.Graphics.SharpDX
         private Color4 _shadowColor;
         private bool _shadowColorValid;
         private Color _sourceFillColor;
-        private EWPaint _sourceFillpaint;
+        private Paint _sourceFillpaint;
 
         private Color _sourceFontColor;
         private Color _sourceShadowColor;
@@ -164,17 +164,17 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             set
             {
                 switch (value)
                 {
-                    case EWLineCap.BUTT:
+                    case LineCap.Butt:
                         _strokeStyleProperties.EndCap = CapStyle.Flat;
                         _strokeStyleProperties.StartCap = CapStyle.Flat;
                         break;
-                    case EWLineCap.ROUND:
+                    case LineCap.Round:
                         _strokeStyleProperties.EndCap = CapStyle.Round;
                         _strokeStyleProperties.StartCap = CapStyle.Round;
                         break;
@@ -189,20 +189,20 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             set
             {
                 switch (value)
                 {
-                    case EWLineJoin.BEVEL:
-                        _strokeStyleProperties.LineJoin = LineJoin.Bevel;
+                    case LineJoin.Bevel:
+                        _strokeStyleProperties.LineJoin = global::SharpDX.Direct2D1.LineJoin.Bevel;
                         break;
-                    case EWLineJoin.ROUND:
-                        _strokeStyleProperties.LineJoin = LineJoin.Round;
+                    case LineJoin.Round:
+                        _strokeStyleProperties.LineJoin = global::SharpDX.Direct2D1.LineJoin.Round;
                         break;
                     default:
-                        _strokeStyleProperties.LineJoin = LineJoin.Miter;
+                        _strokeStyleProperties.LineJoin = global::SharpDX.Direct2D1.LineJoin.Miter;
                         break;
                 }
 
@@ -288,13 +288,13 @@ namespace System.Graphics.SharpDX
                     }
                     else if (_sourceFillpaint != null)
                     {
-                        if (_sourceFillpaint.PaintType == EWPaintType.LINEAR_GRADIENT)
+                        if (_sourceFillpaint.PaintType == PaintType.LinearGradient)
                         {
                             var linearGradientProperties = new LinearGradientBrushProperties();
-                            var gradientStops = new GradientStop[_sourceFillpaint.Stops.Length];
+                            var gradientStops = new global::SharpDX.Direct2D1.GradientStop[_sourceFillpaint.Stops.Length];
                             for (int i = 0; i < _sourceFillpaint.Stops.Length; i++)
                             {
-                                gradientStops[i] = new GradientStop
+                                gradientStops[i] = new global::SharpDX.Direct2D1.GradientStop
                                 {
                                     Position = _sourceFillpaint.Stops[i].Offset,
                                     Color = _sourceFillpaint.Stops[i].Color.AsDxColor(_alpha)
@@ -311,10 +311,10 @@ namespace System.Graphics.SharpDX
                             float radius = Geometry.GetDistance(_gradientPoint1.X, _gradientPoint1.Y, _gradientPoint2.X, _gradientPoint2.Y);
 
                             var radialGradientBrushProperties = new RadialGradientBrushProperties();
-                            var gradientStops = new GradientStop[_sourceFillpaint.Stops.Length];
+                            var gradientStops = new global::SharpDX.Direct2D1.GradientStop[_sourceFillpaint.Stops.Length];
                             for (int i = 0; i < _sourceFillpaint.Stops.Length; i++)
                             {
-                                gradientStops[i] = new GradientStop
+                                gradientStops[i] = new global::SharpDX.Direct2D1.GradientStop
                                 {
                                     Position = _sourceFillpaint.Stops[i].Offset,
                                     Color = _sourceFillpaint.Stops[i].Color.AsDxColor(_alpha)
@@ -477,7 +477,7 @@ namespace System.Graphics.SharpDX
             _strokeStyleProperties.DashOffset = 0;
             _strokeStyleProperties.DashStyle = DashStyle.Solid;
             _strokeStyleProperties.EndCap = CapStyle.Flat;
-            _strokeStyleProperties.LineJoin = LineJoin.Miter;
+            _strokeStyleProperties.LineJoin = global::SharpDX.Direct2D1.LineJoin.Miter;
             _strokeStyleProperties.MiterLimit = CanvasDefaults.DefaultMiterLimit;
             _strokeStyleProperties.StartCap = CapStyle.Flat;
             _dashes = null;
@@ -540,7 +540,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public void SetLinearGradient(EWPaint aPaint, Vector2 aPoint1, Vector2 aPoint2)
+        public void SetLinearGradient(Paint aPaint, Vector2 aPoint1, Vector2 aPoint2)
         {
             ReleaseFillBrush();
             _fillBrushValid = false;
@@ -550,7 +550,7 @@ namespace System.Graphics.SharpDX
             _gradientPoint2 = aPoint2;
         }
 
-        public void SetRadialGradient(EWPaint aPaint, Vector2 aPoint1, Vector2 aPoint2)
+        public void SetRadialGradient(Paint aPaint, Vector2 aPoint1, Vector2 aPoint2)
         {
             ReleaseFillBrush();
             _fillBrushValid = false;
@@ -649,7 +649,7 @@ namespace System.Graphics.SharpDX
             _fontBrushValid = false;
         }
 
-        public void ClipPath(EWPath path, EWWindingMode windingMode)
+        public void ClipPath(PathF path, WindingMode windingMode)
         {
             if (_layerMask != null)
             {
@@ -658,7 +658,7 @@ namespace System.Graphics.SharpDX
 
             _layerMask = new PathGeometry(_renderTarget.Factory);
             var sink = _layerMask.Open();
-            sink.SetFillMode(windingMode == EWWindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
+            sink.SetFillMode(windingMode == WindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
 
             var layerRect = new RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
             _layerBounds = new RectangleGeometry(_renderTarget.Factory, layerRect);
@@ -683,9 +683,9 @@ namespace System.Graphics.SharpDX
 
         public void ClipRectangle(float x, float y, float width, float height)
         {
-            var path = new EWPath();
+            var path = new PathF();
             path.AppendRectangle(x, y, width, height);
-            ClipPath(path, EWWindingMode.NonZero);
+            ClipPath(path, WindingMode.NonZero);
         }
 
         public void SubtractFromClip(float x, float y, float width, float height)

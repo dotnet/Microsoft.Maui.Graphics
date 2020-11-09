@@ -10,8 +10,8 @@ namespace System.Graphics
         public  float StrokeSize { set; }
         public  float MiterLimit { set; }
         public  Color StrokeColor { set; }
-        public  EWLineCap StrokeLineCap { set; }
-        public  EWLineJoin StrokeLineJoin { set; }
+        public  LineCap StrokeLineCap { set; }
+        public  LineJoin StrokeLineJoin { set; }
         public  float[] StrokeDashPattern { set; }
         public  Color FillColor { set; }
         public  Color FontColor { set; }
@@ -21,12 +21,12 @@ namespace System.Graphics
         public  bool Antialias { set; }
         public  BlendMode BlendMode { set; }
 
-        public  void DrawPath(EWPath path);
+        public  void DrawPath(PathF path);
 
-        public  void FillPath(EWPath path, EWWindingMode windingMode);
+        public  void FillPath(PathF path, WindingMode windingMode);
         public  void SubtractFromClip(float x, float y, float width, float height);
         
-        public  void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero);
+        public  void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero);
 
         public  void ClipRectangle(float x, float y, float width, float height);
 
@@ -48,7 +48,7 @@ namespace System.Graphics
 
         public  void FillOval(float x, float y, float width, float height);
 
-        public  void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment);
+        public  void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment);
 
         public void DrawString(
             string value,
@@ -56,9 +56,9 @@ namespace System.Graphics
             float y,
             float width,
             float height,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds,
             float lineSpacingAdjustment = 0);
 
         public  void DrawText(
@@ -86,12 +86,12 @@ namespace System.Graphics
 
         public  void SetShadow(EWSize offset, float blur, Color color);
 
-        public  void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2);
+        public  void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2);
 
         public  void SetToSystemFont();
 
         public  void SetToBoldSystemFont();
 
-        public  void DrawImage(EWImage image, float x, float y, float width, float height);
+        public  void DrawImage(IImage image, float x, float y, float width, float height);
     }
 }

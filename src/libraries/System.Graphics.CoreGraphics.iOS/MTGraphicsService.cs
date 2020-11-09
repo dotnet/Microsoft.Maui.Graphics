@@ -26,7 +26,7 @@ namespace System.Graphics.CoreGraphics
 
         public bool IsRetina => UIScreen.MainScreen.Scale > 2;
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png)
         {
             var data = NSData.FromStream(stream);
             var image = UIImage.LoadFromData(data);
@@ -61,8 +61,8 @@ namespace System.Graphics.CoreGraphics
             string value,
             string fontName,
             float fontSize,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment)
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         {
             float factor = 1;
             while (fontSize > 10)
@@ -87,16 +87,16 @@ namespace System.Graphics.CoreGraphics
             var paragraphSettings = new CTParagraphStyleSettings();
             switch (horizontalAlignment)
             {
-                case EwHorizontalAlignment.Left:
+                case HorizontalAlignment.Left:
                     paragraphSettings.Alignment = CTTextAlignment.Left;
                     break;
-                case EwHorizontalAlignment.Center:
+                case HorizontalAlignment.Center:
                     paragraphSettings.Alignment = CTTextAlignment.Center;
                     break;
-                case EwHorizontalAlignment.Right:
+                case HorizontalAlignment.Right:
                     paragraphSettings.Alignment = CTTextAlignment.Right;
                     break;
-                case EwHorizontalAlignment.Justified:
+                case HorizontalAlignment.Justified:
                     paragraphSettings.Alignment = CTTextAlignment.Justified;
                     break;
             }
@@ -173,7 +173,7 @@ namespace System.Graphics.CoreGraphics
             return new EWRectangle(0f, minY, width, Math.Max(0, maxY - minY));
         }
 
-        public EWRectangle GetPathBounds(EWPath path)
+        public EWRectangle GetPathBounds(PathF path)
         {
             var nativePath = path.NativePath as CGPath;
 
@@ -187,7 +187,7 @@ namespace System.Graphics.CoreGraphics
             return bounds.AsEWRectangle();
         }
 
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint centerOfRotation, EWPath path, float angle)
+        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint centerOfRotation, PathF path, float angle)
         {
             var nativePath = path.AsRotatedCGPath(centerOfRotation, 1f, 1f, angle);
             var bounds = nativePath.PathBoundingBox;
@@ -195,7 +195,7 @@ namespace System.Graphics.CoreGraphics
             return bounds.AsEWRectangle();
         }
 
-        public bool PathContainsPoint(EWPath aPath, EWImmutablePoint aPoint, float ppu, float aZoom, float aStrokeWidth)
+        public bool PathContainsPoint(PathF aPath, EWImmutablePoint aPoint, float ppu, float aZoom, float aStrokeWidth)
         {
             var vPath = aPath.NativePath as CGPath;
 

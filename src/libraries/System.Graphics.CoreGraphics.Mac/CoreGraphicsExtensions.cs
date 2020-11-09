@@ -4,13 +4,13 @@ namespace System.Graphics.CoreGraphics
 {
     public static class CoreGraphicsExtensions
     {
-        public static EWPaint AsPaint(this NSImage target)
+        public static Paint AsPaint(this NSImage target)
         {
             if (target == null)
                 return null;
 
             var image = new MMImage(target);
-            var paint = new EWPaint();
+            var paint = new Paint();
             paint.Image = image;
             return paint;
         }

@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace System.Graphics
 {
-    public static class EWPictureReaderExtensions
+    public static class PictureReaderExtensions
     {
-        public static EWPicture Read(this EWPictureReader target, Stream stream, string hash = null)
+        public static Picture Read(this IPictureReader target, Stream stream, string hash = null)
         {
             if (!(stream is MemoryStream memoryStream))
             {
@@ -14,10 +14,10 @@ namespace System.Graphics
             }
 
             var bytes = memoryStream.ToArray();
-            return target.Read(bytes, hash);
+            return target.Read(bytes);
         }
 
-        public static async Task<EWPicture> ReadAsync(this EWPictureReader target, Stream stream, string hash = null)
+        public static async Task<Picture> ReadAsync(this IPictureReader target, Stream stream, string hash = null)
         {
             if (!(stream is MemoryStream memoryStream))
             {
@@ -26,7 +26,7 @@ namespace System.Graphics
             }
 
             var bytes = memoryStream.ToArray();
-            return target.Read(bytes, hash);
+            return target.Read(bytes);
         }
     }
 }

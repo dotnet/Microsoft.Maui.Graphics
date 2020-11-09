@@ -8,7 +8,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.DrawLine(50, 20.5f, 200, 20.5f);
 
@@ -47,16 +47,16 @@ namespace GraphicsTester.Scenarios
             canvas.StrokeColor = Colors.Black;
             canvas.StrokeSize = 20;
             canvas.StrokeDashPattern = null;
-            canvas.StrokeLineCap = EWLineCap.BUTT;
+            canvas.StrokeLineCap = LineCap.Butt;
             canvas.DrawLine(50, 250, 200, 250);
-            canvas.StrokeLineCap = EWLineCap.ROUND;
+            canvas.StrokeLineCap = LineCap.Round;
             canvas.DrawLine(50, 300, 200, 300);
-            canvas.StrokeLineCap = EWLineCap.SQUARE;
+            canvas.StrokeLineCap = LineCap.Square;
             canvas.DrawLine(50, 350, 200, 350);
 
             canvas.StrokeColor = Colors.Blue;
             canvas.StrokeSize = 1;
-            canvas.StrokeLineCap = EWLineCap.BUTT;
+            canvas.StrokeLineCap = LineCap.Butt;
             canvas.DrawLine(50, 250, 200, 250);
             canvas.DrawLine(50, 300, 200, 300);
             canvas.DrawLine(50, 350, 200, 350);

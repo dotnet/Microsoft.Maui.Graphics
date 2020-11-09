@@ -66,8 +66,8 @@ namespace System.Graphics.SharpDX
             string value,
             string fontName,
             float textSize,
-            EwHorizontalAlignment horizontalAlignment,
-            EwVerticalAlignment verticalAlignment)
+            HorizontalAlignment horizontalAlignment,
+            VerticalAlignment verticalAlignment)
         {
             if (value == null) return new EWSize();
 
@@ -83,32 +83,32 @@ namespace System.Graphics.SharpDX
 
             var textFormat = new TextFormat(FactoryDirectWrite, SystemFontName, FontWeight.Regular, FontStyle.Normal,
                 fontSize);
-            if (horizontalAlignment == EwHorizontalAlignment.Left)
+            if (horizontalAlignment == HorizontalAlignment.Left)
             {
                 textFormat.TextAlignment = TextAlignment.Leading;
             }
-            else if (horizontalAlignment == EwHorizontalAlignment.Center)
+            else if (horizontalAlignment == HorizontalAlignment.Center)
             {
                 textFormat.TextAlignment = TextAlignment.Center;
             }
-            else if (horizontalAlignment == EwHorizontalAlignment.Right)
+            else if (horizontalAlignment == HorizontalAlignment.Right)
             {
                 textFormat.TextAlignment = TextAlignment.Trailing;
             }
-            else if (horizontalAlignment == EwHorizontalAlignment.Justified)
+            else if (horizontalAlignment == HorizontalAlignment.Justified)
             {
                 textFormat.TextAlignment = TextAlignment.Justified;
             }
 
-            if (verticalAlignment == EwVerticalAlignment.Top)
+            if (verticalAlignment == VerticalAlignment.Top)
             {
                 textFormat.ParagraphAlignment = ParagraphAlignment.Near;
             }
-            else if (verticalAlignment == EwVerticalAlignment.Center)
+            else if (verticalAlignment == VerticalAlignment.Center)
             {
                 textFormat.ParagraphAlignment = ParagraphAlignment.Center;
             }
-            else if (verticalAlignment == EwVerticalAlignment.Bottom)
+            else if (verticalAlignment == VerticalAlignment.Bottom)
             {
                 textFormat.ParagraphAlignment = ParagraphAlignment.Far;
             }
@@ -124,7 +124,7 @@ namespace System.Graphics.SharpDX
             return size;
         }
 
-        public EWImage LoadImageFromStream(Stream stream, EWImageFormat format = EWImageFormat.Png)
+        public IImage LoadImageFromStream(Stream stream, Graphics.ImageFormat format = Graphics.ImageFormat.Png)
         {
             var bitmap = CurrentTarget.Value.LoadBitmap(stream);
             return new DXImage(bitmap);

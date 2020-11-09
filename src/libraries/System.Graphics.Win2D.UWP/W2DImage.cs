@@ -6,7 +6,7 @@ using Microsoft.Graphics.Canvas;
 
 namespace System.Graphics.Win2D
 {
-    internal class W2DImage : EWImage
+    internal class W2DImage : IImage
     {
         private readonly ICanvasResourceCreator _creator;
         private CanvasBitmap _bitmap;
@@ -25,7 +25,7 @@ namespace System.Graphics.Win2D
             bitmap?.Dispose();
         }
 
-        public EWImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             if (Width > maxWidthOrHeight || Height > maxWidthOrHeight)
             {
@@ -54,12 +54,12 @@ namespace System.Graphics.Win2D
             return this;
         }
 
-        public EWImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
+        public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             throw new NotImplementedException();
         }
 
-        public EWImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit,
+        public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit,
             bool disposeOriginal = false)
         {
             throw new NotImplementedException();
@@ -69,11 +69,11 @@ namespace System.Graphics.Win2D
 
         public float Height => (float)_bitmap.Size.Height;
 
-        public void Save(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case ImageFormat.Jpeg:
                     AsyncPump.Run(async () => await _bitmap.SaveAsync(stream.AsRandomAccessStream(), CanvasBitmapFileFormat.Jpeg, quality));
                     break;
                 default:
@@ -82,11 +82,11 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public async Task SaveAsync(Stream stream, EWImageFormat format = EWImageFormat.Png, float quality = 1)
+        public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             switch (format)
             {
-                case EWImageFormat.Jpeg:
+                case ImageFormat.Jpeg:
                     await _bitmap.SaveAsync(stream.AsRandomAccessStream(), CanvasBitmapFileFormat.Jpeg, quality);
                     break;
                 default:

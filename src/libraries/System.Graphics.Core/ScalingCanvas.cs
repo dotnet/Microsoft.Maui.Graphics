@@ -49,7 +49,7 @@ namespace System.Graphics
             set => _canvas.StrokeColor = value;
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             set => _canvas.StrokeLineCap = value;
         }
@@ -59,7 +59,7 @@ namespace System.Graphics
             set => _canvas.Alpha = value;
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             set => _canvas.StrokeLineJoin = value;
         }
@@ -124,7 +124,7 @@ namespace System.Graphics
             _canvas.DrawOval(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
 
-        public void DrawImage(EWImage image, float x, float y, float width, float height)
+        public void DrawImage(IImage image, float x, float y, float width, float height)
         {
             _canvas.DrawImage(image, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY);
         }
@@ -139,13 +139,13 @@ namespace System.Graphics
             _canvas.DrawRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public void DrawString(string value, float x, float y, EwHorizontalAlignment horizontalAlignment)
+        public void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, horizontalAlignment);
         }
 
-        public void DrawString(string value, float x, float y, float width, float height, EwHorizontalAlignment horizontalAlignment, EwVerticalAlignment verticalAlignment,
-            EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS, float lineSpacingAdjustment = 0)
+        public void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0)
         {
             _canvas.DrawString(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, horizontalAlignment, verticalAlignment, textFlow);
         }
@@ -170,17 +170,17 @@ namespace System.Graphics
             _canvas.FillRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
         }
 
-        public void DrawPath(EWPath path)
+        public void DrawPath(PathF path)
         {
             _canvas.DrawPath(path);
         }
 
-        public void FillPath(EWPath path, EWWindingMode windingMode)
+        public void FillPath(PathF path, WindingMode windingMode)
         {
             _canvas.FillPath(path, windingMode);
         }
 
-        public void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
+        public void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero)
         {
             _canvas.ClipPath(path, windingMode);
         }
@@ -195,7 +195,7 @@ namespace System.Graphics
             _canvas.Rotate(degrees, x * _scaleX, y * _scaleY);
         }
 
-        public void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
+        public void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
         {
             _canvas.SetFillPaint(paint, x1 * _scaleX, y1 * _scaleY, x2 * _scaleX, y2 * _scaleY);
         }

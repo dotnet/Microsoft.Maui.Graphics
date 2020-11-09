@@ -6,7 +6,7 @@ namespace System.Graphics.GDI
     {
         private readonly EWRectangle dirtyRect = new EWRectangle();
         private GDIGraphicsRenderer renderer;
-        private EWDrawable drawable;
+        private IDrawable drawable;
 
         public GDIGraphicsView()
         {
@@ -15,7 +15,7 @@ namespace System.Graphics.GDI
             Drawable = null;
         }
 
-        public GDIGraphicsView(EWDrawable drawable = null, GDIGraphicsRenderer renderer = null)
+        public GDIGraphicsView(IDrawable drawable = null, GDIGraphicsRenderer renderer = null)
         {
             DoubleBuffered = true;
             Drawable = drawable;
@@ -67,7 +67,7 @@ namespace System.Graphics.GDI
             }
         }
 
-        public EWDrawable Drawable
+        public IDrawable Drawable
         {
             get => drawable;
             set

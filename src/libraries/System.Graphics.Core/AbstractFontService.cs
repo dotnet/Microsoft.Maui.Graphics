@@ -12,7 +12,7 @@ namespace System.Graphics
         private IFontStyle _defaultFontStyle;
         private bool _buildingDefaultStyle;
 
-        public abstract IFontFamily[] GetFontFamilies();
+        public abstract FontFamily[] GetFontFamilies();
 
         protected AbstractFontService(
             string defaultFontStyleName = "Arial",

@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 
@@ -25,7 +25,7 @@ namespace GraphicsTester.Scenarios
             canvas.DrawOval(200, 400, 100, 50);
             canvas.DrawRoundedRectangle(350, 400, 100, 50, 25);
 
-            var path = new EWPath();
+            var path = new PathF();
             path.MoveTo(550, 400);
             path.LineTo(500, 450);
             path.LineTo(600, 450);

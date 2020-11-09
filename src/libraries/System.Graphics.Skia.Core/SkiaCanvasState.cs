@@ -88,28 +88,28 @@ namespace System.Graphics.Skia
             }
         }
 
-        public EWLineCap StrokeLineCap
+        public LineCap StrokeLineCap
         {
             set
             {
-                if (value == EWLineCap.BUTT)
+                if (value == LineCap.Butt)
                     StrokePaint.StrokeCap = SKStrokeCap.Butt;
-                else if (value == EWLineCap.ROUND)
+                else if (value == LineCap.Round)
                     StrokePaint.StrokeCap = SKStrokeCap.Round;
-                else if (value == EWLineCap.SQUARE)
+                else if (value == LineCap.Square)
                     StrokePaint.StrokeCap = SKStrokeCap.Square;
             }
         }
 
-        public EWLineJoin StrokeLineJoin
+        public LineJoin StrokeLineJoin
         {
             set
             {
-                if (value == EWLineJoin.MITER)
+                if (value == LineJoin.Miter)
                     StrokePaint.StrokeJoin = SKStrokeJoin.Miter;
-                else if (value == EWLineJoin.ROUND)
+                else if (value == LineJoin.Round)
                     StrokePaint.StrokeJoin = SKStrokeJoin.Round;
-                else if (value == EWLineJoin.BEVEL)
+                else if (value == LineJoin.Bevel)
                     StrokePaint.StrokeJoin = SKStrokeJoin.Bevel;
             }
         }

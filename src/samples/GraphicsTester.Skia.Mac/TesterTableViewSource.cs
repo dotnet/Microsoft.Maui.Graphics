@@ -8,7 +8,7 @@ namespace GraphicsTester.Skia
 {
     public class TesterTableViewSource : NSTableViewSource
     {
-        public event Action<EWDrawable> ScenarioSelected;
+        public event Action<IDrawable> ScenarioSelected;
 
         public override NSObject GetObjectValue (NSTableView tableView, NSTableColumn tableColumn, nint row)
         {

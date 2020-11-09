@@ -6,7 +6,7 @@ namespace System.Graphics.Android
     {
         MDGraphicsView GraphicsView { set; }
         ICanvas Canvas { get; }
-        EWDrawable Drawable { get; set; }
+        IDrawable Drawable { get; set; }
         Color BackgroundColor { get; set; }
         void Draw(Canvas androidCanvas, EWRectangle dirtyRect, bool inPanOrZoom);
         void SizeChanged(int width, int height);

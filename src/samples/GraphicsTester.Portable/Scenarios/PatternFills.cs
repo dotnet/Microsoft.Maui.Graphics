@@ -9,7 +9,7 @@ namespace GraphicsTester.Scenarios
         {
         }
 
-        public override void Draw(ICanvas canvas, float zoom, float ppu)
+        public override void Draw(ICanvas canvas)
         {
             canvas.SaveState();
 
@@ -31,9 +31,9 @@ namespace GraphicsTester.Scenarios
             canvas.RestoreState();
         }
 
-        private IPattern AddPictureAsPattern(EWPicture picture, float stepX, float stepY)
+        private IPattern AddPictureAsPattern(Picture picture, float stepX, float stepY)
         {
-            return new EWPicturePattern(picture, stepX, stepY);
+            return new PicturePattern(picture, stepX, stepY);
         }
     }
 }
