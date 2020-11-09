@@ -2,9 +2,9 @@
 
 namespace System.Graphics.Android
 {
-    public interface MDGraphicsRenderer : IDisposable
+    public interface IGraphicsRenderer : IDisposable
     {
-        MDGraphicsView GraphicsView { set; }
+        GraphicsView GraphicsView { set; }
         ICanvas Canvas { get; }
         IDrawable Drawable { get; set; }
         Color BackgroundColor { get; set; }

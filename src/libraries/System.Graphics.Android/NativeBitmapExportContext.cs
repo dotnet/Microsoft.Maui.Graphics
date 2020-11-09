@@ -3,14 +3,14 @@ using Android.Graphics;
 
 namespace System.Graphics.Android
 {
-    public class MDBitmapExportContext : BitmapExportContext
+    public class NativeBitmapExportContext : BitmapExportContext
     {
         private Bitmap _bitmap;
         private Canvas _androidCanvas;
         private readonly ScalingCanvas _canvas;
         private readonly bool _disposeBitmap;
 
-        public MDBitmapExportContext(int width, int height, float displayScale = 1, int dpi = 72, bool disposeBitmap = true, bool transparent = true) : base(width, height, dpi)
+        public NativeBitmapExportContext(int width, int height, float displayScale = 1, int dpi = 72, bool disposeBitmap = true, bool transparent = true) : base(width, height, dpi)
         {
             _bitmap = Bitmap.CreateBitmap(
                 width,
@@ -20,7 +20,7 @@ namespace System.Graphics.Android
                     : Bitmap.Config.Rgb565);
 
             _androidCanvas = new Canvas(_bitmap);
-            var nativeCanvas = new MDCanvas(null)
+            var nativeCanvas = new NativeCanvas(null)
             {
                 Canvas = _androidCanvas,
             };
@@ -33,7 +33,7 @@ namespace System.Graphics.Android
 
         public override ICanvas Canvas => _canvas;
 
-        public override IImage Image => new MDImage(Bitmap);
+        public override IImage Image => new NativeImage(Bitmap);
 
         public Bitmap Bitmap => _bitmap;
 

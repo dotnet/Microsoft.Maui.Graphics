@@ -20,7 +20,7 @@ namespace System.Graphics.Win2D
             NativeFontWeight = weight;
         }
 
-        public FontFamily FontFamily => _family;
+        public IFontFamily FontFamily => _family;
 
         public string Id { get; }
 

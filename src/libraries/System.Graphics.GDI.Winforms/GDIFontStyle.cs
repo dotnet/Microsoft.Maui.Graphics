@@ -17,7 +17,7 @@ namespace System.Graphics.GDI
             Weight = weight;
         }
 
-        public FontFamily FontFamily => _family;
+        public IFontFamily FontFamily => _family;
 
         public string Id { get; }
 

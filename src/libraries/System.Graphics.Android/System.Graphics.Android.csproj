@@ -46,24 +46,23 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="FontInfo.cs" />
-        <Compile Include="MDImageExtensions.cs" />
+        <Compile Include="ImageExtensions.cs" />
         <Compile Include="Resources\Resource.designer.cs" />
         <Compile Include="BufferedCanvas.cs" />
         <Compile Include="FontAnalyzer.cs" />
-        <Compile Include="MDCanvas.cs" />
-        <Compile Include="MDCanvasState.cs" />
-        <Compile Include="MDDirectRenderer.cs" />
-        <Compile Include="MDBitmapExportContext.cs" />
-        <Compile Include="MDGraphicsRenderer.cs" />
-        <Compile Include="MDGraphicsService.cs" />
-        <Compile Include="MDGraphicsView.cs" />
-        <Compile Include="MDImage.cs" />
-        <Compile Include="MDPath.cs" />
-        <Compile Include="MDTextLayout.cs" />
-        <Compile Include="MDGraphicsExtensions.cs" />
-        <Compile Include="MDFontService.cs" />
-        <Compile Include="MDFontFamily.cs" />
-        <Compile Include="MDFontStyle.cs" />
+        <Compile Include="NativeCanvas.cs" />
+        <Compile Include="NativeCanvasState.cs" />
+        <Compile Include="DirectRenderer.cs" />
+        <Compile Include="NativeBitmapExportContext.cs" />
+        <Compile Include="IGraphicsRenderer.cs" />
+        <Compile Include="NativeGraphicsService.cs" />
+        <Compile Include="GraphicsView.cs" />
+        <Compile Include="NativeImage.cs" />
+        <Compile Include="TextLayoutUtils.cs" />
+        <Compile Include="GraphicsExtensions.cs" />
+        <Compile Include="NativeFontService.cs" />
+        <Compile Include="NativeFontFamily.cs" />
+        <Compile Include="NativeFontStyle.cs" />
     </ItemGroup>
     <ItemGroup>
         <None Include="Elevenworks.Graphics.Android.nuspec">

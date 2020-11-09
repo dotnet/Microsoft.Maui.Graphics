@@ -8,18 +8,18 @@ namespace System.Graphics.Win2D
     {
         public static W2DFontService Instance = new W2DFontService();
 
-        private FontFamily[] _fontFamilies;
+        private IFontFamily[] _fontFamilies;
 
         protected W2DFontService() : base("Arial", "Helvetica")
         {
         }
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             return _fontFamilies ?? (_fontFamilies = Initialize());
         }
 
-        public FontFamily[] Initialize()
+        public IFontFamily[] Initialize()
         {
             var familyList = new List<W2DFontFamily>();
             var families = new Dictionary<string, W2DFontFamily>();
@@ -65,7 +65,7 @@ namespace System.Graphics.Win2D
             foreach (var family in familyList)
                 family.RemoveDuplicates();
 
-            return familyList.OfType<FontFamily>().ToArray();
+            return familyList.OfType<IFontFamily>().ToArray();
         }
     }
 }

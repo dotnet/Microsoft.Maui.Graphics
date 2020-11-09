@@ -9,14 +9,14 @@ namespace System.Graphics.GDI
     {
         public static GDIFontService Instance = new GDIFontService();
 
-        private FontFamily[] _fontFamilies;
+        private IFontFamily[] _fontFamilies;
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             return _fontFamilies ?? (_fontFamilies = Initialize());
         }
 
-        public FontFamily[] Initialize()
+        public IFontFamily[] Initialize()
         {
             var styles = new[] {FontStyle.Bold, FontStyle.Italic, FontStyle.Regular};
 
@@ -69,7 +69,7 @@ namespace System.Graphics.GDI
             foreach (var family in familyList)
                 family.RemoveDuplicates();
 
-            return familyList.OfType<FontFamily>().ToArray();
+            return familyList.OfType<IFontFamily>().ToArray();
         }
     }
 }

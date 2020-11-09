@@ -2,7 +2,7 @@
 {
     public interface IFontService
     {
-        FontFamily[] GetFontFamilies();
+        IFontFamily[] GetFontFamilies();
         IFontStyle GetFontStyleById(string id);
         IFontStyle GetDefaultFontStyle();
     }

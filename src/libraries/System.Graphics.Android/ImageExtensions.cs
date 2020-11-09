@@ -2,13 +2,13 @@ using Android.Graphics;
 
 namespace System.Graphics.Android
 {
-    public static class MDImageExtensions
+    public static class ImageExtensions
     {
         public static Bitmap AsBitmap(this IImage image)
         {
-            if (image is MDImage mdimage)
+            if (image is NativeImage mdimage)
             {
-                return mdimage.NativeImage;
+                return mdimage.Bitmap;
             }
 
             if (image != null)

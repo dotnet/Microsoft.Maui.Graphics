@@ -8,9 +8,9 @@ namespace System.Graphics.SharpDX
     {
         public static DXFontService Instance = new DXFontService();
 
-        private FontFamily[] _fontFamilies;
+        private IFontFamily[] _fontFamilies;
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             if (_fontFamilies == null)
                 _fontFamilies = Initialize();
@@ -18,7 +18,7 @@ namespace System.Graphics.SharpDX
             return _fontFamilies;
         }
 
-        public FontFamily[] Initialize()
+        public IFontFamily[] Initialize()
         {
             var familyList = new List<DXFontFamily>();
             var families = new Dictionary<string, DXFontFamily>();
@@ -76,7 +76,7 @@ namespace System.Graphics.SharpDX
             foreach (var family in familyList)
                 family.RemoveDuplicates();
 
-            return familyList.OfType<FontFamily>().ToArray();
+            return familyList.OfType<IFontFamily>().ToArray();
         }
     }
 }

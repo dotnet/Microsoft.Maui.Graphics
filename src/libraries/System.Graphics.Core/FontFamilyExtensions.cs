@@ -3,14 +3,14 @@
     public static class FontFamilyExtensions
     {
         public static IFontStyle GetBoldStyle(
-            this FontFamily family,
+            this IFontFamily family,
             FontStyleType type = FontStyleType.Normal)
         {
             return family?.GetStyleWithWeightNearestTo(500, type);
         }
 
         public static IFontStyle GetStyleWithWeightNearestTo(
-            this FontFamily family,
+            this IFontFamily family,
             int weight,
             FontStyleType type = FontStyleType.Normal)
         {

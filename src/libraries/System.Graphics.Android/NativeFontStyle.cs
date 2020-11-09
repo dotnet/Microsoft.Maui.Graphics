@@ -2,11 +2,11 @@
 
 namespace System.Graphics.Android
 {
-    public class MDFontStyle : IFontStyle, IComparable
+    public class NativeFontStyle : IFontStyle, IComparable
     {
-        private readonly MDFontFamily _family;
+        private readonly NativeFontFamily _family;
 
-        public MDFontStyle(MDFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType, string path, bool resource = false)
+        public NativeFontStyle(NativeFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType, string path, bool resource = false)
         {
             _family = family;
             Id = id;
@@ -18,7 +18,7 @@ namespace System.Graphics.Android
             Resource = resource;
         }
 
-        public FontFamily FontFamily => _family;
+        public IFontFamily FontFamily => _family;
 
         public string Id { get; }
 
@@ -40,9 +40,9 @@ namespace System.Graphics.Android
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (obj.GetType() != typeof(MDFontStyle))
+            if (obj.GetType() != typeof(NativeFontStyle))
                 return false;
-            MDFontStyle other = (MDFontStyle) obj;
+            NativeFontStyle other = (NativeFontStyle) obj;
             return Id == other.Id;
         }
 

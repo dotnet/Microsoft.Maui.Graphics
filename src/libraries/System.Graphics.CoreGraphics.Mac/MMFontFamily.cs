@@ -4,7 +4,7 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMFontFamily : FontFamily, IComparable<FontFamily>, IComparable
+    public class MMFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
     {
         private readonly string _name;
         private IFontStyle[] _fontStyles;
@@ -78,14 +78,14 @@ namespace System.Graphics.CoreGraphics
             return Name;
         }
 
-        public int CompareTo(FontFamily other)
+        public int CompareTo(IFontFamily other)
         {
             return string.Compare(_name, other?.Name, StringComparison.Ordinal);
         }
 
         public int CompareTo(object obj)
         {
-            return CompareTo(obj as FontFamily);
+            return CompareTo(obj as IFontFamily);
         }
     }
 }

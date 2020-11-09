@@ -4,7 +4,7 @@ using Color = Android.Graphics.Color;
 
 namespace System.Graphics.Android
 {
-    public class MDCanvasState : CanvasState, IBlurrableCanvas
+    public class NativeCanvasState : CanvasState, IBlurrableCanvas
     {
         public float Alpha = 1;
         private global::Android.Graphics.Paint _fillPaint;
@@ -28,11 +28,11 @@ namespace System.Graphics.Android
         private Color _fillColor = Colors.White;
         private Color _fontColor = Colors.Black;
 
-        public MDCanvasState()
+        public NativeCanvasState()
         {
         }
 
-        public MDCanvasState(MDCanvasState prototype) : base(prototype)
+        public NativeCanvasState(NativeCanvasState prototype) : base(prototype)
         {
             _strokeColor = prototype._strokeColor;
             _fillColor = prototype._fillColor;
@@ -214,12 +214,12 @@ namespace System.Graphics.Android
                     _fontPaint = new TextPaint();
                     _fontPaint.SetARGB(1, 0, 0, 0);
                     _fontPaint.AntiAlias = true;
-                    _fontPaint.SetTypeface(MDFontService.Instance.GetTypeface("Arial"));
+                    _fontPaint.SetTypeface(NativeFontService.Instance.GetTypeface("Arial"));
                 }
 
                 if (_typefaceInvalid)
                 {
-                    _fontPaint.SetTypeface(MDFontService.Instance.GetTypeface(_fontName));
+                    _fontPaint.SetTypeface(NativeFontService.Instance.GetTypeface(_fontName));
                     _typefaceInvalid = false;
                 }
 

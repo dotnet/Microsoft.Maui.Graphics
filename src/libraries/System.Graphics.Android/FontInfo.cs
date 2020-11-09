@@ -2,12 +2,12 @@ namespace System.Graphics.Android
 {
     public class FontInfo
     {
-        public FontInfo(string aPath, string aFamily, string aStyle, string aFullName)
+        public FontInfo(string path, string family, string style, string fullName)
         {
-            Path = aPath;
-            Family = aFamily;
-            Style = aStyle;
-            FullName = aFullName;
+            Path = path;
+            Family = family;
+            Style = style;
+            FullName = fullName;
         }
 
         public string Path { get; }

@@ -10,7 +10,7 @@ namespace System.Graphics.CoreGraphics
         public static MMFontService Instance = new MMFontService();
         private static string _systemFontName;
 
-        private readonly FontFamily[] _fontFamilies;
+        private readonly IFontFamily[] _fontFamilies;
         private readonly Dictionary<string, CTFont> _fontCache = new Dictionary<string, CTFont>();
         private readonly Dictionary<string, DateTime> _fontLastUsed = new Dictionary<string, DateTime>();
 
@@ -34,16 +34,16 @@ namespace System.Graphics.CoreGraphics
             _fontFamilies = InitializeFontFamilies();
         }
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             return _fontFamilies;
         }
 
-        public FontFamily[] InitializeFontFamilies()
+        public IFontFamily[] InitializeFontFamilies()
         {
             var familyNames = NSFontManager.SharedFontManager.AvailableFontFamilies;
 
-            var families = new List<FontFamily>();
+            var families = new List<IFontFamily>();
 
             for (int i = 0; i < familyNames.Length; i++)
             {

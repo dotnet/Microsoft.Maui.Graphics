@@ -6,7 +6,7 @@ namespace System.Graphics.Skia
     public class SkiaFontService : AbstractFontService
     {
         private readonly Dictionary<string, SKTypeface> _typeFaces = new Dictionary<string, SKTypeface>();
-        private readonly FontFamily[] _fontFamilies;
+        private readonly IFontFamily[] _fontFamilies;
         private readonly string _systemFontName;
         private readonly string _boldSystemFontName;
 
@@ -18,7 +18,7 @@ namespace System.Graphics.Skia
             _fontFamilies = InitializeFontFamilies();
         }
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             return _fontFamilies;
         }
@@ -64,11 +64,11 @@ namespace System.Graphics.Skia
             _typeFaces.Clear();
         }
 
-        public FontFamily[] InitializeFontFamilies()
+        public IFontFamily[] InitializeFontFamilies()
         {
             var familyNames = SKFontManager.Default.GetFontFamilies();
 
-            var families = new List<FontFamily>();
+            var families = new List<IFontFamily>();
 
             foreach (var familyName in familyNames)
             {

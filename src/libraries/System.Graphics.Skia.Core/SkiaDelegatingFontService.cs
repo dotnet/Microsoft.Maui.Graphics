@@ -9,7 +9,7 @@ namespace System.Graphics.Skia
 
         private readonly Dictionary<string, SKTypeface> _typeFaces = new Dictionary<string, SKTypeface>();
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             var nativeFontService = Fonts.GlobalService;
             return nativeFontService.GetFontFamilies();

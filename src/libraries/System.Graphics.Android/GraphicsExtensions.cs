@@ -1,13 +1,9 @@
 using Android.Graphics;
 using Android.Text;
-using Color = Android.Graphics.Color;
-using PointF = Android.Graphics.PointF;
-using RectangleF = System.Drawing.RectangleF;
-using SizeF = System.Drawing.SizeF;
     
 namespace System.Graphics.Android
 {
-    public static class MDGraphicsExtensions
+    public static class GraphicsExtensions
     {
         public static global::Android.Graphics.Color AsColorMultiplyAlpha(this Color target, float alpha)
         {
@@ -110,13 +106,6 @@ namespace System.Graphics.Android
             var values = new float[9];
             transform.GetMatrix(values);
 
-            /*values [Matrix.MscaleX] = transform.GetScaleX (); // 0
-            values [Matrix.MskewX] = transform.GetShearX (); // 1
-            values [Matrix.MtransX] = transform.GetTranslateX (); // 2
-            values [Matrix.MskewY] = transform.GetShearY (); // 3
-            values [Matrix.MscaleY] = transform.GetScaleY (); // 4
-            values [Matrix.MtransY] = transform.GetTranslateY (); // 5*/
-
             values[Matrix.Mpersp0] = 0; // 6
             values[Matrix.Mpersp1] = 0; // 7
             values[Matrix.Mpersp2] = 1; // 8
@@ -126,22 +115,14 @@ namespace System.Graphics.Android
             return matrix;
         }
 
-        public static Path AsAndroidPath(this PathF target)
-        {
-            return AsAndroidPath(target, 1);
-        }
-
-        public static Path AsAndroidPath(this PathF path, float ppu)
-        {
-            return AsAndroidPath(path, ppu, 0, 0, 1, 1);
-        }
-
-        public static Path AsAndroidPath(this PathF path, float ppu, float ox, float oy, float fx, float fy)
+        public static Path AsAndroidPath(
+            this PathF path, 
+            float offsetX = 0, 
+            float offsetY = 0, 
+            float scaleX = 1, 
+            float scaleY = 1)
         {
             var nativePath = new Path();
-
-            float ppux = ppu * fx;
-            float ppuy = ppu * fy;
 
             int pointIndex = 0;
             int arcAngleIndex = 0;
@@ -152,27 +133,27 @@ namespace System.Graphics.Android
                 if (vType == PathOperation.Move)
                 {
                     var point = path[pointIndex++];
-                    nativePath.MoveTo(ox + point.X * ppux, oy + point.Y * ppuy);
+                    nativePath.MoveTo(offsetX + point.X * scaleX, offsetY + point.Y * scaleY);
                 }
                 else if (vType == PathOperation.Line)
                 {
                     var point = path[pointIndex++];
-                    nativePath.LineTo(ox + point.X * ppux, oy + point.Y * ppuy);
+                    nativePath.LineTo(offsetX + point.X * scaleX, offsetY + point.Y * scaleY);
                 }
 
                 else if (vType == PathOperation.Quad)
                 {
                     var controlPoint = path[pointIndex++];
                     var point = path[pointIndex++];
-                    nativePath.QuadTo(ox + controlPoint.X * ppux, oy + controlPoint.Y * ppuy, ox + point.X * ppux, oy + point.Y * ppuy);
+                    nativePath.QuadTo(offsetX + controlPoint.X * scaleX, offsetY + controlPoint.Y * scaleY, offsetX + point.X * scaleX, offsetY + point.Y * scaleY);
                 }
                 else if (vType == PathOperation.Cubic)
                 {
                     var controlPoint1 = path[pointIndex++];
                     var controlPoint2 = path[pointIndex++];
                     var point = path[pointIndex++];
-                    nativePath.CubicTo(ox + controlPoint1.X * ppux, oy + controlPoint1.Y * ppuy, ox + controlPoint2.X * ppux, oy + controlPoint2.Y * ppuy, ox + point.X * ppux,
-                        oy + point.Y * ppuy);
+                    nativePath.CubicTo(offsetX + controlPoint1.X * scaleX, offsetY + controlPoint1.Y * scaleY, offsetX + controlPoint2.X * scaleX, offsetY + controlPoint2.Y * scaleY, offsetX + point.X * scaleX,
+                        offsetY + point.Y * scaleY);
                 }
                 else if (vType == PathOperation.Arc)
                 {
@@ -192,7 +173,7 @@ namespace System.Graphics.Android
                         endAngle += 360;
                     }
 
-                    var rect = new RectF(ox + topLeft.X * ppux, oy + topLeft.Y * ppuy, ox + bottomRight.X * ppux, oy + bottomRight.Y * ppuy);
+                    var rect = new RectF(offsetX + topLeft.X * scaleX, offsetY + topLeft.Y * scaleY, offsetX + bottomRight.X * scaleX, offsetY + bottomRight.Y * scaleY);
                     var sweep = Geometry.GetSweep(startAngle, endAngle, clockwise);
 
                     startAngle *= -1;
@@ -372,7 +353,7 @@ namespace System.Graphics.Android
             return path;
         }
 
-        public static SizeF AsSize(this Drawing.SizeF target)
+        public static SizeF AsSizeF(this Drawing.SizeF target)
         {
             return new SizeF(target.Width, target.Height);
         }
@@ -382,7 +363,7 @@ namespace System.Graphics.Android
             return new Drawing.SizeF(target.Width, target.Height);
         }
 
-        public static PointF AsEWPoint(this global::Android.Graphics.PointF target)
+        public static PointF AsPointF(this global::Android.Graphics.PointF target)
         {
             return new PointF(target.X, target.Y);
         }
@@ -393,7 +374,7 @@ namespace System.Graphics.Android
             if (pattern == null)
                 return null;
 
-            using (var context = new MDBitmapExportContext((int) (pattern.Width * scale), (int) (pattern.Height * scale), scale, disposeBitmap: false))
+            using (var context = new NativeBitmapExportContext((int) (pattern.Width * scale), (int) (pattern.Height * scale), scale, disposeBitmap: false))
             {
                 var canvas = context.Canvas;
                 canvas.Scale(scale, scale);
@@ -411,7 +392,7 @@ namespace System.Graphics.Android
             if (pattern == null)
                 return null;
 
-            using (var context = new MDBitmapExportContext((int) (pattern.Width * scaleX), (int) (pattern.Height * scaleY), disposeBitmap: false))
+            using (var context = new NativeBitmapExportContext((int) (pattern.Width * scaleX), (int) (pattern.Height * scaleY), disposeBitmap: false))
             {
                 var scalingCanvas = new ScalingCanvas(context.Canvas);
                 scalingCanvas.Scale(scaleX, scaleY);

@@ -1,6 +1,6 @@
 ﻿namespace System.Graphics
 {
-    public interface FontFamily
+    public interface IFontFamily
     {
         string Name { get; }
         IFontStyle[] GetFontStyles();

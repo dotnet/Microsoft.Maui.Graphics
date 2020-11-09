@@ -4,7 +4,7 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTFontFamily : FontFamily, IComparable<FontFamily>, IComparable
+    public class MTFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
     {
         private readonly string _name;
         private IFontStyle[] _fontStyles;
@@ -86,14 +86,14 @@ namespace System.Graphics.CoreGraphics
             return styleNames;
         }
 
-        public int CompareTo(FontFamily other)
+        public int CompareTo(IFontFamily other)
         {
             return string.Compare(_name, other.Name, StringComparison.Ordinal);
         }
 
         public int CompareTo(object obj)
         {
-            if (obj is FontFamily other)
+            if (obj is IFontFamily other)
                 return CompareTo(other);
 
             return -1;

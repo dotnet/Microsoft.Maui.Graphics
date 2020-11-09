@@ -5,34 +5,34 @@ using Android.Graphics;
 
 namespace System.Graphics.Android
 {
-    public class MDImage : IImage
+    public class NativeImage : IImage
     {
-        private Bitmap _image;
+        private Bitmap _bitmap;
 
-        public MDImage(Bitmap image)
+        public NativeImage(Bitmap bitmap)
         {
-            _image = image;
+            _bitmap = bitmap;
         }
 
-        public float Width => _image.Width;
+        public float Width => _bitmap.Width;
 
-        public float Height => _image.Height;
+        public float Height => _bitmap.Height;
 
         public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
-            var downsizedImage = _image.Downsize((int) maxWidthOrHeight, disposeOriginal);
-            return new MDImage(downsizedImage);
+            var downsizedImage = _bitmap.Downsize((int) maxWidthOrHeight, disposeOriginal);
+            return new NativeImage(downsizedImage);
         }
 
         public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
-            var downsizedImage = _image.Downsize((int) maxWidth, (int) maxHeight, disposeOriginal);
-            return new MDImage(downsizedImage);
+            var downsizedImage = _bitmap.Downsize((int) maxWidth, (int) maxHeight, disposeOriginal);
+            return new NativeImage(downsizedImage);
         }
 
         public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
-            using (var context = new MDBitmapExportContext((int) width, (int) height))
+            using (var context = new NativeBitmapExportContext((int) width, (int) height))
             {
                 var fx = width / Width;
                 var fy = height / Height;
@@ -86,17 +86,17 @@ namespace System.Graphics.Android
             }
         }
 
-        public Bitmap NativeImage => _image;
+        public Bitmap Bitmap => _bitmap;
         
         public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
             switch (format)
             {
                 case ImageFormat.Jpeg:
-                    _image.Compress(Bitmap.CompressFormat.Jpeg, (int) (quality * 100), stream);
+                    _bitmap.Compress(Bitmap.CompressFormat.Jpeg, (int) (quality * 100), stream);
                     break;
                 default:
-                    _image.Compress(Bitmap.CompressFormat.Png, 100, stream);
+                    _bitmap.Compress(Bitmap.CompressFormat.Png, 100, stream);
                     break;
             }
         }
@@ -106,17 +106,17 @@ namespace System.Graphics.Android
             switch (format)
             {
                 case ImageFormat.Jpeg:
-                    await _image.CompressAsync(Bitmap.CompressFormat.Jpeg, (int) (quality * 100), stream);
+                    await _bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, (int) (quality * 100), stream);
                     break;
                 default:
-                    await _image.CompressAsync(Bitmap.CompressFormat.Png, 100, stream);
+                    await _bitmap.CompressAsync(Bitmap.CompressFormat.Png, 100, stream);
                     break;
             }
         }
 
         public void Dispose()
         {
-            var disp = Interlocked.Exchange(ref _image, null);
+            var disp = Interlocked.Exchange(ref _bitmap, null);
             disp?.Dispose();
         }
 

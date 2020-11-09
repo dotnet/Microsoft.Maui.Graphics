@@ -3,12 +3,12 @@ using Android.Text;
 
 namespace System.Graphics.Android
 {
-    public static class MDTextLayout
+    public static class TextLayoutUtils
     {
         public static StaticLayout CreateLayout(string text, TextPaint textPaint, int? boundedWidth, Layout.Alignment alignment)
         {
             int finalWidth = int.MaxValue;
-            if (boundedWidth != null && boundedWidth > 0)
+            if (boundedWidth > 0)
                 finalWidth = (int) boundedWidth;
 
             var layout = new StaticLayout(
@@ -26,7 +26,7 @@ namespace System.Graphics.Android
         public static StaticLayout CreateLayoutForSpannedString(SpannableString spannedString, TextPaint textPaint, int? boundedWidth, Layout.Alignment alignment)
         {
             int finalWidth = int.MaxValue;
-            if (boundedWidth != null && boundedWidth > 0)
+            if (boundedWidth > 0)
                 finalWidth = (int) boundedWidth;
 
             var layout = new StaticLayout(
@@ -41,31 +41,31 @@ namespace System.Graphics.Android
             return layout;
         }
 
-        public static Drawing.SizeF GetTextSize(this StaticLayout aTarget)
+        public static Drawing.SizeF GetTextSize(this StaticLayout target)
         {
             // Get the text bounds and assume (the safe assumption) that the layout wasn't
             // created with a bounded width.
-            return GetTextSize(aTarget, false);
+            return GetTextSize(target, false);
         }
 
-        public static Drawing.SizeF GetTextSize(this StaticLayout aTarget, bool aHasBoundedWidth)
+        public static Drawing.SizeF GetTextSize(this StaticLayout target, bool hasBoundedWidth)
         {
             // We need to know if the static layout was created with a bounded width, as this is what 
             // StaticLayout.Width returns.
-            if (aHasBoundedWidth)
-                return new Drawing.SizeF(aTarget.Width, aTarget.Height);
+            if (hasBoundedWidth)
+                return new Drawing.SizeF(target.Width, target.Height);
 
             float vMaxWidth = 0;
-            int vLineCount = aTarget.LineCount;
+            int vLineCount = target.LineCount;
 
             for (int i = 0; i < vLineCount; i++)
             {
-                float vLineWidth = aTarget.GetLineWidth(i);
+                float vLineWidth = target.GetLineWidth(i);
                 if (vLineWidth > vMaxWidth)
                     vMaxWidth = vLineWidth;
             }
 
-            return new Drawing.SizeF(vMaxWidth, aTarget.Height);
+            return new Drawing.SizeF(vMaxWidth, target.Height);
         }
     }
 }

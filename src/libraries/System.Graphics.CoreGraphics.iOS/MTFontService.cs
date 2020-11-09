@@ -13,7 +13,7 @@ namespace System.Graphics.CoreGraphics
         private CGFont _boldSystemFont;
 
         private readonly Dictionary<string, CTFont> _fontCache = new Dictionary<string, CTFont>();
-        private readonly FontFamily[] _fontFamilies;
+        private readonly IFontFamily[] _fontFamilies;
         private readonly string _systemFontName;
         private readonly string _boldSystemFontName;
 
@@ -30,16 +30,16 @@ namespace System.Graphics.CoreGraphics
             boldFont.Dispose();
         }
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             return _fontFamilies;
         }
 
-        public FontFamily[] InitializeFontFamilies()
+        public IFontFamily[] InitializeFontFamilies()
         {
             var familyNames = UIFont.FamilyNames;
 
-            var families = new List<FontFamily>();
+            var families = new List<IFontFamily>();
 
             foreach (var familyName in familyNames)
             {

@@ -30,7 +30,7 @@ namespace System.Graphics.SharpDX
             _dxFontFace = fontFace;
         }
 
-        public FontFamily FontFamily => _family;
+        public IFontFamily FontFamily => _family;
 
         public string Id => _id;
 

@@ -2,13 +2,13 @@
 
 namespace System.Graphics.Android
 {
-    public class MDFontFamily : FontFamily, IComparable<FontFamily>, IComparable
+    public class NativeFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
     {
         private readonly string _name;
         private IFontStyle[] _fontStyles;
         private readonly List<IFontStyle> _styleList = new List<IFontStyle>();
 
-        public MDFontFamily(string name)
+        public NativeFontFamily(string name)
         {
             _name = name;
         }
@@ -20,7 +20,7 @@ namespace System.Graphics.Android
             return _fontStyles ?? (_fontStyles = InitializeFontStyles());
         }
 
-        internal void AddStyle(MDFontStyle style)
+        internal void AddStyle(NativeFontStyle style)
         {
             _fontStyles = null;
             _styleList.Add(style);
@@ -43,9 +43,9 @@ namespace System.Graphics.Android
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (obj.GetType() != typeof(MDFontFamily))
+            if (obj.GetType() != typeof(NativeFontFamily))
                 return false;
-            MDFontFamily other = (MDFontFamily) obj;
+            NativeFontFamily other = (NativeFontFamily) obj;
             return _name == other._name;
         }
 
@@ -62,14 +62,14 @@ namespace System.Graphics.Android
             return Name;
         }
 
-        public int CompareTo(FontFamily other)
+        public int CompareTo(IFontFamily other)
         {
             return String.Compare(_name, other.Name, StringComparison.Ordinal);
         }
 
         public int CompareTo(object obj)
         {
-            if (obj is FontFamily other)
+            if (obj is IFontFamily other)
                 return CompareTo(other);
 
             return -1;

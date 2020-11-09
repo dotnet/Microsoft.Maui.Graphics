@@ -3,17 +3,17 @@ using Android.Graphics;
 
 namespace System.Graphics.Android
 {
-    public class MDDirectRenderer : MDGraphicsRenderer
+    public class DirectRenderer : IGraphicsRenderer
     {
-        private readonly MDCanvas _canvas;
+        private readonly NativeCanvas _canvas;
         private readonly ScalingCanvas _scalingCanvas;
         private IDrawable _drawable;
-        private MDGraphicsView _graphicsView;
+        private GraphicsView _graphicsView;
         private Color _backgroundColor;
 
-        public MDDirectRenderer(Context context)
+        public DirectRenderer(Context context)
         {
-            _canvas = new MDCanvas(context);
+            _canvas = new NativeCanvas(context);
             _scalingCanvas = new ScalingCanvas(_canvas);
         }
 
@@ -29,7 +29,7 @@ namespace System.Graphics.Android
             }
         }
 
-        public MDGraphicsView GraphicsView
+        public GraphicsView GraphicsView
         {
             set => _graphicsView = value;
         }

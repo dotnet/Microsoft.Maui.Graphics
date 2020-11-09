@@ -5,19 +5,19 @@ using Android.Graphics;
 
 namespace System.Graphics.Android
 {
-    public class MDFontService : AbstractFontService
+    public class NativeFontService : AbstractFontService
     {
         public static Boolean FontAliasingEnabled { get; set; } = true;
         
         public const string SystemFont = "System";
         public const string SystemBoldFont = "System-Bold";
 
-        public static MDFontService Instance = new MDFontService();
+        public static NativeFontService Instance = new NativeFontService();
 
-        private FontFamily[] _fontFamilies;
+        private IFontFamily[] _fontFamilies;
         private readonly Dictionary<string, Typeface> _typeFaces = new Dictionary<string, Typeface>();
 
-        public MDFontService() : base("Droid Sans", "Roboto", "Aramo")
+        public NativeFontService() : base("Droid Sans", "Roboto", "Aramo")
         {
         }
 
@@ -36,18 +36,18 @@ namespace System.Graphics.Android
             "Symbol Std"
         };
 
-        public override FontFamily[] GetFontFamilies()
+        public override IFontFamily[] GetFontFamilies()
         {
             return _fontFamilies ?? (_fontFamilies = InitializeFonts());
         }
 
-        public FontFamily[] InitializeFonts()
+        public IFontFamily[] InitializeFonts()
         {
-            var families = new Dictionary<string, MDFontFamily>();
-            var familyList = new List<FontFamily>();
+            var families = new Dictionary<string, NativeFontFamily>();
+            var familyList = new List<IFontFamily>();
             var analyzer = new FontAnalyzer();
 
-            var assembly = typeof(MDFontService).Assembly;
+            var assembly = typeof(NativeFontService).Assembly;
             var resources = assembly.GetManifestResourceNames();
             foreach (var resource in resources)
             {
@@ -64,7 +64,7 @@ namespace System.Graphics.Android
 
                     if (!families.TryGetValue(familyName, out var family))
                     {
-                        family = new MDFontFamily(familyName);
+                        family = new NativeFontFamily(familyName);
                         families[familyName] = family;
                         familyList.Add(family);
                     }
@@ -81,7 +81,7 @@ namespace System.Graphics.Android
                     if ("Regular".Equals(type))
                         fullName = familyName;
 
-                    var style = new MDFontStyle(family, id, type, fullName, weight, styleType, resource, true);
+                    var style = new NativeFontStyle(family, id, type, fullName, weight, styleType, resource, true);
                     family.AddStyle(style);
 
                     if (FontAliasingEnabled)
@@ -129,7 +129,7 @@ namespace System.Graphics.Android
 
                         if (!families.TryGetValue(familyName, out family))
                         {
-                            family = new MDFontFamily(familyName);
+                            family = new NativeFontFamily(familyName);
                             families[familyName] = family;
                             familyList.Add(family);
                         }
@@ -153,7 +153,7 @@ namespace System.Graphics.Android
                             id = id + "-" + "Bold" + suffix;
                         }
 
-                        style = new MDFontStyle(family, id, type, fullName, weight, styleType, resource, true);
+                        style = new NativeFontStyle(family, id, type, fullName, weight, styleType, resource, true);
                         family.AddStyle(style);
                     }
                 }
@@ -180,7 +180,7 @@ namespace System.Graphics.Android
                                     {
                                         if (!families.TryGetValue(fontInfo.Family, out var family))
                                         {
-                                            family = new MDFontFamily(fontInfo.Family);
+                                            family = new NativeFontFamily(fontInfo.Family);
                                             families[fontInfo.Family] = family;
                                             familyList.Add(family);
                                         }
@@ -196,7 +196,7 @@ namespace System.Graphics.Android
                                             if (!"Regular".Equals(fontInfo.Style))
                                                 fullName = $"{fontInfo.Family} {name}";
 
-                                            var style = new MDFontStyle(family, id, name, fullName, weight, styleType, fontInfo.Path);
+                                            var style = new NativeFontStyle(family, id, name, fullName, weight, styleType, fontInfo.Path);
                                             family.AddStyle(style);
                                         }
                                         else
@@ -276,7 +276,7 @@ namespace System.Graphics.Android
             if (SystemBoldFont.Equals(name))
                 return Typeface.DefaultBold;
 
-            if (GetFontStyleById(name) is MDFontStyle fontStyle)
+            if (GetFontStyleById(name) is NativeFontStyle fontStyle)
             {
                 if (!_typeFaces.TryGetValue(name, out var typeface))
                 {
@@ -294,7 +294,7 @@ namespace System.Graphics.Android
                             if (!Directory.Exists(UserFontsPath))
                                 Directory.CreateDirectory(UserFontsPath);
 
-                            var assembly = typeof(MDFontService).Assembly;
+                            var assembly = typeof(NativeFontService).Assembly;
                             using (var stream = assembly.GetManifestResourceStream(resource))
                             {
                                 using (var outputStream = new FileStream(path, FileMode.Create, FileAccess.Write))
@@ -336,7 +336,7 @@ namespace System.Graphics.Android
         {
             if (name != null)
             {
-                if (GetFontStyleById(name) is MDFontStyle fontStyle)
+                if (GetFontStyleById(name) is NativeFontStyle fontStyle)
                     return fontStyle.Path;
             }
 

@@ -18,7 +18,7 @@ namespace GraphicsTester.Android
         {
             base.OnCreate (bundle);
 
-            GraphicsPlatform.Register (MDGraphicsService.Instance);
+            GraphicsPlatform.Register (NativeGraphicsService.Instance);
 
             _mainView = new MainView (this);
             // Defining the LinearLayout layout parameters to fill the parent.

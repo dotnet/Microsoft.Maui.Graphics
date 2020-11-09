@@ -6,7 +6,7 @@ using Android.Text;
 
 namespace System.Graphics.Android
 {
-    public class MDCanvas : AbstractCanvas<MDCanvasState>
+    public class NativeCanvas : AbstractCanvas<NativeCanvasState>
     {
         private static global::Android.Graphics.Paint _defaultFillPaint;
         private static TextPaint _defaultFontPaint;
@@ -17,12 +17,12 @@ namespace System.Graphics.Android
 
         private readonly Matrix _shaderMatrix = new Matrix();
 
-        public MDCanvas(Context context) : base(CreateNewState, CreateStateCopy)
+        public NativeCanvas(Context context) : base(CreateNewState, CreateStateCopy)
         {
             DisplayScale = context?.Resources?.DisplayMetrics?.Density ?? 1;
         }
 
-        private static MDCanvasState CreateNewState(object context)
+        private static NativeCanvasState CreateNewState(object context)
         {
             if (_defaultFillPaint == null)
             {
@@ -42,27 +42,27 @@ namespace System.Graphics.Android
                 _defaultFontPaint.SetARGB(255, 0, 0, 0);
                 _defaultFontPaint.AntiAlias = true;
 
-                var arial = MDFontService.Instance.GetTypeface("Arial");
+                var arial = NativeFontService.Instance.GetTypeface("Arial");
                 if (arial != null)
                     _defaultFontPaint.SetTypeface(arial);
                 else
                     Logger.Warn("Unable to set the default font paint to Arial");
             }
 
-            var state = new MDCanvasState
+            var state = new NativeCanvasState
             {
                 FillPaint = new global::Android.Graphics.Paint(_defaultFillPaint),
                 StrokePaint = new global::Android.Graphics.Paint(_defaultStrokePaint),
                 FontPaint = new TextPaint(_defaultFontPaint),
-                FontName = MDFontService.SystemFont
+                FontName = NativeFontService.SystemFont
             };
 
             return state;
         }
 
-        private static MDCanvasState CreateStateCopy(MDCanvasState prototype)
+        private static NativeCanvasState CreateStateCopy(NativeCanvasState prototype)
         {
-            return new MDCanvasState(prototype);
+            return new NativeCanvasState(prototype);
         }
 
         public override void Dispose()
@@ -127,7 +127,7 @@ namespace System.Graphics.Android
 
         public override String FontName
         {
-            set => CurrentState.FontName = value ?? MDFontService.SystemFont;
+            set => CurrentState.FontName = value ?? NativeFontService.SystemFont;
         }
 
         public override float FontSize
@@ -149,88 +149,88 @@ namespace System.Graphics.Android
     
                 switch (value)
                 {
-                    case EWBlendMode.Clear:
+                    case BlendMode.Clear:
                         vBlendMode = CGBlendMode.Clear;
                         break;
-                    case EWBlendMode.Color:
+                    case BlendMode.Color:
                         vBlendMode = CGBlendMode.Color;
                         break;
-                    case EWBlendMode.ColorBurn:
+                    case BlendMode.ColorBurn:
                         vBlendMode = CGBlendMode.ColorBurn;
                         break;
-                    case EWBlendMode.ColorDodge:
+                    case BlendMode.ColorDodge:
                         vBlendMode = CGBlendMode.ColorDodge;
                         break;
-                    case EWBlendMode.Copy:
+                    case BlendMode.Copy:
                         vBlendMode = CGBlendMode.Copy;
                         break;
-                    case EWBlendMode.Darken:
+                    case BlendMode.Darken:
                         vBlendMode = CGBlendMode.Darken;
                         break;
-                    case EWBlendMode.DestinationAtop:
+                    case BlendMode.DestinationAtop:
                         vBlendMode = CGBlendMode.DestinationAtop;
                         break;
-                    case EWBlendMode.DestinationIn:
+                    case BlendMode.DestinationIn:
                         vBlendMode = CGBlendMode.DestinationIn;
                         break;
-                    case EWBlendMode.DestinationOut:
+                    case BlendMode.DestinationOut:
                         vBlendMode = CGBlendMode.DestinationOut;
                         break;
-                    case EWBlendMode.DestinationOver:
+                    case BlendMode.DestinationOver:
                         vBlendMode = CGBlendMode.DestinationOver;
                         break;
-                    case EWBlendMode.Difference:
+                    case BlendMode.Difference:
                         vBlendMode = CGBlendMode.Difference;
                         break;
-                    case EWBlendMode.Exclusion:
+                    case BlendMode.Exclusion:
                         vBlendMode = CGBlendMode.Exclusion;
                         break;
-                    case EWBlendMode.HardLight:
+                    case BlendMode.HardLight:
                         vBlendMode = CGBlendMode.HardLight;
                         break;
-                    case EWBlendMode.Hue:
+                    case BlendMode.Hue:
                         vBlendMode = CGBlendMode.Hue;
                         break;
-                    case EWBlendMode.Lighten:
+                    case BlendMode.Lighten:
                         vBlendMode = CGBlendMode.Lighten;
                         break;
-                    case EWBlendMode.Luminosity:
+                    case BlendMode.Luminosity:
                         vBlendMode = CGBlendMode.Luminosity;
                         break;
-                    case EWBlendMode.Multiply:
+                    case BlendMode.Multiply:
                         vBlendMode = CGBlendMode.Multiply;
                         break;
-                    case EWBlendMode.Normal:
+                    case BlendMode.Normal:
                         vBlendMode = CGBlendMode.Normal;
                         break;
-                    case EWBlendMode.Overlay:
+                    case BlendMode.Overlay:
                         vBlendMode = CGBlendMode.Overlay;
                         break;
-                    case EWBlendMode.PlusDarker:
+                    case BlendMode.PlusDarker:
                         vBlendMode = CGBlendMode.PlusDarker;
                         break;
-                    case EWBlendMode.PlusLighter:
+                    case BlendMode.PlusLighter:
                         vBlendMode = CGBlendMode.PlusLighter;
                         break;
-                    case EWBlendMode.Saturation:
+                    case BlendMode.Saturation:
                         vBlendMode = CGBlendMode.Saturation;
                         break;
-                    case EWBlendMode.Screen:
+                    case BlendMode.Screen:
                         vBlendMode = CGBlendMode.Screen;
                         break;
-                    case EWBlendMode.SoftLight:
+                    case BlendMode.SoftLight:
                         vBlendMode = CGBlendMode.SoftLight;
                         break;
-                    case EWBlendMode.SourceAtop:
+                    case BlendMode.SourceAtop:
                         vBlendMode = CGBlendMode.SourceAtop;
                         break;
-                    case EWBlendMode.SourceIn:
+                    case BlendMode.SourceIn:
                         vBlendMode = CGBlendMode.SourceIn;
                         break;
-                    case EWBlendMode.SourceOut:
+                    case BlendMode.SourceOut:
                         vBlendMode = CGBlendMode.SourceOut;
                         break;
-                    case EWBlendMode.XOR:
+                    case BlendMode.XOR:
                         vBlendMode = CGBlendMode.XOR;
                         break; 
                 }
@@ -248,12 +248,12 @@ namespace System.Graphics.Android
 
         public override void SetToSystemFont()
         {
-            CurrentState.FontName = MDFontService.SystemFont;
+            CurrentState.FontName = NativeFontService.SystemFont;
         }
 
         public override void SetToBoldSystemFont()
         {
-            CurrentState.FontName = MDFontService.SystemBoldFont;
+            CurrentState.FontName = NativeFontService.SystemBoldFont;
         }
 
         public override void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2)
@@ -350,9 +350,9 @@ namespace System.Graphics.Android
             }
             else if (paint.PaintType == PaintType.Image)
             {
-                if (paint.Image is MDImage image)
+                if (paint.Image is NativeImage image)
                 {
-                    var bitmap = image.NativeImage;
+                    var bitmap = image.Bitmap;
 
                     if (bitmap != null)
                     {
@@ -610,7 +610,7 @@ namespace System.Graphics.Android
                 DrawString(value, x, y);
             else if (horizAlignment == HorizontalAlignment.Right)
             {
-                SizeF vSize = MDGraphicsService.Instance.GetStringSize(
+                SizeF vSize = NativeGraphicsService.Instance.GetStringSize(
                     value,
                     CurrentState.FontName,
                     CurrentState.ScaledFontSize);
@@ -619,7 +619,7 @@ namespace System.Graphics.Android
             }
             else
             {
-                SizeF vSize = MDGraphicsService.Instance.GetStringSize(
+                SizeF vSize = NativeGraphicsService.Instance.GetStringSize(
                     value,
                     CurrentState.FontName,
                     CurrentState.ScaledFontSize);
@@ -673,7 +673,7 @@ namespace System.Graphics.Android
                 alignment = Layout.Alignment.AlignOpposite;
             }
 
-            var layout = MDTextLayout.CreateLayout(value, CurrentState.FontPaint, (int) width, alignment);
+            var layout = TextLayoutUtils.CreateLayout(value, CurrentState.FontPaint, (int) width, alignment);
             var offset = layout.GetOffsetsToDrawText(x, y, width, height, horizAlignment, vertAlignment);
             _canvas.Translate(offset.Width, offset.Height);
             layout.Draw(_canvas);
@@ -684,7 +684,7 @@ namespace System.Graphics.Android
         {
             _canvas.Save();
             var span = value.AsSpannableString();
-            var layout = MDTextLayout.CreateLayoutForSpannedString(span, CurrentState.FontPaint, (int) width, Layout.Alignment.AlignNormal);
+            var layout = TextLayoutUtils.CreateLayoutForSpannedString(span, CurrentState.FontPaint, (int) width, Layout.Alignment.AlignNormal);
             var offset = layout.GetOffsetsToDrawText(x, y, width, height, HorizontalAlignment.Left, VerticalAlignment.Top);
             _canvas.Translate(offset.Width, offset.Height);
             layout.Draw(_canvas);
@@ -717,7 +717,7 @@ namespace System.Graphics.Android
             return base.RestoreState();
         }
 
-        protected override void StateRestored(MDCanvasState state)
+        protected override void StateRestored(NativeCanvasState state)
         {
             _canvas.Restore();
         }
@@ -782,9 +782,9 @@ namespace System.Graphics.Android
 
         public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
-            if (image is MDImage mdimage)
+            if (image is NativeImage mdimage)
             {
-                var bitmap = mdimage.NativeImage;
+                var bitmap = mdimage.Bitmap;
                 if (bitmap != null)
                 {
                     var scaleX = CurrentState.ScaleX < 0 ? -1 : 1;

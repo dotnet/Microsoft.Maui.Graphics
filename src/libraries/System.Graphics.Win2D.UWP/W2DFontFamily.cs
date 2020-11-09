@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace System.Graphics.Win2D
 {
-    public class W2DFontFamily : FontFamily, IComparable<W2DFontFamily>
+    public class W2DFontFamily : IFontFamily, IComparable<W2DFontFamily>
     {
         private readonly string _name;
         private readonly List<W2DFontStyle> _styleList = new List<W2DFontStyle>();

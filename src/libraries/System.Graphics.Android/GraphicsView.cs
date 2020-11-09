@@ -5,26 +5,24 @@ using Android.Views;
 
 namespace System.Graphics.Android
 {
-    public class MDGraphicsView : View
+    public class GraphicsView : View
     {
         private RectangleF _dirtyRect;
-        private MDGraphicsRenderer _renderer;
+        private IGraphicsRenderer _renderer;
         private IDrawable _drawable;
         private int _width, _height;
         private bool _inPanOrZoom;
 
-        public MDGraphicsView(Context context, IAttributeSet attrs, IDrawable drawable = null, MDGraphicsRenderer renderer = null) : base(context, attrs)
+        public GraphicsView(Context context, IAttributeSet attrs, IDrawable drawable = null, IGraphicsRenderer renderer = null) : base(context, attrs)
         {
             Drawable = drawable;
             Renderer = renderer;
-            SetLayerType(LayerType.Software, null);
         }
 
-        public MDGraphicsView(Context context, IDrawable drawable = null, MDGraphicsRenderer renderer = null) : base(context)
+        public GraphicsView(Context context, IDrawable drawable = null, IGraphicsRenderer renderer = null) : base(context)
         {
             Drawable = drawable;
             Renderer = renderer;
-            SetLayerType(LayerType.Software, null);
         }
 
         public bool InPanOrZoom
@@ -33,7 +31,7 @@ namespace System.Graphics.Android
             set => _inPanOrZoom = value;
         }
 
-        public MDGraphicsRenderer Renderer
+        public IGraphicsRenderer Renderer
         {
             get => _renderer;
 
@@ -46,12 +44,7 @@ namespace System.Graphics.Android
                     _renderer.Dispose();
                 }
 
-                _renderer = value;
-
-                if (_renderer == null)
-                {
-                    _renderer = new MDDirectRenderer(Context);
-                }
+                _renderer = value ?? new DirectRenderer(Context);
 
                 _renderer.GraphicsView = this;
                 _renderer.Drawable = _drawable;
