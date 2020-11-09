@@ -16,7 +16,7 @@ namespace GraphicsTester.Scenarios
                 CanvasDefaults.DefaultShadowOffset,
                 CanvasDefaults.DefaultShadowBlur,
                 CanvasDefaults.DefaultShadowColor);
-            canvas.FillColor = StandardColors.Blue;
+            canvas.FillColor = Colors.Blue;
             var path = new EWPath(10, 10);
             path.LineTo(30, 10);
             path.LineTo(20, 30);

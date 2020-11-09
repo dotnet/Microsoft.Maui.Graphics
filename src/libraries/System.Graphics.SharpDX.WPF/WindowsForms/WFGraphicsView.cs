@@ -21,7 +21,7 @@ namespace System.Graphics.SharpDX.WindowsForms
             set => _renderer.Dirty = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _renderer.BackgroundColor;
             set => _renderer.BackgroundColor = value;

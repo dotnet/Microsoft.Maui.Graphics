@@ -14,9 +14,9 @@ namespace GraphicsTester.Scenarios
             canvas.SaveState();
             canvas.Rotate(90, 360, 640);
 
-            canvas.StrokeColor = StandardColors.Blue;
+            canvas.StrokeColor = Colors.Blue;
             canvas.StrokeSize = 1f;
-            canvas.FontColor = StandardColors.Red;
+            canvas.FontColor = Colors.Red;
             canvas.FontSize = 12f;
 
             canvas.DrawLine(50, 50, 250, 50);

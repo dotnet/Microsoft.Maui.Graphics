@@ -35,16 +35,16 @@ namespace System.Graphics.GDI
             return new PointF(target.X, target.Y);
         }
 
-        public static Color AsColor(this EWColor color)
+        public static Drawing.Color AsColor(this Color color)
         {
-            if (color == null) return Color.Black;
+            if (color == null) return Drawing.Color.Black;
 
             var alpha = (int) (color.Alpha * 255);
             var red = (int) (color.Red * 255);
             var green = (int) (color.Green * 255);
             var blue = (int) (color.Blue * 255);
 
-            return Color.FromArgb(alpha, red, green, blue);
+            return Drawing.Color.FromArgb(alpha, red, green, blue);
         }
 
 

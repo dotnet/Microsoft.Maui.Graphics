@@ -8,16 +8,16 @@ namespace System.Graphics.Xaml
 {
     public static class XamlGraphicsExtensions
     {
-        public static Color AsColor(this EWColor target)
+        public static global::Windows.UI.Color AsColor(this Color target)
         {
-            return Color.FromArgb(
+            return global::Windows.UI.Color.FromArgb(
                 (byte)(255 * target.Alpha),
                 (byte)(255 * target.Red),
                 (byte)(255 * target.Green),
                 (byte)(255 * target.Blue));
         }
 
-        public static SolidColorBrush AsBrush(this EWColor target)
+        public static SolidColorBrush AsBrush(this Color target)
         {
             return new SolidColorBrush(target.AsColor());
         }

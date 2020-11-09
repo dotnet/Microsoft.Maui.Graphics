@@ -115,14 +115,14 @@ namespace System.Graphics.Android
             set => CurrentState.StrokeLineJoin = value;
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
-            set => CurrentState.StrokeColor = value ?? StandardColors.Black;
+            set => CurrentState.StrokeColor = value ?? Colors.Black;
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
-            set => CurrentState.FontColor = value ?? StandardColors.Black;
+            set => CurrentState.FontColor = value ?? Colors.Black;
         }
 
         public override String FontName
@@ -135,9 +135,9 @@ namespace System.Graphics.Android
             set => CurrentState.FontSize = value;
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
-            set => CurrentState.FillColor = value ?? StandardColors.White;
+            set => CurrentState.FillColor = value ?? Colors.White;
         }
 
         public override BlendMode BlendMode
@@ -259,7 +259,7 @@ namespace System.Graphics.Android
         public override void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2)
         {
             if (paint == null)
-                paint = StandardColors.White.AsPaint();
+                paint = System.Graphics.Colors.White.AsPaint();
 
             if (_shader != null)
             {
@@ -283,7 +283,7 @@ namespace System.Graphics.Android
 
                 try
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                     _shader = new LinearGradient(x1, y1, x2, y2, colors, stops, Shader.TileMode.Clamp);
                     CurrentState.SetFillPaintShader(_shader);
                 }
@@ -309,7 +309,7 @@ namespace System.Graphics.Android
                 float r = Geometry.GetDistance(x1, y1, x2, y2);
                 try
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                     _shader = new RadialGradient(x1, y1, r, colors, stops, Shader.TileMode.Clamp);
                     CurrentState.SetFillPaintShader(_shader);
                 }
@@ -327,7 +327,7 @@ namespace System.Graphics.Android
                 {
                     try
                     {
-                        CurrentState.FillColor = StandardColors.White;
+                        CurrentState.FillColor = Colors.White;
                         CurrentState.SetFillPaintFilterBitmap(true);
 
                         _shader = new BitmapShader(bitmap, Shader.TileMode.Repeat, Shader.TileMode.Repeat);
@@ -358,7 +358,7 @@ namespace System.Graphics.Android
                     {
                         try
                         {
-                            CurrentState.FillColor = StandardColors.White;
+                            CurrentState.FillColor = Colors.White;
                             CurrentState.SetFillPaintFilterBitmap(true);
 
                             _shader = new BitmapShader(bitmap, Shader.TileMode.Repeat, Shader.TileMode.Repeat);
@@ -375,11 +375,11 @@ namespace System.Graphics.Android
                         }
                     }
                     else
-                        FillColor = StandardColors.White;
+                        FillColor = Colors.White;
                 }
                 else
                 {
-                    FillColor = StandardColors.White;
+                    FillColor = Colors.White;
                 }
             }
             else
@@ -489,31 +489,12 @@ namespace System.Graphics.Android
             float strokeSize = CurrentState.ScaledStrokeSize;
             if (strokeSize == 0)
                 return;
-
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                rectX = x;
-                rectY = y;
-                rectWidth = width;
-                rectHeight = height;
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                rectX = x + strokeSize / 2;
-                rectY = y + strokeSize / 2;
-                rectWidth = width - strokeSize;
-                rectHeight = height - strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                rectX = x - strokeSize / 2;
-                rectY = y - strokeSize / 2;
-                rectWidth = width + strokeSize;
-                rectHeight = height + strokeSize;
-            }
-
+            
+            rectX = x;
+            rectY = y;
+            rectWidth = width;
+            rectHeight = height;
+            
             _canvas.DrawRect(rectX, rectY, rectX + rectWidth, rectY + rectHeight, CurrentState.StrokePaintWithAlpha);
         }
 
@@ -542,25 +523,7 @@ namespace System.Graphics.Android
             var rectWidth = width;
             var rectHeight = height;
             var radius = aCornerRadius;
-
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                rectX += strokeSize / 2;
-                rectY += strokeSize / 2;
-                rectWidth -= strokeSize;
-                rectHeight -= strokeSize;
-                radius -= strokeSize / 2;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                rectX -= strokeSize / 2;
-                rectY -= strokeSize / 2;
-                rectWidth += strokeSize;
-                rectHeight += strokeSize;
-                radius += strokeSize / 2;
-            }
-
+            
             var rect = new RectF(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
             _canvas.DrawRoundRect(rect, radius, radius, CurrentState.StrokePaintWithAlpha);
             rect.Dispose();
@@ -589,22 +552,6 @@ namespace System.Graphics.Android
             var rectWidth = width;
             var rectHeight = height;
 
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                rectX += strokeSize / 2;
-                rectY += strokeSize / 2;
-                rectWidth -= strokeSize;
-                rectHeight -= strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                rectX -= strokeSize / 2;
-                rectY -= strokeSize / 2;
-                rectWidth += strokeSize;
-                rectHeight += strokeSize;
-            }
-
             var rect = new RectF(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
             _canvas.DrawOval(rect, CurrentState.StrokePaintWithAlpha);
             rect.Dispose();
@@ -632,50 +579,9 @@ namespace System.Graphics.Android
 
         protected override void NativeDrawPath(EWPath aPath)
         {
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                var nativePath = aPath.AsAndroidPath();
-                _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
-                nativePath.Dispose();
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _canvas.Save(SaveFlags.Clip);
-                var nativePath = aPath.AsAndroidPath();
-                _canvas.ClipPath(nativePath);
-                var paint = CurrentState.StrokePaintWithAlpha;
-                float strokeSize = paint.StrokeWidth;
-                paint.StrokeWidth = strokeSize * 2;
-                _canvas.DrawPath(nativePath, paint);
-                paint.StrokeWidth = strokeSize;
-                _canvas.Restore();
-                nativePath.Dispose();
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var origClip = _canvas.ClipBounds;
-                var nativePath = aPath.AsAndroidPath();
-
-                var clippingPath = new Path();
-                var origClipAsRect = origClip.AsRectF();
-                clippingPath.AddRect(origClipAsRect, Path.Direction.Cw);
-                clippingPath.AddPath(nativePath);
-
-                _canvas.Save();
-                _canvas.ClipPath(clippingPath, Region.Op.ReverseDifference);
-
-                var paint = CurrentState.StrokePaintWithAlpha;
-                float vStrokeSize = paint.StrokeWidth;
-                paint.StrokeWidth = vStrokeSize * 2;
-                _canvas.DrawPath(nativePath, paint);
-                paint.StrokeWidth = vStrokeSize;
-                _canvas.Restore();
-
-                origClipAsRect.Dispose();
-                nativePath.Dispose();
-                clippingPath.Dispose();
-            }
+            var nativePath = aPath.AsAndroidPath();
+            _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
+            nativePath.Dispose();
         }
 
         public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
@@ -816,7 +722,7 @@ namespace System.Graphics.Android
             _canvas.Restore();
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             EWSize actualOffset = offset ?? CanvasDefaults.DefaultShadowOffset;
 
@@ -825,7 +731,7 @@ namespace System.Graphics.Android
             
             if (color == null)
             {
-                var actualColor = StandardColors.Black.AsColorMultiplyAlpha(CurrentState.Alpha);
+                var actualColor = Colors.Black.AsColorMultiplyAlpha(CurrentState.Alpha);
                 CurrentState.SetShadow(blur, sx, sy, actualColor);
             }
             else

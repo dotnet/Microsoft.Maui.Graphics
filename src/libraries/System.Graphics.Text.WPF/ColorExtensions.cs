@@ -4,7 +4,7 @@ namespace System.Graphics.Text
 {
     public static class ColorExtensions
     {
-        public static Color? ToColor(
+        public static Windows.Media.Color? ToColor(
             this int[] color)
         {
             if (color == null)
@@ -15,7 +15,7 @@ namespace System.Graphics.Text
             var blue = (byte) color[2];
             var alpha = (byte) color[3];
 
-            return Color.FromArgb(alpha, red, green, blue);
+            return Windows.Media.Color.FromArgb(alpha, red, green, blue);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace System.Graphics.Blazor
         }
 
         public static string AsCanvasValue(
-            this EWColor color,
+            this Color color,
             string defaultValue = "black")
         {
             if (color != null)

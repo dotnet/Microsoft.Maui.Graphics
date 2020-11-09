@@ -12,7 +12,7 @@ namespace System.Graphics.SharpDX
             return new EWPoint((float)position.X * scale, (float)position.Y * scale);
         }
 
-        public static global::Windows.UI.Color AsColor(this EWColor color)
+        public static global::Windows.UI.Color AsColor(this Color color)
         {
             if (color != null)
             {
@@ -26,10 +26,10 @@ namespace System.Graphics.SharpDX
                 return uiColor;
             }
 
-            return Colors.Black;           
+            return global::Windows.UI.Colors.Black;           
         }
 
-        public static Brush AsBrush(this EWColor color)
+        public static Brush AsBrush(this Color color)
         {
             if (color != null)
             {

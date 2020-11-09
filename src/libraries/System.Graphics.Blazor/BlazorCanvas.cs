@@ -30,11 +30,11 @@ namespace System.Graphics.Blazor
         }
 
         public override float MiterLimit { set => CurrentState.MiterLimit = value; }
-        public override EWColor StrokeColor { set => CurrentState.StrokeColor = value; }
+        public override Color StrokeColor { set => CurrentState.StrokeColor = value; }
         public override EWLineCap StrokeLineCap { set => CurrentState.LineCap = value; }
         public override EWLineJoin StrokeLineJoin { set => CurrentState.LineJoin = value; }
-        public override EWColor FillColor { set => CurrentState.FillColor = value; }
-        public override EWColor FontColor { set => CurrentState.TextColor = value; }
+        public override Color FillColor { set => CurrentState.FillColor = value; }
+        public override Color FontColor { set => CurrentState.TextColor = value; }
         public override string FontName { set => CurrentState.Font = value; }
         public override float FontSize { set => CurrentState.FontSize = value; }
         public override float Alpha { set => _context.GlobalAlpha = value; }
@@ -212,7 +212,7 @@ namespace System.Graphics.Blazor
             }
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             Logger.Debug("BlazorCanvas.SetShadow - not yet supported.");
         }

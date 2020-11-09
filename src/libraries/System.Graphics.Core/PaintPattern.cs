@@ -30,8 +30,8 @@ namespace System.Graphics
             }
             else
             {
-                canvas.StrokeColor = StandardColors.Black;
-                canvas.FillColor = StandardColors.Black;
+                canvas.StrokeColor = Colors.Black;
+                canvas.FillColor = Colors.Black;
             }
 
             Wrapped.Draw(canvas);

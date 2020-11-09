@@ -6,7 +6,7 @@
 
         ICanvas Canvas { get; }
 
-        EWColor BackgroundColor { get; set; }
+        Color BackgroundColor { get; set; }
 
         EWDrawable Drawable { get; set; }
 

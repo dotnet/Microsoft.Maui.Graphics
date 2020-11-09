@@ -11,9 +11,9 @@ namespace GraphicsTester.Scenarios
 
         public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
-            canvas.StrokeColor = StandardColors.Blue;
+            canvas.StrokeColor = Colors.Blue;
             canvas.StrokeSize = 1f;
-            canvas.FontColor = StandardColors.Red;
+            canvas.FontColor = Colors.Red;
             canvas.FontSize = 12f;
 
             canvas.DrawLine(50, 50, 250, 50);

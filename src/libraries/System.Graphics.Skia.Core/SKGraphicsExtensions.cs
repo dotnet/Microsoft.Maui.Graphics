@@ -4,7 +4,7 @@ namespace System.Graphics.Skia
 {
     public static class SKGraphicsExtensions
     {
-        public static SKColor AsSKColorMultiplyAlpha(this EWColor target, float alpha)
+        public static SKColor AsSKColorMultiplyAlpha(this Color target, float alpha)
         {
             var r = (byte) (target.Red * 255f);
             var g = (byte) (target.Green * 255f);
@@ -18,7 +18,7 @@ namespace System.Graphics.Skia
             return color;
         }
 
-        public static int ToArgb(this EWColor target)
+        public static int ToArgb(this Color target)
         {
             var a = (int) (target.Alpha * 255f);
             var r = (int) (target.Red * 255f);
@@ -29,7 +29,7 @@ namespace System.Graphics.Skia
             return argb;
         }
 
-        public static int ToArgb(this EWColor target, float alpha)
+        public static int ToArgb(this Color target, float alpha)
         {
             var a = (int) (target.Alpha * 255f * alpha);
             var r = (int) (target.Red * 255f);
@@ -40,7 +40,7 @@ namespace System.Graphics.Skia
             return argb;
         }
 
-        public static SKColor AsSKColor(this EWColor target)
+        public static SKColor AsSKColor(this Color target)
         {
             var r = (byte) (target.Red * 255f);
             var g = (byte) (target.Green * 255f);
@@ -49,13 +49,13 @@ namespace System.Graphics.Skia
             return new SKColor(r, g, b, a);
         }
 
-        public static EWColor AsEWColor(this SKColor target)
+        public static Color AsColor(this SKColor target)
         {
             var r = (int) target.Red;
             var g = (int) target.Green;
             var b = (int) target.Blue;
             var a = (int) target.Alpha;
-            return new EWColor(r, g, b, a);
+            return new Color(r, g, b, a);
         }
 
         public static SKRect AsSKRect(this EWRectangle target)

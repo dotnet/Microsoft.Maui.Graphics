@@ -19,14 +19,14 @@ namespace System.Graphics.Android
         private float _blurRadius;
         private BlurMaskFilter _blurFilter;
         private bool _shadowed;
-        private Color _shadowColor;
+        private global::Android.Graphics.Color _shadowColor;
         private float _shadowX;
         private float _shadowY;
         private float _shadowBlur;
 
-        private EWColor _strokeColor = StandardColors.Black;
-        private EWColor _fillColor = StandardColors.White;
-        private EWColor _fontColor = StandardColors.Black;
+        private Color _strokeColor = Colors.Black;
+        private Color _fillColor = Colors.White;
+        private Color _fontColor = Colors.Black;
 
         public MDCanvasState()
         {
@@ -58,25 +58,25 @@ namespace System.Graphics.Android
             _shadowBlur = prototype._shadowBlur;
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
             get => _strokeColor;
             set => _strokeColor = value;
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
             get => _fillColor;
             set => _fillColor = value;
         }
 
-        public EWColor FontColor
+        public Color FontColor
         {
             get => _fontColor;
             set
             {
                 _fontColor = value;
-                FontPaint.Color = value != null ? _fontColor.AsColor() : Color.Black;
+                FontPaint.Color = value != null ? _fontColor.AsColor() : global::Android.Graphics.Color.Black;
             }
         }
 
@@ -348,7 +348,7 @@ namespace System.Graphics.Android
 
         #endregion
 
-        public void SetShadow(float blur, float sx, float sy, Color color)
+        public void SetShadow(float blur, float sx, float sy, global::Android.Graphics.Color color)
         {
             FillPaint.SetShadowLayer(blur, sx, sy, color);
             StrokePaint.SetShadowLayer(blur, sx, sy, color);

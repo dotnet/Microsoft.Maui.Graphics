@@ -12,7 +12,7 @@ namespace GraphicsTester.Scenarios
         {
             canvas.SaveState();
 
-            canvas.StrokeColor = StandardColors.Black;
+            canvas.StrokeColor = Colors.Black;
             canvas.StrokeSize = 10;
             canvas.Translate(-300, -60);
 

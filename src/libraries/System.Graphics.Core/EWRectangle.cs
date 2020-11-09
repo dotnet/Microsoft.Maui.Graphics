@@ -137,13 +137,13 @@ namespace System.Graphics
 
         public float GetXAtRatio(float fx)
         {
-            var x = Point1.X + (fx * Width);
+            var x = Point1.X + fx * Width;
             return x;
         }
         
         public float GetYAtRatio(float fx)
         {
-            var y = Point1.Y + (fx * Height);
+            var y = Point1.Y + fx * Height;
             return y;
         }
         
@@ -170,8 +170,8 @@ namespace System.Graphics
             var vRectangle = new EWRectangle(this);
             vRectangle.X1 += inset;
             vRectangle.Y1 += inset;
-            vRectangle.Width -= (inset * 2);
-            vRectangle.Height -= (inset * 2);
+            vRectangle.Width -= inset * 2;
+            vRectangle.Height -= inset * 2;
             return vRectangle;
         }
 
@@ -180,8 +180,8 @@ namespace System.Graphics
             var vRectangle = new EWRectangle(this);
             vRectangle.X1 -= inset;
             vRectangle.Y1 -= inset;
-            vRectangle.Width += (inset * 2);
-            vRectangle.Height += (inset * 2);
+            vRectangle.Width += inset * 2;
+            vRectangle.Height += inset * 2;
             return vRectangle;
         }
 
@@ -190,8 +190,8 @@ namespace System.Graphics
             var copy = new EWRectangle(this);
             copy.X1 -= horizontal;
             copy.Y1 -= vertical;
-            copy.Width += (horizontal * 2);
-            copy.Height += (vertical * 2);
+            copy.Width += horizontal * 2;
+            copy.Height += vertical * 2;
             return copy;
         }
 
@@ -236,9 +236,9 @@ namespace System.Graphics
         public bool Contains(float x, float y)
         {
             // If the rectangle has a width of 0 or a height of 0
-            if ((Math.Abs(Width - 0) < Geometry.Epsilon || Math.Abs(Height - 0) < Geometry.Epsilon))
+            if (Math.Abs(Width - 0) < Geometry.Epsilon || Math.Abs(Height - 0) < Geometry.Epsilon)
             {
-                return (Math.Abs(x - Point1.X) < Geometry.Epsilon) && (Math.Abs(y - Point1.Y) < Geometry.Epsilon);
+                return Math.Abs(x - Point1.X) < Geometry.Epsilon && Math.Abs(y - Point1.Y) < Geometry.Epsilon;
             }
 
             // Next, check if it's above or left of the rectangle.
@@ -262,9 +262,9 @@ namespace System.Graphics
             var h = Math.Abs(y2 - y1);
 
             // If the rectangle has a width of 0 or a height of 0
-            if ((w < Geometry.Epsilon || h < Geometry.Epsilon))
+            if (w < Geometry.Epsilon || h < Geometry.Epsilon)
             {
-                return (Math.Abs(px - x1) < Geometry.Epsilon) && (Math.Abs(py - y1) < Geometry.Epsilon);
+                return Math.Abs(px - x1) < Geometry.Epsilon && Math.Abs(py - y1) < Geometry.Epsilon;
             }
 
             var minX = Math.Min(x1, x2);
@@ -329,7 +329,7 @@ namespace System.Graphics
             float x = 0, y = 0;
             if (Math.Abs(si) > e)
             {
-                x = ((1.0f + co / (float) Math.Abs(si)) / 2.0f * Width);
+                x = (1.0f + co / (float) Math.Abs(si)) / 2.0f * Width;
                 x = Range(0, Width, x);
             }
             else if (co >= 0.0)
@@ -339,7 +339,7 @@ namespace System.Graphics
 
             if (Math.Abs(co) > e)
             {
-                y = ((1.0f + si / (float) Math.Abs(co)) / 2.0f * Height);
+                y = (1.0f + si / (float) Math.Abs(co)) / 2.0f * Height;
                 y = Range(0, Height, y);
             }
             else if (si >= 0.0)

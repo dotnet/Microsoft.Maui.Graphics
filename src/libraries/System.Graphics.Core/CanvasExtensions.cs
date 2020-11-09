@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public static class EWCanvasExtensions
+    public static class CanvasExtensions
     {
         public static void SetStrokeDashPattern(this ICanvas target, float[] pattern, float strokeSize)
         {
@@ -184,21 +184,20 @@ namespace System.Graphics
         {
             canvas.StrokeSize = 1;
             canvas.StrokeDashPattern = null;
-            canvas.StrokeLocation = EWStrokeLocation.CENTER;
             canvas.StrokeLineJoin = EWLineJoin.MITER;
             canvas.StrokeLineCap = EWLineCap.BUTT;
-            canvas.StrokeColor = StandardColors.Black;
+            canvas.StrokeColor = Colors.Black;
         }
         
         public static void SetFillPattern(this ICanvas target, IPattern pattern)
         {
-            SetFillPattern(target, pattern, StandardColors.Black);
+            SetFillPattern(target, pattern, Colors.Black);
         }
 
         public static void SetFillPattern(
             this ICanvas target,
             IPattern pattern,
-            EWColor foregroundColor)
+            Color foregroundColor)
         {
             if (target != null)
             {
@@ -209,7 +208,7 @@ namespace System.Graphics
                 }
                 else
                 {
-                    target.FillColor = StandardColors.White;
+                    target.FillColor = Colors.White;
                 }
             }
         }

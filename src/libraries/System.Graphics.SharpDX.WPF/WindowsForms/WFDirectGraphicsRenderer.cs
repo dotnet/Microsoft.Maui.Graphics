@@ -16,7 +16,7 @@ namespace System.Graphics.SharpDX.WindowsForms
 
         private readonly DXCanvas _canvas = new DXCanvas();
         private EWDrawable _drawable;
-        private EWColor _backgroundColor;
+        private Color _backgroundColor;
         private WindowRenderTarget _renderTarget2D;
         private WFGraphicsView _owner;
         private bool _dirty;
@@ -67,7 +67,7 @@ namespace System.Graphics.SharpDX.WindowsForms
             set => _drawable = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => _backgroundColor = value;
@@ -85,7 +85,7 @@ namespace System.Graphics.SharpDX.WindowsForms
                 {
                     _canvas.FillColor = _backgroundColor;
                     _canvas.FillRectangle(dirtyRect);
-                    _canvas.FillColor = StandardColors.White;
+                    _canvas.FillColor = Colors.White;
                 }
 
                 _drawable.Draw(_canvas, dirtyRect);

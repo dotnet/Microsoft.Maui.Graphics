@@ -4,7 +4,7 @@
     {
         private readonly GDICanvas _canvas = new GDICanvas();
         private EWDrawable _drawable;
-        private EWColor _backgroundColor;
+        private Color _backgroundColor;
         private GDIGraphicsView _owner;
         private bool _dirty;
 
@@ -31,7 +31,7 @@
             }
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => _backgroundColor = value;
@@ -47,7 +47,7 @@
                 {
                     _canvas.FillColor = _backgroundColor;
                     _canvas.FillRectangle(dirtyRect);
-                    _canvas.FillColor = StandardColors.White;
+                    _canvas.FillColor = Colors.White;
                 }
 
                 _drawable?.Draw(_canvas, dirtyRect);

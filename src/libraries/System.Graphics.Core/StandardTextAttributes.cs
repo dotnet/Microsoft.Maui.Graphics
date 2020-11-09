@@ -10,7 +10,7 @@
 
         public float Margin { get; set; }
 
-        public EWColor TextFontColor { get; set; }
+        public Color TextFontColor { get; set; }
 
         public EwVerticalAlignment VerticalAlignment { get; set; }
     }

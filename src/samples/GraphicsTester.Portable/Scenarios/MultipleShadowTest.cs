@@ -17,17 +17,17 @@ namespace GraphicsTester.Scenarios
                 CanvasDefaults.DefaultShadowBlur,
                 CanvasDefaults.DefaultShadowColor);
 
-            canvas.FillColor = StandardColors.Blue;
+            canvas.FillColor = Colors.Blue;
             var path = new EWPath(10, 10);
             path.LineTo(30, 10);
             path.LineTo(20, 30);
             path.Close();
             canvas.FillPath(path);
 
-            canvas.FillColor = StandardColors.Salmon;
+            canvas.FillColor = Colors.Salmon;
             canvas.FillRectangle(100, 100, 100, 100);
 
-            canvas.FillColor = StandardColors.Beige;
+            canvas.FillColor = Colors.Beige;
             canvas.FillOval(100, 300, 100, 50);
 
             canvas.RestoreState();

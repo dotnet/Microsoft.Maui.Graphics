@@ -53,9 +53,9 @@ namespace System.Graphics.GDI
             set => CurrentState.StrokeMiterLimit = value;
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
-            set => CurrentState.StrokeColor = value?.AsColor() ?? Color.Black;
+            set => CurrentState.StrokeColor = value?.AsColor() ?? Drawing.Color.Black;
         }
 
         public override EWLineCap StrokeLineCap
@@ -96,14 +96,14 @@ namespace System.Graphics.GDI
             }
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
-            set => CurrentState.FillColor = value?.AsColor() ?? Color.White;
+            set => CurrentState.FillColor = value?.AsColor() ?? Drawing.Color.White;
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
-            set => CurrentState.TextColor = value?.AsColor() ?? Color.Black;
+            set => CurrentState.TextColor = value?.AsColor() ?? Drawing.Color.Black;
         }
 
         public override string FontName
@@ -168,7 +168,7 @@ namespace System.Graphics.GDI
             }
 
             float sweep = Geometry.GetSweep(startAngle, endAngle, clockwise);
-            CreateRectUsingStrokeLocation(x, y, width, height);
+            SetRect(x, y, width, height);
             if (!clockwise)
             {
                 startAngle = endAngle;
@@ -198,30 +198,6 @@ namespace System.Graphics.GDI
             return path;
         }
 
-        private void CreateRectUsingStrokeLocation(float x, float y, float width, float height)
-        {
-            if (CurrentState.StrokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (CurrentState.StrokeLocation == EWStrokeLocation.INSIDE)
-            {
-                var strokeWidth = CurrentState.StrokeWidth;
-                _rect.X = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Width = Math.Abs(width) - strokeWidth;
-                _rect.Height = Math.Abs(height) - strokeWidth;
-            }
-            else if (CurrentState.StrokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var strokeWidth = CurrentState.StrokeWidth;
-                _rect.X = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Width = Math.Abs(width) + strokeWidth;
-                _rect.Height = Math.Abs(height) + strokeWidth;
-            }
-        }
-
         public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise)
         {
             while (startAngle < 0)
@@ -235,7 +211,7 @@ namespace System.Graphics.GDI
             }
 
             float sweep = Geometry.GetSweep(startAngle, endAngle, clockwise);
-            CreateRectUsingStrokeLocation(x, y, width, height);
+            SetRect(x, y, width, height);
             if (!clockwise)
             {
                 startAngle = endAngle;
@@ -248,42 +224,21 @@ namespace System.Graphics.GDI
 
         protected override void NativeDrawRectangle(float x, float y, float width, float height)
         {
-            CreateRectUsingStrokeLocation(x, y, width, height);
+            SetRect(x, y, width, height);
             Draw(g => g.DrawRectangle(CurrentState.StrokePen, _rect.X, _rect.Y, _rect.Width, _rect.Height));
         }
 
         public override void FillRectangle(float x, float y, float width, float height)
         {
-            CreateRectUsingStrokeLocation(x, y, width, height);
+            SetRect(x, y, width, height);
             Draw(g => g.FillRectangle(CurrentState.FillBrush, _rect.X, _rect.Y, _rect.Width, _rect.Height));
         }
 
         protected override void NativeDrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
-            float strokeWidth = CurrentState.StrokeWidth;
+            var strokeWidth = CurrentState.StrokeWidth;
 
-            if (CurrentState.StrokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (CurrentState.StrokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Width = Math.Abs(width) - strokeWidth;
-                _rect.Height = Math.Abs(height) - strokeWidth;
-
-                cornerRadius -= strokeWidth / 2;
-            }
-            else if (CurrentState.StrokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Width = Math.Abs(width) + strokeWidth;
-                _rect.Height = Math.Abs(height) + strokeWidth;
-
-                cornerRadius += strokeWidth / 2;
-            }
+            SetRect(x, y, width, height);
 
             if (cornerRadius > _rect.Width / 2)
             {
@@ -332,31 +287,7 @@ namespace System.Graphics.GDI
 
             Draw(g =>
             {
-                // ReSharper disable AccessToDisposedClosure
-                if (CurrentState.StrokeLocation == EWStrokeLocation.CENTER)
-                {
-                    g.DrawPath(CurrentState.StrokePen, vGeometry);
-                }
-                else if (CurrentState.StrokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    var graphicsState = g.Save();
-                    g.SetClip(vGeometry);
-                    var pen = CurrentState.StrokePen;
-                    pen.Width *= 2;
-                    g.DrawPath(pen, vGeometry);
-                    g.Restore(graphicsState);
-                }
-                else if (CurrentState.StrokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    var graphicsState = g.Save();
-                    var region = new Region(vGeometry);
-                    g.ExcludeClip(region);
-                    var pen = CurrentState.StrokePen;
-                    pen.Width *= 2;
-                    g.DrawPath(pen, vGeometry);
-                    region.Dispose();
-                    g.Restore(graphicsState);
-                }
+                g.DrawPath(CurrentState.StrokePen, vGeometry);
             });
         }
 
@@ -409,13 +340,13 @@ namespace System.Graphics.GDI
 
         protected override void NativeDrawOval(float x, float y, float width, float height)
         {
-            CreateRectUsingStrokeLocation(x, y, width, height);
+            SetRect(x, y, width, height);
             Draw(g => g.DrawEllipse(CurrentState.StrokePen, _rect));
         }
 
         public override void FillOval(float x, float y, float width, float height)
         {
-            CreateRectUsingStrokeLocation(x, y, width, height);
+            SetRect(x, y, width, height);
             Draw(g => g.FillEllipse(CurrentState.FillBrush, _rect));
         }
 
@@ -529,7 +460,7 @@ namespace System.Graphics.GDI
             CurrentState.NativeConcatenateTransform(transform);
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             Logger.Debug("Not implemented");
         }
@@ -547,7 +478,7 @@ namespace System.Graphics.GDI
         {
             if (paint == null)
             {
-                CurrentState.FillColor = Color.White;
+                CurrentState.FillColor = Drawing.Color.White;
                 return;
             }
 

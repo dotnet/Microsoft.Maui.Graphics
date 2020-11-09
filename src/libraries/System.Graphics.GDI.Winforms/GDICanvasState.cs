@@ -128,9 +128,9 @@ namespace System.Graphics.GDI
             }
         }
 
-        public Color StrokeColor { get; set; }
+        public Drawing.Color StrokeColor { get; set; }
 
-        public Color FillColor { get; set; }
+        public Drawing.Color FillColor { get; set; }
 
         public Brush FillBrush
         {
@@ -149,7 +149,7 @@ namespace System.Graphics.GDI
             }
         }
 
-        public Color TextColor { get; set; }
+        public Drawing.Color TextColor { get; set; }
 
 
         public Brush TextBrush
@@ -269,19 +269,18 @@ namespace System.Graphics.GDI
         internal void SetToDefaults()
         {
             ActualScale = 1;
-            StrokeLocation = EWStrokeLocation.CENTER;
 
             _scale = 1;
             _strokeWidth = 1;
-            StrokeColor = Color.Black;
+            StrokeColor = Drawing.Color.Black;
             StrokeDashPattern = null;
             StrokeLineJoin = LineJoin.Miter;
             StrokeLineCap = LineCap.Flat;
             StrokeMiterLimit = CanvasDefaults.DefaultMiterLimit;
 
-            FillColor = Color.White;
+            FillColor = Drawing.Color.White;
 
-            TextColor = Color.Black;
+            TextColor = Drawing.Color.Black;
             _fontName = "Arial";
             _fontSize = 12 * DpiAdjustment;
             _fontStyle = FontStyle.Regular;

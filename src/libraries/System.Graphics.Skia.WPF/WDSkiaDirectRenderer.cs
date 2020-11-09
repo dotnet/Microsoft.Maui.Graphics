@@ -8,7 +8,7 @@ namespace System.Graphics.Skia
         private readonly ScalingCanvas _scalingCanvas;
         private EWDrawable _drawable;
         private WDSkiaGraphicsView _graphicsView;
-        private EWColor _backgroundColor;
+        private Color _backgroundColor;
 
         public WDSkiaDirectRenderer()
         {
@@ -33,7 +33,7 @@ namespace System.Graphics.Skia
             set => _graphicsView = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => _backgroundColor = value;
@@ -51,7 +51,7 @@ namespace System.Graphics.Skia
                 {
                     _canvas.FillColor = _backgroundColor;
                     _canvas.FillRectangle(dirtyRect);
-                    _canvas.FillColor = StandardColors.White;
+                    _canvas.FillColor = Colors.White;
                 }
 
                 _drawable.Draw(_scalingCanvas, dirtyRect);

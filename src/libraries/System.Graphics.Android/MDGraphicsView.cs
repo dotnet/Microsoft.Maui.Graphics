@@ -59,7 +59,7 @@ namespace System.Graphics.Android
             }
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _renderer.BackgroundColor;
             set => _renderer.BackgroundColor = value;

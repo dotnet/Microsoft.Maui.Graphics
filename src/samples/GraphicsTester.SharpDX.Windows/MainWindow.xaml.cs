@@ -16,7 +16,7 @@ namespace GraphicsTester.WPF.SharpDX
         public void Initialize()
         {
             GraphicsPlatform.RegisterGlobalService(DXGraphicsService.Instance);
-            GraphicsView.BackgroundColor = StandardColors.White;
+            GraphicsView.BackgroundColor = Colors.White;
 
             foreach (var scenario in ScenarioList.Scenarios)
             {

@@ -11,14 +11,12 @@ namespace GraphicsTester.Scenarios
         public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
-
-            canvas.StrokeLocation = EWStrokeLocation.CENTER;
-
+            
             var paint = new EWPaint
             {
                 PaintType = EWPaintType.RADIAL_GRADIENT,
-                StartColor = StandardColors.White,
-                EndColor = StandardColors.Black
+                StartColor = Colors.White,
+                EndColor = Colors.Black
             };
 
             canvas.SetFillPaint(paint, 200, 200, 300, 200);

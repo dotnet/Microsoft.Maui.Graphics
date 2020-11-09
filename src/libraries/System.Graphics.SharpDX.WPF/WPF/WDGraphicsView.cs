@@ -31,7 +31,7 @@ namespace System.Graphics.SharpDX.WPF
             set => _graphicsView.Drawable = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _graphicsView.BackgroundColor;
             set => _graphicsView.BackgroundColor = value;

@@ -62,7 +62,7 @@ namespace System.Graphics.SharpDX
             var d2DRenderTarget = new d2.WicRenderTarget(target.Factory, wicBitmap, renderTargetProperties);
 
             d2DRenderTarget.BeginDraw();
-            d2DRenderTarget.Clear(Color.Transparent);
+            d2DRenderTarget.Clear(global::SharpDX.Color.Transparent);
             d2DRenderTarget.DrawBitmap(target, 1, d2.BitmapInterpolationMode.Linear);
             d2DRenderTarget.EndDraw();
 

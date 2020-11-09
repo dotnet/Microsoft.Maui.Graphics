@@ -5,24 +5,22 @@ namespace System.Graphics.SharpDX
 {
     public static class DXExtensions
     {
-        public static Color4 AsDxColor(this EWColor aTarget)
+        public static Color4 AsDxColor(this Color target)
         {
-            if (aTarget == null)
-            {
-                return Color.Black;
-            }
+            if (target == null)
+                return global::SharpDX.Color.Black;
 
-            return new Color4(aTarget.Components);
+            return new Color4(new float[] {target.Red, target.Green, target.Blue, target.Alpha});
         }
 
-        public static Color4 AsDxColor(this EWColor aTarget, float aAlphaMultiplier)
+        public static Color4 AsDxColor(this Color target, float aAlphaMultiplier)
         {
-            if (aTarget == null)
+            if (target == null)
             {
-                return Color.Black;
+                return global::SharpDX.Color.Black;
             }
 
-            return new Color4(aTarget.Red, aTarget.Green, aTarget.Blue, aTarget.Alpha * aAlphaMultiplier);
+            return new Color4(target.Red, target.Green, target.Blue, target.Alpha * aAlphaMultiplier);
         }
 
         public static PathGeometry AsDxPath(this EWPath target, Factory factory, FillMode fillMode = FillMode.Winding)
@@ -188,107 +186,10 @@ namespace System.Graphics.SharpDX
                 geometry.Dispose();
 
                 var definition = path.ToDefinitionString();
-                Logger.Debug(string.Format("Unable to convert the path to a DXPath: {0}", definition), exc);
+                Logger.Debug($"Unable to convert the path to a DXPath: {definition}", exc);
                 return null;
             }
 #endif
-        }
-
-        public static PathGeometry AsDxPath(this EWPath path, float ppu, float zoom, Factory factory)
-        {
-            return AsDxPath(path, ppu * zoom, factory);
-        }
-
-        public static PathGeometry AsDxPathFromSegment(this EWPath path, int segmentIndex, float ppu, float zoom, Factory factory)
-        {
-            float scale = ppu / zoom;
-
-            var geometry = new PathGeometry(factory);
-            var sink = geometry.Open();
-
-            var type = path.GetSegmentType(segmentIndex);
-            if (type == PathOperation.LINE)
-            {
-                int segmentStartingPointIndex = path.GetSegmentPointIndex(segmentIndex);
-                var startPoint = path[segmentStartingPointIndex - 1];
-                sink.BeginFigure(startPoint.X * scale, startPoint.Y * scale, FigureBegin.Hollow);
-
-                var point = path[segmentStartingPointIndex];
-                sink.LineTo(point.X * scale, point.Y * scale);
-            }
-            else if (type == PathOperation.QUAD)
-            {
-                int segmentStartingPointIndex = path.GetSegmentPointIndex(segmentIndex);
-                var startPoint = path[segmentStartingPointIndex - 1];
-                sink.BeginFigure(startPoint.X * scale, startPoint.Y * scale, FigureBegin.Hollow);
-
-                var controlPoint = path[segmentStartingPointIndex++];
-                var endPoint = path[segmentStartingPointIndex];
-                sink.QuadTo(
-                    controlPoint.X * scale, controlPoint.Y * scale,
-                    endPoint.X * scale, endPoint.Y * scale);
-            }
-            else if (type == PathOperation.CUBIC)
-            {
-                int segmentStartingPointIndex = path.GetSegmentPointIndex(segmentIndex);
-                var startPoint = path[segmentStartingPointIndex - 1];
-                sink.BeginFigure(startPoint.X * scale, startPoint.Y * scale, FigureBegin.Hollow);
-
-                var controlPoint1 = path[segmentStartingPointIndex++];
-                var controlPoint2 = path[segmentStartingPointIndex++];
-                var endPoint = path[segmentStartingPointIndex];
-                sink.CubicTo(
-                    controlPoint1.X * scale, controlPoint1.Y * scale,
-                    controlPoint2.X * scale, controlPoint2.Y * scale,
-                    endPoint.X * scale, endPoint.Y * scale);
-            }
-            else if (type == PathOperation.ARC)
-            {
-                path.GetSegmentInfo(segmentIndex, out var pointIndex, out var arcAngleIndex, out var arcClockwiseIndex);
-
-                var topLeft = path[pointIndex++];
-                var bottomRight = path[pointIndex];
-                var startAngle = path.GetArcAngle(arcAngleIndex++);
-                var endAngle = path.GetArcAngle(arcAngleIndex);
-                var clockwise = path.GetArcClockwise(arcClockwiseIndex);
-
-                while (startAngle < 0)
-                {
-                    startAngle += 360;
-                }
-
-                while (endAngle < 0)
-                {
-                    endAngle += 360;
-                }
-
-                var rotation = Geometry.GetSweep(startAngle, endAngle, clockwise);
-                var absRotation = Math.Abs(rotation);
-
-                var rectX = topLeft.X * scale;
-                var rectY = topLeft.Y * scale;
-                var rectWidth = (bottomRight.X * scale) - rectX;
-                var rectHeight = (bottomRight.Y * scale) - rectY;
-
-                var startPoint = Geometry.OvalAngleToPoint(rectX, rectY, rectWidth, rectHeight, -startAngle);
-                var endPoint = Geometry.OvalAngleToPoint(rectX, rectY, rectWidth, rectHeight, -endAngle);
-
-                sink.BeginFigure(startPoint.X * scale, startPoint.Y * scale, FigureBegin.Hollow);
-
-                var arcSegment = new ArcSegment
-                {
-                    Point = new Vector2(endPoint.X, endPoint.Y),
-                    Size = new Size2F(rectWidth / 2, rectHeight / 2),
-                    SweepDirection = clockwise ? SweepDirection.Clockwise : SweepDirection.CounterClockwise,
-                    ArcSize = absRotation >= 180 ? ArcSize.Large : ArcSize.Small
-                };
-                sink.AddArc(arcSegment);
-            }
-
-            sink.EndFigure(FigureEnd.Open);
-            sink.Close();
-
-            return geometry;
-        }
+        }  
     }
 }

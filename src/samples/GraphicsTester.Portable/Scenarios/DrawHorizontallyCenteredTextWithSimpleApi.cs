@@ -13,7 +13,7 @@ namespace GraphicsTester.Scenarios
         {
             canvas.SaveState();
 
-            canvas.FillColor = StandardColors.CornflowerBlue;
+            canvas.FillColor = Colors.CornflowerBlue;
             canvas.FontName = "Arial";
             canvas.FontSize = 12f;
 

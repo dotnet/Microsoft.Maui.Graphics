@@ -55,7 +55,7 @@ namespace System.Graphics.Win2D
             set => CurrentState.MiterLimit = value;
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
             set => CurrentState.StrokeColor = value;
         }
@@ -75,12 +75,12 @@ namespace System.Graphics.Win2D
             CurrentState.SetStrokeDashPattern(pattern, strokeSize);
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
             set => CurrentState.FillColor = value;
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
             set => CurrentState.FontColor = value;
         }
@@ -160,27 +160,8 @@ namespace System.Graphics.Win2D
             var absRotation = Math.Abs(rotation);
 
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Width = Math.Abs(width) - strokeWidth;
-                _rect.Height = Math.Abs(height) - strokeWidth;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Width = Math.Abs(width) + strokeWidth;
-                _rect.Height = Math.Abs(height + strokeWidth);
-            }
-
+            SetRect(x, y, width, height);
+            
             _size.Width = _rect.Width / 2;
             _size.Height = _rect.Height / 2;
 
@@ -382,7 +363,7 @@ namespace System.Graphics.Win2D
             Logger.Warn("Not implemented");
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }
@@ -391,7 +372,7 @@ namespace System.Graphics.Win2D
         {
             if (paint == null)
             {
-                CurrentState.FillColor = StandardColors.White;
+                CurrentState.FillColor = Colors.White;
                 return;
             }
 
@@ -414,7 +395,7 @@ namespace System.Graphics.Win2D
                 }
                 else
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                 }
                 return;
             }
@@ -424,7 +405,7 @@ namespace System.Graphics.Win2D
                 var pattern = paint.Pattern;
 	            if (pattern == null)
 	            {
-		            CurrentState.FillColor = StandardColors.White;
+		            CurrentState.FillColor = Colors.White;
 		            return;
 	            }
 
@@ -442,7 +423,7 @@ namespace System.Graphics.Win2D
                     }
                     else
                     {
-                        CurrentState.FillColor = StandardColors.White;
+                        CurrentState.FillColor = Colors.White;
                     }
                 }
                 else
@@ -464,7 +445,7 @@ namespace System.Graphics.Win2D
                     }
                     else
                     {
-                        CurrentState.FillColor = StandardColors.White;
+                        CurrentState.FillColor = Colors.White;
                     }
                 }
                 return;
@@ -508,7 +489,7 @@ namespace System.Graphics.Win2D
             {
                 using (var imageSession = context.CreateDrawingSession())
                 {
-                    imageSession.Clear(Colors.Transparent);
+                    imageSession.Clear(global::Windows.UI.Colors.Transparent);
                     var canvas = new W2DCanvas {Session = imageSession};
                     pattern.Draw(canvas);
                 }
@@ -568,27 +549,8 @@ namespace System.Graphics.Win2D
             var absRotation = Math.Abs(rotation);
 
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Width = Math.Abs(width) - strokeWidth;
-                _rect.Height = Math.Abs(height) - strokeWidth;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Width = Math.Abs(width) + strokeWidth;
-                _rect.Height = Math.Abs(height + strokeWidth);
-            }
-
+            SetRect(x, y, width, height);
+            
             _size.Width = _rect.Width / 2;
             _size.Height = _rect.Height / 2;
 
@@ -620,57 +582,15 @@ namespace System.Graphics.Win2D
         protected override void NativeDrawRectangle(float x, float y, float width, float height)
         {
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Width = Math.Abs(width) - strokeWidth;
-                _rect.Height = Math.Abs(height) - strokeWidth;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Width = Math.Abs(width) + strokeWidth;
-                _rect.Height = Math.Abs(height + strokeWidth);
-            }
-
+            SetRect(x, y, width, height);
+            
             Draw(s => s.DrawRectangle(_rect, CurrentState.NativeStrokeBrush, CurrentState.StrokeSize, CurrentState.NativeStrokeStyle));
         }
 
         protected override void NativeDrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Width = Math.Abs(width) - strokeWidth;
-                _rect.Height = Math.Abs(height) - strokeWidth;
-
-                cornerRadius -= strokeWidth / 2;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.X = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Y = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Width = Math.Abs(width) + strokeWidth;
-                _rect.Height = Math.Abs(height + strokeWidth);
-
-                cornerRadius += strokeWidth / 2;
-            }
+            SetRect(x, y, width, height);
 
             if (cornerRadius > _rect.Width / 2)
             {
@@ -692,21 +612,11 @@ namespace System.Graphics.Win2D
             float px;
             float py;
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
 
             if (width > 0 || width < 0)
             {
                 px = x + width / 2;
                 radiusX = width / 2;
-
-                if (strokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    radiusX -= strokeWidth / 2;
-                }
-                else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    radiusX += strokeWidth / 2;
-                }
             }
             else
             {
@@ -718,15 +628,6 @@ namespace System.Graphics.Win2D
             {
                 py = y + height / 2;
                 radiusY = height / 2;
-
-                if (strokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    radiusY -= strokeWidth / 2;
-                }
-                else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    radiusY += strokeWidth / 2;
-                }
             }
             else
             {
@@ -761,30 +662,7 @@ namespace System.Graphics.Win2D
             {
                 // ReSharper disable AccessToDisposedClosure
                 float strokeWidth = CurrentState.StrokeSize;
-                var strokeLocation = CurrentState.StrokeLocation;
-
-                if (strokeLocation == EWStrokeLocation.CENTER)
-                {
-                    s.DrawGeometry(geometry, CurrentState.NativeStrokeBrush, strokeWidth, CurrentState.NativeStrokeStyle);
-                }
-                else if (strokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    using (_session.CreateLayer(1, geometry))
-                    {
-                        s.DrawGeometry(geometry, CurrentState.NativeStrokeBrush, strokeWidth*2, CurrentState.NativeStrokeStyle);
-                    }
-                }
-                else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    var bounds = geometry.ComputeStrokeBounds(strokeWidth*2);
-                    var rectGeometry = CanvasGeometry.CreateRectangle(_session, bounds);
-                    var mask = rectGeometry.CombineWith(geometry, Matrix3x2.Identity, CanvasGeometryCombine.Exclude);
-                    
-                    using (_session.CreateLayer(1, mask))
-                    {
-                        s.DrawGeometry(geometry, CurrentState.NativeStrokeBrush, strokeWidth * 2, CurrentState.NativeStrokeStyle);
-                    }
-                }
+                s.DrawGeometry(geometry, CurrentState.NativeStrokeBrush, strokeWidth, CurrentState.NativeStrokeStyle);
             });
         }
 
@@ -910,7 +788,7 @@ namespace System.Graphics.Win2D
             {
                 using (var imageSession = context.CreateDrawingSession())
                 {
-                    imageSession.Clear(Colors.Transparent);
+                    imageSession.Clear(global::Windows.UI.Colors.Transparent);
                     imageSession.Transform = CurrentState.Matrix.Translate(CurrentState.ShadowOffset.X, CurrentState.ShadowOffset.Y);
                     drawingAction(imageSession);
                 }
@@ -935,7 +813,7 @@ namespace System.Graphics.Win2D
             {
                 using (var imageSession = context.CreateDrawingSession())
                 {
-                    imageSession.Clear(Colors.Transparent);
+                    imageSession.Clear(global::Windows.UI.Colors.Transparent);
                     imageSession.Transform = CurrentState.Matrix;
                     drawingAction(imageSession);
                 }

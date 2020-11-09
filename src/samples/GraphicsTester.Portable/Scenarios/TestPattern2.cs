@@ -52,18 +52,18 @@ namespace GraphicsTester.Scenarios
 
         private static void DrawFills(ICanvas canvas)
         {
-            canvas.FillColor = StandardColors.Red;
+            canvas.FillColor = Colors.Red;
             canvas.FillRectangle(10, 10, 80, 80);
 
-            canvas.FillColor = StandardColors.Green;
+            canvas.FillColor = Colors.Green;
             canvas.Translate(100, 0);
             canvas.FillOval(10, 10, 80, 80);
 
-            canvas.FillColor = StandardColors.Blue;
+            canvas.FillColor = Colors.Blue;
             canvas.Translate(100, 0);
             canvas.FillRoundedRectangle(10, 10, 80, 80, 10);
 
-            canvas.FillColor = StandardColors.CornflowerBlue;
+            canvas.FillColor = Colors.CornflowerBlue;
             var path = new EWPath();
             path.MoveTo(10, 10);
             path.LineTo(50, 90);

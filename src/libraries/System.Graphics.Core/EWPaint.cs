@@ -11,8 +11,8 @@ namespace System.Graphics
 
         private EWPaintStop[] _stops =
         {
-            new EWPaintStop(0, StandardColors.White),
-            new EWPaintStop(1, StandardColors.White)
+            new EWPaintStop(0, Colors.White),
+            new EWPaintStop(1, Colors.White)
         };
 
         public EWPaint()
@@ -55,45 +55,45 @@ namespace System.Graphics
                 _stops = value;
                 if (_stops == null || _stops.Length == 0)
                 {
-                    _stops = new[] {new EWPaintStop(0, StandardColors.White), new EWPaintStop(1, StandardColors.White)};
+                    _stops = new[] {new EWPaintStop(0, Colors.White), new EWPaintStop(1, Colors.White)};
                 }
             }
         }
 
-        public EWColor StartColor
+        public Color StartColor
         {
             get => _stops[StartColorIndex].Color;
 
             set
             {
                 var startColorIndex = StartColorIndex;
-                _stops[startColorIndex].Color = value ?? StandardColors.White;
+                _stops[startColorIndex].Color = value ?? Colors.White;
             }
         }
 
-        public EWColor EndColor
+        public Color EndColor
         {
             get => _stops[EndColorIndex].Color;
 
             set
             {
                 var endColorIndex = EndColorIndex;
-                _stops[endColorIndex].Color = value ?? StandardColors.White;
+                _stops[endColorIndex].Color = value ?? Colors.White;
             }
         }
 
-        public EWColor ForegroundColor
+        public Color ForegroundColor
         {
             get => _stops[0].Color;
 
             set
             {
                 var startColorIndex = StartColorIndex;
-                _stops[startColorIndex].Color = value ?? StandardColors.White;
+                _stops[startColorIndex].Color = value ?? Colors.White;
             }
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _stops[_stops.Length - 1].Color;
 
@@ -205,7 +205,7 @@ namespace System.Graphics
             AddOffset(offset, GetColorAt(offset));
         }
 
-        public void AddOffset(float offset, EWColor color)
+        public void AddOffset(float offset, Color color)
         {
             var oldStops = Stops;
             var newStops = new EWPaintStop[oldStops.Length + 1];
@@ -242,7 +242,7 @@ namespace System.Graphics
             Stops = newStops;
         }
 
-        public EWColor GetColorAt(float offset)
+        public Color GetColorAt(float offset)
         {
             var stops = Stops;
             if (stops.Length == 1)
@@ -286,52 +286,47 @@ namespace System.Graphics
 
             if (afterIndex == -1)
             {
-                return new EWColor(EndColor);
+                return EndColor;
             }
 
             if (beforeIndex == -1)
             {
-                return new EWColor(StartColor);
+                return StartColor;
             }
 
             var f = Geometry.GetFactor(before, after, offset);
             return BlendStartAndEndColors(stops[beforeIndex].Color, stops[afterIndex].Color, f);
         }
 
-        public EWColor BlendStartAndEndColors()
+        public Color BlendStartAndEndColors()
         {
             if (_stops == null || _stops.Length < 2)
             {
-                return StandardColors.White;
+                return Colors.White;
             }
 
             return BlendStartAndEndColors(StartColor, EndColor, .5f);
         }
 
-        public EWColor BlendStartAndEndColors(EWColor startColor, EWColor endColor, float factor)
+        public Color BlendStartAndEndColors(Color startColor, Color endColor, float factor)
         {
-            if (startColor == null) startColor = StandardColors.White;
-            if (endColor == null) endColor = StandardColors.White;
+            if (startColor == null) startColor = Colors.White;
+            if (endColor == null) endColor = Colors.White;
 
             var r = Geometry.GetLinearValue(startColor.Red, endColor.Red, factor);
             var g = Geometry.GetLinearValue(startColor.Green, endColor.Green, factor);
             var b = Geometry.GetLinearValue(startColor.Blue, endColor.Blue, factor);
             var a = Geometry.GetLinearValue(startColor.Alpha, endColor.Alpha, factor);
 
-            return new EWColor(r, g, b, a);
+            return new Color(r, g, b, a);
         }
 
         public override string ToString()
         {
-            return string.Format(
-                "[EWPaint: StartColor={0}, EndColor={1}, PaintType={2}, Angle={3}]",
-                StartColor,
-                EndColor,
-                PaintType,
-                Angle);
+            return $"[{nameof(EWPaint)}: StartColor={StartColor}, EndColor={EndColor}, PaintType={PaintType}, Angle={Angle}]";
         }
         
-        public void SetStops(float[] offsets, EWColor[] colors)
+        public void SetStops(float[] offsets, Color[] colors)
         {
             var stopCount = Math.Min(colors.Length, offsets.Length);
             _stops = new EWPaintStop[stopCount];

@@ -62,14 +62,14 @@ namespace System.Graphics.Skia
             set => CurrentState.StrokeLineJoin = value;
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
-            set => CurrentState.StrokeColor = value ?? StandardColors.Black;
+            set => CurrentState.StrokeColor = value ?? Colors.Black;
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
-            set => CurrentState.FontColor = value ?? StandardColors.Black;
+            set => CurrentState.FontColor = value ?? Colors.Black;
         }
 
         public override string FontName
@@ -88,7 +88,7 @@ namespace System.Graphics.Skia
             set => CurrentState.FontSize = value;
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
             set
             {
@@ -99,7 +99,7 @@ namespace System.Graphics.Skia
                     _shader = null;
                 }
 
-                CurrentState.FillColor = value ?? StandardColors.White;
+                CurrentState.FillColor = value ?? Colors.White;
             }
         }
 
@@ -287,7 +287,7 @@ namespace System.Graphics.Skia
             float y2)
         {
             if (paint == null)
-                paint = StandardColors.White.AsPaint();
+                paint = Colors.White.AsPaint();
 
             if (_shader != null)
             {
@@ -311,7 +311,7 @@ namespace System.Graphics.Skia
 
                 try
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                     _shader = SKShader.CreateLinearGradient(
                         new SKPoint(x1, y1),
                         new SKPoint(x2, y2),
@@ -342,7 +342,7 @@ namespace System.Graphics.Skia
                 var r = Geometry.GetDistance(x1, y1, x2, y2);
                 try
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                     _shader = SKShader.CreateRadialGradient(
                         new SKPoint(x1, y1),
                         r,
@@ -365,7 +365,7 @@ namespace System.Graphics.Skia
                 {
                     try
                     {
-                        CurrentState.FillColor = StandardColors.White;
+                        CurrentState.FillColor = Colors.White;
                         CurrentState.SetFillPaintFilterBitmap(true);
 
                         _shader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
@@ -398,7 +398,7 @@ namespace System.Graphics.Skia
                     {
                         try
                         {
-                            CurrentState.FillColor = StandardColors.White;
+                            CurrentState.FillColor = Colors.White;
                             CurrentState.SetFillPaintFilterBitmap(true);
 
                             _shader = SKShader.CreateBitmap(bitmap, SKShaderTileMode.Repeat, SKShaderTileMode.Repeat);
@@ -416,12 +416,12 @@ namespace System.Graphics.Skia
                     }
                     else
                     {
-                        FillColor = StandardColors.White;
+                        FillColor = Colors.White;
                     }
                 }
                 else
                 {
-                    FillColor = StandardColors.White;
+                    FillColor = Colors.White;
                 }
             }
             else
@@ -461,7 +461,6 @@ namespace System.Graphics.Skia
             var rectHeight = height;
 
             var sweep = Geometry.GetSweep(startAngle, endAngle, clockwise);
-            var strokeLocation = CurrentState.StrokeLocation;
 
             var rect = new SKRect(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
 
@@ -534,30 +533,11 @@ namespace System.Graphics.Skia
             if (strokeSize <= 0)
                 return;
 
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                rectX = x;
-                rectY = y;
-                rectWidth = width;
-                rectHeight = height;
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                rectX = x + strokeSize / 2;
-                rectY = y + strokeSize / 2;
-                rectWidth = width - strokeSize;
-                rectHeight = height - strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                rectX = x - strokeSize / 2;
-                rectY = y - strokeSize / 2;
-                rectWidth = width + strokeSize;
-                rectHeight = height + strokeSize;
-            }
-
+            rectX = x;
+            rectY = y;
+            rectWidth = width;
+            rectHeight = height;
+            
             _canvas.DrawRect(rectX, rectY, rectWidth, rectHeight, CurrentState.StrokePaintWithAlpha);
         }
 
@@ -590,25 +570,7 @@ namespace System.Graphics.Skia
             var rectWidth = width;
             var rectHeight = height;
             var radius = aCornerRadius;
-
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                rectX += strokeSize / 2;
-                rectY += strokeSize / 2;
-                rectWidth -= strokeSize;
-                rectHeight -= strokeSize;
-                radius -= strokeSize / 2;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                rectX -= strokeSize / 2;
-                rectY -= strokeSize / 2;
-                rectWidth += strokeSize;
-                rectHeight += strokeSize;
-                radius += strokeSize / 2;
-            }
-
+            
             _canvas.DrawRoundRect(rectX, rectY, rectWidth, rectHeight, radius, radius, CurrentState.StrokePaintWithAlpha);
         }
 
@@ -642,23 +604,7 @@ namespace System.Graphics.Skia
             var rectY = y;
             var rectWidth = width;
             var rectHeight = height;
-
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                rectX += strokeSize / 2;
-                rectY += strokeSize / 2;
-                rectWidth -= strokeSize;
-                rectHeight -= strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                rectX -= strokeSize / 2;
-                rectY -= strokeSize / 2;
-                rectWidth += strokeSize;
-                rectHeight += strokeSize;
-            }
-
+            
             var rect = new SKRect(rectX, rectY, rectX + rectWidth, rectY + rectHeight);
             _canvas.DrawOval(rect, CurrentState.StrokePaintWithAlpha);
         }
@@ -692,50 +638,9 @@ namespace System.Graphics.Skia
         protected override void NativeDrawPath(
             EWPath path)
         {
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                var nativePath = path.AsSkiaPath();
-                _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
-                nativePath.Dispose();
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _canvas.Save();
-                var nativePath = path.AsSkiaPath();
-                _canvas.ClipPath(nativePath);
-                var paint = CurrentState.StrokePaintWithAlpha;
-                var strokeSize = paint.StrokeWidth;
-                paint.StrokeWidth = strokeSize * 2;
-                _canvas.DrawPath(nativePath, paint);
-                paint.StrokeWidth = strokeSize;
-                _canvas.Restore();
-                nativePath.Dispose();
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var origClip = _canvas.LocalClipBounds;
-                var nativePath = path.AsSkiaPath();
-
-                var clippingPath = new SKPath();
-                var origClipAsRect = origClip;
-                clippingPath.AddRect(origClipAsRect, SKPathDirection.Clockwise);
-                clippingPath.AddPath(nativePath);
-
-                _canvas.Save();
-                _canvas.ClipPath(clippingPath);
-
-                var paint = CurrentState.StrokePaintWithAlpha;
-                var vStrokeSize = paint.StrokeWidth;
-                paint.StrokeWidth = vStrokeSize * 2;
-                _canvas.DrawPath(nativePath, paint);
-                paint.StrokeWidth = vStrokeSize;
-                _canvas.Restore();
-
-                //origClipAsRect.Dispose ();
-                nativePath.Dispose();
-                clippingPath.Dispose();
-            }
+            var nativePath = path.AsSkiaPath();
+            _canvas.DrawPath(nativePath, CurrentState.StrokePaintWithAlpha);
+            nativePath.Dispose();
         }
 
         public override void ClipPath(EWPath path,
@@ -863,7 +768,7 @@ namespace System.Graphics.Skia
         public override void SetShadow(
             EWSize offset,
             float blur,
-            EWColor color)
+            Color color)
         {
             var actualOffset = offset;
             if (actualOffset == null)
@@ -874,7 +779,7 @@ namespace System.Graphics.Skia
 
             if (color == null)
             {
-                var actualColor = StandardColors.Black.AsSKColorMultiplyAlpha(CurrentState.Alpha);
+                var actualColor = Colors.Black.AsSKColorMultiplyAlpha(CurrentState.Alpha);
                 CurrentState.SetShadow(blur, sx, sy, actualColor);
             }
             else

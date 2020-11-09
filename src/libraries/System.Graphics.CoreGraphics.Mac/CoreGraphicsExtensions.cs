@@ -15,7 +15,7 @@ namespace System.Graphics.CoreGraphics
             return paint;
         }
 
-        public static NSColor AsNSColor(this EWColor color)
+        public static NSColor AsNSColor(this Color color)
         {
             return NSColor.FromDeviceRgba(color.Red, color.Green, color.Blue, color.Alpha);
         }

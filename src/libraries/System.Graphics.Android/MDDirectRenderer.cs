@@ -9,7 +9,7 @@ namespace System.Graphics.Android
         private readonly ScalingCanvas _scalingCanvas;
         private EWDrawable _drawable;
         private MDGraphicsView _graphicsView;
-        private EWColor _backgroundColor;
+        private Color _backgroundColor;
 
         public MDDirectRenderer(Context context)
         {
@@ -34,7 +34,7 @@ namespace System.Graphics.Android
             set => _graphicsView = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => _backgroundColor = value;
@@ -50,7 +50,7 @@ namespace System.Graphics.Android
                 {
                     _canvas.FillColor = _backgroundColor;
                     _canvas.FillRectangle(dirtyRect);
-                    _canvas.FillColor = StandardColors.White;
+                    _canvas.FillColor = Colors.White;
                 }
 
                 _drawable.Draw(_scalingCanvas, dirtyRect);

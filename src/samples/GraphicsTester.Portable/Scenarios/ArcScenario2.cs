@@ -11,7 +11,7 @@ namespace GraphicsTester.Scenarios
 
         private void DrawArc(ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed)
         {
-            canvas.FillColor = StandardColors.Black;
+            canvas.FillColor = Colors.Black;
             canvas.FillArc(x, y, width, height, startAngle, endAngle, clockwise);
 
             var path = new EWPath();

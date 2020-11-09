@@ -10,7 +10,7 @@ namespace System.Graphics.SharpDX
     {
         private readonly DXCanvas canvas;
         private EWDrawable drawable;
-        private EWColor backgroundColor;
+        private Color backgroundColor;
 
         public DXGraphicsView()
         {
@@ -21,7 +21,7 @@ namespace System.Graphics.SharpDX
             canvas.Dpi = displayInformation.LogicalDpi;
 #endif
 
-            BackgroundColor = StandardColors.Green;
+            BackgroundColor = Colors.Green;
         }
 
         public EWDrawable Drawable
@@ -36,7 +36,7 @@ namespace System.Graphics.SharpDX
 
         public DXCanvas Canvas => canvas;
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => backgroundColor;
             set => backgroundColor = value;
@@ -56,7 +56,7 @@ namespace System.Graphics.SharpDX
             {
                 canvas.FillColor = backgroundColor;
                 canvas.FillRectangle(bounds);
-                canvas.FillColor = StandardColors.White;
+                canvas.FillColor = Colors.White;
             }
 
             drawable.Draw(canvas, bounds);

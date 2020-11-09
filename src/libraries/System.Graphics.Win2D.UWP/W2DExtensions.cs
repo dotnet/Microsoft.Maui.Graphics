@@ -7,7 +7,7 @@ namespace System.Graphics.Win2D
 {
     public static class W2DExtensions
     {
-        public static Color AsColor(this EWColor color, EWColor defaultColor, float alpha = 1)
+        public static global::Windows.UI.Color AsColor(this Color color, Color defaultColor, float alpha = 1)
         {
             var finalColor = color ?? defaultColor;
 
@@ -16,17 +16,17 @@ namespace System.Graphics.Win2D
             var b = (byte)(finalColor.Blue * 255);
             var a = (byte)(finalColor.Alpha * 255 * alpha);
 
-            return Color.FromArgb(a, r, g, b);
+            return global::Windows.UI.Color.FromArgb(a, r, g, b);
         }
 
-        public static Color AsColor(this EWColor color, float alpha = 1)
+        public static global::Windows.UI.Color AsColor(this Color color, float alpha = 1)
         {
             var r = (byte)(color.Red * 255);
             var g = (byte)(color.Green * 255);
             var b = (byte)(color.Blue * 255);
             var a = (byte)(color.Alpha * 255 * alpha);
 
-            return Color.FromArgb(a, r, g, b);
+            return global::Windows.UI.Color.FromArgb(a, r, g, b);
         }
 
         public static Matrix3x2 Scale(this Matrix3x2 target, float sx, float sy)

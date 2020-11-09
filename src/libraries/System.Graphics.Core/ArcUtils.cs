@@ -27,8 +27,8 @@ namespace System.Graphics
             float sinAngle = (float) Math.Sin(angle);
 
             //Compute (x1, y1)
-            float x1 = (cosAngle * dx2 + sinAngle * dy2);
-            float y1 = (-sinAngle * dx2 + cosAngle * dy2);
+            float x1 = cosAngle * dx2 + sinAngle * dy2;
+            float y1 = -sinAngle * dx2 + cosAngle * dy2;
 
             // Ensure radii are large enough
             rx = Math.Abs(rx);
@@ -49,12 +49,12 @@ namespace System.Graphics
             }
 
             //Compute (cx1, cy1)
-            float sign = (largeArcFlag == sweepFlag) ? -1 : 1;
-            float sq = ((prx * pry) - (prx * py1) - (pry * px1)) / ((prx * py1) + (pry * px1));
-            sq = (sq < 0) ? 0 : sq;
-            float coef = (sign * (float) Math.Sqrt(sq));
-            float cx1 = coef * ((rx * y1) / ry);
-            float cy1 = coef * -((ry * x1) / rx);
+            float sign = largeArcFlag == sweepFlag ? -1 : 1;
+            float sq = (prx * pry - prx * py1 - pry * px1) / (prx * py1 + pry * px1);
+            sq = sq < 0 ? 0 : sq;
+            float coef = sign * (float) Math.Sqrt(sq);
+            float cx1 = coef * (rx * y1 / ry);
+            float cy1 = coef * -(ry * x1 / rx);
 
             //Compute (cx, cy) from (cx1, cy1)
             float sx2 = (lastPointX + x) / 2.0f;
@@ -69,17 +69,17 @@ namespace System.Graphics
             float vy = (-y1 - cy1) / ry;
 
             //Compute the angle start
-            float n = (float) Math.Sqrt((ux * ux) + (uy * uy));
+            float n = (float) Math.Sqrt(ux * ux + uy * uy);
             float p = ux;
 
-            sign = (uy < 0) ? -1.0f : 1.0f;
+            sign = uy < 0 ? -1.0f : 1.0f;
 
             float angleStart = Geometry.RadiansToDegrees(sign * (float) Math.Acos(p / n));
 
             // Compute the angle extent
             n = (float) Math.Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
             p = ux * vx + uy * vy;
-            sign = (ux * vy - uy * vx < 0) ? -1.0f : 1.0f;
+            sign = ux * vy - uy * vx < 0 ? -1.0f : 1.0f;
             float angleExtent = Geometry.RadiansToDegrees(sign * (float) Math.Acos(p / n));
 
             if (!sweepFlag && angleExtent > 0)
@@ -131,8 +131,8 @@ namespace System.Graphics
                 {
                     angle += theta;
 
-                    float sinangle = (float) Math.Sin(angle - (theta / 2));
-                    float cosangle = (float) Math.Cos(angle - (theta / 2));
+                    float sinangle = (float) Math.Sin(angle - theta / 2);
+                    float cosangle = (float) Math.Cos(angle - theta / 2);
 
                     float div = (float) Math.Cos(theta / 2);
                     float cx = x + (radius * cosangle * cosbeta - yRadius * sinangle * sinbeta) / div;

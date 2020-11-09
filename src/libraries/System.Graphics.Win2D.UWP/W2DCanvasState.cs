@@ -33,14 +33,14 @@ namespace System.Graphics.Win2D
         private bool _needsStrokeStyle;
         private float _scale;
 
-        private Color _shadowColor;
+        private global::Windows.UI.Color _shadowColor;
         private bool _shadowColorValid;
-        private EWColor _sourceFillColor;
+        private Color _sourceFillColor;
         private EWPaint _sourceFillpaint;
 
-        private EWColor _sourceFontColor;
-        private EWColor _sourceShadowColor;
-        private EWColor _sourceStrokeColor;
+        private Color _sourceFontColor;
+        private Color _sourceShadowColor;
+        private Color _sourceStrokeColor;
         private CanvasSolidColorBrush _strokeBrush;
         private bool _strokeBrushValid;
         private CanvasStrokeStyle _strokeStyle;
@@ -130,7 +130,7 @@ namespace System.Graphics.Win2D
 
         public void SetToDefaults()
         {
-            _sourceStrokeColor = StandardColors.Black;
+            _sourceStrokeColor = Colors.Black;
             _strokeBrushValid = false;
             _needsStrokeStyle = false;
             _strokeStyle = null;
@@ -140,7 +140,7 @@ namespace System.Graphics.Win2D
             _lineCap = CanvasCapStyle.Flat;
             _lineJoin = CanvasLineJoin.Miter;
             
-            _sourceFillpaint = StandardColors.White.AsPaint();
+            _sourceFillpaint = Colors.White.AsPaint();
             _fillBrushValid = false;
 
             Matrix = Matrix3x2.Identity;
@@ -152,7 +152,7 @@ namespace System.Graphics.Win2D
             FontSize = 12;
             FontWeight = 200;
             FontStyle = FontStyle.Normal;
-            _sourceFontColor = StandardColors.Black;
+            _sourceFontColor = Colors.Black;
             _fontBrushValid = false;
 
             _alpha = 1;
@@ -184,11 +184,11 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
             set
             {
-                var finalValue = value ?? StandardColors.Black;
+                var finalValue = value ?? Colors.Black;
 
                 if (!finalValue.Equals(_sourceStrokeColor))
                 {
@@ -268,7 +268,7 @@ namespace System.Graphics.Win2D
             _needsStrokeStyle = true;
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
             set
             {
@@ -326,7 +326,7 @@ namespace System.Graphics.Win2D
                                 gradientStops[i] = new CanvasGradientStop()
                                 {
                                     Position = _sourceFillpaint.Stops[i].Offset,
-                                    Color = _sourceFillpaint.Stops[i].Color.AsColor(StandardColors.White, _alpha)
+                                    Color = _sourceFillpaint.Stops[i].Color.AsColor(Colors.White, _alpha)
                                 };
                             }
 
@@ -344,7 +344,7 @@ namespace System.Graphics.Win2D
                                 gradientStops[i] = new CanvasGradientStop
                                 {
                                     Position = _sourceFillpaint.Stops[i].Offset,
-                                    Color = _sourceFillpaint.Stops[i].Color.AsColor(StandardColors.White, _alpha)
+                                    Color = _sourceFillpaint.Stops[i].Color.AsColor(Colors.White, _alpha)
                                 };
                             }
                             _fillBrush = new CanvasRadialGradientBrush(_owner.Session, gradientStops);
@@ -356,7 +356,7 @@ namespace System.Graphics.Win2D
                     }
                     else
                     {
-                        _fillBrush = new CanvasSolidColorBrush(_owner.Session, Colors.White);
+                        _fillBrush = new CanvasSolidColorBrush(_owner.Session, global::Windows.UI.Colors.White);
                         _fillBrushValid = true;
                     }
                 }
@@ -365,11 +365,11 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public EWColor FontColor
+        public Color FontColor
         {
             set
             {
-                var finalValue = value ?? StandardColors.Black;
+                var finalValue = value ?? Colors.Black;
 
                 if (!finalValue.Equals(_sourceFontColor))
                 {
@@ -379,7 +379,7 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public void SetShadow(EWSize offset, float blur, EWColor color)
+        public void SetShadow(EWSize offset, float blur, Color color)
         {
             if (offset != null)
             {
@@ -395,7 +395,7 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public Color ShadowColor
+        public global::Windows.UI.Color ShadowColor
         {
             get
             {
@@ -518,9 +518,9 @@ namespace System.Graphics.Win2D
             get
             {
                 if (_fontBrush == null || (!_fontBrushValid && _parentState != null && _fontBrush == _parentState._fontBrush))
-                    _fontBrush = new CanvasSolidColorBrush(_owner.Session, _sourceFontColor.AsColor(StandardColors.Black, _alpha));
+                    _fontBrush = new CanvasSolidColorBrush(_owner.Session, _sourceFontColor.AsColor(Colors.Black, _alpha));
                 else if (!_fontBrushValid)
-                    _fontBrush.Color = _sourceFontColor.AsColor(StandardColors.Black, _alpha);
+                    _fontBrush.Color = _sourceFontColor.AsColor(Colors.Black, _alpha);
 
                 return _fontBrush;
             }
@@ -532,12 +532,12 @@ namespace System.Graphics.Win2D
             {
                 if (_strokeBrush == null || (!_strokeBrushValid && _parentState != null && _strokeBrush == _parentState._strokeBrush))
                 {
-                    _strokeBrush = new CanvasSolidColorBrush(_owner.Session, _sourceStrokeColor.AsColor(StandardColors.Black, _alpha));
+                    _strokeBrush = new CanvasSolidColorBrush(_owner.Session, _sourceStrokeColor.AsColor(Colors.Black, _alpha));
                     _strokeBrushValid = true;
                 }
                 else if (!_strokeBrushValid)
                 {
-                    _strokeBrush.Color = _sourceStrokeColor.AsColor(StandardColors.Black, _alpha);
+                    _strokeBrush.Color = _sourceStrokeColor.AsColor(Colors.Black, _alpha);
                     _strokeBrushValid = true;
                 }
 

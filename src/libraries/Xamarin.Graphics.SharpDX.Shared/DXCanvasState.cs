@@ -27,12 +27,12 @@ namespace System.Graphics.SharpDX
 
         private Color4 _shadowColor;
         private bool _shadowColorValid;
-        private EWColor _sourceFillColor;
+        private Color _sourceFillColor;
         private EWPaint _sourceFillpaint;
 
-        private EWColor _sourceFontColor;
-        private EWColor _sourceShadowColor;
-        private EWColor _sourceStrokeColor;
+        private Color _sourceFontColor;
+        private Color _sourceShadowColor;
+        private Color _sourceStrokeColor;
         private SolidColorBrush _strokeBrush;
         private bool _strokeBrushValid;
         private StrokeStyle _strokeStyle;
@@ -150,11 +150,11 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
             set
             {
-                EWColor vValue = value ?? StandardColors.Black;
+                Color vValue = value ?? Colors.Black;
 
                 if (!vValue.Equals(_sourceStrokeColor))
                 {
@@ -211,7 +211,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
             set
             {
@@ -226,12 +226,12 @@ namespace System.Graphics.SharpDX
         public bool IsShadowed { get; set; }
         public bool IsBlurred { get; private set; }
 
-        public EWColor FontColor
+        public Color FontColor
         {
-            get => _sourceFontColor ?? StandardColors.Black;
+            get => _sourceFontColor ?? Colors.Black;
             set
             {
-                EWColor vValue = value ?? StandardColors.Black;
+                Color vValue = value ?? Colors.Black;
 
                 if (!vValue.Equals(_sourceFontColor))
                 {
@@ -332,7 +332,7 @@ namespace System.Graphics.SharpDX
                     }
                     else
                     {
-                        _fillBrush = new SolidColorBrush(_renderTarget, Color.White);
+                        _fillBrush = new SolidColorBrush(_renderTarget, global::SharpDX.Color.White);
                         _fillBrushValid = true;
                     }
                 }
@@ -468,7 +468,7 @@ namespace System.Graphics.SharpDX
 
         public void SetToDefaults()
         {
-            _sourceStrokeColor = StandardColors.Black;
+            _sourceStrokeColor = Colors.Black;
             _strokeBrushValid = false;
             _needsStrokeStyle = false;
             _strokeStyle = null;
@@ -482,7 +482,7 @@ namespace System.Graphics.SharpDX
             _strokeStyleProperties.StartCap = CapStyle.Flat;
             _dashes = null;
 
-            _sourceFillpaint = StandardColors.White.AsPaint();
+            _sourceFillpaint = Colors.White.AsPaint();
             _fillBrushValid = false;
 
             Matrix = Matrix3x2.Identity;
@@ -494,7 +494,7 @@ namespace System.Graphics.SharpDX
             FontSize = 12;
             FontWeight = FontWeight.Regular;
             FontStyle = FontStyle.Normal;
-            _sourceFontColor = StandardColors.Black;
+            _sourceFontColor = Colors.Black;
             _fontBrushValid = false;
 
             _alpha = 1;
@@ -573,7 +573,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public void SetShadow(EWSize aOffset, float aBlur, EWColor aColor)
+        public void SetShadow(EWSize aOffset, float aBlur, Color aColor)
         {
             if (aOffset != null)
             {

@@ -23,13 +23,13 @@ namespace GraphicsTester.Scenarios
         private void FillShadowedRect(ICanvas canvas)
         {
             canvas.SaveState();
-            canvas.FillColor = StandardColors.Black;
+            canvas.FillColor = Colors.Black;
             canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             action(canvas, 50.5f, 400.5f, 200, 50);
             canvas.RestoreState();
 
             canvas.SaveState();
-            canvas.FillColor = StandardColors.CornflowerBlue;
+            canvas.FillColor = Colors.CornflowerBlue;
             canvas.SetShadow(CanvasDefaults.DefaultShadowOffset, CanvasDefaults.DefaultShadowBlur, CanvasDefaults.DefaultShadowColor);
             action(canvas, 50.5f, 500.5f, 200, 50);
             canvas.RestoreState();
@@ -37,13 +37,13 @@ namespace GraphicsTester.Scenarios
 
         private void FillRectanglesOfDifferentSizesAndColors(ICanvas canvas)
         {
-            canvas.FillColor = StandardColors.Salmon;
+            canvas.FillColor = Colors.Salmon;
             for (int i = 1; i < 5; i++)
             {
                 action(canvas, 50, 50 + i * 30, 150, 20);
             }
 
-            canvas.FillColor = StandardColors.CornflowerBlue;
+            canvas.FillColor = Colors.CornflowerBlue;
             for (int i = 1; i < 5; i++)
             {
                 action(canvas, 250.5f, 50.5f + i * 30, 150, 20);
@@ -52,7 +52,7 @@ namespace GraphicsTester.Scenarios
 
         private void FillRectanglesWithAlpha(ICanvas canvas)
         {
-            canvas.FillColor = StandardColors.Black;
+            canvas.FillColor = Colors.Black;
             for (int i = 1; i <= 10; i++)
             {
                 canvas.Alpha = (float) i / 10f;

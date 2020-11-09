@@ -6,9 +6,9 @@ namespace System.Graphics.Xaml
 {
     public static class XamlGraphicsExtensions
     {
-        public static Color AsWpfColor(this EWColor target)
+        public static Windows.Media.Color AsWpfColor(this Color target)
         {
-            return Color.FromArgb(
+            return Windows.Media.Color.FromArgb(
                 (byte) (255 * target.Alpha),
                 (byte) (255 * target.Red),
                 (byte) (255 * target.Green),

@@ -8,7 +8,7 @@ namespace System.Graphics.Blazor
 
         private bool _strokeDirty = true;
         private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
-        private EWColor _strokeColor = StandardColors.Black;
+        private Color _strokeColor = Colors.Black;
         private float _lineWidth = 1;
         private EWLineJoin _lineJoin;
         private EWLineCap _lineCap;
@@ -16,7 +16,7 @@ namespace System.Graphics.Blazor
         private float[] _dashPattern;
 
         private bool _fillDirty = true;
-        private EWColor _fillColor = StandardColors.White;
+        private Color _fillColor = Colors.White;
         private EWPaint _fillPaint = null;
         private double _fillX1;
         private double _fillY1;
@@ -24,7 +24,7 @@ namespace System.Graphics.Blazor
         private double _fillY2;
 
         private bool _textDirty = true;
-        private EWColor _textColor = StandardColors.Black;
+        private Color _textColor = Colors.Black;
         private string _font = "Arial";
         private float _fontSize = 12f;
 
@@ -57,14 +57,14 @@ namespace System.Graphics.Blazor
             _font = prototype._font;
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
             get => _strokeColor;
             set
             {
                 if (_strokeColor != value)
                 {
-                    _strokeColor = value ?? StandardColors.Black;
+                    _strokeColor = value ?? Colors.Black;
                     _strokeDirty = true;
                 }
             }
@@ -132,7 +132,7 @@ namespace System.Graphics.Blazor
             }
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
             get => _fillColor;
             set
@@ -140,21 +140,21 @@ namespace System.Graphics.Blazor
                 if (_fillColor != value)
                 {
                     _fillPaint = null;
-                    _fillColor = value ?? StandardColors.White;
+                    _fillColor = value ?? Colors.White;
                     _fillDirty = true;
                 }
             }
         }
 
 
-        public EWColor TextColor
+        public Color TextColor
         {
             get => _textColor;
             set
             {
                 if (_textColor != value)
                 {
-                    _textColor = value ?? StandardColors.Black;
+                    _textColor = value ?? Colors.Black;
                     _textDirty = true;
                 }
             }

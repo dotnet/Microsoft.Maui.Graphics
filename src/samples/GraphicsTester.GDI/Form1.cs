@@ -12,7 +12,7 @@ namespace GraphicsTester.GDI
         {
             InitializeComponent();
 
-            gdiGraphicsView1.Renderer = new GDIDirectGraphicsRenderer() {BackgroundColor = StandardColors.White};
+            gdiGraphicsView1.Renderer = new GDIDirectGraphicsRenderer() {BackgroundColor = Colors.White};
             foreach (var scenario in ScenarioList.Scenarios)
             {
                 listBox1.Items.Add(scenario);

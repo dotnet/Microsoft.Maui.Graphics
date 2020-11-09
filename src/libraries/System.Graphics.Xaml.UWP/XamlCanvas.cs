@@ -208,79 +208,28 @@ namespace System.Graphics.Xaml
                 _rectCornerRadius = 0;
                 return;
             }
-
-            var location = CurrentState.StrokeLocation;
-
-            if (location == EWStrokeLocation.CENTER)
-            {
-                _rectCornerRadius = cornerRadius;
-            }
-            else if (location == EWStrokeLocation.INSIDE)
-            {
-                _rectCornerRadius = cornerRadius - (CurrentState.StrokeSize/2);
-            }
-            else if (location == EWStrokeLocation.OUTSIDE)
-            {
-                _rectCornerRadius = cornerRadius + (CurrentState.StrokeSize / 2);
-            }
+            
+            _rectCornerRadius = cornerRadius;
         }
 
         private void CreateStrokeRect(float x, float y, float width, float height)
         {
-            var location = CurrentState.StrokeLocation;
             var strokeSize = CurrentState.StrokeSize;
             var halfStroke = strokeSize/2;
-
-            if (location == EWStrokeLocation.CENTER)
-            {
-                _rectX = x - halfStroke;
-                _rectY = y - halfStroke;
-                _rectWidth = width + strokeSize;
-                _rectHeight = height + strokeSize;             
-            }
-            else if (location == EWStrokeLocation.OUTSIDE)
-            {
-                _rectX = x - strokeSize;
-                _rectY = y - strokeSize;
-                _rectWidth = width + strokeSize*2;
-                _rectHeight = height + strokeSize*2;
-            }
-            else
-            {
-                _rectX = x;
-                _rectY = y;
-                _rectWidth = width;
-                _rectHeight = height;               
-            }
+            
+            _rectX = x - halfStroke;
+            _rectY = y - halfStroke;
+            _rectWidth = width + strokeSize;
+            _rectHeight = height + strokeSize;
         }
 
         private void CreateArcStrokeRect(float x, float y, float width, float height)
         {
-            var location = CurrentState.StrokeLocation;
-            var strokeSize = CurrentState.StrokeSize;
-            var halfStroke = strokeSize / 2;
-
-            if (location == EWStrokeLocation.CENTER)
-            {
-                _rectX = x;
-                _rectY = y;
-                _rectWidth = width;
-                _rectHeight = height;
-            }
-            else if (location == EWStrokeLocation.OUTSIDE)
-            {
-                _rectX = x - halfStroke;
-                _rectY = y - halfStroke;
-                _rectWidth = width + strokeSize;
-                _rectHeight = height + strokeSize;
-            }
-            else
-            {
-                _rectX = x + halfStroke;
-                _rectY = y + halfStroke;
-                _rectWidth = width - strokeSize;
-                _rectHeight = height - strokeSize;
-            }
+            _rectX = x;
+            _rectY = y;
+            _rectWidth = width;
+            _rectHeight = height;
+           
         }
 
         protected override void NativeConcatenateTransform(AffineTransform transform)
@@ -537,7 +486,7 @@ namespace System.Graphics.Xaml
 			CurrentState.SetFillPaint(paint, x1, y1, x2, y2);
 		}
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }
@@ -722,7 +671,7 @@ namespace System.Graphics.Xaml
             set => CurrentState.MiterLimit = value;
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
             set => CurrentState.StrokeColor = value;
         }
@@ -737,12 +686,12 @@ namespace System.Graphics.Xaml
             set => CurrentState.StrokeLineJoin = value;
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
             set => CurrentState.FillColor = value;
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
             set => CurrentState.FontColor = value;
         }

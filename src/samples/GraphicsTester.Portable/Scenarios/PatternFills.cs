@@ -16,7 +16,7 @@ namespace GraphicsTester.Scenarios
             IPattern pattern;
             using (var picture = new PictureCanvas(0, 0, 12, 12))
             {
-                picture.StrokeColor = StandardColors.LimeGreen;
+                picture.StrokeColor = Colors.LimeGreen;
 
                 picture.StrokeSize = 1f;
                 picture.StrokeDashPattern = null;

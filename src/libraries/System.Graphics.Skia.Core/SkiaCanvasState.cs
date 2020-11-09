@@ -19,14 +19,14 @@ namespace System.Graphics.Skia
         private SKMaskFilter _blurFilter;
         private SKImageFilter _shadowFilter;
         private bool _shadowed;
-        private Color _shadowColor;
+        private SKColor _shadowColor;
         private float _shadowX;
         private float _shadowY;
         private float _shadowBlur;
 
-        private EWColor _strokeColor = StandardColors.Black;
-        private EWColor _fillColor = StandardColors.White;
-        private EWColor _fontColor = StandardColors.Black;
+        private Color _strokeColor = Colors.Black;
+        private Color _fillColor = Colors.White;
+        private Color _fontColor = Colors.Black;
 
         public SkiaCanvasState()
         {
@@ -59,13 +59,13 @@ namespace System.Graphics.Skia
             _shadowBlur = prototype._shadowBlur;
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
             get => _strokeColor;
             set => _strokeColor = value;
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
             get => _fillColor;
             set
@@ -75,7 +75,7 @@ namespace System.Graphics.Skia
             }
         }
 
-        public EWColor FontColor
+        public Color FontColor
         {
             get => _fontColor;
             set
@@ -355,7 +355,7 @@ namespace System.Graphics.Skia
 
         #endregion
 
-        public void SetShadow(float blur, float sx, float sy, Color color)
+        public void SetShadow(float blur, float sx, float sy, SKColor color)
         {
             _shadowFilter = SKImageFilter.CreateDropShadow(sx, sy, blur, blur, color, SKDropShadowImageFilterShadowMode.DrawShadowAndForeground);
             FillPaint.ImageFilter = _shadowFilter;

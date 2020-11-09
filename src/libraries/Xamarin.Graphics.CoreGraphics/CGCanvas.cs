@@ -24,7 +24,7 @@ namespace System.Graphics.CoreGraphics
         private CGContext _context;
         private readonly Func<CGColorSpace> _getColorspace;
 
-        private EWColor _fontColor = StandardColors.Black;
+        private Color _fontColor = Colors.Black;
         private string _fontName;
         private float _fontSize = 10f;
         private CGGradient _gradient;
@@ -157,7 +157,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
             set
             {
@@ -172,9 +172,9 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
-            set => _fontColor = value ?? StandardColors.Black;
+            set => _fontColor = value ?? Colors.Black;
         }
 
         public override string FontName
@@ -187,7 +187,7 @@ namespace System.Graphics.CoreGraphics
             set => _fontSize = value;
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
             set
             {
@@ -365,7 +365,7 @@ namespace System.Graphics.CoreGraphics
 
             if (paint == null)
             {
-                paint = StandardColors.White.AsPaint();
+                paint = Colors.White.AsPaint();
             }
 
             if (_gradient != null)
@@ -390,10 +390,10 @@ namespace System.Graphics.CoreGraphics
                 int g = 0;
                 for (int i = 0; i < paint.Stops.Length; i++)
                 {
-                    EWColor vColor = paint.Stops[i].Color;
+                    Color vColor = paint.Stops[i].Color;
                     offsets[i] = paint.Stops[i].Offset;
 
-                    if (vColor == null) vColor = StandardColors.White;
+                    if (vColor == null) vColor = Colors.White;
 
                     gradientColors[g++] = vColor.Red;
                     gradientColors[g++] = vColor.Green;
@@ -413,10 +413,10 @@ namespace System.Graphics.CoreGraphics
                 int g = 0;
                 for (int i = 0; i < paint.Stops.Length; i++)
                 {
-                    EWColor vColor = paint.Stops[i].Color;
+                    Color vColor = paint.Stops[i].Color;
                     offsets[i] = paint.Stops[i].Offset;
 
-                    if (vColor == null) vColor = StandardColors.White;
+                    if (vColor == null) vColor = Colors.White;
 
                     gradientColors[g++] = vColor.Red;
                     gradientColors[g++] = vColor.Green;
@@ -457,31 +457,11 @@ namespace System.Graphics.CoreGraphics
 
         protected override void NativeDrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool close)
         {
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                _rect.X = x;
-                _rect.Y = y;
-                _rect.Width = width;
-                _rect.Height = height;
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x + (strokeSize / 2);
-                _rect.Y = y + (strokeSize / 2);
-                _rect.Width = width - strokeSize;
-                _rect.Height = height - strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x - (strokeSize / 2);
-                _rect.Y = y - (strokeSize / 2);
-                _rect.Width = width + strokeSize;
-                _rect.Height = height + strokeSize;
-            }
-
+            _rect.X = x;
+            _rect.Y = y;
+            _rect.Width = width;
+            _rect.Height = height;
+                
             if (!_antialias) _context.SetShouldAntialias(false);
             var startAngleInRadians = Geometry.DegreesToRadians(-startAngle);
             var endAngleInRadians = Geometry.DegreesToRadians(-endAngle);
@@ -619,8 +599,8 @@ namespace System.Graphics.CoreGraphics
             // area.
             if (CurrentState.Shadowed)
             {
-                float vMinimumTransparent = Math.Min(_paint.StartColor.Alpha, _paint.EndColor.Alpha);
-                var color = StandardColors.White.GetTransparentCopy(vMinimumTransparent);
+                float minimumTransparent = Math.Min(_paint.StartColor.Alpha, _paint.EndColor.Alpha);
+                var color = Colors.White.GetTransparentCopy(minimumTransparent);
                 _context.SetFillColor(color.Red, color.Green, color.Blue, color.Alpha);
                 action();
                 _context.FillPath();
@@ -638,30 +618,10 @@ namespace System.Graphics.CoreGraphics
 
         protected override void NativeDrawRectangle(float x, float y, float width, float height)
         {
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                _rect.X = x;
-                _rect.Y = y;
-                _rect.Width = width;
-                _rect.Height = height;
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x + (strokeSize / 2);
-                _rect.Y = y + (strokeSize / 2);
-                _rect.Width = width - strokeSize;
-                _rect.Height = height - strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x - (strokeSize / 2);
-                _rect.Y = y - (strokeSize / 2);
-                _rect.Width = width + strokeSize;
-                _rect.Height = height + strokeSize;
-            }
+            _rect.X = x;
+            _rect.Y = y;
+            _rect.Width = width;
+            _rect.Height = height;
 
             if (!_antialias) _context.SetShouldAntialias(false);
             _context.StrokeRect(_rect);
@@ -854,32 +814,7 @@ namespace System.Graphics.CoreGraphics
 
         protected override void NativeDrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                _context.AddRoundedRectangle(x, y, width, height, cornerRadius);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x + (strokeSize / 2);
-                _rect.Y = y + (strokeSize / 2);
-                _rect.Width = width - strokeSize;
-                _rect.Height = height - strokeSize;
-
-                _context.AddRoundedRectangle(_rect, cornerRadius - (strokeSize / 2));
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x - (strokeSize / 2);
-                _rect.Y = y - (strokeSize / 2);
-                _rect.Width = width + strokeSize;
-                _rect.Height = height + strokeSize;
-
-                _context.AddRoundedRectangle(_rect, cornerRadius + (strokeSize / 2));
-            }
-
+            _context.AddRoundedRectangle(x, y, width, height, cornerRadius);
             _context.DrawPath(CGPathDrawingMode.Stroke);
         }
 
@@ -925,31 +860,10 @@ namespace System.Graphics.CoreGraphics
 
         protected override void NativeDrawOval(float x, float y, float width, float height)
         {
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                _rect.X = x;
-                _rect.Y = y;
-                _rect.Width = width;
-                _rect.Height = height;
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x + (strokeSize / 2);
-                _rect.Y = y + (strokeSize / 2);
-                _rect.Width = width - strokeSize;
-                _rect.Height = height - strokeSize;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                var strokeSize = CurrentState.StrokeSize;
-                _rect.X = x - (strokeSize / 2);
-                _rect.Y = y - (strokeSize / 2);
-                _rect.Width = width + strokeSize;
-                _rect.Height = height + strokeSize;
-            }
-
+            _rect.X = x;
+            _rect.Y = y;
+            _rect.Width = width;
+            _rect.Height = height;
             _context.StrokeEllipseInRect(_rect);
         }
 
@@ -1013,42 +927,8 @@ namespace System.Graphics.CoreGraphics
         protected override void NativeDrawPath(EWPath path)
         {
             var nativePath = GetNativePath(path);
-
-            var strokeLocation = CurrentState.StrokeLocation;
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                _context.AddPath(nativePath);
-                _context.DrawPath(CGPathDrawingMode.Stroke);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _context.SaveState();
-                _context.AddPath(nativePath);
-                _context.Clip();
-                _context.SetLineWidth(CurrentState.StrokeSize * 2);
-                _context.AddPath(nativePath);
-                _context.DrawPath(CGPathDrawingMode.Stroke);
-                _context.RestoreState();
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                CGRect vOrigClip = _context.GetClipBoundingBox();
-
-                var vClippingPath = new CGPath();
-                vClippingPath.AddRect(vOrigClip);
-                vClippingPath.AddPath(nativePath);
-
-                _context.SaveState();
-                _context.AddPath(vClippingPath);
-                _context.EOClip();
-
-                _context.SetLineWidth(CurrentState.StrokeSize * 2);
-                _context.AddPath(nativePath);
-                _context.DrawPath(CGPathDrawingMode.Stroke);
-                _context.RestoreState();
-
-                vClippingPath.Dispose();
-            }
+            _context.AddPath(nativePath);
+            _context.DrawPath(CGPathDrawingMode.Stroke);
         }
 
         public override void ClipPath(EWPath path, EWWindingMode windingMode = EWWindingMode.NonZero)
@@ -1241,7 +1121,7 @@ namespace System.Graphics.CoreGraphics
             CGContext context,
             String fontName,
             float fontSize,
-            EWColor fontColor,
+            Color fontColor,
             float ix,
             float iy)
         {
@@ -1357,7 +1237,7 @@ namespace System.Graphics.CoreGraphics
             CGRect rect,
             string fontName,
             float fontSize,
-            EWColor fontColor,
+            Color fontColor,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float ix = 0,
             float iy = 0)
@@ -1374,7 +1254,7 @@ namespace System.Graphics.CoreGraphics
             CGPath path,
             string fontName,
             float fontSize,
-            EWColor fontColor,
+            Color fontColor,
             EWTextFlow textFlow = EWTextFlow.CLIP_BOUNDS,
             float ix = 0,
             float iy = 0)
@@ -1438,7 +1318,7 @@ namespace System.Graphics.CoreGraphics
             context.RestoreState();
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             var actualOffset = offset ?? CanvasDefaults.DefaultShadowOffset;
 
@@ -1504,7 +1384,7 @@ namespace System.Graphics.CoreGraphics
             _fillImage = null;
             _paint = null;
 
-            _fontColor = StandardColors.Black;
+            _fontColor = Colors.Black;
         }
 
         public override bool RestoreState()

@@ -4,12 +4,12 @@ namespace System.Graphics.Forms
 {
     public static class ColorExtensions
     {
-        public static Color AsFormsColor(this EWColor color)
+        public static Xamarin.Forms.Color AsFormsColor(this Color color)
         {
             if (color == null)
-                return Color.Black;
+                return Xamarin.Forms.Color.Black;
 
-            return new Color(color.Red, color.Green, color.Blue, color.Alpha);
+            return new Xamarin.Forms.Color(color.Red, color.Green, color.Blue, color.Alpha);
         }
     }
 }

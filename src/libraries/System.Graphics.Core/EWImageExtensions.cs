@@ -69,7 +69,7 @@ namespace System.Graphics
                 }
                 else
                 {
-                    canvas.FillColor = StandardColors.White;
+                    canvas.FillColor = Colors.White;
                 }
             }
         }

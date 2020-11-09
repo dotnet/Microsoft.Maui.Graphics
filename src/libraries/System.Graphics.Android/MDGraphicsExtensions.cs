@@ -9,7 +9,7 @@ namespace System.Graphics.Android
 {
     public static class MDGraphicsExtensions
     {
-        public static Color AsColorMultiplyAlpha(this EWColor target, float alpha)
+        public static global::Android.Graphics.Color AsColorMultiplyAlpha(this Color target, float alpha)
         {
             var r = (int) (target.Red * 255f);
             var g = (int) (target.Green * 255f);
@@ -21,11 +21,11 @@ namespace System.Graphics.Android
                 a = 255;
             }
 
-            var color = new Color(r, g, b, a);
+            var color = new global::Android.Graphics.Color(r, g, b, a);
             return color;
         }
 
-        public static int ToArgb(this EWColor target)
+        public static int ToArgb(this Color target)
         {
             var a = (int) (target.Alpha * 255f);
             var r = (int) (target.Red * 255f);
@@ -36,7 +36,7 @@ namespace System.Graphics.Android
             return argb;
         }
 
-        public static int ToArgb(this EWColor target, float alpha)
+        public static int ToArgb(this Color target, float alpha)
         {
             var a = (int) (target.Alpha * 255f * alpha);
             var r = (int) (target.Red * 255f);
@@ -47,22 +47,22 @@ namespace System.Graphics.Android
             return argb;
         }
 
-        public static Color AsColor(this EWColor target)
+        public static global::Android.Graphics.Color AsColor(this Color target)
         {
             var r = (int) (target.Red * 255f);
             var g = (int) (target.Green * 255f);
             var b = (int) (target.Blue * 255f);
             var a = (int) (target.Alpha * 255f);
-            return new Color(r, g, b, a);
+            return new global::Android.Graphics.Color(r, g, b, a);
         }
 
-        public static EWColor AsEWColor(this Color target)
+        public static Color AsColor(this global::Android.Graphics.Color target)
         {
             var r = (int) target.R;
             var g = (int) target.G;
             var b = (int) target.B;
             var a = (int) target.A;
-            return new EWColor(r, g, b, a);
+            return new Color(r, g, b, a);
         }
 
         public static RectangleF AsRectangleF(this EWRectangle target)

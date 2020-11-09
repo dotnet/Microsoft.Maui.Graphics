@@ -7,9 +7,9 @@ namespace System.Graphics.Xaml
     public class XamlCanvasState : CanvasState
     {
         private static readonly DoubleCollection EmptyDashArray = new DoubleCollection();
-        private EWColor _strokeColor = StandardColors.Black;
-        private EWColor _fontColor = StandardColors.Black;
-        private EWColor _fillColor = StandardColors.White;
+        private Color _strokeColor = Colors.Black;
+        private Color _fontColor = Colors.Black;
+        private Color _fillColor = Colors.White;
         private EWPaint _fillPaint;
         private float _fillPaintX1;
         private float _fillPaintX2;
@@ -20,7 +20,7 @@ namespace System.Graphics.Xaml
         private DoubleCollection _dashArray;
         private EWSize _shadowOffset;
         private float _shadowBlur;
-        private EWColor _shadowColor;
+        private Color _shadowColor;
         private Effect _effect;
         private Effect _shadowEffect;
         private Effect _blurEffect = null;
@@ -108,7 +108,7 @@ namespace System.Graphics.Xaml
                     return new SolidColorBrush(_fillPaint.BlendStartAndEndColors().AsWpfColor());
                 }
 
-                return new SolidColorBrush(Colors.White);
+                return new SolidColorBrush(Windows.Media.Colors.White);
             }
         }
 
@@ -136,9 +136,9 @@ namespace System.Graphics.Xaml
             set => _fontSize = value;
         }
 
-        public EWColor FontColor
+        public Color FontColor
         {
-            set => _fontColor = value ?? StandardColors.Black;
+            set => _fontColor = value ?? Colors.Black;
         }
 
         public EWLineJoin StrokeLineJoin
@@ -147,12 +147,12 @@ namespace System.Graphics.Xaml
             set => _strokeLineJoin = value;
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
-            set => _strokeColor = value ?? StandardColors.Black;
+            set => _strokeColor = value ?? Colors.Black;
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
             set
             {
@@ -253,7 +253,7 @@ namespace System.Graphics.Xaml
             }
         }
 
-        public void SetShadow(EWSize offset, float blur, EWColor color)
+        public void SetShadow(EWSize offset, float blur, Color color)
         {
             _shadowOffset = offset;
             _shadowBlur = blur;

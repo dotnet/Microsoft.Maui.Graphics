@@ -7,19 +7,19 @@ namespace System.Graphics.Xaml
 {
     public class XamlCanvasState : CanvasState
     {
-        private EWColor _strokeColor = StandardColors.Black;
-        private EWColor _fillColor = StandardColors.White;
+        private Color _strokeColor = Colors.Black;
+        private Color _fillColor = Colors.White;
 		private EWPaint _fillPaint;
 		private float _fillPaintX1;
 		private float _fillPaintX2;
 		private float _fillPaintY1;
 		private float _fillPaintY2;
-		private EWColor _fontColor = StandardColors.Black;
+		private Color _fontColor = Colors.Black;
         private float _alpha = 1;
         private DoubleCollection _dashArray;
         private EWSize _shadowOffset;
         private float _shadowBlur;
-        private EWColor _shadowColor;
+        private Color _shadowColor;
         private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
         private EWLineCap _strokeLineCap = EWLineCap.BUTT;
         private EWLineJoin _strokeLineJoin = EWLineJoin.MITER;
@@ -103,7 +103,7 @@ namespace System.Graphics.Xaml
 					return new SolidColorBrush(_fillPaint.BlendStartAndEndColors().AsColor());
 				}
 
-				return new SolidColorBrush(Colors.White);
+				return new SolidColorBrush(global::Windows.UI.Colors.White);
 			}
         }
 
@@ -139,12 +139,12 @@ namespace System.Graphics.Xaml
             set => _strokeLineJoin = value;
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
-            set => _strokeColor = value ?? StandardColors.Black;
+            set => _strokeColor = value ?? Colors.Black;
         }
 
-        public EWColor FillColor
+        public Color FillColor
         {
 	        set
 	        {
@@ -153,7 +153,7 @@ namespace System.Graphics.Xaml
 	        }
         }
 
-        public EWColor FontColor
+        public Color FontColor
         {
             set => _fontColor = value;
         }
@@ -266,7 +266,7 @@ namespace System.Graphics.Xaml
             }
         }
 
-        public void SetShadow(EWSize offset, float blur, EWColor color)
+        public void SetShadow(EWSize offset, float blur, Color color)
         {
             _shadowOffset = offset;
             _shadowBlur = blur;

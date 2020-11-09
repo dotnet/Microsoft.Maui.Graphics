@@ -12,20 +12,20 @@ namespace GraphicsTester.Scenarios
         public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.SaveState();
-            canvas.StrokeColor = StandardColors.LightGrey;
+            canvas.StrokeColor = Colors.LightGrey;
             canvas.DrawRectangle(100, 100, 100, 100);
-            canvas.StrokeColor = StandardColors.Black;
+            canvas.StrokeColor = Colors.Black;
             canvas.Rotate(10);
             canvas.DrawRectangle(100, 100, 100, 100);
-            canvas.StrokeColor = StandardColors.Salmon;
+            canvas.StrokeColor = Colors.Salmon;
             canvas.Rotate(10);
             canvas.DrawRectangle(100, 100, 100, 100);
-            canvas.StrokeColor = StandardColors.CornflowerBlue;
+            canvas.StrokeColor = Colors.CornflowerBlue;
             canvas.Rotate(10);
             canvas.DrawRectangle(100, 100, 100, 100);
             canvas.RestoreState();
 
-            canvas.StrokeColor = StandardColors.Blue;
+            canvas.StrokeColor = Colors.Blue;
             var point = new EWPoint(65, 65);
             for (int i = -3; i < 3; i++)
             {
@@ -35,17 +35,17 @@ namespace GraphicsTester.Scenarios
             }
 
             canvas.SaveState();
-            canvas.FillColor = StandardColors.Black;
+            canvas.FillColor = Colors.Black;
             canvas.FillOval(60, 60, 10, 10);
-            canvas.SetShadow(new EWSize(2, 0), 2, StandardColors.Black);
-            canvas.StrokeColor = StandardColors.CornflowerBlue;
+            canvas.SetShadow(new EWSize(2, 0), 2, Colors.Black);
+            canvas.StrokeColor = Colors.CornflowerBlue;
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);
-            canvas.StrokeColor = StandardColors.DarkSeaGreen;
+            canvas.StrokeColor = Colors.DarkSeaGreen;
             canvas.Rotate(-60);
             canvas.DrawOval(60, 60, 10, 10);
             canvas.Rotate(-15);

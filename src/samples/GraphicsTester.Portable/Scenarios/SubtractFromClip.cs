@@ -13,12 +13,12 @@ namespace GraphicsTester.Scenarios
             canvas.SaveState();
 
             canvas.SubtractFromClip(100, 100, 100, 100);
-            canvas.FillColor = StandardColors.CornflowerBlue;
+            canvas.FillColor = Colors.CornflowerBlue;
             canvas.FillRectangle(0, 0, 300, 300);
 
             canvas.RestoreState();
 
-            canvas.FillColor = StandardColors.Salmon;
+            canvas.FillColor = Colors.Salmon;
             canvas.FillRectangle(120, 120, 60, 60);
         }
     }

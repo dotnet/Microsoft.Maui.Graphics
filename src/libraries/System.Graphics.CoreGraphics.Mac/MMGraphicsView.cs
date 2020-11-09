@@ -12,7 +12,7 @@ namespace System.Graphics.CoreGraphics
         private EWDrawable _drawable;
         private bool _inPanOrZoom;
         private CGRect _lastBounds;
-        private EWColor _backgroundColor;
+        private Color _backgroundColor;
 
         public MMGraphicsView(EWDrawable drawable = null, MMGraphicsRenderer renderer = null)
         {
@@ -30,7 +30,7 @@ namespace System.Graphics.CoreGraphics
             set => _inPanOrZoom = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set => _backgroundColor = value;

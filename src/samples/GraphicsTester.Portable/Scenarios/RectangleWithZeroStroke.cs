@@ -12,10 +12,10 @@ namespace GraphicsTester.Scenarios
         {
             canvas.SaveState();
 
-            canvas.FillColor = StandardColors.CornflowerBlue;
+            canvas.FillColor = Colors.CornflowerBlue;
             canvas.FillRectangle(50, 50, 100, 100);
 
-            canvas.StrokeColor = StandardColors.Black;
+            canvas.StrokeColor = Colors.Black;
             canvas.StrokeSize = 0;
             canvas.DrawRectangle(50, 50, 100, 100);
 

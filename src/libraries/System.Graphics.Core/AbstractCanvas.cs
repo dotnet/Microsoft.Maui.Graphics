@@ -58,8 +58,8 @@ namespace System.Graphics
             set => _strokeLimit = value;
         }
 
-        public abstract EWColor FillColor { set; }
-        public abstract EWColor FontColor { set; }
+        public abstract Color FillColor { set; }
+        public abstract Color FontColor { set; }
         public abstract string FontName { set; }
         public abstract float FontSize { set; }
         public abstract float Alpha { set; }
@@ -94,7 +94,7 @@ namespace System.Graphics
         }
 
         public abstract float MiterLimit { set; }
-        public abstract EWColor StrokeColor { set; }
+        public abstract Color StrokeColor { set; }
         public abstract EWLineCap StrokeLineCap { set; }
         public abstract EWLineJoin StrokeLineJoin { set; }
 
@@ -117,11 +117,6 @@ namespace System.Graphics
                 NativeSetStrokeDashPattern(_currentState.StrokeDashPattern, _currentState.StrokeSize);
                 _strokeDashPatternDirty = false;
             }
-        }
-
-        public EWStrokeLocation StrokeLocation
-        {
-            set => _currentState.StrokeLocation = value;
         }
 
         public abstract void ClipRectangle(float x, float y, float width, float height);
@@ -219,7 +214,7 @@ namespace System.Graphics
             _currentState = _createNew(this);
         }
 
-        public abstract void SetShadow(EWSize offset, float blur, EWColor color);
+        public abstract void SetShadow(EWSize offset, float blur, Color color);
         public abstract void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2);
         public abstract void SetToSystemFont();
         public abstract void SetToBoldSystemFont();

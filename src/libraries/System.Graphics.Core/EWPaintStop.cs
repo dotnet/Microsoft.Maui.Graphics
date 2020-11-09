@@ -2,10 +2,10 @@ namespace System.Graphics
 {
     public class EWPaintStop : IComparable<EWPaintStop>
     {
-        private EWColor _color;
+        private Color _color;
         private float _offset;
 
-        public EWPaintStop(float offset, EWColor color)
+        public EWPaintStop(float offset, Color color)
         {
             _color = color;
             _offset = offset;
@@ -17,7 +17,7 @@ namespace System.Graphics
             _offset = source._offset;
         }
 
-        public EWColor Color
+        public Color Color
         {
             get => _color;
             set => _color = value;

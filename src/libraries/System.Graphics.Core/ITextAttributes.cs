@@ -8,7 +8,7 @@ namespace System.Graphics
 
         float Margin { get; set; }
 
-        EWColor TextFontColor { get; set; }
+        Color TextFontColor { get; set; }
 
         EwHorizontalAlignment HorizontalAlignment { get; set; }
 

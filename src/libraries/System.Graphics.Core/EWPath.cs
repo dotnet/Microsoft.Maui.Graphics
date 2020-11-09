@@ -1126,8 +1126,8 @@ namespace System.Graphics
             float miny = y;
             float maxx = minx + w;
             float maxy = miny + h;
-            float midx = minx + (w / 2);
-            float midy = miny + (h / 2);
+            float midx = minx + w / 2;
+            float midy = miny + h / 2;
             float offsetY = h / 2 * .55f;
             float offsetX = w / 2 * .55f;
 

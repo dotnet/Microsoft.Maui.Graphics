@@ -13,7 +13,7 @@ namespace GraphicsTester.Scenarios
         public override void Draw(ICanvas canvas, float zoom, float ppu)
         {
             canvas.StrokeSize = 1;
-            canvas.StrokeColor = StandardColors.Blue;
+            canvas.StrokeColor = Colors.Blue;
             canvas.FontName = "Arial";
             canvas.FontSize = 12f;
 

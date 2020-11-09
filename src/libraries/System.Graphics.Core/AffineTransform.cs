@@ -359,6 +359,6 @@ namespace System.Graphics
             return !HasRotate() && !HasTranslate();
         }
 
-        public bool IsIdentity => (_m00 == 1.0f && _m11 == 1.0f) && (_m10 == 0.0f && _m01 == 0.0f && _m02 == 0.0f && _m12 == 0.0f);
+        public bool IsIdentity => _m00 == 1.0f && _m11 == 1.0f && _m10 == 0.0f && _m01 == 0.0f && _m02 == 0.0f && _m12 == 0.0f;
     }
 }

@@ -30,7 +30,7 @@ namespace GraphicsTester.Scenarios
                 canvas.DrawImage(image, 600, 50, actualWidth, actualHeight);
 
                 canvas.DrawImage(image, 50, 50, expectedWidth, expectedHeight);
-                canvas.StrokeColor = StandardColors.Blue;
+                canvas.StrokeColor = Colors.Blue;
                 canvas.DrawRectangle(50, 50, expectedWidth, expectedHeight);
 
                 canvas.DrawImage(image, 50, 500, expectedWidth / 2, expectedHeight / 2);

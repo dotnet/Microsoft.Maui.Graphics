@@ -4,7 +4,7 @@ namespace System.Graphics.CoreGraphics
 {
     public static class GraphicsMixins
     {
-        public static UIColor AsUIColor(this EWColor color)
+        public static UIColor AsUIColor(this Color color)
         {
             if (color != null)
             {
@@ -14,15 +14,15 @@ namespace System.Graphics.CoreGraphics
             return UIColor.White;
         }
 
-        public static EWColor AsEWColor(this UIColor color)
+        public static Color AsColor(this UIColor color)
         {
             if (color != null)
             {
                 color.GetRGBA(out var red, out var green, out var blue, out var alpha);
-                return new EWColor((float) red, (float) green, (float) blue, (float) alpha);
+                return new Color((float) red, (float) green, (float) blue, (float) alpha);
             }
 
-            return new EWColor(1f, 1f, 1f, 1f); // White
+            return new Color(1f, 1f, 1f, 1f); // White
         }
 
 

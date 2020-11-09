@@ -30,7 +30,7 @@ namespace GraphicsTester.Android
             base.AddView (_listView);
 
             _graphicsView = new MDGraphicsView (context);
-            _graphicsView.BackgroundColor = StandardColors.White;
+            _graphicsView.BackgroundColor = Colors.White;
             _graphicsView.LayoutParameters = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WrapContent,
                 ViewGroup.LayoutParams.MatchParent,

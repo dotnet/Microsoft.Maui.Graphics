@@ -9,17 +9,12 @@ namespace System.Graphics
 
         public  float StrokeSize { set; }
         public  float MiterLimit { set; }
-        public  EWColor StrokeColor { set; }
+        public  Color StrokeColor { set; }
         public  EWLineCap StrokeLineCap { set; }
         public  EWLineJoin StrokeLineJoin { set; }
-        public  EWStrokeLocation StrokeLocation { set; }
         public  float[] StrokeDashPattern { set; }
-
-        public  bool LimitStrokeScaling { set; }
-        public  float StrokeLimit { set; }
-
-        public  EWColor FillColor { set; }
-        public  EWColor FontColor { set; }
+        public  Color FillColor { set; }
+        public  Color FontColor { set; }
         public  string FontName { set; }
         public  float FontSize { set; }
         public  float Alpha { set; }
@@ -89,7 +84,7 @@ namespace System.Graphics
 
         public void ResetState();
 
-        public  void SetShadow(EWSize offset, float blur, EWColor color);
+        public  void SetShadow(EWSize offset, float blur, Color color);
 
         public  void SetFillPaint(EWPaint paint, float x1, float y1, float x2, float y2);
 

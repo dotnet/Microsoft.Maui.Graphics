@@ -6,7 +6,7 @@ namespace System.Graphics.CoreGraphics
 {
     public static class CGCanvasExtensions
     {
-        public static void SetFillColor(this CGContext context, EWColor color, EWColor defaultColor = null)
+        public static void SetFillColor(this CGContext context, Color color, Color defaultColor = null)
         {
             if (color != null)
             {
@@ -18,7 +18,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public static void SetStrokeColor(this CGContext context, EWColor color, EWColor defaultColor = null)
+        public static void SetStrokeColor(this CGContext context, Color color, Color defaultColor = null)
         {
             if (color != null)
             {
@@ -30,7 +30,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public static CGColor AsCGColor(this EWColor color)
+        public static CGColor AsCGColor(this Color color)
         {
             return new CGColor(color.Red, color.Green, color.Blue, color.Alpha);
         }

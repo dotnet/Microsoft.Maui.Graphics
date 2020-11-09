@@ -17,9 +17,9 @@ namespace GraphicsTester.Scenarios
 
             if (includeOvals)
             {
-                canvas.StrokeColor = StandardColors.LightGrey;
+                canvas.StrokeColor = Colors.LightGrey;
                 canvas.DrawOval(50, 50, 150, 20);
-                canvas.StrokeColor = StandardColors.Black;
+                canvas.StrokeColor = Colors.Black;
             }
 
             canvas.DrawArc(

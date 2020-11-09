@@ -70,7 +70,6 @@ namespace System.Graphics.SharpDX
         public float Dpi
         {
             get => _dpi;
-
             set => _dpi = value;
         }
 
@@ -130,7 +129,7 @@ namespace System.Graphics.SharpDX
             set => CurrentState.MiterLimit = value;
         }
 
-        public override EWColor StrokeColor
+        public override Color StrokeColor
         {
             set => CurrentState.StrokeColor = value;
         }
@@ -145,12 +144,12 @@ namespace System.Graphics.SharpDX
             set => CurrentState.StrokeLineJoin = value;
         }
 
-        public override EWColor FillColor
+        public override Color FillColor
         {
             set => CurrentState.FillColor = value;
         }
 
-        public override EWColor FontColor
+        public override Color FontColor
         {
             set => CurrentState.FontColor = value;
         }
@@ -254,26 +253,9 @@ namespace System.Graphics.SharpDX
             var absRotation = Math.Abs(rotation);
 
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
 
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.Left = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Top = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Right = Math.Max(x, x + width) - strokeWidth / 2;
-                _rect.Bottom = Math.Max(y, y + height) - strokeWidth / 2;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.Left = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Top = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Right = Math.Max(x, x + width) + strokeWidth / 2;
-                _rect.Bottom = Math.Max(y, y + height + strokeWidth / 2);
-            }
+
+            SetRect(x, y, width, height);
 
             _size.Width = _rect.Width / 2;
             _size.Height = _rect.Height / 2;
@@ -358,58 +340,15 @@ namespace System.Graphics.SharpDX
         protected override void NativeDrawRectangle(float x, float y, float width, float height)
         {
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.Left = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Top = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Right = Math.Max(x, x + width) - strokeWidth / 2;
-                _rect.Bottom = Math.Max(y, y + height) - strokeWidth / 2;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.Left = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Top = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Right = Math.Max(x, x + width) + strokeWidth / 2;
-                _rect.Bottom = Math.Max(y, y + height + strokeWidth / 2);
-            }
-
+            SetRect(x, y, width, height);
             Draw(ctx => ctx.DrawRectangle(_rect, CurrentState.DxStrokeBrush, strokeWidth, CurrentState.StrokeStyle));
         }
 
         protected override void NativeDrawRoundedRectangle(float x, float y, float width, float height, float cornerRadius)
         {
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
-
-            if (strokeLocation == EWStrokeLocation.CENTER)
-            {
-                SetRect(x, y, width, height);
-            }
-            else if (strokeLocation == EWStrokeLocation.INSIDE)
-            {
-                _rect.Left = Math.Min(x, x + width) + strokeWidth / 2;
-                _rect.Top = Math.Min(y, y + height) + strokeWidth / 2;
-                _rect.Right = Math.Max(x, x + width) - strokeWidth / 2;
-                _rect.Bottom = Math.Max(y, y + height) - strokeWidth / 2;
-
-                cornerRadius -= strokeWidth / 2;
-            }
-            else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-            {
-                _rect.Left = Math.Min(x, x + width) - strokeWidth / 2;
-                _rect.Top = Math.Min(y, y + height) - strokeWidth / 2;
-                _rect.Right = Math.Max(x, x + width) + strokeWidth / 2;
-                _rect.Bottom = Math.Max(y, y + height + strokeWidth / 2);
-
-                cornerRadius += strokeWidth / 2;
-            }
-
+            SetRect(x, y, width, height);
+            
             if (cornerRadius > _rect.Width / 2)
             {
                 cornerRadius = _rect.Width / 2;
@@ -430,21 +369,11 @@ namespace System.Graphics.SharpDX
         protected override void NativeDrawOval(float x, float y, float width, float height)
         {
             float strokeWidth = CurrentState.StrokeSize;
-            var strokeLocation = CurrentState.StrokeLocation;
 
             if (width > 0 || width < 0)
             {
                 _point1.X = x + width / 2;
                 _ellipse.RadiusX = width / 2;
-
-                if (strokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    _ellipse.RadiusX -= strokeWidth / 2;
-                }
-                else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    _ellipse.RadiusX += strokeWidth / 2;
-                }
             }
             else
             {
@@ -456,15 +385,6 @@ namespace System.Graphics.SharpDX
             {
                 _point1.Y = y + height / 2;
                 _ellipse.RadiusY = height / 2;
-
-                if (strokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    _ellipse.RadiusY -= strokeWidth / 2;
-                }
-                else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    _ellipse.RadiusY += strokeWidth / 2;
-                }
             }
             else
             {
@@ -501,52 +421,7 @@ namespace System.Graphics.SharpDX
             {
 // ReSharper disable AccessToDisposedClosure
                 float strokeWidth = CurrentState.StrokeSize;
-                var strokeLocation = CurrentState.StrokeLocation;
-
-                if (strokeLocation == EWStrokeLocation.CENTER)
-                {
-                    context.DrawGeometry(geometry, CurrentState.DxStrokeBrush, strokeWidth, CurrentState.StrokeStyle);
-                }
-                else if (strokeLocation == EWStrokeLocation.INSIDE)
-                {
-                    var layerParameters = new LayerParameters1
-                    {
-                        ContentBounds = _renderBounds,
-                        MaskTransform = Matrix3x2.Identity,
-                        MaskAntialiasMode = AntialiasMode.PerPrimitive,
-                        Opacity = 1,
-                        GeometricMask = geometry
-                    };
-                    context.PushLayer(layerParameters, null);
-                    context.DrawGeometry(geometry, CurrentState.DxStrokeBrush, strokeWidth * 2, CurrentState.StrokeStyle);
-                    context.PopLayer();
-                }
-                else if (strokeLocation == EWStrokeLocation.OUTSIDE)
-                {
-                    var mask = new PathGeometry(context.Factory);
-                    var maskSink = mask.Open();
-
-                    var bounds = geometry.GetWidenedBounds(strokeWidth * 2);
-                    var rectGeometry = new RectangleGeometry(context.Factory, bounds);
-                    rectGeometry.Combine(geometry, CombineMode.Exclude, maskSink);
-                    maskSink.Close();
-
-                    var layerParameters = new LayerParameters1
-                    {
-                        ContentBounds = _renderBounds,
-                        MaskTransform = Matrix3x2.Identity,
-                        MaskAntialiasMode = AntialiasMode.PerPrimitive,
-                        Opacity = 1,
-                        GeometricMask = mask
-                    };
-                    context.PushLayer(layerParameters, null);
-                    context.DrawGeometry(geometry, CurrentState.DxStrokeBrush, strokeWidth * 2, CurrentState.StrokeStyle);
-                    context.PopLayer();
-// ReSharper restore AccessToDisposedClosure
-
-                    //mask.Dispose();
-                    //rectGeometry.Dispose();
-                }
+                context.DrawGeometry(geometry, CurrentState.DxStrokeBrush, strokeWidth, CurrentState.StrokeStyle);
             });
         }
 
@@ -885,7 +760,7 @@ namespace System.Graphics.SharpDX
                 state?.RestoreRenderTargetState();
         }
 
-        public override void SetShadow(EWSize offset, float blur, EWColor color)
+        public override void SetShadow(EWSize offset, float blur, Color color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }
@@ -904,7 +779,7 @@ namespace System.Graphics.SharpDX
         {
             if (paint == null)
             {
-                CurrentState.FillColor = StandardColors.White;
+                CurrentState.FillColor = Colors.White;
                 return;
             }
 
@@ -929,7 +804,7 @@ namespace System.Graphics.SharpDX
                 }
                 else
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                 }
 
                 return;
@@ -941,7 +816,7 @@ namespace System.Graphics.SharpDX
                 var pattern = paint.Pattern;
                 if (pattern == null)
                 {
-                    CurrentState.FillColor = StandardColors.White;
+                    CurrentState.FillColor = Colors.White;
                     return;
                 }
 
@@ -960,7 +835,7 @@ namespace System.Graphics.SharpDX
                     }
                     else
                     {
-                        CurrentState.FillColor = StandardColors.White;
+                        CurrentState.FillColor = Colors.White;
                     }
                 }
                 else
@@ -982,7 +857,7 @@ namespace System.Graphics.SharpDX
                     }
                     else
                     {
-                        CurrentState.FillColor = StandardColors.White;
+                        CurrentState.FillColor = Colors.White;
                     }
                 }
 
@@ -1013,7 +888,7 @@ namespace System.Graphics.SharpDX
             if (context != null)
             {
                 context.BeginDraw();
-                context.Clear(Color.Transparent);
+                context.Clear(global::SharpDX.Color.Transparent);
                 var canvas = new DXCanvas(context);
                 pattern.Draw(canvas);
                 context.EndDraw();
@@ -1208,7 +1083,7 @@ namespace System.Graphics.SharpDX
             {
                 context.BeginDraw();
                 context.Transform = CurrentState.Matrix.Translate(CurrentState.ShadowOffset.X, CurrentState.ShadowOffset.Y);
-                context.Clear(Color.Transparent);
+                context.Clear(global::SharpDX.Color.Transparent);
                 drawingAction(context);
                 context.EndDraw();
 
@@ -1234,7 +1109,7 @@ namespace System.Graphics.SharpDX
             {
                 context.BeginDraw();
                 context.Transform = CurrentState.Matrix;
-                context.Clear(Color.Transparent);
+                context.Clear(global::SharpDX.Color.Transparent);
                 drawingAction(context);
                 context.EndDraw();
 

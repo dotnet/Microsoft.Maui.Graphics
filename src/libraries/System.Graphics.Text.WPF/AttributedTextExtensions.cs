@@ -55,14 +55,14 @@ namespace System.Graphics.Text
             var foregroundColor = attributes.GetForegroundColor()?.ParseAsInts()?.ToColor();
             if (foregroundColor != null)
             {
-                var brush = new SolidColorBrush((Color) foregroundColor);
+                var brush = new SolidColorBrush((Windows.Media.Color) foregroundColor);
                 span.Foreground = brush;
             }
 
             var backgroundColor = attributes.GetBackgroundColor()?.ParseAsInts()?.ToColor();
             if (backgroundColor != null)
             {
-                var brush = new SolidColorBrush((Color) backgroundColor);
+                var brush = new SolidColorBrush((Windows.Media.Color) backgroundColor);
                 span.Background = brush;
             }
 

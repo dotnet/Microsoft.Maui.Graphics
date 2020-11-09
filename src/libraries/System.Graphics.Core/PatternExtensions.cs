@@ -4,10 +4,10 @@ namespace System.Graphics
     {
         public static EWPaint AsPaint(this IPattern target)
         {
-            return AsPaint(target, StandardColors.Black);
+            return AsPaint(target, Colors.Black);
         }
 
-        public static EWPaint AsPaint(this IPattern target, EWColor foregroundColor)
+        public static EWPaint AsPaint(this IPattern target, Color foregroundColor)
         {
             if (target != null)
             {

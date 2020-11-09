@@ -38,7 +38,7 @@ namespace System.Graphics.GDI
             set => renderer.Dirty = value;
         }
 
-        public EWColor BackgroundColor
+        public Color BackgroundColor
         {
             get => renderer.BackgroundColor;
             set => renderer.BackgroundColor = value;
@@ -59,7 +59,7 @@ namespace System.Graphics.GDI
 
                 renderer = value ?? new GDIDirectGraphicsRenderer()
                 {
-                    BackgroundColor = StandardColors.White
+                    BackgroundColor = Colors.White
                 };
 
                 renderer.GraphicsView = this;

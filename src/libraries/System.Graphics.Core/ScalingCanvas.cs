@@ -44,7 +44,7 @@ namespace System.Graphics
             set => _canvas.MiterLimit = value;
         }
 
-        public EWColor StrokeColor
+        public Color StrokeColor
         {
             set => _canvas.StrokeColor = value;
         }
@@ -69,27 +69,12 @@ namespace System.Graphics
             set => _canvas.StrokeDashPattern = value;
         }
 
-        public EWStrokeLocation StrokeLocation
-        {
-            set => _canvas.StrokeLocation = value;
-        }
-
-        public bool LimitStrokeScaling
-        {
-            set => _canvas.LimitStrokeScaling = value;
-        }
-
-        public float StrokeLimit
-        {
-            set => _canvas.StrokeLimit = value;
-        }
-
-        public EWColor FillColor
+        public Color FillColor
         {
             set => _canvas.FillColor = value;
         }
 
-        public EWColor FontColor
+        public Color FontColor
         {
             set => _canvas.FontColor = value;
         }
@@ -277,7 +262,7 @@ namespace System.Graphics
             return _scaleX;
         }
 
-        public void SetShadow(EWSize offset, float blur, EWColor color)
+        public void SetShadow(EWSize offset, float blur, Color color)
         {
             _canvas.SetShadow(offset, blur, color);
         }

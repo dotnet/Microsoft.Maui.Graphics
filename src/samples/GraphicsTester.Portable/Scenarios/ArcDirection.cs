@@ -15,11 +15,11 @@ namespace GraphicsTester.Scenarios
         {
             if (includeOvals)
             {
-                canvas.StrokeColor = StandardColors.LightGrey;
+                canvas.StrokeColor = Colors.LightGrey;
                 canvas.DrawOval(x, y, width, height);
             }
 
-            canvas.StrokeColor = StandardColors.Black;
+            canvas.StrokeColor = Colors.Black;
             canvas.DrawArc(x, y, width, height, startAngle, endAngle, clockwise, closed);
 
             var path = new EWPath();
