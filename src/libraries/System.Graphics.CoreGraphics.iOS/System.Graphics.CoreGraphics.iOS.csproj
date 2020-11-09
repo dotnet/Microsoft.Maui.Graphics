@@ -36,6 +36,7 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MTImageExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphicsMixins.cs" />
     <Compile Include="MTDirectRenderer.cs" />

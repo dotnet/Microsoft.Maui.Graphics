@@ -37,7 +37,7 @@
             set => _backgroundColor = value;
         }
 
-        public void Draw(System.Drawing.Graphics graphics, EWRectangle dirtyRect)
+        public void Draw(System.Drawing.Graphics graphics, RectangleF dirtyRect)
         {
             try
             {

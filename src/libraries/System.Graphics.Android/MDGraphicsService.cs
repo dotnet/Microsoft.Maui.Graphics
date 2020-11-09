@@ -98,9 +98,9 @@ namespace System.Graphics.Android
             return "normal";
         }
 
-        public EWSize GetStringSize(string value, string fontName, float fontSize)
+        public SizeF GetStringSize(string value, string fontName, float fontSize)
         {
-            if (value == null) return new EWSize();
+            if (value == null) return new SizeF();
 
             var textPaint = new TextPaint {TextSize = fontSize};
             textPaint.SetTypeface(MDFontService.Instance.GetTypeface(fontName));
@@ -113,9 +113,9 @@ namespace System.Graphics.Android
 
        
 
-        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
+        public SizeF GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
         {
-            if (aString == null) return new EWSize();
+            if (aString == null) return new SizeF();
 
             var vTextPaint = new TextPaint {TextSize = aFontSize};
             vTextPaint.SetTypeface(MDFontService.Instance.GetTypeface(aFontName));
@@ -135,7 +135,7 @@ namespace System.Graphics.Android
             }
 
             StaticLayout vLayout = MDTextLayout.CreateLayout(aString, vTextPaint, null, vAlignment);
-            EWSize vSize = vLayout.GetTextSizeAsEWSize(false);
+            SizeF vSize = vLayout.GetTextSizeAsEWSize(false);
             vLayout.Dispose();
             return vSize;
         }

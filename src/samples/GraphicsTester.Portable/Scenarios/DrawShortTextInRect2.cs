@@ -19,7 +19,7 @@ namespace GraphicsTester.Scenarios
             const string textShort = "Lorem ipsum dolor sit amet";
 
             canvas.SaveState();
-            canvas.SetShadow(new EWSize(2, 2), 2, Colors.DarkGrey);
+            canvas.SetShadow(new SizeF(2, 2), 2, Colors.DarkGrey);
 
             for (int x = 0; x < 4; x++)
             {

@@ -15,17 +15,17 @@ namespace System.Graphics.Xaml
                 (byte) (255 * target.Blue));
         }
 
-        public static EWPoint AsEWPoint(this Point point)
+        public static PointF AsEWPoint(this Point point)
         {
-            return new EWPoint((float) point.X, (float) point.Y);
+            return new PointF((float) point.X, (float) point.Y);
         }
 
-        public static Point AsPoint(this EWImmutablePoint target)
+        public static Point AsPoint(this PointF target)
         {
             return new Point(target.X, target.Y);
         }
 
-        public static Point AsPoint(this EWImmutablePoint target, float ppu)
+        public static Point AsPoint(this PointF target, float ppu)
         {
             return new Point(target.X * ppu, target.Y * ppu);
         }

@@ -73,7 +73,7 @@ namespace System.Graphics.SharpDX.WindowsForms
             set => _backgroundColor = value;
         }
 
-        public void Draw(EWRectangle dirtyRect)
+        public void Draw(RectangleF dirtyRect)
         {
             try
             {

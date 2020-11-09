@@ -9,7 +9,7 @@ namespace System.Graphics.GDI
     {
         private System.Drawing.Graphics _graphics;
 
-        private RectangleF _rect;
+        private Drawing.RectangleF _rect;
         private Rectangle _rectI;
 
         public GDICanvas()
@@ -145,7 +145,7 @@ namespace System.Graphics.GDI
 
         public override void SubtractFromClip(float x, float y, float width, float height)
         {
-            var region = new Region(new RectangleF(x, y, width, height));
+            var region = new Region(new Drawing.RectangleF(x, y, width, height));
             _graphics.ExcludeClip(region);
             region.Dispose();
         }
@@ -186,7 +186,7 @@ namespace System.Graphics.GDI
             }
         }
 
-        private GraphicsPath CreatePathForArc(RectangleF arcRect, float startAngle, float sweep, bool closed = false)
+        private GraphicsPath CreatePathForArc(Drawing.RectangleF arcRect, float startAngle, float sweep, bool closed = false)
         {
             var path = new GraphicsPath();
             path.AddArc(arcRect, startAngle, sweep);
@@ -318,7 +318,7 @@ namespace System.Graphics.GDI
 
         public override void ClipRectangle(float x, float y, float width, float height)
         {
-            var region = new Region(new RectangleF(x, y, width, height));
+            var region = new Region(new Drawing.RectangleF(x, y, width, height));
             _graphics.IntersectClip(region);
         }
 
@@ -460,7 +460,7 @@ namespace System.Graphics.GDI
             CurrentState.NativeConcatenateTransform(transform);
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
             Logger.Debug("Not implemented");
         }

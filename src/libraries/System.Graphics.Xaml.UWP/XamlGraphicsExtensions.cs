@@ -22,23 +22,23 @@ namespace System.Graphics.Xaml
             return new SolidColorBrush(target.AsColor());
         }
 
-        public static EWPoint AsEWPoint(this PointerPoint target)
+        public static PointF AsEWPoint(this PointerPoint target)
         {
             var position = target.Position;
-            return new EWPoint((float)position.X, (float)position.Y);
+            return new PointF((float)position.X, (float)position.Y);
         }
 
-        public static EWPoint AsEWPoint(this Point target)
+        public static PointF AsEWPoint(this Point target)
         {
-            return new EWPoint((float)target.X, (float)target.Y);
+            return new PointF((float)target.X, (float)target.Y);
         }
         
-        public static Point AsPoint(this EWImmutablePoint target)
+        public static Point AsPoint(this PointF target)
         {
             return new Point(target.X, target.Y);    
         }
 
-        public static Point AsPoint(this EWImmutablePoint target, float ppu)
+        public static Point AsPoint(this PointF target, float ppu)
         {
             return new Point(target.X * ppu, target.Y * ppu);
         }

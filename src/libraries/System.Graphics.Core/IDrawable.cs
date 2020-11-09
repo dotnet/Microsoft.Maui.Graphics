@@ -2,6 +2,6 @@
 {
     public interface IDrawable
     {
-        void Draw(ICanvas canvas, EWRectangle dirtyRect);
+        void Draw(ICanvas canvas, RectangleF dirtyRect);
     }
 }

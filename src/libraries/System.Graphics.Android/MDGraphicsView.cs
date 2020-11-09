@@ -7,7 +7,7 @@ namespace System.Graphics.Android
 {
     public class MDGraphicsView : View
     {
-        private readonly EWRectangle _dirtyRect = new EWRectangle();
+        private RectangleF _dirtyRect;
         private MDGraphicsRenderer _renderer;
         private IDrawable _drawable;
         private int _width, _height;

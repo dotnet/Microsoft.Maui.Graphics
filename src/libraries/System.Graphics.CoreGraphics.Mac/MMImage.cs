@@ -149,23 +149,9 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
-            canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
-        }
-    }
-
-    public static class MMImageExtensions
-    {
-        public static NSImage AsNSImage(this IImage image)
-        {
-            if (image is MMImage macImage)
-                return macImage.NativeImage;
-
-            if (image != null)
-                Logger.Warn("MMImageExtensions.AsNSImage: Unable to get NSImage from EWImage. Expected an image of type MMImage however an image of type {0} was received.", image.GetType());
-
-            return null;
+            canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
         }
     }
 }

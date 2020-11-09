@@ -2,47 +2,37 @@ using System.Collections.Generic;
 
 namespace System.Graphics
 {
-    public enum PathOperation
-    {
-        Move,
-        Line,
-        Quad,
-        Cubic,
-        Arc,
-        Close
-    }
-
     public class PathF : IDisposable
     {
         private readonly List<float> _arcAngles;
         private readonly List<bool> _arcClockwise;
-        private readonly List<EWPoint> _points;
-        private readonly List<PathOperation> _segmentTypes;
+        private readonly List<PointF> _points;
+        private readonly List<PathOperation> _operations;
         private int _subPathCount;
         private readonly List<bool> _subPathsClosed;
 
         private object _nativePath;
         
-        private PathF(List<EWPoint> aPoints, List<float> aArcSizes, List<bool> arcClockwise, List<PathOperation> aOperations, int aSubPathCount)
+        private PathF(List<PointF> points, List<float> arcSizes, List<bool> arcClockwise, List<PathOperation> operations, int subPathCount)
         {
-            _points = aPoints;
-            _arcAngles = aArcSizes;
+            _points = points;
+            _arcAngles = arcSizes;
             _arcClockwise = arcClockwise;
-            _segmentTypes = aOperations;
-            _subPathCount = aSubPathCount;
+            _operations = operations;
+            _subPathCount = subPathCount;
             _subPathsClosed = new List<bool>();
 
-            int subpathIndex = 0;
-            foreach (PathOperation vSegmentType in _segmentTypes)
+            var subPathIndex = 0;
+            foreach (var vSegmentType in _operations)
             {
                 if (vSegmentType == PathOperation.Move)
                 {
-                    subpathIndex++;
+                    subPathIndex++;
                     _subPathsClosed.Add(false);
                 }
                 else if (vSegmentType == PathOperation.Close)
                 {
-                    _subPathsClosed.RemoveAt(subpathIndex - 1);
+                    _subPathsClosed.RemoveAt(subPathIndex - 1);
                     _subPathsClosed.Add(true);
                 }
             }
@@ -50,23 +40,21 @@ namespace System.Graphics
 
         public PathF(PathF aPath) : this()
         {
-            _segmentTypes.AddRange(aPath._segmentTypes);
-            foreach (var vPoint in aPath.Points)
-            {
-                _points.Add(new EWPoint(vPoint));
-            }
+            _operations.AddRange(aPath._operations);
+            foreach (var point in aPath.Points)
+                _points.Add(point);
 
             _arcAngles.AddRange(aPath._arcAngles);
             _arcClockwise.AddRange(aPath._arcClockwise);
 
-            foreach (PathOperation vSegmentType in _segmentTypes)
+            foreach (var pathOperation in _operations)
             {
-                if (vSegmentType == PathOperation.Move)
+                if (pathOperation == PathOperation.Move)
                 {
                     _subPathCount++;
                     _subPathsClosed.Add(false);
                 }
-                else if (vSegmentType == PathOperation.Close)
+                else if (pathOperation == PathOperation.Close)
                 {
                     _subPathsClosed.RemoveAt(_subPathCount - 1);
                     _subPathsClosed.Add(true);
@@ -74,13 +62,14 @@ namespace System.Graphics
             }
         }
 
-        public PathF(EWImmutablePoint aPoint) : this()
+        public PathF(PointF point) : this()
         {
-            MoveTo(aPoint.X, aPoint.Y);
+            MoveTo(point.X, point.Y);
         }
 
-        public PathF(float x, float y) : this(new EWPoint(x, y))
+        public PathF(float x, float y) : this(new PointF(x, y))
         {
+            MoveTo(x,y);
         }
 
         public PathF()
@@ -88,8 +77,8 @@ namespace System.Graphics
             _subPathCount = 0;
             _arcAngles = new List<float>();
             _arcClockwise = new List<bool>();
-            _points = new List<EWPoint>();
-            _segmentTypes = new List<PathOperation>();
+            _points = new List<PointF>();
+            _operations = new List<PathOperation>();
             _subPathsClosed = new List<bool>();
         }
 
@@ -99,25 +88,21 @@ namespace System.Graphics
         {
             get
             {
-                if (_segmentTypes.Count > 0)
-                {
-                    return _segmentTypes[_segmentTypes.Count - 1] == PathOperation.Close;
-                }
+                if (_operations.Count > 0)
+                    return _operations[_operations.Count - 1] == PathOperation.Close;
 
                 return false;
             }
         }
 
-        public EWPoint FirstPoint
+        public PointF FirstPoint
         {
             get
             {
                 if (_points != null && _points.Count > 0)
-                {
                     return _points[0];
-                }
 
-                return null;
+                return default;
             }
         }
 
@@ -125,35 +110,31 @@ namespace System.Graphics
         {
             get
             {
-                for (int i = 0; i < _segmentTypes.Count; i++)
-                {
-                    yield return _segmentTypes[i];
-                }
+                for (var i = 0; i < _operations.Count; i++)
+                    yield return _operations[i];
             }
         }
 
-        public IEnumerable<EWImmutablePoint> Points
+        public IEnumerable<PointF> Points
         {
             get
             {
-                for (int i = 0; i < _points.Count; i++)
-                {
+                for (var i = 0; i < _points.Count; i++)
                     yield return _points[i];
-                }
             }
         }
 
-        public IEnumerable<EWImmutablePoint> SegmentIntersectionPoints
+        public IEnumerable<PointF> SegmentIntersectionPoints
         {
             get
             {
-                int vIndex = 0;
+                var vIndex = 0;
                 //int vArcIndex = 0;
-                int vSegmentCount = _segmentTypes.Count;
+                var vSegmentCount = _operations.Count;
 
-                for (int s = 0; s < vSegmentCount; s++)
+                for (var s = 0; s < vSegmentCount; s++)
                 {
-                    var vType = _segmentTypes[s];
+                    var vType = _operations[s];
 
                     if (vType == PathOperation.Move)
                     {
@@ -182,14 +163,14 @@ namespace System.Graphics
             }
         }
         
-        public EWImmutablePoint LastPoint
+        public PointF LastPoint
         {
             get
             {
                 if (_points != null && _points.Count > 0)
                     return _points[_points.Count - 1];
 
-                return null;
+                return default;
             }
         }
 
@@ -204,59 +185,55 @@ namespace System.Graphics
             }
         }
 
-        public EWImmutablePoint this[int aIndex]
+        public PointF this[int index]
         {
             get
             {
-                if (aIndex < 0 || aIndex >= _points.Count)
-                {
-                    return null;
-                }
+                if (index < 0 || index >= _points.Count)
+                    return default;
 
-                return _points[aIndex];
+                return _points[index];
             }
             //set { points[index] = value; }
         }
 
         public void SetPoint(int index, float x, float y)
         {
-            _points[index].X = x;
-            _points[index].Y = y;
+            _points[index] = new PointF(x, y);
             Invalidate();
         }
 
-        public void SetPoint(int index, EWImmutablePoint point)
+        public void SetPoint(int index, PointF point)
         {
-            _points[index].X = point.X;
-            _points[index].Y = point.Y;
+            _points[index] = point;
             Invalidate();
         }
 
         public int Count => _points.Count;
 
-        public int SegmentCount => _segmentTypes.Count;
+        public int OperationCount => _operations.Count;
 
         public int SegmentCountExcludingOpenAndClose
         {
             get
             {
-                if (_segmentTypes != null)
+                if (_operations != null)
                 {
-                    int vCount = _segmentTypes.Count;
-                    if (vCount > 0)
+                    var operationsCount = _operations.Count;
+                    if (operationsCount > 0)
                     {
-                        if (_segmentTypes[0] == PathOperation.Move)
+                        if (_operations[0] == PathOperation.Move)
                         {
-                            vCount--;
+                            operationsCount--;
                         }
 
-                        if (_segmentTypes[_segmentTypes.Count - 1] == PathOperation.Close)
+                        if (_operations[_operations.Count - 1] == PathOperation.Close)
                         {
-                            vCount--;
+                            operationsCount--;
                         }
                     }
 
-                    return vCount;
+                    return operationsCount;
                 }
 
                 return 0;
@@ -265,7 +242,7 @@ namespace System.Graphics
         
         public PathOperation GetSegmentType(int aIndex)
         {
-            return _segmentTypes[aIndex];
+            return _operations[aIndex];
         }
 
         public float GetArcAngle(int aIndex)
@@ -310,15 +287,15 @@ namespace System.Graphics
 
         public PathF MoveTo(float x, float y)
         {
-            return MoveTo(new EWPoint(x, y));
+            return MoveTo(new PointF(x, y));
         }
 
-        public PathF MoveTo(EWPoint aPoint)
+        public PathF MoveTo(PointF aPoint)
         {
             _subPathCount++;
             _subPathsClosed.Add(false);
             _points.Add(aPoint);
-            _segmentTypes.Add(PathOperation.Move);
+            _operations.Add(PathOperation.Move);
             Invalidate();
             return this;
         }
@@ -329,7 +306,7 @@ namespace System.Graphics
             {
                 _subPathsClosed.RemoveAt(_subPathCount - 1);
                 _subPathsClosed.Add(true);
-                _segmentTypes.Add(PathOperation.Close);
+                _operations.Add(PathOperation.Close);
             }
 
             Invalidate();
@@ -337,11 +314,11 @@ namespace System.Graphics
 
         public void Open()
         {
-            if (_segmentTypes[_segmentTypes.Count - 1] == PathOperation.Close)
+            if (_operations[_operations.Count - 1] == PathOperation.Close)
             {
                 _subPathsClosed.RemoveAt(_subPathCount - 1);
                 _subPathsClosed.Add(false);
-                _segmentTypes.RemoveAt(_segmentTypes.Count - 1);
+                _operations.RemoveAt(_operations.Count - 1);
             }
 
             Invalidate();
@@ -349,22 +326,22 @@ namespace System.Graphics
 
         public PathF LineTo(float x, float y)
         {
-            return LineTo(new EWPoint(x, y));
+            return LineTo(new PointF(x, y));
         }
 
-        public PathF LineTo(EWPoint aPoint)
+        public PathF LineTo(PointF point)
         {
             if (_points.Count == 0)
             {
-                _points.Add(aPoint);
+                _points.Add(point);
                 _subPathCount++;
                 _subPathsClosed.Add(false);
-                _segmentTypes.Add(PathOperation.Move);
+                _operations.Add(PathOperation.Move);
             }
             else
             {
-                _points.Add(aPoint);
-                _segmentTypes.Add(PathOperation.Line);
+                _points.Add(point);
+                _operations.Add(PathOperation.Line);
             }
 
             Invalidate();
@@ -372,22 +349,22 @@ namespace System.Graphics
             return this;
         }
 
-        public PathF InsertLineTo(EWPoint aPoint, int aIndex)
+        public PathF InsertLineTo(PointF point, int index)
         {
-            if (aIndex == 0)
+            if (index == 0)
             {
-                aIndex = 1;
+                index = 1;
             }
 
-            if (aIndex == SegmentCount)
+            if (index == OperationCount)
             {
-                LineTo(aPoint);
+                LineTo(point);
             }
             else
             {
-                int vPointIndex = GetSegmentPointIndex(aIndex);
-                _points.Insert(vPointIndex, aPoint);
-                _segmentTypes.Insert(aIndex, PathOperation.Line);
+                var pointIndex = GetSegmentPointIndex(index);
+                _points.Insert(pointIndex, point);
+                _operations.Insert(index, PathOperation.Line);
                 Invalidate();
             }
 
@@ -396,12 +373,12 @@ namespace System.Graphics
 
         public PathF AddArc(float x1, float y1, float x2, float y2, float startAngle, float endAngle, bool clockwise)
         {
-            return AddArc(new EWPoint(x1, y1), new EWPoint(x2, y2), startAngle, endAngle, clockwise);
+            return AddArc(new PointF(x1, y1), new PointF(x2, y2), startAngle, endAngle, clockwise);
         }
 
-        public PathF AddArc(EWPoint topLeft, EWPoint bottomRight, float startAngle, float endAngle, bool clockwise)
+        public PathF AddArc(PointF topLeft, PointF bottomRight, float startAngle, float endAngle, bool clockwise)
         {
-            if (Count == 0 || SegmentCount == 0 || GetSegmentType(SegmentCount - 1) == PathOperation.Close)
+            if (Count == 0 || OperationCount == 0 || GetSegmentType(OperationCount - 1) == PathOperation.Close)
             {
                 _subPathCount++;
                 _subPathsClosed.Add(false);
@@ -412,42 +389,42 @@ namespace System.Graphics
             _arcAngles.Add(startAngle);
             _arcAngles.Add(endAngle);
             _arcClockwise.Add(clockwise);
-            _segmentTypes.Add(PathOperation.Arc);
+            _operations.Add(PathOperation.Arc);
             Invalidate();
             return this;
         }
 
         public PathF QuadTo(float cx, float cy, float x, float y)
         {
-            return QuadTo(new EWPoint(cx, cy), new EWPoint(x, y));
+            return QuadTo(new PointF(cx, cy), new PointF(x, y));
         }
 
-        public PathF QuadTo(EWPoint aControlPoint, EWPoint aPoint)
+        public PathF QuadTo(PointF controlPoint, PointF point)
         {
-            _points.Add(aControlPoint);
-            _points.Add(aPoint);
-            _segmentTypes.Add(PathOperation.Quad);
+            _points.Add(controlPoint);
+            _points.Add(point);
+            _operations.Add(PathOperation.Quad);
             Invalidate();
             return this;
         }
 
-        public PathF InsertQuadTo(EWPoint aControlPoint, EWPoint aPoint, int aIndex)
+        public PathF InsertQuadTo(PointF controlPoint, PointF point, int index)
         {
-            if (aIndex == 0)
+            if (index == 0)
             {
-                aIndex = 1;
+                index = 1;
             }
 
-            if (aIndex == SegmentCount)
+            if (index == OperationCount)
             {
-                QuadTo(aControlPoint, aPoint);
+                QuadTo(controlPoint, point);
             }
             else
             {
-                int vPointIndex = GetSegmentPointIndex(aIndex);
-                _points.Insert(vPointIndex, aPoint);
-                _points.Insert(vPointIndex, aControlPoint);
-                _segmentTypes.Insert(aIndex, PathOperation.Quad);
+                var pointIndex = GetSegmentPointIndex(index);
+                _points.Insert(pointIndex, point);
+                _points.Insert(pointIndex, controlPoint);
+                _operations.Insert(index, PathOperation.Quad);
                 Invalidate();
             }
 
@@ -456,102 +433,90 @@ namespace System.Graphics
 
         public PathF CurveTo(float c1X, float c1Y, float c2X, float c2Y, float x, float y)
         {
-            return CurveTo(new EWPoint(c1X, c1Y), new EWPoint(c2X, c2Y), new EWPoint(x, y));
+            return CurveTo(new PointF(c1X, c1Y), new PointF(c2X, c2Y), new PointF(x, y));
         }
 
-        public PathF CurveTo(EWPoint aControlPoint1, EWPoint aControlPoint2, EWPoint aPoint)
+        public PathF CurveTo(PointF controlPoint1, PointF controlPoint2, PointF point)
         {
-            _points.Add(aControlPoint1);
-            _points.Add(aControlPoint2);
-            _points.Add(aPoint);
-            _segmentTypes.Add(PathOperation.Cubic);
+            _points.Add(controlPoint1);
+            _points.Add(controlPoint2);
+            _points.Add(point);
+            _operations.Add(PathOperation.Cubic);
             Invalidate();
             return this;
         }
 
-        public PathF InsertCurveTo(EWPoint aControlPoint1, EWPoint aControlPoint2, EWPoint aPoint, int aIndex)
+        public PathF InsertCurveTo(PointF controlPoint1, PointF controlPoint2, PointF point, int index)
         {
-            if (aIndex == 0)
+            if (index == 0)
             {
-                aIndex = 1;
+                index = 1;
             }
 
-            if (aIndex == SegmentCount)
+            if (index == OperationCount)
             {
-                CurveTo(aControlPoint1, aControlPoint2, aPoint);
+                CurveTo(controlPoint1, controlPoint2, point);
             }
             else
             {
-                int vPointIndex = GetSegmentPointIndex(aIndex);
-                _points.Insert(vPointIndex, aPoint);
-                _points.Insert(vPointIndex, aControlPoint2);
-                _points.Insert(vPointIndex, aControlPoint1);
-                _segmentTypes.Insert(aIndex, PathOperation.Cubic);
+                var pointIndex = GetSegmentPointIndex(index);
+                _points.Insert(pointIndex, point);
+                _points.Insert(pointIndex, controlPoint2);
+                _points.Insert(pointIndex, controlPoint1);
+                _operations.Insert(index, PathOperation.Cubic);
                 Invalidate();
             }
 
             return this;
         }
 
-        public int GetSegmentPointIndex(int aIndex)
+        public int GetSegmentPointIndex(int index)
         {
-            if (aIndex <= SegmentCount)
+            if (index <= OperationCount)
             {
-                int vPointIndex = 0;
-                for (int vSegment = 0; vSegment < _segmentTypes.Count; vSegment++)
+                var pointIndex = 0;
+                for (var operationIndex = 0; operationIndex < _operations.Count; operationIndex++)
                 {
-                    PathOperation vType = _segmentTypes[vSegment];
-                    if (vType == PathOperation.Move)
+                    var operation = _operations[operationIndex];
+                    if (operation == PathOperation.Move)
                     {
-                        if (vSegment == aIndex)
-                        {
-                            return vPointIndex;
-                        }
+                        if (operationIndex == index)
+                            return pointIndex;
 
-                        vPointIndex++;
+                        pointIndex++;
                     }
-                    else if (vType == PathOperation.Line)
+                    else if (operation == PathOperation.Line)
                     {
-                        if (vSegment == aIndex)
-                        {
-                            return vPointIndex;
-                        }
+                        if (operationIndex == index)
+                            return pointIndex;
 
-                        vPointIndex++;
+                        pointIndex++;
                     }
-                    else if (vType == PathOperation.Quad)
+                    else if (operation == PathOperation.Quad)
                     {
-                        if (vSegment == aIndex)
-                        {
-                            return vPointIndex;
-                        }
+                        if (operationIndex == index)
+                            return pointIndex;
 
-                        vPointIndex += 2;
+                        pointIndex += 2;
                     }
-                    else if (vType == PathOperation.Cubic)
+                    else if (operation == PathOperation.Cubic)
                     {
-                        if (vSegment == aIndex)
-                        {
-                            return vPointIndex;
-                        }
+                        if (operationIndex == index)
+                            return pointIndex;
 
-                        vPointIndex += 3;
+                        pointIndex += 3;
                     }
-                    else if (vType == PathOperation.Arc)
+                    else if (operation == PathOperation.Arc)
                     {
-                        if (vSegment == aIndex)
-                        {
-                            return vPointIndex;
-                        }
+                        if (operationIndex == index)
+                            return pointIndex;
 
-                        vPointIndex += 2;
+                        pointIndex += 2;
                     }
-                    else if (vType == PathOperation.Close)
+                    else if (operation == PathOperation.Close)
                     {
-                        if (vSegment == aIndex)
-                        {
-                            return vPointIndex;
-                        }
+                        if (operationIndex == index)
+                            return pointIndex;
                     }
                 }
             }
@@ -565,11 +530,11 @@ namespace System.Graphics
             arcAngleIndex = 0;
             arcClockwiseIndex = 0;
 
-            if (segmentIndex <= SegmentCount)
+            if (segmentIndex <= OperationCount)
             {
-                for (int s = 0; s < _segmentTypes.Count; s++)
+                for (var s = 0; s < _operations.Count; s++)
                 {
-                    var type = _segmentTypes[s];
+                    var type = _operations[s];
                     if (type == PathOperation.Move)
                     {
                         if (s == segmentIndex) return type;
@@ -612,10 +577,10 @@ namespace System.Graphics
         {
             if (pointIndex < _points.Count)
             {
-                int index = 0;
-                for (int segment = 0; segment < _segmentTypes.Count; segment++)
+                var index = 0;
+                for (var segment = 0; segment < _operations.Count; segment++)
                 {
-                    var segmentType = _segmentTypes[segment];
+                    var segmentType = _operations[segment];
                     if (segmentType == PathOperation.Move)
                     {
                         if (pointIndex == index++)
@@ -677,20 +642,20 @@ namespace System.Graphics
             return -1;
         }
 
-        public EWImmutablePoint[] GetPointsForSegment(int segmentIndex)
+        public PointF[] GetPointsForSegment(int segmentIndex)
         {
-            if (segmentIndex <= SegmentCount)
+            if (segmentIndex <= OperationCount)
             {
-                int pointIndex = 0;
-                for (int segment = 0; segment < _segmentTypes.Count; segment++)
+                var pointIndex = 0;
+                for (var segment = 0; segment < _operations.Count; segment++)
                 {
-                    var segmentType = _segmentTypes[segment];
+                    var segmentType = _operations[segment];
                     if (segmentType == PathOperation.Move)
                     {
                         if (segment == segmentIndex)
                         {
-                            var vPoints = new EWImmutablePoint[] {_points[pointIndex]};
-                            return vPoints;
+                            var points = new[] {_points[pointIndex]};
+                            return points;
                         }
 
                         pointIndex++;
@@ -699,8 +664,8 @@ namespace System.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            var vPoints = new EWImmutablePoint[] {_points[pointIndex]};
-                            return vPoints;
+                            var points = new[] {_points[pointIndex]};
+                            return points;
                         }
 
                         pointIndex++;
@@ -710,8 +675,8 @@ namespace System.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            var vPoints = new EWImmutablePoint[] {_points[pointIndex++], _points[pointIndex]};
-                            return vPoints;
+                            var points = new[] {_points[pointIndex++], _points[pointIndex]};
+                            return points;
                         }
 
                         pointIndex += 2;
@@ -720,8 +685,8 @@ namespace System.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            var vPoints = new EWImmutablePoint[] {_points[pointIndex++], _points[pointIndex++], _points[pointIndex]};
-                            return vPoints;
+                            var points = new[] {_points[pointIndex++], _points[pointIndex++], _points[pointIndex]};
+                            return points;
                         }
 
                         pointIndex += 3;
@@ -730,8 +695,8 @@ namespace System.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            var vPoints = new EWImmutablePoint[] {_points[pointIndex++], _points[pointIndex]};
-                            return vPoints;
+                            var points = new[] {_points[pointIndex++], _points[pointIndex]};
+                            return points;
                         }
 
                         pointIndex += 2;
@@ -740,7 +705,7 @@ namespace System.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            return new EWImmutablePoint[] { };
+                            return new PointF[] { };
                         }
                     }
                 }
@@ -752,14 +717,14 @@ namespace System.Graphics
         private void RemoveAllAfter(int pointIndex, int segmentIndex, int arcIndex, int arcClockwiseIndex)
         {
             _points.RemoveRange(pointIndex, _points.Count - pointIndex);
-            _segmentTypes.RemoveRange(segmentIndex, _segmentTypes.Count - segmentIndex);
+            _operations.RemoveRange(segmentIndex, _operations.Count - segmentIndex);
             _arcAngles.RemoveRange(arcIndex, _arcAngles.Count - arcIndex);
             _arcClockwise.RemoveRange(arcClockwiseIndex, _arcClockwise.Count - arcClockwiseIndex);
 
             _subPathCount = 0;
             _subPathsClosed.Clear();
 
-            foreach (PathOperation vCommand in _segmentTypes)
+            foreach (var vCommand in _operations)
             {
                 if (vCommand == PathOperation.Move)
                 {
@@ -783,14 +748,14 @@ namespace System.Graphics
 
         public void RemoveAllSegmentsAfter(int segmentIndex)
         {
-            if (segmentIndex <= SegmentCount)
+            if (segmentIndex <= OperationCount)
             {
-                int pointIndex = 0;
-                int arcIndex = 0;
-                int arcClockwiseIndex = 0;
-                for (var segment = 0; segment < _segmentTypes.Count; segment++)
+                var pointIndex = 0;
+                var arcIndex = 0;
+                var arcClockwiseIndex = 0;
+                for (var segment = 0; segment < _operations.Count; segment++)
                 {
-                    var segmentType = _segmentTypes[segment];
+                    var segmentType = _operations[segment];
 
                     if (segment == segmentIndex)
                     {
@@ -828,33 +793,33 @@ namespace System.Graphics
 
         public void RemoveSegment(int segmentIndex)
         {
-            if (segmentIndex <= SegmentCount)
+            if (segmentIndex <= OperationCount)
             {
                 Invalidate();
 
-                int pointIndex = 0;
-                int arcIndex = 0;
-                int arcClockwiseIndex = 0;
+                var pointIndex = 0;
+                var arcIndex = 0;
+                var arcClockwiseIndex = 0;
 
-                for (int segment = 0; segment < _segmentTypes.Count; segment++)
+                for (var segment = 0; segment < _operations.Count; segment++)
                 {
-                    var segmentType = _segmentTypes[segment];
+                    var segmentType = _operations[segment];
                     if (segmentType == PathOperation.Move)
                     {
                         if (segment == segmentIndex)
                         {
-                            if (segmentIndex == _segmentTypes.Count - 1)
+                            if (segmentIndex == _operations.Count - 1)
                             {
                                 var points = GetPointsForSegment(segmentIndex);
                                 if (points != null)
                                 {
-                                    for (int i = 0; i < points.Length; i++)
+                                    for (var i = 0; i < points.Length; i++)
                                     {
                                         _points.RemoveAt(pointIndex);
                                     }
                                 }
 
-                                _segmentTypes.RemoveAt(segmentIndex);
+                                _operations.RemoveAt(segmentIndex);
                             }
                             else
                             {
@@ -863,14 +828,14 @@ namespace System.Graphics
                                 {
                                     if (points.Length > 0)
                                     {
-                                        _points[pointIndex] = (EWPoint) points[points.Length - 1];
-                                        for (int i = 0; i < points.Length; i++)
+                                        _points[pointIndex] = (PointF) points[points.Length - 1];
+                                        for (var i = 0; i < points.Length; i++)
                                         {
                                             _points.RemoveAt(pointIndex + 1);
                                         }
                                     }
 
-                                    _segmentTypes.RemoveAt(segmentIndex + 1);
+                                    _operations.RemoveAt(segmentIndex + 1);
                                 }
                             }
 
@@ -884,7 +849,7 @@ namespace System.Graphics
                         if (segment == segmentIndex)
                         {
                             _points.RemoveAt(pointIndex);
-                            _segmentTypes.RemoveAt(segmentIndex);
+                            _operations.RemoveAt(segmentIndex);
                             return;
                         }
 
@@ -896,7 +861,7 @@ namespace System.Graphics
                         {
                             _points.RemoveAt(pointIndex);
                             _points.RemoveAt(pointIndex);
-                            _segmentTypes.RemoveAt(segmentIndex);
+                            _operations.RemoveAt(segmentIndex);
                             return;
                         }
 
@@ -909,7 +874,7 @@ namespace System.Graphics
                             _points.RemoveAt(pointIndex);
                             _points.RemoveAt(pointIndex);
                             _points.RemoveAt(pointIndex);
-                            _segmentTypes.RemoveAt(segmentIndex);
+                            _operations.RemoveAt(segmentIndex);
                             return;
                         }
 
@@ -921,7 +886,7 @@ namespace System.Graphics
                         {
                             _points.RemoveAt(pointIndex);
                             _points.RemoveAt(pointIndex);
-                            _segmentTypes.RemoveAt(segmentIndex);
+                            _operations.RemoveAt(segmentIndex);
                             _arcAngles.RemoveAt(arcIndex);
                             _arcAngles.RemoveAt(arcIndex);
                             _arcClockwise.RemoveAt(arcClockwiseIndex);
@@ -936,7 +901,7 @@ namespace System.Graphics
                     {
                         if (segment == segmentIndex)
                         {
-                            _segmentTypes.RemoveAt(segmentIndex);
+                            _operations.RemoveAt(segmentIndex);
                             return;
                         }
                     }
@@ -944,15 +909,15 @@ namespace System.Graphics
             }
         }
         
-        public PathF Rotate(float angleAsDegrees, EWImmutablePoint pivot)
+        public PathF Rotate(float angleAsDegrees, PointF pivot)
         {
             var path = new PathF();
 
-            int index = 0;
-            int arcIndex = 0;
-            int clockwiseIndex = 0;
+            var index = 0;
+            var arcIndex = 0;
+            var clockwiseIndex = 0;
 
-            foreach (var segmentType in _segmentTypes)
+            foreach (var segmentType in _operations)
             {
                 if (segmentType == PathOperation.Move)
                 {
@@ -985,7 +950,7 @@ namespace System.Graphics
                     var endAngle = _arcAngles[arcIndex++];
                     var clockwise = _arcClockwise[clockwiseIndex++];
 
-                    path.AddArc(new EWPoint(topLeft), new EWPoint(bottomRight), startAngle, endAngle, clockwise);
+                    path.AddArc(topLeft, bottomRight, startAngle, endAngle, clockwise);
                 }
                 else if (segmentType == PathOperation.Close)
                 {
@@ -996,33 +961,16 @@ namespace System.Graphics
             return path;
         }
 
-        public EWPoint GetRotatedPoint(int pointIndex, EWImmutablePoint pivotPoint, float angle)
+        public PointF GetRotatedPoint(int pointIndex, PointF pivotPoint, float angle)
         {
             var point = _points[pointIndex];
             return Geometry.RotatePoint(pivotPoint, point, angle);
         }
 
-        /*
-       * 
-       * 
-       * float cx = vRect.X + vRect.Width / 2;
-         float cy = vRect.Y + vRect.Height / 2;
-         
-         CGAffineTransform vTransform = CGAffineTransform.MakeTranslation(cx,cy);			
-         vTransform.Rotate ((float)Geometry.DegreesToRadians (aDegrees));
-         vTransform.Translate(-cx,-cy);
-         
-         vPath.
-       */
-
-        public void Transform(AffineTransform aTransform)
+        public void Transform(AffineTransform transform)
         {
-            foreach (EWPoint vPoint in _points)
-            {
-                EWPoint vNewPoint = aTransform.Transform(vPoint);
-                vPoint.X = vNewPoint.X;
-                vPoint.Y = vNewPoint.Y;
-            }
+            for (var i = 0; i < _points.Count; i++)
+                _points[i] = transform.Transform(_points[i]);
 
             Invalidate();
         }
@@ -1030,17 +978,17 @@ namespace System.Graphics
         public List<PathF> Separate()
         {
             var vPaths = new List<PathF>();
-            if (_points == null || _segmentTypes == null)
+            if (_points == null || _operations == null)
                 return vPaths;
 
             PathF vPath = null;
 
             // ReSharper disable PossibleNullReferenceException
-            int i = 0;
-            int a = 0;
-            int c = 0;
+            var i = 0;
+            var a = 0;
+            var c = 0;
 
-            foreach (PathOperation vType in _segmentTypes)
+            foreach (var vType in _operations)
             {
                 if (vType == PathOperation.Move)
                 {
@@ -1077,7 +1025,7 @@ namespace System.Graphics
 
         public PathF Reverse()
         {
-            var points = new List<EWPoint>(_points);
+            var points = new List<PointF>(_points);
             points.Reverse();
 
             var arcSizes = new List<float>(_arcAngles);
@@ -1086,13 +1034,13 @@ namespace System.Graphics
             var arcClockwise = new List<bool>(_arcClockwise);
             arcClockwise.Reverse();
 
-            var operations = new List<PathOperation>(_segmentTypes);
+            var operations = new List<PathOperation>(_operations);
             operations.Reverse();
 
-            bool segmentClosed = false;
-            int segmentStart = -1;
+            var segmentClosed = false;
+            var segmentStart = -1;
 
-            for (int i = 0; i < operations.Count; i++)
+            for (var i = 0; i < operations.Count; i++)
             {
                 if (operations[i] == PathOperation.Move)
                 {
@@ -1121,57 +1069,57 @@ namespace System.Graphics
 
         public void AppendOval(float x, float y, float w, float h)
         {
-            float minx = x;
-            float miny = y;
-            float maxx = minx + w;
-            float maxy = miny + h;
-            float midx = minx + w / 2;
-            float midy = miny + h / 2;
-            float offsetY = h / 2 * .55f;
-            float offsetX = w / 2 * .55f;
+            var minX = x;
+            var minY = y;
+            var maxX = minX + w;
+            var maxY = minY + h;
+            var midX = minX + w / 2;
+            var midY = minY + h / 2;
+            var offsetY = h / 2 * .55f;
+            var offsetX = w / 2 * .55f;
 
-            MoveTo(new EWPoint(minx, midy));
-            CurveTo(new EWPoint(minx, midy - offsetY), new EWPoint(midx - offsetX, miny), new EWPoint(midx, miny));
-            CurveTo(new EWPoint(midx + offsetX, miny), new EWPoint(maxx, midy - offsetY), new EWPoint(maxx, midy));
-            CurveTo(new EWPoint(maxx, midy + offsetY), new EWPoint(midx + offsetX, maxy), new EWPoint(midx, maxy));
-            CurveTo(new EWPoint(midx - offsetX, maxy), new EWPoint(minx, midy + offsetY), new EWPoint(minx, midy));
+            MoveTo(new PointF(minX, midY));
+            CurveTo(new PointF(minX, midY - offsetY), new PointF(midX - offsetX, minY), new PointF(midX, minY));
+            CurveTo(new PointF(midX + offsetX, minY), new PointF(maxX, midY - offsetY), new PointF(maxX, midY));
+            CurveTo(new PointF(maxX, midY + offsetY), new PointF(midX + offsetX, maxY), new PointF(midX, maxY));
+            CurveTo(new PointF(midX - offsetX, maxY), new PointF(minX, midY + offsetY), new PointF(minX, midY));
             Close();
         }
 
         public void AppendCircle(float cx, float cy, float r)
         {
-            float minx = cx - r;
-            float miny = cy - r;
-            float maxx = cx + r;
-            float maxy = cy + r;
-            float midx = cx;
-            float midy = cy;
-            float offsetY = r * .55f;
-            float offsetX = r * .55f;
+            var minX = cx - r;
+            var minY = cy - r;
+            var maxX = cx + r;
+            var maxY = cy + r;
+            var midX = cx;
+            var midY = cy;
+            var offsetY = r * .55f;
+            var offsetX = r * .55f;
 
-            MoveTo(new EWPoint(minx, midy));
-            CurveTo(new EWPoint(minx, midy - offsetY), new EWPoint(midx - offsetX, miny), new EWPoint(midx, miny));
-            CurveTo(new EWPoint(midx + offsetX, miny), new EWPoint(maxx, midy - offsetY), new EWPoint(maxx, midy));
-            CurveTo(new EWPoint(maxx, midy + offsetY), new EWPoint(midx + offsetX, maxy), new EWPoint(midx, maxy));
-            CurveTo(new EWPoint(midx - offsetX, maxy), new EWPoint(minx, midy + offsetY), new EWPoint(minx, midy));
+            MoveTo(new PointF(minX, midY));
+            CurveTo(new PointF(minX, midY - offsetY), new PointF(midX - offsetX, minY), new PointF(midX, minY));
+            CurveTo(new PointF(midX + offsetX, minY), new PointF(maxX, midY - offsetY), new PointF(maxX, midY));
+            CurveTo(new PointF(maxX, midY + offsetY), new PointF(midX + offsetX, maxY), new PointF(midX, maxY));
+            CurveTo(new PointF(midX - offsetX, maxY), new PointF(minX, midY + offsetY), new PointF(minX, midY));
             Close();
         }
 
         public void AppendRectangle(float x, float y, float w, float h, bool includeLast = false)
         {
-            float minx = x;
-            float miny = y;
-            float maxx = minx + w;
-            float maxy = miny + h;
+            var minX = x;
+            var minY = y;
+            var maxX = minX + w;
+            var maxY = minY + h;
 
-            MoveTo(new EWPoint(minx, miny));
-            LineTo(new EWPoint(maxx, miny));
-            LineTo(new EWPoint(maxx, maxy));
-            LineTo(new EWPoint(minx, maxy));
+            MoveTo(new PointF(minX, minY));
+            LineTo(new PointF(maxX, minY));
+            LineTo(new PointF(maxX, maxY));
+            LineTo(new PointF(minX, maxY));
 
             if (includeLast)
             {
-                LineTo(new EWPoint(minx, miny));
+                LineTo(new PointF(minX, minY));
             }
 
             Close();
@@ -1189,26 +1137,26 @@ namespace System.Graphics
                 cornerRadius = w / 2;
             }
 
-            float minx = x;
-            float miny = y;
-            float maxx = minx + w;
-            float maxy = miny + h;
+            var minx = x;
+            var miny = y;
+            var maxx = minx + w;
+            var maxy = miny + h;
 
-            float handleOffset = cornerRadius * .55f;
-            float cornerOffset = cornerRadius - handleOffset;
+            var handleOffset = cornerRadius * .55f;
+            var cornerOffset = cornerRadius - handleOffset;
 
-            MoveTo(new EWPoint(minx, miny + cornerRadius));
-            CurveTo(new EWPoint(minx, miny + cornerOffset), new EWPoint(minx + cornerOffset, miny), new EWPoint(minx + cornerRadius, miny));
-            LineTo(new EWPoint(maxx - cornerRadius, miny));
-            CurveTo(new EWPoint(maxx - cornerOffset, miny), new EWPoint(maxx, miny + cornerOffset), new EWPoint(maxx, miny + cornerRadius));
-            LineTo(new EWPoint(maxx, maxy - cornerRadius));
-            CurveTo(new EWPoint(maxx, maxy - cornerOffset), new EWPoint(maxx - cornerOffset, maxy), new EWPoint(maxx - cornerRadius, maxy));
-            LineTo(new EWPoint(minx + cornerRadius, maxy));
-            CurveTo(new EWPoint(minx + cornerOffset, maxy), new EWPoint(minx, maxy - cornerOffset), new EWPoint(minx, maxy - cornerRadius));
+            MoveTo(new PointF(minx, miny + cornerRadius));
+            CurveTo(new PointF(minx, miny + cornerOffset), new PointF(minx + cornerOffset, miny), new PointF(minx + cornerRadius, miny));
+            LineTo(new PointF(maxx - cornerRadius, miny));
+            CurveTo(new PointF(maxx - cornerOffset, miny), new PointF(maxx, miny + cornerOffset), new PointF(maxx, miny + cornerRadius));
+            LineTo(new PointF(maxx, maxy - cornerRadius));
+            CurveTo(new PointF(maxx, maxy - cornerOffset), new PointF(maxx - cornerOffset, maxy), new PointF(maxx - cornerRadius, maxy));
+            LineTo(new PointF(minx + cornerRadius, maxy));
+            CurveTo(new PointF(minx + cornerOffset, maxy), new PointF(minx, maxy - cornerOffset), new PointF(minx, maxy - cornerRadius));
 
             if (includeLast)
             {
-                LineTo(new EWPoint(minx, miny + cornerRadius));
+                LineTo(new PointF(minx, miny + cornerRadius));
             }
 
             Close();
@@ -1256,19 +1204,17 @@ namespace System.Graphics
 
         public void Move(float x, float y)
         {
-            foreach (var point in _points)
+            for (var i = 0; i < _points.Count; i++)
             {
-                point.X += x;
-                point.Y += y;
+                _points[i] = _points[i].Offset(x, y);
             }
-
+           
             Invalidate();
         }
 
         public void MovePoint(int index, float dx, float dy)
         {
-            _points[index].X += dx;
-            _points[index].Y += dy;
+            _points[index] = _points[index].Offset(dx,dy);
             Invalidate();
         }
         
@@ -1276,12 +1222,12 @@ namespace System.Graphics
         {
             if (obj is PathF compareTo)
             {
-                if (SegmentCount != compareTo.SegmentCount)
+                if (OperationCount != compareTo.OperationCount)
                     return false;
                 
-                for (var i = 0; i < _segmentTypes.Count; i++)
+                for (var i = 0; i < _operations.Count; i++)
                 {
-                    var segmentType = _segmentTypes[i];
+                    var segmentType = _operations[i];
                     if (segmentType != compareTo.GetSegmentType(i))
                         return false;
                 }
@@ -1316,17 +1262,29 @@ namespace System.Graphics
 
             return true;
         }
-        
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (_arcAngles != null ? _arcAngles.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_arcClockwise != null ? _arcClockwise.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_points != null ? _points.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_operations != null ? _operations.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
         public bool Equals(object obj, float epsilon)
         {
             if (obj is PathF compareTo)
             {
-                if (SegmentCount != compareTo.SegmentCount)
+                if (OperationCount != compareTo.OperationCount)
                     return false;
                 
-                for (var i = 0; i < _segmentTypes.Count; i++)
+                for (var i = 0; i < _operations.Count; i++)
                 {
-                    var segmentType = _segmentTypes[i];
+                    var segmentType = _operations[i];
                     if (segmentType != compareTo.GetSegmentType(i))
                         return false;
                 }

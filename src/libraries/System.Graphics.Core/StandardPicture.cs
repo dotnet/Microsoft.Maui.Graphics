@@ -2,7 +2,7 @@
 {
     public delegate void DrawingCommand(ICanvas canvas);
 
-    public class StandardPicture : Picture
+    public class StandardPicture : IPicture
     {
         private readonly DrawingCommand[] _commands;
 

@@ -6,7 +6,7 @@ namespace System.Graphics.Blazor
     public class BlazorCanvas : AbstractCanvas<BlazorCanvasState>
     {
         private readonly float[] _matrix = new float[6];
-        private readonly EWRectangle _dirtyRect = new EWRectangle();
+        private RectangleF _bounds;
         private CanvasRenderingContext2D _context;
         
         public BlazorCanvas() : base(CreateNewState, CreateStateCopy)
@@ -44,10 +44,7 @@ namespace System.Graphics.Blazor
         public void ClearRect(float x1, float y1, float width, float height)
         {
             _context.ClearRect(x1, y1, width, height);
-            _dirtyRect.X1 = x1;
-            _dirtyRect.Y1 = y1;
-            _dirtyRect.Width = width;
-            _dirtyRect.Height = height;
+            _bounds = new RectangleF(x1, y1, width, height);
         }
 
         protected override float NativeStrokeSize { set => CurrentState.LineWidth = value; }
@@ -69,14 +66,14 @@ namespace System.Graphics.Blazor
             Logger.Debug("BlazorCanvas.DrawImage - not yet supported.");
         }
 
-        private EWSize GetTextSize(TextMetrics metrics, string value)
+        private SizeF GetTextSize(TextMetrics metrics, string value)
         {
             var lines = value.Split('\n');
 
             var w = metrics.ActualBoundingBoxRight - metrics.ActualBoundingBoxLeft;
             var h = lines.Length * (metrics.ActualBoundingBoxAscent + metrics.ActualBoundingBoxDescent);
             
-            return new EWSize((float)w,(float)h);
+            return new SizeF((float)w,(float)h);
         }
         
         public override void DrawString(
@@ -212,7 +209,7 @@ namespace System.Graphics.Blazor
             }
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
             Logger.Debug("BlazorCanvas.SetShadow - not yet supported.");
         }
@@ -229,7 +226,7 @@ namespace System.Graphics.Blazor
 
         public override void SubtractFromClip(float x, float y, float width, float height)
         {
-            _context.Rect(_dirtyRect.X1, _dirtyRect.Y1, _dirtyRect.Width, _dirtyRect.Width);
+            _context.Rect(_bounds.X, _bounds.Y, _bounds.Width, _bounds.Width);
             _context.Rect(x,y,width,height);
             _context.Clip("evenodd");
         }
@@ -362,7 +359,7 @@ namespace System.Graphics.Blazor
         {
             var finalCornerRadius = cornerRadius;
 
-            var rect = new EWRectangle(x, y, width, height);
+            var rect = new RectangleF(x, y, width, height);
 
             if (finalCornerRadius > rect.Width)
             {
@@ -374,8 +371,8 @@ namespace System.Graphics.Blazor
                 finalCornerRadius = rect.Height / 2;
             }
 
-            var minx = rect.X1;
-            var miny = rect.Y1;
+            var minx = rect.X;
+            var miny = rect.Y;
             var maxx = minx + rect.Width;
             var maxy = miny + rect.Height;
             var midx = minx + (rect.Width / 2);

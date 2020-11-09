@@ -262,7 +262,7 @@ namespace System.Graphics
             return _scaleX;
         }
 
-        public void SetShadow(EWSize offset, float blur, Color color)
+        public void SetShadow(SizeF offset, float blur, Color color)
         {
             _canvas.SetShadow(offset, blur, color);
         }

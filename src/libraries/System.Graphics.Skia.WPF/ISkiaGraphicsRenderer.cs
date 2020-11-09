@@ -8,7 +8,7 @@ namespace System.Graphics.Skia
         ICanvas Canvas { get; }
         IDrawable Drawable { get; set; }
         Color BackgroundColor { get; set; }
-        void Draw(SKCanvas canvas, EWRectangle dirtyRect);
+        void Draw(SKCanvas canvas, RectangleF dirtyRect);
         void SizeChanged(int width, int height);
         void Detached();
         void Invalidate();

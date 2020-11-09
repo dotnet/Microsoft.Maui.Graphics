@@ -113,7 +113,7 @@ namespace System.Graphics.CoreGraphics
                 nscontext.GraphicsPort.FillRect(dirtyRect);
             }
 
-            _renderer.Draw(nscontext.GraphicsPort, dirtyRect.AsEWRectangle(), _inPanOrZoom);
+            _renderer.Draw(nscontext.GraphicsPort, dirtyRect.AsRectangleF(), _inPanOrZoom);
         }
 
         protected virtual CGSize PatternPhase

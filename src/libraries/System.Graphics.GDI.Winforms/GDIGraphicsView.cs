@@ -4,7 +4,7 @@ namespace System.Graphics.GDI
 {
     public partial class GDIGraphicsView : UserControl
     {
-        private readonly EWRectangle dirtyRect = new EWRectangle();
+        private readonly RectangleF dirtyRect = new RectangleF();
         private GDIGraphicsRenderer renderer;
         private IDrawable drawable;
 

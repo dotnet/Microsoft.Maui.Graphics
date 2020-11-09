@@ -9,7 +9,7 @@
             using (var context = GraphicsPlatform.CurrentService.CreateBitmapExportContext(width, height))
             {
                 context.Canvas.Scale(scale, scale);
-                drawable.Draw(context.Canvas, new EWRectangle(0, 0, (float) width / scale, (float) height / scale));
+                drawable.Draw(context.Canvas, new RectangleF(0, 0, (float) width / scale, (float) height / scale));
                 return context.Image;
             }
         }

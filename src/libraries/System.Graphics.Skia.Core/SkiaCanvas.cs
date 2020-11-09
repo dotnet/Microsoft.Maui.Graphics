@@ -703,7 +703,7 @@ namespace System.Graphics.Skia
             if (string.IsNullOrEmpty(value))
                 return;
 
-            var rect = new EWRectangle(x, y, width, height);
+            var rect = new RectangleF(x, y, width, height);
 
             var attributes = new StandardTextAttributes()
             {
@@ -766,7 +766,7 @@ namespace System.Graphics.Skia
         }
 
         public override void SetShadow(
-            EWSize offset,
+            SizeF offset,
             float blur,
             Color color)
         {

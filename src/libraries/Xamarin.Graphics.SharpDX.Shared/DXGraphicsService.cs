@@ -31,9 +31,9 @@ namespace System.Graphics.SharpDX
         public string SystemFontName => "Arial";
         public string BoldSystemFontName => "Arial-Bold";
 
-        public EWSize GetStringSize(string value, string fontName, float textSize)
+        public SizeF GetStringSize(string value, string fontName, float textSize)
         {
-            if (value == null) return new EWSize();
+            if (value == null) return new SizeF();
 
             float fontSize = textSize;
             float factor = 1;
@@ -46,7 +46,7 @@ namespace System.Graphics.SharpDX
             if (fontName == null)
                 fontName = "Arial";
 
-            var size = new EWSize();
+            var size = new SizeF();
 
             var textFormat = new TextFormat(FactoryDirectWrite, fontName, fontSize);
             textFormat.TextAlignment = TextAlignment.Leading;
@@ -62,14 +62,14 @@ namespace System.Graphics.SharpDX
             return size;
         }
 
-        public EWSize GetStringSize(
+        public SizeF GetStringSize(
             string value,
             string fontName,
             float textSize,
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment)
         {
-            if (value == null) return new EWSize();
+            if (value == null) return new SizeF();
 
             float fontSize = textSize;
             float factor = 1;
@@ -79,7 +79,7 @@ namespace System.Graphics.SharpDX
                 factor *= 14;
             }
 
-            var size = new EWSize();
+            var size = new SizeF();
 
             var textFormat = new TextFormat(FactoryDirectWrite, SystemFontName, FontWeight.Regular, FontStyle.Normal,
                 fontSize);

@@ -58,17 +58,17 @@ namespace System.Graphics.Skia
             return new Color(r, g, b, a);
         }
 
-        public static SKRect AsSKRect(this EWRectangle target)
+        public static SKRect AsSKRect(this RectangleF target)
         {
-            return new SKRect(target.MinX, target.MinY, target.MinX + Math.Abs(target.Width), target.MinY + Math.Abs(target.Height));
+            return new SKRect(target.Left, target.Top, target.Right, target.Bottom);
         }
 
-        public static EWRectangle AsEWRectangle(this SKRect target)
+        public static RectangleF AsRectangleF(this SKRect target)
         {
-            return new EWRectangle(target.Left, target.Top, Math.Abs(target.Right - target.Left), Math.Abs(target.Bottom - target.Top));
+            return new RectangleF(target.Left, target.Top, Math.Abs(target.Right - target.Left), Math.Abs(target.Bottom - target.Top));
         }
 
-        public static SKPoint ToSKPoint(this EWPoint target)
+        public static SKPoint ToSKPoint(this PointF target)
         {
             return new SKPoint(target.X, target.Y);
         }
@@ -265,7 +265,7 @@ namespace System.Graphics.Skia
             return path;
         }
 
-        public static SKPath AsRotatedAndroidPath(this PathF target, EWPoint center, float ppu, float zoom, float angle)
+        public static SKPath AsRotatedAndroidPath(this PathF target, PointF center, float ppu, float zoom, float angle)
         {
             ppu = zoom * ppu;
 
@@ -346,19 +346,19 @@ namespace System.Graphics.Skia
             return path;
         }
 
-        public static EWSize AsSize(this SKSize target)
+        public static SizeF AsSize(this SKSize target)
         {
-            return new EWSize(target.Width, target.Height);
+            return new SizeF(target.Width, target.Height);
         }
 
-        public static SKSize AsSizeF(this EWSize target)
+        public static SKSize AsSizeF(this SizeF target)
         {
             return new SKSize(target.Width, target.Height);
         }
 
-        public static EWPoint AsEWPoint(this SKPoint target)
+        public static PointF AsEWPoint(this SKPoint target)
         {
-            return new EWPoint(target.X, target.Y);
+            return new PointF(target.X, target.Y);
         }
 
         public static SKBitmap GetPatternBitmap(this Paint paint, float scale = 1)

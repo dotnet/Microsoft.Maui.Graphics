@@ -7,7 +7,7 @@ namespace System.Graphics
 {
     public class PathBuilder
     {
-        public static PathF CreatePathFromDefinition(string definition)
+        public static PathF Build(string definition)
         {
             if (string.IsNullOrEmpty(definition))
                 return new PathF();
@@ -20,11 +20,11 @@ namespace System.Graphics
         private readonly Stack<string> _commandStack = new Stack<string>();
         private bool _closeWhenDone;
         private char _lastCommand = '~';
-        private EWPoint _lastCurveControlPoint;
-        private EWPoint _lastMoveTo;
+        private PointF? _lastCurveControlPoint;
+        private PointF? _lastMoveTo;
 
         private PathF _path;
-        private EWImmutablePoint _relativePoint;
+        private PointF? _relativePoint;
         
         private bool NextBoolValue
         {
@@ -106,7 +106,7 @@ namespace System.Graphics
                 _lastCurveControlPoint = null;
                 _path = null;
                 _commandStack.Clear();
-                _relativePoint = new EWPoint(0, 0);
+                _relativePoint = new PointF(0, 0);
                 _closeWhenDone = false;
 
 #if DEBUG_PATH
@@ -512,16 +512,17 @@ namespace System.Graphics
         private void ReflectiveQuadTo(bool isRelative, char? previousCommand)
         {
             var lastPoint = _path.LastPoint;
-            var point1 = new EWPoint(lastPoint);
+            var point1 = lastPoint;
+            var lastCurveControlPoint = _lastCurveControlPoint ?? default;
             switch (previousCommand)
             {
                 case 'Q':
                 case 'q':
                 case 'T':
                 case 't':
-                    var dx = lastPoint.X - _lastCurveControlPoint.X;
-                    var dy = lastPoint.Y - _lastCurveControlPoint.Y;
-                    point1.Move(dx, dy);
+                    var dx = lastPoint.X - lastCurveControlPoint.X;
+                    var dy = lastPoint.Y - lastCurveControlPoint.Y;
+                    point1 = point1.Offset(dx, dy);
                     break;
             }
             var point2 = NewPoint(NextValue, NextValue, isRelative, true);
@@ -531,28 +532,29 @@ namespace System.Graphics
 
         private void SmoothCurveTo(bool isRelative)
         {
-            EWPoint point1;
+            PointF? point1 = null;
             var point2 = NewPoint(NextValue, NextValue, isRelative, false);
 
             // ReSharper disable ConvertIfStatementToNullCoalescingExpression
-            if (_lastCurveControlPoint == null)
+            if (_lastCurveControlPoint == null && _relativePoint != null)
             {
                 // ReSharper restore ConvertIfStatementToNullCoalescingExpression
-                point1 = Geometry.GetOppositePoint(_relativePoint, point2);
+                point1 = Geometry.GetOppositePoint((PointF)_relativePoint, point2);
             }
-            else
+            else if (_relativePoint != null && _lastCurveControlPoint != null)
             {
-                point1 = Geometry.GetOppositePoint(_relativePoint, _lastCurveControlPoint);
+                point1 = Geometry.GetOppositePoint((PointF)_relativePoint, (PointF)_lastCurveControlPoint);
             }
 
             var point3 = NewPoint(NextValue, NextValue, isRelative, true);
-            _path.CurveTo(point1, point2, point3);
+            if (point1 != null)
+                _path.CurveTo((PointF)point1, point2, point3);
             _lastCurveControlPoint = point2;
         }
         
         private void ArcTo(bool isRelative)
         {
-            var startPoint = new EWPoint(_relativePoint);
+            var startPoint = _relativePoint ?? default;
 
             var rx = NextValue;
             var ry = NextValue;
@@ -565,7 +567,7 @@ namespace System.Graphics
             var arcPath = new PathF(startPoint);
             arcPath.SVGArcTo(rx, ry, r, largeArcFlag, sweepFlag, endPoint.X, endPoint.Y, startPoint.X, startPoint.Y);
 
-            for (int s = 0; s < arcPath.SegmentCount; s++)
+            for (int s = 0; s < arcPath.OperationCount; s++)
             {
                 var segmentType = arcPath.GetSegmentType(s);
                 var pointsInSegment = arcPath.GetPointsForSegment(s);
@@ -576,32 +578,32 @@ namespace System.Graphics
                 }
                 else if (segmentType == PathOperation.Line)
                 {
-                    _path.LineTo(new EWPoint(pointsInSegment[0]));
+                    _path.LineTo(pointsInSegment[0]);
                 }
                 else if (segmentType == PathOperation.Cubic)
                 {
-                    _path.CurveTo(new EWPoint(pointsInSegment[0]), new EWPoint(pointsInSegment[1]), new EWPoint(pointsInSegment[2]));
+                    _path.CurveTo(pointsInSegment[0], pointsInSegment[1], pointsInSegment[2]);
                 }
                 else if (segmentType == PathOperation.Quad)
                 {
-                    _path.QuadTo(new EWPoint(pointsInSegment[0]), new EWPoint(pointsInSegment[1]));
+                    _path.QuadTo(pointsInSegment[0], pointsInSegment[1]);
                 }
             }
 
             _relativePoint = _path.LastPoint;
         }
 
-        private EWPoint NewPoint(float x, float y, bool isRelative, bool isReference)
+        private PointF NewPoint(float x, float y, bool isRelative, bool isReference)
         {
-            EWPoint point;
+            PointF point = default;
 
             if (isRelative && _relativePoint != null)
             {
-                point = new EWPoint(_relativePoint.X + x, _relativePoint.Y + y);
+                point = new PointF(((PointF)_relativePoint).X + x, ((PointF)_relativePoint).Y + y);
             }
             else
             {
-                point = new EWPoint(x, y);
+                point = new PointF(x, y);
             }
 
             // If this is the reference point, we want to store the location before
@@ -615,17 +617,17 @@ namespace System.Graphics
             return point;
         }
 
-        private EWPoint NewVerticalPoint(float y, bool isRelative, bool isReference)
+        private PointF NewVerticalPoint(float y, bool isRelative, bool isReference)
         {
-            EWPoint point = null;
+            PointF point = default;
 
             if (isRelative && _relativePoint != null)
             {
-                point = new EWPoint(_relativePoint.X, _relativePoint.Y + y);
+                point = new PointF(((PointF)_relativePoint).X, ((PointF)_relativePoint).Y + y);
             }
             else if (_relativePoint != null)
             {
-                point = new EWPoint(_relativePoint.X, y);
+                point = new PointF(((PointF)_relativePoint).X, y);
             }
 
             // If this is the reference point, we want to store the location before
@@ -639,17 +641,17 @@ namespace System.Graphics
             return point;
         }
 
-        private EWPoint NewHorizontalPoint(float x, bool isRelative, bool isReference)
+        private PointF NewHorizontalPoint(float x, bool isRelative, bool isReference)
         {
-            EWPoint point = null;
+            PointF point = default;
 
             if (isRelative && _relativePoint != null)
             {
-                point = new EWPoint(_relativePoint.X + x, _relativePoint.Y);
+                point = new PointF(((PointF)_relativePoint).X + x, ((PointF)_relativePoint).Y);
             }
             else if (_relativePoint != null)
             {
-                point = new EWPoint(x, _relativePoint.Y);
+                point = new PointF(x, ((PointF)_relativePoint).Y);
             }
 
             // If this is the reference point, we want to store the location before

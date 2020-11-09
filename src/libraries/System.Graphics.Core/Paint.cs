@@ -3,11 +3,11 @@ namespace System.Graphics
     public class Paint
     {
         private float _angle;
-        private EWSize _endLocationRatio;
+        private SizeF? _endLocationRatio;
         private IImage _image;
         private PaintType _paintType = Graphics.PaintType.LinearGradient;
         private IPattern _pattern;
-        private EWSize _startLocationRatio;
+        private SizeF? _startLocationRatio;
 
         private GradientStop[] _stops =
         {
@@ -32,16 +32,9 @@ namespace System.Graphics
                 _paintType = source.PaintType;
                 _angle = source._angle;
 
-                if (source.StartLocationRatio != null)
-                {
-                    _startLocationRatio = new EWSize(source.StartLocationRatio);
-                }
-
-                if (source.EndLocationRatio != null)
-                {
-                    _endLocationRatio = new EWSize(source.EndLocationRatio);
-                }
-
+                _startLocationRatio = source.StartLocationRatio;
+                _endLocationRatio = source.EndLocationRatio;
+             
                 _pattern = source._pattern;
                 _image = source._image;
             }
@@ -178,19 +171,19 @@ namespace System.Graphics
             set => _angle = value;
         }
 
-        public EWSize StartLocationRatio
+        public SizeF? StartLocationRatio
         {
             get => _startLocationRatio;
             set => _startLocationRatio = value;
         }
 
-        public EWSize EndLocationRatio
+        public SizeF? EndLocationRatio
         {
             get => _endLocationRatio;
             set => _endLocationRatio = value;
         }
 
-        public EWSize FocalPointRatio { get; set; }
+        public SizeF FocalPointRatio { get; set; }
 
         public GradientStop[] GetSortedStops()
         {

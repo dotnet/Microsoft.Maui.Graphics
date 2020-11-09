@@ -220,16 +220,16 @@ namespace GraphicsTester.Scenarios
 
             canvas.SaveState();
             canvas.FillColor = Colors.CornflowerBlue;
-            canvas.SetShadow(new EWSize(5, 5), 0, Colors.Grey);
+            canvas.SetShadow(new SizeF(5, 5), 0, Colors.Grey);
             canvas.FillRectangle(50, 900, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 2, Colors.Red);
+            canvas.SetShadow(new SizeF(5, 5), 2, Colors.Red);
             canvas.FillOval(200, 900, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 5, Colors.Green);
+            canvas.SetShadow(new SizeF(5, 5), 5, Colors.Green);
             canvas.FillRoundedRectangle(350, 900, 100, 50, 25);
 
-            canvas.SetShadow(new EWSize(10, 10), 5, Colors.Blue);
+            canvas.SetShadow(new SizeF(10, 10), 5, Colors.Blue);
 
             path = new PathF();
             path.MoveTo(550, 900);
@@ -244,16 +244,16 @@ namespace GraphicsTester.Scenarios
             //
 
             canvas.StrokeColor = Colors.Black;
-            canvas.SetShadow(new EWSize(5, 5), 0, Colors.Grey);
+            canvas.SetShadow(new SizeF(5, 5), 0, Colors.Grey);
             canvas.DrawRectangle(50, 1000, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 2, Colors.Red);
+            canvas.SetShadow(new SizeF(5, 5), 2, Colors.Red);
             canvas.DrawOval(200, 1000, 100, 50);
 
-            canvas.SetShadow(new EWSize(5, 5), 5, Colors.Green);
+            canvas.SetShadow(new SizeF(5, 5), 5, Colors.Green);
             canvas.DrawRoundedRectangle(350, 1000, 100, 50, 25);
 
-            canvas.SetShadow(new EWSize(10, 10), 5, Colors.Blue);
+            canvas.SetShadow(new SizeF(10, 10), 5, Colors.Blue);
             path = new PathF();
             path.MoveTo(550, 1000);
             path.LineTo(500, 1050);
@@ -289,19 +289,19 @@ namespace GraphicsTester.Scenarios
 
             canvas.Alpha = .25f;
             canvas.FillColor = Colors.CornflowerBlue;
-            canvas.SetShadow(new EWSize(5, 5), 0, Colors.Grey);
+            canvas.SetShadow(new SizeF(5, 5), 0, Colors.Grey);
             canvas.FillRectangle(50, 1200, 100, 50);
 
             canvas.Alpha = .5f;
-            canvas.SetShadow(new EWSize(5, 5), 2, Colors.Red);
+            canvas.SetShadow(new SizeF(5, 5), 2, Colors.Red);
             canvas.FillOval(200, 1200, 100, 50);
 
             canvas.Alpha = .75f;
-            canvas.SetShadow(new EWSize(5, 5), 5, Colors.Green);
+            canvas.SetShadow(new SizeF(5, 5), 5, Colors.Green);
             canvas.FillRoundedRectangle(350, 1200, 100, 50, 25);
 
             canvas.Alpha = 1;
-            canvas.SetShadow(new EWSize(10, 10), 5, Colors.Blue);
+            canvas.SetShadow(new SizeF(10, 10), 5, Colors.Blue);
 
             path = new PathF();
             path.MoveTo(550, 1200);
@@ -335,7 +335,7 @@ namespace GraphicsTester.Scenarios
             //
 
             canvas.SaveState();
-            canvas.SetShadow(new EWSize(2, 0), 2, Colors.Black);
+            canvas.SetShadow(new SizeF(2, 0), 2, Colors.Black);
             canvas.StrokeColor = Colors.CornflowerBlue;
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);
@@ -398,7 +398,7 @@ namespace GraphicsTester.Scenarios
             }
 
             canvas.SaveState();
-            canvas.SetShadow(new EWSize(2, 2), 2, Colors.DarkGrey);
+            canvas.SetShadow(new SizeF(2, 2), 2, Colors.DarkGrey);
 
             for (int x = 0; x < 4; x++)
             {

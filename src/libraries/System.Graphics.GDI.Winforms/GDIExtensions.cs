@@ -5,34 +5,34 @@ namespace System.Graphics.GDI
 {
     public static class GDIGraphicsExtensions
     {
-        public static RectangleF AsRectangleF(this EWRectangle target)
+        public static Drawing.RectangleF AsRectangleF(this RectangleF target)
         {
-            return new RectangleF(target.MinX, target.MinY, Math.Abs(target.Width), Math.Abs(target.Height));
+            return new Drawing.RectangleF(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
         }
 
-        public static EWRectangle AsEWRectangle(this RectangleF target)
+        public static RectangleF AsEWRectangle(this Drawing.RectangleF target)
         {
-            return new EWRectangle(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
+            return new RectangleF(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
         }
 
-        public static EWRectangle AsEWRectangle(this Rectangle target)
+        public static RectangleF AsEWRectangle(this Rectangle target)
         {
-            return new EWRectangle(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
+            return new RectangleF(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
         }
 
-        public static SizeF AsSizeF(this EWSize target)
+        public static Drawing.SizeF AsSizeF(this SizeF target)
+        {
+            return new Drawing.SizeF(target.Width, target.Height);
+        }
+
+        public static SizeF AsEWSize(this Drawing.SizeF target)
         {
             return new SizeF(target.Width, target.Height);
         }
 
-        public static EWSize AsEWSize(this SizeF target)
+        public static Drawing.PointF ToPointF(this PointF target)
         {
-            return new EWSize(target.Width, target.Height);
-        }
-
-        public static PointF ToPointF(this EWImmutablePoint target)
-        {
-            return new PointF(target.X, target.Y);
+            return new Drawing.PointF(target.X, target.Y);
         }
 
         public static Drawing.Color AsColor(this Color color)

@@ -41,7 +41,7 @@ namespace System.Graphics.Skia
 
         public void Draw(
             SKCanvas skiaCanvas,
-            EWRectangle dirtyRect)
+            RectangleF dirtyRect)
         {
             _canvas.Canvas = skiaCanvas;
 

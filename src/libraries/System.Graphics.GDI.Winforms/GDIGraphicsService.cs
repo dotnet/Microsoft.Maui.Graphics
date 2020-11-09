@@ -11,23 +11,23 @@ namespace System.Graphics.GDI
         public string SystemFontName => "Arial";
         public string BoldSystemFontName => "Arial-Bold";
         
-        public EWSize GetStringSize(string aString, string aFontName, float fontSize)
+        public SizeF GetStringSize(string aString, string aFontName, float fontSize)
         {
             var fontEntry = GDIFontManager.GetMapping(aFontName);
             var font = new Font(fontEntry.Name, fontSize * .75f);
             var size = TextRenderer.MeasureText(aString, font);
             font.Dispose();
-            return new EWSize(size.Width, size.Height);
+            return new SizeF(size.Width, size.Height);
         }
 
 
-        public EWSize GetStringSize(string aString, string aFontName, float fontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
+        public SizeF GetStringSize(string aString, string aFontName, float fontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
         {
             var fontEntry = GDIFontManager.GetMapping(aFontName);
             var font = new Font(fontEntry.Name, fontSize * .75f);
             var size = TextRenderer.MeasureText(aString, font);
             font.Dispose();
-            return new EWSize(size.Width, size.Height);
+            return new SizeF(size.Width, size.Height);
         }
 
         public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png)

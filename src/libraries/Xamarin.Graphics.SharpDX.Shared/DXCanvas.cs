@@ -17,7 +17,7 @@ namespace System.Graphics.SharpDX
 {
     public class DXCanvas : AbstractCanvas<DXCanvasState>, IBlurrableCanvas
     {
-        private static readonly RectangleF InfiniteRect = new RectangleF(
+        private static readonly global::SharpDX.RectangleF InfiniteRect = new global::SharpDX.RectangleF(
             float.NegativeInfinity,
             float.NegativeInfinity,
             float.PositiveInfinity,
@@ -34,12 +34,12 @@ namespace System.Graphics.SharpDX
         private Vector2 _point1;
         private Vector2 _point2;
         private Size2F _size;
-        private RectangleF _rect;
+        private global::SharpDX.RectangleF _rect;
         private RenderTarget _renderTarget;
         private RoundedRectangle _roundedRect;
         private Shadow _shadowEffect;
 
-        private RectangleF _renderBounds = InfiniteRect;
+        private global::SharpDX.RectangleF _renderBounds = InfiniteRect;
 
         private bool _bitmapPatternFills;
 
@@ -121,7 +121,7 @@ namespace System.Graphics.SharpDX
 
         public void SetRenderSize(int width, int height)
         {
-            _renderBounds = new RectangleF(0, 0, width, height);
+            _renderBounds = new global::SharpDX.RectangleF(0, 0, width, height);
         }
 
         public override float MiterLimit
@@ -760,7 +760,7 @@ namespace System.Graphics.SharpDX
                 state?.RestoreRenderTargetState();
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }
@@ -848,7 +848,7 @@ namespace System.Graphics.SharpDX
                             ExtendModeX = ExtendMode.Wrap,
                             ExtendModeY = ExtendMode.Wrap,
                             SourceRectangle =
-                                new RectangleF(
+                                new global::SharpDX.RectangleF(
                                     (pattern.Width - pattern.StepX) / 2, (pattern.Height - pattern.StepY) / 2,
                                     pattern.StepX, pattern.StepY)
                         };
@@ -953,7 +953,7 @@ namespace System.Graphics.SharpDX
             CurrentState.FontStyle = FontStyle.Normal;
         }
 
-        public void DrawBitmap(Bitmap bitmap, RectangleF targetRect, float opacity)
+        public void DrawBitmap(Bitmap bitmap, global::SharpDX.RectangleF targetRect, float opacity)
         {
             Draw(ctx => ctx.DrawBitmap(bitmap, targetRect, opacity, BitmapInterpolationMode.Linear));
         }

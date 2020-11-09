@@ -275,17 +275,17 @@ namespace System.Graphics
             );
         }
 
-        public EWPoint Transform(EWPoint src)
+        public PointF Transform(PointF src)
         {
             return Transform(src.X, src.Y);
         }
 
-        public EWPoint Transform(float x, float y)
+        public PointF Transform(float x, float y)
         {
-            return new EWPoint(x * _m00 + y * _m01 + _m02, x * _m10 + y * _m11 + _m12);
+            return new PointF(x * _m00 + y * _m01 + _m02, x * _m10 + y * _m11 + _m12);
         }
 
-        public EWPoint InverseTransform(EWPoint src)
+        public PointF InverseTransform(PointF src)
         {
             float det = GetDeterminant();
             if (Math.Abs(det) < Epsilon)
@@ -294,7 +294,7 @@ namespace System.Graphics
             float x = src.X - _m02;
             float y = src.Y - _m12;
 
-            return new EWPoint((x * _m11 - y * _m01) / det, (y * _m00 - x * _m10) / det);
+            return new PointF((x * _m11 - y * _m01) / det, (y * _m00 - x * _m10) / det);
         }
 
         public void Transform(float[] src, int srcOff, float[] dst, int dstOff, int length)

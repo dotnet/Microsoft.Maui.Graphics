@@ -4,33 +4,33 @@ namespace System.Graphics.CoreGraphics
 {
     public static class CGGraphicsExtensions
     {
-        public static CGRect AsCGRect(this EWRectangle target)
+        public static CGRect AsCGRect(this RectangleF target)
         {
-            return new CGRect(target.MinX, target.MinY, Math.Abs(target.Width), Math.Abs(target.Height));
+            return new CGRect(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
         }
 
-        public static EWRectangle AsEWRectangle(this CGRect target)
+        public static RectangleF AsRectangleF(this CGRect target)
         {
-            return new EWRectangle(
+            return new RectangleF(
                 (float) target.Left,
                 (float) target.Top,
                 (float) Math.Abs(target.Width),
                 (float) Math.Abs(target.Height));
         }
 
-        public static EWSize AsEWSize(this CGSize target)
+        public static SizeF AsSizeF(this CGSize target)
         {
-            return new EWSize(
+            return new SizeF(
                 (float) target.Width,
                 (float) target.Height);
         }
 
-        public static CGPoint ToCGPoint(this EWImmutablePoint target)
+        public static CGPoint ToCGPoint(this PointF target)
         {
             return new CGPoint(target.X, target.Y);
         }
 
-        public static PathF AsEWPath(this CGPath target)
+        public static PathF AsPathF(this CGPath target)
         {
             var path = new PathF();
             var converter = new PathConverter(path);
@@ -218,7 +218,7 @@ namespace System.Graphics.CoreGraphics
             return path;
         }
 
-        public static CGPath AsRotatedCGPath(this PathF target, EWImmutablePoint center, float ppu, float zoom, float angle)
+        public static CGPath AsRotatedCGPath(this PathF target, PointF center, float ppu, float zoom, float angle)
         {
             ppu = ppu * zoom;
             var path = new CGPath();
@@ -289,7 +289,7 @@ namespace System.Graphics.CoreGraphics
                     var height = bottomRight.Y - topLeft.Y;
                     var r = width / 2;
 
-                    var rotatedCenter = Geometry.RotatePoint(center, new EWPoint(cx, cy), angle);
+                    var rotatedCenter = Geometry.RotatePoint(center, new PointF(cx, cy), angle);
 
                     var transform = CGAffineTransform.MakeTranslation(rotatedCenter.X * ppu, rotatedCenter.Y * ppu);
                     transform = CGAffineTransform.Multiply(CGAffineTransform.MakeScale(1, height / width), transform);
@@ -305,14 +305,14 @@ namespace System.Graphics.CoreGraphics
             return path;
         }
 
-        public static CGSize AsSizeF(this EWSize target)
+        public static CGSize AsSizeF(this SizeF target)
         {
             return new CGSize(target.Width, target.Height);
         }
 
-        public static EWPoint AsEWPoint(this CGPoint target)
+        public static PointF AsEWPoint(this CGPoint target)
         {
-            return new EWPoint((float) target.X, (float) target.Y);
+            return new PointF((float) target.X, (float) target.Y);
         }
 
         public class PathConverter

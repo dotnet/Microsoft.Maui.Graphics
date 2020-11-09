@@ -31,7 +31,7 @@ namespace GraphicsTester.Scenarios
             canvas.RestoreState();
         }
 
-        private IPattern AddPictureAsPattern(Picture picture, float stepX, float stepY)
+        private IPattern AddPictureAsPattern(IPicture picture, float stepX, float stepY)
         {
             return new PicturePattern(picture, stepX, stepY);
         }

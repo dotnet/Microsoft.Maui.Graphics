@@ -1,6 +1,6 @@
 namespace System.Graphics
 {
-    public interface Picture
+    public interface IPicture
     {
         void Draw(ICanvas canvas);
 

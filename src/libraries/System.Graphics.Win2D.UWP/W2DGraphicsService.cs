@@ -44,14 +44,14 @@ namespace System.Graphics.Win2D
             return new List<PathF>();
         }
 
-        public EWSize GetStringSize(string value, string fontName, float textSize)
+        public SizeF GetStringSize(string value, string fontName, float textSize)
         {
-            return new EWSize(value.Length * 10, textSize + 2);
+            return new SizeF(value.Length * 10, textSize + 2);
         }
 
-        public EWSize GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
+        public SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
-            return new EWSize(value.Length * 10, textSize + 2);
+            return new SizeF(value.Length * 10, textSize + 2);
         }
 
         public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png)

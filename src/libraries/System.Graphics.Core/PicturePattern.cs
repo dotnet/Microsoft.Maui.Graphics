@@ -2,14 +2,14 @@
 {
     public class PicturePattern : AbstractPattern
     {
-        private readonly Picture _picture;
+        private readonly IPicture _picture;
 
-        public PicturePattern(Picture picture, float stepX, float stepY) : base(picture.Width, picture.Height, stepX, stepY)
+        public PicturePattern(IPicture picture, float stepX, float stepY) : base(picture.Width, picture.Height, stepX, stepY)
         {
             _picture = picture;
         }
 
-        public PicturePattern(Picture picture) : base(picture.Width, picture.Height)
+        public PicturePattern(IPicture picture) : base(picture.Width, picture.Height)
         {
             _picture = picture;
         }

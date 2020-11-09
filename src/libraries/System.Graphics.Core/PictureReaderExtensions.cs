@@ -5,7 +5,7 @@ namespace System.Graphics
 {
     public static class PictureReaderExtensions
     {
-        public static Picture Read(this IPictureReader target, Stream stream, string hash = null)
+        public static IPicture Read(this IPictureReader target, Stream stream, string hash = null)
         {
             if (!(stream is MemoryStream memoryStream))
             {
@@ -17,7 +17,7 @@ namespace System.Graphics
             return target.Read(bytes);
         }
 
-        public static async Task<Picture> ReadAsync(this IPictureReader target, Stream stream, string hash = null)
+        public static async Task<IPicture> ReadAsync(this IPictureReader target, Stream stream, string hash = null)
         {
             if (!(stream is MemoryStream memoryStream))
             {

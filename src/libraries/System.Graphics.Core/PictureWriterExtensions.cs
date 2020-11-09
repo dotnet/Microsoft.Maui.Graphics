@@ -5,7 +5,7 @@ namespace System.Graphics
 {
     public static class PictureWriterExtensions
     {
-        public static byte[] SaveAsBytes(this IPictureWriter target, Picture picture)
+        public static byte[] SaveAsBytes(this IPictureWriter target, IPicture picture)
         {
             if (target == null || picture == null)
                 return null;
@@ -17,7 +17,7 @@ namespace System.Graphics
             }
         }
 
-        public static async Task<byte[]> SaveAsBytesAsync(this IPictureWriter target, Picture picture)
+        public static async Task<byte[]> SaveAsBytesAsync(this IPictureWriter target, IPicture picture)
         {
             if (target == null || picture == null)
                 return null;
@@ -29,7 +29,7 @@ namespace System.Graphics
             }
         }
 
-        public static string SaveAsBase64(this IPictureWriter target, Picture picture)
+        public static string SaveAsBase64(this IPictureWriter target, IPicture picture)
         {
             if (target == null)
                 return null;
@@ -38,7 +38,7 @@ namespace System.Graphics
             return Convert.ToBase64String(bytes);
         }
 
-        public static Stream SaveAsStream(this IPictureWriter target, Picture picture)
+        public static Stream SaveAsStream(this IPictureWriter target, IPicture picture)
         {
             if (target == null)
                 return null;

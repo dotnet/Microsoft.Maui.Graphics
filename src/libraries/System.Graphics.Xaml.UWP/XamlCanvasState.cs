@@ -17,7 +17,7 @@ namespace System.Graphics.Xaml
 		private Color _fontColor = Colors.Black;
         private float _alpha = 1;
         private DoubleCollection _dashArray;
-        private EWSize _shadowOffset;
+        private SizeF _shadowOffset;
         private float _shadowBlur;
         private Color _shadowColor;
         private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
@@ -266,7 +266,7 @@ namespace System.Graphics.Xaml
             }
         }
 
-        public void SetShadow(EWSize offset, float blur, Color color)
+        public void SetShadow(SizeF offset, float blur, Color color)
         {
             _shadowOffset = offset;
             _shadowBlur = blur;

@@ -41,19 +41,19 @@ namespace System.Graphics.Android
             return layout;
         }
 
-        public static SizeF GetTextSize(this StaticLayout aTarget)
+        public static Drawing.SizeF GetTextSize(this StaticLayout aTarget)
         {
             // Get the text bounds and assume (the safe assumption) that the layout wasn't
             // created with a bounded width.
             return GetTextSize(aTarget, false);
         }
 
-        public static SizeF GetTextSize(this StaticLayout aTarget, bool aHasBoundedWidth)
+        public static Drawing.SizeF GetTextSize(this StaticLayout aTarget, bool aHasBoundedWidth)
         {
             // We need to know if the static layout was created with a bounded width, as this is what 
             // StaticLayout.Width returns.
             if (aHasBoundedWidth)
-                return new SizeF(aTarget.Width, aTarget.Height);
+                return new Drawing.SizeF(aTarget.Width, aTarget.Height);
 
             float vMaxWidth = 0;
             int vLineCount = aTarget.LineCount;
@@ -65,7 +65,7 @@ namespace System.Graphics.Android
                     vMaxWidth = vLineWidth;
             }
 
-            return new SizeF(vMaxWidth, aTarget.Height);
+            return new Drawing.SizeF(vMaxWidth, aTarget.Height);
         }
     }
 }

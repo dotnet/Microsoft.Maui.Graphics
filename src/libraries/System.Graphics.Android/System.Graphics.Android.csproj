@@ -45,6 +45,8 @@
         <Reference Include="Mono.Android" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="FontInfo.cs" />
+        <Compile Include="MDImageExtensions.cs" />
         <Compile Include="Resources\Resource.designer.cs" />
         <Compile Include="BufferedCanvas.cs" />
         <Compile Include="FontAnalyzer.cs" />

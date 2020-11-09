@@ -27,7 +27,7 @@ namespace System.Graphics.CoreGraphics
             set => _graphicsView = value;
         }
 
-        public void Draw(CGContext coreGraphics, EWRectangle dirtyRect, bool inPanOrZoom)
+        public void Draw(CGContext coreGraphics, RectangleF dirtyRect, bool inPanOrZoom)
         {
             _canvas.Context = coreGraphics;
 
@@ -67,7 +67,7 @@ namespace System.Graphics.CoreGraphics
 
         public void Invalidate(float x, float y, float w, float h)
         {
-            _graphicsView?.SetNeedsDisplayInRect(new RectangleF(x, y, w, h));
+            _graphicsView?.SetNeedsDisplayInRect(new Drawing.RectangleF(x, y, w, h));
         }
     }
 }

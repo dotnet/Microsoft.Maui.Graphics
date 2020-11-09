@@ -22,13 +22,13 @@ namespace System.Graphics.CoreGraphics
                 targetWidth = targetWidth / scale;
             }
 
-            return ScaleImage(target, new SizeF(targetWidth, targetHeight), disposeOriginal);
+            return ScaleImage(target, new Drawing.SizeF(targetWidth, targetHeight), disposeOriginal);
         }
 
-        public static UIImage ScaleImage(this UIImage target, SizeF size, bool disposeOriginal = false)
+        public static UIImage ScaleImage(this UIImage target, Drawing.SizeF size, bool disposeOriginal = false)
         {
             UIGraphics.BeginImageContext(size);
-            target.Draw(new RectangleF(new PointF(0, 0), size));
+            target.Draw(new Drawing.RectangleF(new Drawing.PointF(0, 0), size));
             var image = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
 
@@ -48,7 +48,7 @@ namespace System.Graphics.CoreGraphics
             }
 
             UIGraphics.BeginImageContextWithOptions(target.Size, false, target.CurrentScale);
-            target.Draw(new PointF(0, 0));
+            target.Draw(new Drawing.PointF(0, 0));
             var image = UIGraphics.GetImageFromCurrentImageContext();
             UIGraphics.EndImageContext();
 

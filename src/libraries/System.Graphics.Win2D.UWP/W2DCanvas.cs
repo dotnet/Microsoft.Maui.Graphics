@@ -363,7 +363,7 @@ namespace System.Graphics.Win2D
             Logger.Warn("Not implemented");
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }

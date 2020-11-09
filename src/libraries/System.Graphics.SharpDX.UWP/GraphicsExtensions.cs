@@ -6,10 +6,10 @@ namespace System.Graphics.SharpDX
 {
     public static class GraphicsExtensions
     {
-        public static EWPoint AsEWPoint(this PointerPoint point, float scale = 1)
+        public static PointF AsEWPoint(this PointerPoint point, float scale = 1)
         {
             var position = point.Position;
-            return new EWPoint((float)position.X * scale, (float)position.Y * scale);
+            return new PointF((float)position.X * scale, (float)position.Y * scale);
         }
 
         public static global::Windows.UI.Color AsColor(this Color color)

@@ -157,7 +157,7 @@ namespace System.Graphics.CoreGraphics
             return "normal";
         }
 
-        public EWSize GetStringSize(string value, string fontName, float fontSize)
+        public SizeF GetStringSize(string value, string fontName, float fontSize)
         {
             var actualFontName = fontName ?? _systemFontName;
             var nativeString = new NSString(value);
@@ -168,10 +168,10 @@ namespace System.Graphics.CoreGraphics
             attributes[NSStringAttributeKey.Font] = font;
             var size = nativeString.StringSize(attributes);
             font.Dispose();
-            return size.AsEWSize();
+            return size.AsSizeF();
         }
 
-        public EWSize GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
+        public SizeF GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
         {
             var fontSize = aFontSize;
             float factor = 1;
@@ -238,7 +238,7 @@ namespace System.Graphics.CoreGraphics
             return textBounds.Size;
         }
 
-        public static EWRectangle GetTextSize(CTFramesetter frameSetter, CGPath path)
+        public static RectangleF GetTextSize(CTFramesetter frameSetter, CGPath path)
         {
             var frame = frameSetter.GetFrame(new NSRange(0, 0), path, null);
 
@@ -249,10 +249,10 @@ namespace System.Graphics.CoreGraphics
                 return textSize;
             }
 
-            return new EWRectangle(0, 0, 0, 0);
+            return new RectangleF(0, 0, 0, 0);
         }
 
-        public static EWRectangle GetTextSize(CTFrame frame)
+        public static RectangleF GetTextSize(CTFrame frame)
         {
             var minY = float.MaxValue;
             var maxY = float.MinValue;
@@ -278,10 +278,10 @@ namespace System.Graphics.CoreGraphics
                 lines[i].Dispose();
             }
 
-            return new EWRectangle(0f, minY, width, Math.Max(0, maxY - minY));
+            return new RectangleF(0f, minY, width, Math.Max(0, maxY - minY));
         }
 
-        public EWRectangle GetPathBounds(PathF path)
+        public RectangleF GetPathBounds(PathF path)
         {
             var nativePath = path.NativePath as CGPath;
 
@@ -292,15 +292,15 @@ namespace System.Graphics.CoreGraphics
             }
 
             var bounds = nativePath.PathBoundingBox;
-            return bounds.AsEWRectangle();
+            return bounds.AsRectangleF();
         }
 
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint centerOfRotation, PathF path, float angle)
+        public RectangleF GetPathBoundsWhenRotated(PointF centerOfRotation, PathF path, float angle)
         {
             var nativePath = path.AsRotatedCGPath(centerOfRotation, 1, 1f, angle);
             var bounds = nativePath.PathBoundingBox;
             nativePath.Dispose();
-            return bounds.AsEWRectangle();
+            return bounds.AsRectangleF();
         }
         
         #endregion

@@ -84,7 +84,7 @@ namespace System.Graphics
 
         public void ResetState();
 
-        public  void SetShadow(EWSize offset, float blur, Color color);
+        public  void SetShadow(SizeF offset, float blur, Color color);
 
         public  void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2);
 

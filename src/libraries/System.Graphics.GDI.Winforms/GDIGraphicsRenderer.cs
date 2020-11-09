@@ -10,7 +10,7 @@
 
         IDrawable Drawable { get; set; }
 
-        void Draw(System.Drawing.Graphics graphics, EWRectangle dirtyRect);
+        void Draw(System.Drawing.Graphics graphics, RectangleF dirtyRect);
 
         void SizeChanged(int width, int height);
 

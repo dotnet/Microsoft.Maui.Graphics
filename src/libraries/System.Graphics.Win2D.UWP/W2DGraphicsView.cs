@@ -11,7 +11,7 @@ namespace System.Graphics.Win2D
         private readonly W2DCanvas _canvas = new W2DCanvas();
 
         private IDrawable _drawable;
-        private readonly EWRectangle _dirty = new EWRectangle();
+        private RectangleF _dirty;
         //private bool _resizeDrawable = true;
 
         public W2DGraphicsView()
@@ -57,8 +57,8 @@ namespace System.Graphics.Win2D
             if (_drawable == null)
                 return;
             
-            _dirty.X1 = 0f;
-            _dirty.Y1 = 0f;
+            _dirty.X = 0f;
+            _dirty.Y = 0f;
             _dirty.Width = (float)sender.ActualWidth;
             _dirty.Height = (float)sender.ActualHeight;
 

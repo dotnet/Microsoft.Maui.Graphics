@@ -6,7 +6,7 @@ namespace System.Graphics.Skia
 {
     public class WDSkiaGraphicsView : SKElement
     {
-        private readonly EWRectangle _dirtyRect = new EWRectangle();
+        private RectangleF _dirtyRect;
         private IDrawable _drawable;
         private ISkiaGraphicsRenderer _renderer;
 

@@ -26,7 +26,7 @@ namespace GraphicsTester.Scenarios
             canvas.RestoreState();
 
             canvas.StrokeColor = Colors.Blue;
-            var point = new EWPoint(65, 65);
+            var point = new PointF(65, 65);
             for (int i = -3; i < 3; i++)
             {
                 var rotated = Geometry.RotatePoint(point, -15 * i);
@@ -37,7 +37,7 @@ namespace GraphicsTester.Scenarios
             canvas.SaveState();
             canvas.FillColor = Colors.Black;
             canvas.FillOval(60, 60, 10, 10);
-            canvas.SetShadow(new EWSize(2, 0), 2, Colors.Black);
+            canvas.SetShadow(new SizeF(2, 0), 2, Colors.Black);
             canvas.StrokeColor = Colors.CornflowerBlue;
             canvas.Rotate(15);
             canvas.DrawOval(60, 60, 10, 10);

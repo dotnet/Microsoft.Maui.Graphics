@@ -1318,10 +1318,9 @@ namespace System.Graphics.CoreGraphics
             context.RestoreState();
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
-            var actualOffset = offset ?? CanvasDefaults.DefaultShadowOffset;
-
+            var actualOffset = offset ;
             var sizeF = actualOffset.AsSizeF();
 
 #if MONOMAC

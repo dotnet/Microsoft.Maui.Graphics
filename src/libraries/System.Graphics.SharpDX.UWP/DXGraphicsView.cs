@@ -50,7 +50,7 @@ namespace System.Graphics.SharpDX
             RenderTransform = null;
             canvas.RenderTarget = context;
             var scale = canvas.DisplayScale;
-            var bounds = new EWRectangle(0, 0, (float) ActualWidth * scale, (float) ActualHeight * scale);
+            var bounds = new RectangleF(0, 0, (float) ActualWidth * scale, (float) ActualHeight * scale);
 
             if (backgroundColor != null)
             {

@@ -2,7 +2,7 @@
 
 namespace GraphicsTester.Scenarios
 {
-    public abstract class AbstractScenario : Picture, IDrawable
+    public abstract class AbstractScenario : IPicture, IDrawable
     {
         public static readonly float[] SOLID = null;
         public static readonly float[] DOT_DOT = {1, 1};
@@ -64,7 +64,7 @@ namespace GraphicsTester.Scenarios
             // Do nothing by default
         }
 
-        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
             Draw(canvas);
         }

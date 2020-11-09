@@ -128,27 +128,9 @@ namespace System.Graphics.CoreGraphics
             disp?.Dispose();
         }
 
-        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
-            canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
-        }
-    }
-
-    public static class MTImageExtensions
-    {
-        public static UIImage AsUIImage(this IImage image)
-        {
-            if (image is MTImage mtimage)
-            {
-                return mtimage.NativeImage;
-            }
-
-            if (image != null)
-            {
-                Logger.Warn("MTImageExtensions.AsUIImage: Unable to get UIImage from EWImage. Expected an image of type MTImage however an image of type {0} was received.", image.GetType());
-            }
-
-            return null;
+            canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
         }
     }
 }

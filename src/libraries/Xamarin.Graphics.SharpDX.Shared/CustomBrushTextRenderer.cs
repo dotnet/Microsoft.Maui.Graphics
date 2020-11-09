@@ -104,7 +104,7 @@ namespace System.Graphics.SharpDX
         {
             if (options.HasFlag(DrawTextOptions.Clip))
             {
-                renderTarget.PushAxisAlignedClip(new RectangleF(origin.X, origin.Y, textLayout.MaxWidth, textLayout.MaxHeight), renderTarget.AntialiasMode);
+                renderTarget.PushAxisAlignedClip(new global::SharpDX.RectangleF(origin.X, origin.Y, textLayout.MaxWidth, textLayout.MaxHeight), renderTarget.AntialiasMode);
                 using (var renderer = new CustomBrushTextRenderer(renderTarget, defaultForegroundBrush, options.HasFlag(DrawTextOptions.NoSnap)))
                     textLayout.Draw(renderer, origin.X, origin.Y);
                 renderTarget.PopAxisAlignedClip();

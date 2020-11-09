@@ -21,7 +21,7 @@ namespace System.Graphics
             _commands = new List<DrawingCommand>();
         }
 
-        public Picture Picture => new StandardPicture(_x, _y, _width, _height, _commands.ToArray());
+        public IPicture Picture => new StandardPicture(_x, _y, _width, _height, _commands.ToArray());
 
         public void Dispose()
         {
@@ -240,17 +240,17 @@ namespace System.Graphics
              
         }
 
-        public void SetShadow(EWSize offset, float blur, Color color)
+        public void SetShadow(SizeF offset, float blur, Color color)
         {
             _commands.Add(canvas => canvas.SetShadow(offset, blur, color));
         }
 
-        public void SetFillPaint(Paint paint, EWImmutablePoint point1, EWImmutablePoint point2)
+        public void SetFillPaint(Paint paint, PointF point1, PointF point2)
         {
             _commands.Add(canvas => canvas.SetFillPaint(paint, point1, point2));
         }
 
-        public void SetFillPaint(Paint paint, EWRectangle rectangle)
+        public void SetFillPaint(Paint paint, RectangleF rectangle)
         {
             _commands.Add(canvas => canvas.SetFillPaint(paint, rectangle));
         }

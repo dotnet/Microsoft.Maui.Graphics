@@ -379,7 +379,7 @@ namespace System.Graphics.Win2D
             }
         }
 
-        public void SetShadow(EWSize offset, float blur, Color color)
+        public void SetShadow(SizeF offset, float blur, Color color)
         {
             if (offset != null)
             {

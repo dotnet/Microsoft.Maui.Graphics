@@ -5,7 +5,7 @@ namespace System.Graphics
 {
     public interface IPictureWriter
     {
-        void Save(Picture picture, Stream stream);
-        Task SaveAsync(Picture picture, Stream stream);
+        void Save(IPicture picture, Stream stream);
+        Task SaveAsync(IPicture picture, Stream stream);
     }
 }

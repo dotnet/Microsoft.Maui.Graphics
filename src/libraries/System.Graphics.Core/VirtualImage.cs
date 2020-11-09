@@ -160,7 +160,7 @@ namespace System.Graphics
             stream.Dispose();
         }
 
-        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
             throw new Exception("Drawing a virtual image is not supported.");
         }

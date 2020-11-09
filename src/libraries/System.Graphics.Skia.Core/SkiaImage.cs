@@ -135,9 +135,9 @@ namespace System.Graphics.Skia
             previousValue?.Dispose();
         }
 
-        public void Draw(ICanvas canvas, EWRectangle dirtyRect)
+        public void Draw(ICanvas canvas, RectangleF dirtyRect)
         {
-            canvas.DrawImage(this, dirtyRect.MinX, dirtyRect.MinY, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
+            canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
         }
     }
 

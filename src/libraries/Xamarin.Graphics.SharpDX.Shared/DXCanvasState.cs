@@ -573,7 +573,7 @@ namespace System.Graphics.SharpDX
             }
         }
 
-        public void SetShadow(EWSize aOffset, float aBlur, Color aColor)
+        public void SetShadow(SizeF aOffset, float aBlur, Color aColor)
         {
             if (aOffset != null)
             {
@@ -660,7 +660,7 @@ namespace System.Graphics.SharpDX
             var sink = _layerMask.Open();
             sink.SetFillMode(windingMode == WindingMode.NonZero ? FillMode.Winding : FillMode.Alternate);
 
-            var layerRect = new RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
+            var layerRect = new global::SharpDX.RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
             _layerBounds = new RectangleGeometry(_renderTarget.Factory, layerRect);
 
             var clipGeometry = path.AsDxPath(_renderTarget.Factory);
@@ -698,10 +698,10 @@ namespace System.Graphics.SharpDX
             _layerMask = new PathGeometry(_renderTarget.Factory);
             var maskSink = _layerMask.Open();
 
-            var layerRect = new RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
+            var layerRect = new global::SharpDX.RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
             _layerBounds = new RectangleGeometry(_renderTarget.Factory, layerRect);
 
-            var boundsToSubtract = new RectangleF(x, y, width, height);
+            var boundsToSubtract = new global::SharpDX.RectangleF(x, y, width, height);
             _layerClipBounds = new RectangleGeometry(_renderTarget.Factory, boundsToSubtract);
 
             _layerBounds.Combine(_layerClipBounds, CombineMode.Exclude, maskSink);

@@ -2,11 +2,10 @@ namespace System.Graphics
 {
     public static class PictureExtensions
     {
-        public static EWRectangle GetBounds(this Picture target)
+        public static RectangleF GetBounds(this IPicture target)
         {
-            if (target == null) return null;
-
-            return new EWRectangle(target.X, target.Y, target.Width, target.Height);
+            if (target == null) return default;
+            return new RectangleF(target.X, target.Y, target.Width, target.Height);
         }
     }
 }

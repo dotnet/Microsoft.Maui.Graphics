@@ -10,14 +10,14 @@ namespace System.Graphics
             return new List<PathF>();
         }
 
-        public EWSize GetStringSize(string value, string fontName, float textSize)
+        public SizeF GetStringSize(string value, string fontName, float textSize)
         {
-            return new EWSize(value.Length * 10, textSize + 2);
+            return new SizeF(value.Length * 10, textSize + 2);
         }
 
-        public EWSize GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
+        public SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
-            return new EWSize(value.Length * 10, textSize + 2);
+            return new SizeF(value.Length * 10, textSize + 2);
         }
 
         public void LayoutText(PathF path, string text, ITextAttributes textAttributes, LayoutLine callback)
@@ -25,27 +25,27 @@ namespace System.Graphics
             // Do nothing
         }
 
-        public EWRectangle GetPathBounds(PathF path)
+        public RectangleF GetPathBounds(PathF path)
         {
             throw new NotImplementedException();
         }
 
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint center, PathF path, float angle)
+        public RectangleF GetPathBoundsWhenRotated(PointF center, PathF path, float angle)
         {
             throw new NotImplementedException();
         }
 
-        public bool PathContainsPoint(PathF path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
+        public bool PathContainsPoint(PathF path, PointF point, float ppu, float zoom, float strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public bool PointIsOnPath(PathF path, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
+        public bool PointIsOnPath(PathF path, PointF point, float ppu, float zoom, float strokeWidth)
         {
             throw new NotImplementedException();
         }
 
-        public bool PointIsOnPathSegment(PathF path, int segmentIndex, EWImmutablePoint point, float ppu, float zoom, float strokeWidth)
+        public bool PointIsOnPathSegment(PathF path, int segmentIndex, PointF point, float ppu, float zoom, float strokeWidth)
         {
             throw new NotImplementedException();
         }

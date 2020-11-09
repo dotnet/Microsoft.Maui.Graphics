@@ -9,7 +9,7 @@ namespace System.Graphics
         {
             var writer = new StringWriter();
 
-            for (var i = 0; i < path.SegmentCount; i++)
+            for (var i = 0; i < path.OperationCount; i++)
             {
                 var type = path.GetSegmentType(i);
                 var points = path.GetPointsForSegment(i);
@@ -49,7 +49,7 @@ namespace System.Graphics
             return writer.ToString();
         }
 
-        private static void WritePoint(StringWriter writer, EWImmutablePoint point, float ppu)
+        private static void WritePoint(StringWriter writer, PointF point, float ppu)
         {
             float x = point.X * ppu;
             float y = point.Y * ppu;

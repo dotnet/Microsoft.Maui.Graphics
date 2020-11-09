@@ -56,10 +56,10 @@ namespace System.Graphics.Skia
             return null;
         }
 
-        public EWSize GetStringSize(string value, string fontName, float fontSize)
+        public SizeF GetStringSize(string value, string fontName, float fontSize)
         {
             if (string.IsNullOrEmpty(value))
-                return new EWSize();
+                return new SizeF();
 
             var paint = new SKPaint
             {
@@ -68,13 +68,13 @@ namespace System.Graphics.Skia
             };
             var width = paint.MeasureText(value);
             paint.Dispose();
-            return new EWSize(width, fontSize);
+            return new SizeF(width, fontSize);
         }
 
-        public EWSize GetStringSize(string value, string fontName, float fontSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
+        public SizeF GetStringSize(string value, string fontName, float fontSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             if (string.IsNullOrEmpty(value))
-                return new EWSize();
+                return new SizeF();
 
             var paint = new SKPaint
             {
@@ -83,7 +83,7 @@ namespace System.Graphics.Skia
             };
             var width = paint.MeasureText(value);
             paint.Dispose();
-            return new EWSize(width, fontSize);
+            return new SizeF(width, fontSize);
         }
 
         public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1)

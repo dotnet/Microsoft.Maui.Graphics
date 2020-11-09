@@ -38,9 +38,9 @@ namespace System.Graphics.CoreGraphics
         public string SystemFontName => _systemFontName;
         public string BoldSystemFontName { get; }
 
-        public EWSize GetStringSize(string value, string fontName, float fontSize)
+        public SizeF GetStringSize(string value, string fontName, float fontSize)
         {
-            if (string.IsNullOrEmpty(value)) return new EWSize();
+            if (string.IsNullOrEmpty(value)) return new SizeF();
 
             var finalFontName = fontName ?? _systemFontName;
             var nsString = new NSString(value);
@@ -54,10 +54,10 @@ namespace System.Graphics.CoreGraphics
 
             var size = nsString.StringSize(uiFont);
             uiFont.Dispose();
-            return new EWSize((float) size.Width, (float) size.Height);
+            return new SizeF((float) size.Width, (float) size.Height);
         }
 
-        public EWSize GetStringSize(
+        public SizeF GetStringSize(
             string value,
             string fontName,
             float fontSize,
@@ -72,7 +72,7 @@ namespace System.Graphics.CoreGraphics
             }
 
             var path = new CGPath();
-            path.AddRect(new RectangleF(0, 0, 512, 512));
+            path.AddRect(new Drawing.RectangleF(0, 0, 512, 512));
             path.CloseSubpath();
 
             var attributedString = new NSMutableAttributedString(value);
@@ -128,7 +128,7 @@ namespace System.Graphics.CoreGraphics
             return textBounds.Size;
         }
 
-        private static EWRectangle GetTextSize(
+        private static RectangleF GetTextSize(
             CTFramesetter frameSetter,
             CGPath path)
         {
@@ -141,10 +141,10 @@ namespace System.Graphics.CoreGraphics
                 return textSize;
             }
 
-            return new EWRectangle(0, 0, 0, 0);
+            return new RectangleF(0, 0, 0, 0);
         }
 
-        public static EWRectangle GetTextSize(CTFrame frame)
+        public static RectangleF GetTextSize(CTFrame frame)
         {
             var minY = float.MaxValue;
             var maxY = float.MinValue;
@@ -170,10 +170,10 @@ namespace System.Graphics.CoreGraphics
                 lines[i].Dispose();
             }
 
-            return new EWRectangle(0f, minY, width, Math.Max(0, maxY - minY));
+            return new RectangleF(0f, minY, width, Math.Max(0, maxY - minY));
         }
 
-        public EWRectangle GetPathBounds(PathF path)
+        public RectangleF GetPathBounds(PathF path)
         {
             var nativePath = path.NativePath as CGPath;
 
@@ -184,18 +184,18 @@ namespace System.Graphics.CoreGraphics
             }
 
             var bounds = nativePath.PathBoundingBox;
-            return bounds.AsEWRectangle();
+            return bounds.AsRectangleF();
         }
 
-        public EWRectangle GetPathBoundsWhenRotated(EWImmutablePoint centerOfRotation, PathF path, float angle)
+        public RectangleF GetPathBoundsWhenRotated(PointF centerOfRotation, PathF path, float angle)
         {
             var nativePath = path.AsRotatedCGPath(centerOfRotation, 1f, 1f, angle);
             var bounds = nativePath.PathBoundingBox;
             nativePath.Dispose();
-            return bounds.AsEWRectangle();
+            return bounds.AsRectangleF();
         }
 
-        public bool PathContainsPoint(PathF aPath, EWImmutablePoint aPoint, float ppu, float aZoom, float aStrokeWidth)
+        public bool PathContainsPoint(PathF aPath, PointF aPoint, float ppu, float aZoom, float aStrokeWidth)
         {
             var vPath = aPath.NativePath as CGPath;
 

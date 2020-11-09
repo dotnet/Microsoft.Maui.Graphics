@@ -6,7 +6,7 @@ namespace System.Graphics.Skia
     public class SkiaTextLayout : IDisposable
     {
         private readonly LayoutLine _callback;
-        private readonly EWRectangle _rect;
+        private readonly RectangleF _rect;
         private readonly ITextAttributes _textAttributes;
         private readonly string _value;
         private readonly TextFlow _textFlow;
@@ -19,7 +19,7 @@ namespace System.Graphics.Skia
 
         public SkiaTextLayout(
             string value,
-            EWRectangle rect,
+            RectangleF rect,
             ITextAttributes textAttributes,
             LayoutLine callback,
             TextFlow textFlow = TextFlow.ClipBounds,
@@ -53,8 +53,8 @@ namespace System.Graphics.Skia
             if (string.IsNullOrEmpty(_value))
                 return;
 
-            var x = _rect.MinX;
-            var y = _rect.MinY;
+            var x = _rect.X;
+            var y = _rect.Y;
             var width = _rect.Width;
             var height = _rect.Height;
 
@@ -126,7 +126,7 @@ namespace System.Graphics.Skia
                 y += _lineHeight;
                 var line = lines[i + startIndex];
 
-                var point = new EWPoint(x, y);
+                var point = new PointF(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
                     case HorizontalAlignment.Center:
@@ -157,7 +157,7 @@ namespace System.Graphics.Skia
                 if (_textFlow == TextFlow.ClipBounds && y - _lineHeight < top)
                     return;
 
-                var point = new EWPoint(x, y);
+                var point = new PointF(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
                     case HorizontalAlignment.Center:
@@ -186,7 +186,7 @@ namespace System.Graphics.Skia
             {
                 y += _lineHeight;
 
-                var point = new EWPoint(x, y);
+                var point = new PointF(x, y);
                 switch (_textAttributes.HorizontalAlignment)
                 {
                     case HorizontalAlignment.Center:

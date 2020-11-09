@@ -65,24 +65,24 @@ namespace System.Graphics.Android
             return new Color(r, g, b, a);
         }
 
-        public static RectangleF AsRectangleF(this EWRectangle target)
+        public static Drawing.RectangleF AsRectangleF(this RectangleF target)
         {
-            return new RectangleF(target.MinX, target.MinY, Math.Abs(target.Width), Math.Abs(target.Height));
+            return new Drawing.RectangleF(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
         }
 
-        public static RectF AsRectF(this EWRectangle target)
+        public static RectF AsRectF(this RectangleF target)
         {
-            return new RectF(target.MinX, target.MinY, target.MaxX, target.MaxY);
+            return new RectF(target.Left, target.Top, target.Right, target.Bottom);
         }
 
-        public static EWRectangle AsEWRectangle(this RectangleF target)
+        public static RectangleF AsRectangleF(this Drawing.RectangleF target)
         {
-            return new EWRectangle(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
+            return new RectangleF(target.Left, target.Top, Math.Abs(target.Width), Math.Abs(target.Height));
         }
 
-        public static EWRectangle AsEWRectangle(this RectF target)
+        public static RectangleF AsRectangleF(this RectF target)
         {
-            return new EWRectangle(target.Left, target.Top, Math.Abs(target.Width()), Math.Abs(target.Height()));
+            return new RectangleF(target.Left, target.Top, Math.Abs(target.Width()), Math.Abs(target.Height()));
         }
 
         public static RectF AsRectF(this Rect target)
@@ -90,9 +90,9 @@ namespace System.Graphics.Android
             return new RectF(target);
         }
 
-        public static PointF ToPointF(this EWPoint target)
+        public static global::Android.Graphics.PointF ToPointF(this PointF target)
         {
-            return new PointF(target.X, target.Y);
+            return new global::Android.Graphics.PointF(target.X, target.Y);
         }
 
         /* public static EWPath AsEWPath(this global::Android.Graphics.Path target)
@@ -289,7 +289,7 @@ namespace System.Graphics.Android
             return path;
         }
 
-        public static Path AsRotatedAndroidPath(this PathF target, EWPoint center, float ppu, float zoom, float angle)
+        public static Path AsRotatedAndroidPath(this PathF target, PointF center, float ppu, float zoom, float angle)
         {
             ppu = zoom * ppu;
 
@@ -372,19 +372,19 @@ namespace System.Graphics.Android
             return path;
         }
 
-        public static EWSize AsSize(this SizeF target)
-        {
-            return new EWSize(target.Width, target.Height);
-        }
-
-        public static SizeF AsSizeF(this EWSize target)
+        public static SizeF AsSize(this Drawing.SizeF target)
         {
             return new SizeF(target.Width, target.Height);
         }
 
-        public static EWPoint AsEWPoint(this PointF target)
+        public static Drawing.SizeF AsSizeF(this SizeF target)
         {
-            return new EWPoint(target.X, target.Y);
+            return new Drawing.SizeF(target.Width, target.Height);
+        }
+
+        public static PointF AsEWPoint(this global::Android.Graphics.PointF target)
+        {
+            return new PointF(target.X, target.Y);
         }
 
         public static Bitmap GetPatternBitmap(this Paint paint, float scale = 1)
@@ -422,12 +422,12 @@ namespace System.Graphics.Android
             }
         }
 
-        public static EWSize GetTextSizeAsEWSize(this StaticLayout target, bool hasBoundedWidth)
+        public static SizeF GetTextSizeAsEWSize(this StaticLayout target, bool hasBoundedWidth)
         {
             // We need to know if the static layout was created with a bounded width, as this is what 
             // StaticLayout.Width returns.
             if (hasBoundedWidth)
-                return new EWSize(target.Width, target.Height);
+                return new SizeF(target.Width, target.Height);
 
             float maxWidth = 0;
             int lineCount = target.LineCount;
@@ -441,10 +441,10 @@ namespace System.Graphics.Android
                 }
             }
 
-            return new EWSize(maxWidth, target.Height);
+            return new SizeF(maxWidth, target.Height);
         }
 
-        public static SizeF GetOffsetsToDrawText(
+        public static Drawing.SizeF GetOffsetsToDrawText(
             this StaticLayout target,
             float x,
             float y,
@@ -455,7 +455,7 @@ namespace System.Graphics.Android
         {
             if (verticalAlignment != VerticalAlignment.Top)
             {
-                SizeF vTextFrameSize = target.GetTextSize();
+                Drawing.SizeF vTextFrameSize = target.GetTextSize();
 
                 float vOffsetX = 0;
                 float vOffsetY = 0;
@@ -468,10 +468,10 @@ namespace System.Graphics.Android
                         vOffsetY = (height - vTextFrameSize.Height) / 2;
                 }
 
-                return new SizeF(x + vOffsetX, y + vOffsetY);
+                return new Drawing.SizeF(x + vOffsetX, y + vOffsetY);
             }
 
-            return new SizeF(x, y);
+            return new Drawing.SizeF(x, y);
         }
 
         public static Bitmap Downsize(this Bitmap target, int maxSize, bool dispose = true)

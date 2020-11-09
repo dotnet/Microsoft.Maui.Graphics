@@ -14,7 +14,7 @@ namespace System.Graphics.CoreGraphics
         private bool _inPanOrZoom;
         private CGRect _lastBounds;
 
-        public MTGraphicsView(RectangleF frame, IDrawable drawable = null, MTGraphicsRenderer renderer = null) : base(frame)
+        public MTGraphicsView(Drawing.RectangleF frame, IDrawable drawable = null, MTGraphicsRenderer renderer = null) : base(frame)
         {
             Drawable = drawable;
             Renderer = renderer;
@@ -112,7 +112,7 @@ namespace System.Graphics.CoreGraphics
             coreGraphics.SetStrokeColorSpace(_colorSpace);
             coreGraphics.SetPatternPhase(PatternPhase);
 
-            _renderer.Draw(coreGraphics, dirtyRect.AsEWRectangle(), _inPanOrZoom);
+            _renderer.Draw(coreGraphics, dirtyRect.AsRectangleF(), _inPanOrZoom);
         }
 
         public override CGRect Bounds

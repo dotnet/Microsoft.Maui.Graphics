@@ -4,19 +4,6 @@ namespace System.Graphics
     {
         public const float Epsilon = 0.0000000001f;
 
-        public static float GetDistance(EWImmutablePoint point1, EWImmutablePoint point2)
-        {
-            if (point1 == null || point2 == null)
-            {
-                return 0;
-            }
-
-            var a = point2.X - point1.X;
-            var b = point2.Y - point1.Y;
-
-            return (float) Math.Sqrt(a * a + b * b);
-        }
-
         public static float GetDistance(float x1, float y1, float x2, float y2)
         {
             var a = x2 - x1;
@@ -25,24 +12,7 @@ namespace System.Graphics
             return (float) Math.Sqrt(a * a + b * b);
         }
 
-        public static float GetAngleAsDegrees(EWImmutablePoint point1, EWImmutablePoint point2)
-        {
-            try
-            {
-                var dx = point1.X - point2.X;
-                var dy = point1.Y - point2.Y;
 
-                var radians = (float) Math.Atan2(dy, dx);
-                var degrees = radians * 180.0f / (float) Math.PI;
-
-                return 180 - degrees;
-            }
-            catch (Exception exc)
-            {
-                Logger.Warn(exc);
-                throw new Exception("Exception in GetAngleAsDegrees", exc);
-            }
-        }
 
         public static float GetAngleAsDegrees(float x1, float y1, float x2, float y2)
         {
@@ -63,42 +33,42 @@ namespace System.Graphics
             }
         }
         
-        public static float DegreesToRadians(float aAngle)
+        public static float DegreesToRadians(float angle)
         {
-            return (float) Math.PI * aAngle / 180;
+            return (float) Math.PI * angle / 180;
         }
 
-        public static double DegreesToRadians(double aAngle)
+        public static double DegreesToRadians(double angle)
         {
-            return Math.PI * aAngle / 180;
+            return Math.PI * angle / 180;
         }
 
-        public static float RadiansToDegrees(float aAngle)
+        public static float RadiansToDegrees(float angle)
         {
-            return aAngle * (180 / (float) Math.PI);
+            return angle * (180 / (float) Math.PI);
         }
 
-        public static double RadiansToDegrees(double aAngle)
+        public static double RadiansToDegrees(double angle)
         {
-            return aAngle * (180 / Math.PI);
+            return angle * (180 / Math.PI);
         }
 
-        public static EWPoint RotatePoint(EWImmutablePoint point, float angle)
+        public static PointF RotatePoint(PointF point, float angle)
         {
             var radians = DegreesToRadians(angle);
 
             var x = (float) (Math.Cos(radians) * point.X - Math.Sin(radians) * point.Y);
             var y = (float) (Math.Sin(radians) * point.X + Math.Cos(radians) * point.Y);
 
-            return new EWPoint(x, y);
+            return new PointF(x, y);
         }
 
-        public static EWPoint RotatePoint(EWImmutablePoint center, EWImmutablePoint point, float angle)
+        public static PointF RotatePoint(PointF center, PointF point, float angle)
         {
             var radians = DegreesToRadians(angle);
             var x = center.X + (float) (Math.Cos(radians) * (point.X - center.X) - Math.Sin(radians) * (point.Y - center.Y));
             var y = center.Y + (float) (Math.Sin(radians) * (point.X - center.X) + Math.Cos(radians) * (point.Y - center.Y));
-            return new EWPoint(x, y);
+            return new PointF(x, y);
         }
 
         public static float GetSweep(float angle1, float angle2, bool clockwise)
@@ -127,11 +97,11 @@ namespace System.Graphics
             }
         }
         
-        public static EWPoint PolarToPoint(float angleInRadians, float fx, float fy)
+        public static PointF PolarToPoint(float angleInRadians, float fx, float fy)
         {
             var sin = (float) Math.Sin(angleInRadians);
             var cos = (float) Math.Cos(angleInRadians);
-            return new EWPoint(fx * cos, fy * sin);
+            return new PointF(fx * cos, fy * sin);
         }
 
 
@@ -144,7 +114,7 @@ namespace System.Graphics
         /// <param name="width">The width of the bounding rectangle.</param>
         /// <param name="height">The height of the bounding rectangle.</param>
         /// <param name="angleInDegrees">Angle in degrees.</param>
-        public static EWPoint OvalAngleToPoint(float x, float y, float width, float height, float angleInDegrees)
+        public static PointF OvalAngleToPoint(float x, float y, float width, float height, float angleInDegrees)
         {
             var radians = DegreesToRadians(angleInDegrees);
 
@@ -158,11 +128,11 @@ namespace System.Graphics
             return point;
         }
         
-        public static EWPoint GetOppositePoint(EWImmutablePoint aPivot, EWImmutablePoint aOppositePoint)
+        public static PointF GetOppositePoint(PointF pivot, PointF oppositePoint)
         {
-            var dx = aOppositePoint.X - aPivot.X;
-            var dy = aOppositePoint.Y - aPivot.Y;
-            return new EWPoint(aPivot.X - dx, aPivot.Y - dy);
+            var dx = oppositePoint.X - pivot.X;
+            var dy = oppositePoint.Y - pivot.Y;
+            return new PointF(pivot.X - dx, pivot.Y - dy);
         }
         
         /**

@@ -610,7 +610,7 @@ namespace System.Graphics.Android
                 DrawString(value, x, y);
             else if (horizAlignment == HorizontalAlignment.Right)
             {
-                EWSize vSize = MDGraphicsService.Instance.GetStringSize(
+                SizeF vSize = MDGraphicsService.Instance.GetStringSize(
                     value,
                     CurrentState.FontName,
                     CurrentState.ScaledFontSize);
@@ -619,7 +619,7 @@ namespace System.Graphics.Android
             }
             else
             {
-                EWSize vSize = MDGraphicsService.Instance.GetStringSize(
+                SizeF vSize = MDGraphicsService.Instance.GetStringSize(
                     value,
                     CurrentState.FontName,
                     CurrentState.ScaledFontSize);
@@ -722,10 +722,9 @@ namespace System.Graphics.Android
             _canvas.Restore();
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
-            EWSize actualOffset = offset ?? CanvasDefaults.DefaultShadowOffset;
-
+            SizeF actualOffset = offset;
             var sx = actualOffset.Width;
             var sy = actualOffset.Height;
             

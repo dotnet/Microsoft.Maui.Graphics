@@ -5,7 +5,6 @@ namespace System.Graphics.SharpDX.WindowsForms
 {
     public class WFGraphicsView : RenderControl
     {
-        private readonly EWRectangle _dirtyRect = new EWRectangle();
         private IGraphicsRenderer _renderer;
         private IDrawable _drawable;
 
@@ -65,12 +64,7 @@ namespace System.Graphics.SharpDX.WindowsForms
             if (_drawable == null) return;
 
             var clipRect = e.ClipRectangle;
-            _dirtyRect.X1 = clipRect.X;
-            _dirtyRect.Y1 = clipRect.Y;
-            _dirtyRect.Width = clipRect.Width;
-            _dirtyRect.Height = clipRect.Height;
-
-            _renderer.Draw(_dirtyRect);
+            _renderer.Draw(new RectangleF(clipRect.X, clipRect.Y, clipRect.Width, clipRect.Height));
         }
 
         protected override void OnResize(EventArgs e)

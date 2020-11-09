@@ -3,22 +3,6 @@ using Java.IO;
 
 namespace System.Graphics.Android
 {
-    public class FontInfo
-    {
-        public FontInfo(string aPath, string aFamily, string aStyle, string aFullName)
-        {
-            Path = aPath;
-            Family = aFamily;
-            Style = aStyle;
-            FullName = aFullName;
-        }
-
-        public string Path { get; }
-        public string Family { get; }
-        public string Style { get; }
-        public string FullName { get; }
-    }
-
     // The class which loads the TTF file, parses it and returns the TTF font name
     public class FontAnalyzer
     {

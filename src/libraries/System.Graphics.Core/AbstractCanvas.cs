@@ -214,7 +214,7 @@ namespace System.Graphics
             _currentState = _createNew(this);
         }
 
-        public abstract void SetShadow(EWSize offset, float blur, Color color);
+        public abstract void SetShadow(SizeF offset, float blur, Color color);
         public abstract void SetFillPaint(Paint paint, float x1, float y1, float x2, float y2);
         public abstract void SetToSystemFont();
         public abstract void SetToBoldSystemFont();

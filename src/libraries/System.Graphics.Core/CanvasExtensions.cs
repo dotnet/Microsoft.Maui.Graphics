@@ -2,44 +2,39 @@ namespace System.Graphics
 {
     public static class CanvasExtensions
     {
-        public static void SetStrokeDashPattern(this ICanvas target, float[] pattern, float strokeSize)
-        {
-            target.StrokeDashPattern = pattern;
-        }
-
-        public static void DrawLine(this ICanvas target, EWImmutablePoint point1, EWImmutablePoint point2)
+        public static void DrawLine(this ICanvas target, PointF point1, PointF point2)
         {
             target.DrawLine(point1.X, point1.Y, point2.X, point2.Y);
         }
 
-        public static void DrawRectangle(this ICanvas target, EWRectangle rect)
+        public static void DrawRectangle(this ICanvas target, RectangleF rect)
         {
-            target.DrawRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+            target.DrawRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
-        public static void FillRectangle(this ICanvas target, EWRectangle rect)
+        public static void FillRectangle(this ICanvas target, RectangleF rect)
         {
-            target.FillRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+            target.FillRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
-        public static void DrawRoundedRectangle(this ICanvas target, EWRectangle rect, float aCornerRadius)
+        public static void DrawRoundedRectangle(this ICanvas target, RectangleF rect, float cornerRadius)
         {
-            target.DrawRoundedRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height), aCornerRadius);
+            target.DrawRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius);
         }
 
-        public static void FillRoundedRectangle(this ICanvas target, EWRectangle rect, float aCornerRadius)
+        public static void FillRoundedRectangle(this ICanvas target, RectangleF rect, float cornerRadius)
         {
-            target.FillRoundedRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height), aCornerRadius);
+            target.FillRoundedRectangle(rect.X, rect.Y, rect.Width, rect.Height, cornerRadius);
         }
 
-        public static void DrawOval(this ICanvas target, EWRectangle rect)
+        public static void DrawOval(this ICanvas target, RectangleF rect)
         {
-            target.DrawOval(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+            target.DrawOval(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
-        public static void FillOval(this ICanvas target, EWRectangle rect)
+        public static void FillOval(this ICanvas target, RectangleF rect)
         {
-            target.FillOval(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+            target.FillOval(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
         public static void DrawPath(this ICanvas target, PathF path)
@@ -62,15 +57,21 @@ namespace System.Graphics
             target.ClipPath(path, windingMode);
         }
 
-        public static void ClipRectangle(this ICanvas target, EWRectangle rect)
+        public static void ClipRectangle(this ICanvas target, RectangleF rect)
         {
-            target.ClipRectangle(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+            target.ClipRectangle(rect.X, rect.Y, rect.Width, rect.Height);
         }
 
-        public static void DrawString(this ICanvas target, string value, EWRectangle bounds, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
-            TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0)
+        public static void DrawString(
+            this ICanvas target, 
+            string value, 
+            RectangleF bounds, 
+            HorizontalAlignment horizontalAlignment, 
+            VerticalAlignment verticalAlignment,
+            TextFlow textFlow = TextFlow.ClipBounds, 
+            float lineSpacingAdjustment = 0)
         {
-            target.DrawString(value, bounds.MinX, bounds.MinY, Math.Abs(bounds.Width), Math.Abs(bounds.Height), horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
+            target.DrawString(value, bounds.X, bounds.Y, bounds.Width, bounds.Height, horizontalAlignment, verticalAlignment, textFlow, lineSpacingAdjustment);
         }
 
         public static void FillCircle(this ICanvas target, float centerX, float centerY, float radius)
@@ -82,7 +83,7 @@ namespace System.Graphics
             target.FillOval(x, y, size, size);
         }
 
-        public static void FillCircle(this ICanvas target, EWImmutablePoint center, float radius)
+        public static void FillCircle(this ICanvas target, PointF center, float radius)
         {
             var x = center.X - radius;
             var y = center.Y - radius;
@@ -100,7 +101,7 @@ namespace System.Graphics
             target.DrawOval(x, y, size, size);
         }
 
-        public static void DrawCircle(this ICanvas target, EWImmutablePoint center, float radius)
+        public static void DrawCircle(this ICanvas target, PointF center, float radius)
         {
             var x = center.X - radius;
             var y = center.Y - radius;
@@ -125,7 +126,7 @@ namespace System.Graphics
         /// <param name="clockwise">The direction to draw the arc</param>
         public static void FillArc(this ICanvas canvas, float x, float y, float width, float height, float startAngle, float endAngle, Paint paint, bool clockwise)
         {
-            var rectangle = new EWRectangle(x, y, width, height);
+            var rectangle = new RectangleF(x, y, width, height);
             canvas.SetFillPaint(paint, rectangle);
             canvas.FillArc(x, y, width, height, startAngle, endAngle, clockwise);
         }
@@ -140,9 +141,9 @@ namespace System.Graphics
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
         /// <param name="closed">If the arc is closed or not</param>
-        public static void DrawArc(this ICanvas canvas, EWRectangle bounds, float startAngle, float endAngle, bool clockwise, bool closed)
+        public static void DrawArc(this ICanvas canvas, RectangleF bounds, float startAngle, float endAngle, bool clockwise, bool closed)
         {
-            canvas.DrawArc(bounds.X1, bounds.Y1, bounds.Width, bounds.Height, startAngle, endAngle, clockwise, closed);
+            canvas.DrawArc(bounds.X, bounds.Y, bounds.Width, bounds.Height, startAngle, endAngle, clockwise, closed);
         }
 
         /// <summary>
@@ -154,9 +155,9 @@ namespace System.Graphics
         /// <param name="startAngle">The start angle</param>
         /// <param name="endAngle">The end angle</param>
         /// <param name="clockwise">The direction to draw the arc</param>
-        public static void FillArc(this ICanvas canvas, EWRectangle bounds, float startAngle, float endAngle, bool clockwise)
+        public static void FillArc(this ICanvas canvas, RectangleF bounds, float startAngle, float endAngle, bool clockwise)
         {
-            canvas.FillArc(bounds.X1, bounds.Y1, bounds.Width, bounds.Height, startAngle, endAngle, clockwise);
+            canvas.FillArc(bounds.X, bounds.Y, bounds.Width, bounds.Height, startAngle, endAngle, clockwise);
         }
 
         /// <summary>
@@ -213,19 +214,19 @@ namespace System.Graphics
             }
         }
         
-        public static void SubtractFromClip(this ICanvas target, EWRectangle rect)
+        public static void SubtractFromClip(this ICanvas target, RectangleF rect)
         {
-            target.SubtractFromClip(rect.MinX, rect.MinY, Math.Abs(rect.Width), Math.Abs(rect.Height));
+            target.SubtractFromClip(rect.X, rect.Y, rect.Width, rect.Height);
         }
         
-        public static void SetFillPaint(this ICanvas target, Paint paint, EWImmutablePoint point1, EWImmutablePoint point2)
+        public static void SetFillPaint(this ICanvas target, Paint paint, PointF point1, PointF point2)
         {
             target.SetFillPaint(paint, point1.X, point1.Y, point2.X, point2.Y);
         }
         
-        public static void SetFillPaint(this ICanvas target, Paint paint, EWRectangle rectangle)
+        public static void SetFillPaint(this ICanvas target, Paint paint, RectangleF rectangle)
         {
-            target.SetFillPaint(paint, rectangle.X1, rectangle.Y1, rectangle.X2, rectangle.Y2);
+            target.SetFillPaint(paint, rectangle.Left, rectangle.Top, rectangle.Bottom, rectangle.Right);
         }
     }
 }

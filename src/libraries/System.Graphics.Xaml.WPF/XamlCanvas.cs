@@ -500,7 +500,7 @@ namespace System.Graphics.Xaml
             CurrentState.SetFillPaint(paint, x1, y1, x2, y2);
         }
 
-        public override void SetShadow(EWSize offset, float blur, Color color)
+        public override void SetShadow(SizeF offset, float blur, Color color)
         {
             CurrentState.SetShadow(offset, blur, color);
         }

@@ -10,7 +10,7 @@
 
         IDrawable Drawable { get; set; }
 
-        void Draw(EWRectangle dirtyRect);
+        void Draw(RectangleF dirtyRect);
 
         void SizeChanged(int width, int height);
 
