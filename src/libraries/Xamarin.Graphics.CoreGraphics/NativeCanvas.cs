@@ -669,12 +669,7 @@ namespace System.Graphics.CoreGraphics
 
         private void DrawImageCallback(CGContext context)
         {
-#if MONOMAC
-			var nativeWrapper = _fillImage as NativeImage;
-#else
-            var nativeWrapper = _fillImage as MTImage;
-#endif
-
+            var nativeWrapper = _fillImage as NativeImage;
             var nativeImage = nativeWrapper?.NativeRepresentation;
             if (nativeImage != null)
             {
@@ -684,13 +679,13 @@ namespace System.Graphics.CoreGraphics
                     Height = nativeWrapper.Height
                 };
 #if MONOMAC
-				var cgimage = nativeImage.AsCGImage (ref rect, null, null);
+				var cgImage = nativeImage.AsCGImage (ref rect, null, null);
 #else
-                var cgimage = nativeImage.CGImage;
+                var cgImage = nativeImage.CGImage;
 #endif
                 context.TranslateCTM(0, rect.Height);
                 context.ScaleCTM(1, -1);
-                context.DrawImage(rect, cgimage);
+                context.DrawImage(rect, cgImage);
                 context.ScaleCTM(1, -1);
                 context.TranslateCTM(0, -rect.Height);
             }
@@ -698,25 +693,20 @@ namespace System.Graphics.CoreGraphics
 
         public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
-#if MONOMAC
-			var nativeWrapper = image as NativeImage;
-#else
-            var nativeWrapper = image as MTImage;
-#endif
-
-            var nativeImage = nativeWrapper?.NativeRepresentation;
-            if (nativeImage != null)
+			var nativeImage = image as NativeImage;
+            var nativeRepresentation = nativeImage?.NativeRepresentation;
+            if (nativeRepresentation != null)
             {
                 _rect.X = x;
                 _rect.Y = -y;
                 _rect.Width = width;
                 _rect.Height = height;
 
-                var cgimage = nativeImage.CGImage;
+                var cgImage = nativeRepresentation.CGImage;
                 _context.SaveState();
                 _context.ScaleCTM(1, -1);
                 _context.TranslateCTM(0, -_rect.Height);
-                _context.DrawImage(_rect, cgimage);
+                _context.DrawImage(_rect, cgImage);
                 _context.RestoreState();
             }
         }
@@ -899,11 +889,11 @@ namespace System.Graphics.CoreGraphics
 
         public override void SubtractFromClip(float x, float y, float width, float height)
         {
-            var orginalClip = _context.GetClipBoundingBox();
+            var clipBoundingBox = _context.GetClipBoundingBox();
             var innerClip = new CGRect(x, y, width, height);
 
             var clip = new CGPath();
-            clip.AddRect(orginalClip);
+            clip.AddRect(clipBoundingBox);
             clip.AddRect(innerClip);
 
             _context.AddPath(clip);
@@ -1142,11 +1132,7 @@ namespace System.Graphics.CoreGraphics
             attributes.ForegroundColor = new CGColor(fontColor.Red, fontColor.Green, fontColor.Blue, fontColor.Alpha);
 
             // Load the font
-#if MONOMAC
             var font = NativeFontService.Instance.LoadFont(fontName, fontSize);
-#else
-            var font = MTFontService.Instance.LoadFont(fontName, fontSize);
-#endif
             if (font != null && font.Handle != IntPtr.Zero)
                 attributes.Font = font;
 
@@ -1196,7 +1182,7 @@ namespace System.Graphics.CoreGraphics
 #if MONOMAC
                     var textFrameSize = NativeGraphicsService.GetTextSize(frame);
 #else
-                    var textFrameSize = MTGraphicsService.GetTextSize(frame);
+                    var textFrameSize = NativeGraphicsService.GetTextSize(frame);
 #endif
 
                     if (textFrameSize.Height > 0)
@@ -1287,7 +1273,7 @@ namespace System.Graphics.CoreGraphics
 #if MONOMAC
 					var textSize = NativeGraphicsService.GetTextSize(frame);
 #else
-                    var textSize = MTGraphicsService.GetTextSize(frame);
+                    var textSize = NativeGraphicsService.GetTextSize(frame);
 #endif
 
                     if (textSize.Height > 0)
@@ -1437,18 +1423,18 @@ namespace System.Graphics.CoreGraphics
             if (finalCornerRadius > rect.Height)
                 finalCornerRadius = rect.Height / 2;
 
-            var minx = rect.X;
-            var miny = rect.Y;
-            var maxx = minx + rect.Width;
-            var maxy = miny + rect.Height;
-            var midx = minx + (rect.Width / 2);
-            var midy = miny + (rect.Height / 2);
+            var minX = rect.X;
+            var minY = rect.Y;
+            var maxX = minX + rect.Width;
+            var maxY = minY + rect.Height;
+            var midX = minX + (rect.Width / 2);
+            var midY = minY + (rect.Height / 2);
 
-            target.MoveTo(minx, midy);
-            target.AddArcToPoint(minx, miny, midx, miny, finalCornerRadius);
-            target.AddArcToPoint(maxx, miny, maxx, midy, finalCornerRadius);
-            target.AddArcToPoint(maxx, maxy, midx, maxy, finalCornerRadius);
-            target.AddArcToPoint(minx, maxy, minx, midy, finalCornerRadius);
+            target.MoveTo(minX, midY);
+            target.AddArcToPoint(minX, minY, midX, minY, finalCornerRadius);
+            target.AddArcToPoint(maxX, minY, maxX, midY, finalCornerRadius);
+            target.AddArcToPoint(maxX, maxY, midX, maxY, finalCornerRadius);
+            target.AddArcToPoint(minX, maxY, minX, midY, finalCornerRadius);
             target.ClosePath();
         }
     }

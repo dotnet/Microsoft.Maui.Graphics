@@ -3,13 +3,13 @@ using CoreGraphics;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTDirectRenderer : MTGraphicsRenderer
+    public class DirectRenderer : IGraphicsRenderer
     {
         private readonly NativeCanvas _canvas;
         private IDrawable _drawable;
-        private MTGraphicsView _graphicsView;
+        private NativeGraphicsView _graphicsView;
 
-        public MTDirectRenderer()
+        public DirectRenderer()
         {
             _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
         }
@@ -22,7 +22,7 @@ namespace System.Graphics.CoreGraphics
             set => _drawable = value;
         }
 
-        public MTGraphicsView GraphicsView
+        public NativeGraphicsView GraphicsView
         {
             set => _graphicsView = value;
         }

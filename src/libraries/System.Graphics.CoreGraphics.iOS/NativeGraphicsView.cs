@@ -5,30 +5,30 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    [Register("MTGraphicsView")]
-    public class MTGraphicsView : UIView
+    [Register("NativeGraphicsView")]
+    public class NativeGraphicsView : UIView
     {
-        private MTGraphicsRenderer _renderer;
+        private IGraphicsRenderer _renderer;
         private CGColorSpace _colorSpace;
         private IDrawable _drawable;
         private bool _inPanOrZoom;
         private CGRect _lastBounds;
 
-        public MTGraphicsView(Drawing.RectangleF frame, IDrawable drawable = null, MTGraphicsRenderer renderer = null) : base(frame)
+        public NativeGraphicsView(Drawing.RectangleF frame, IDrawable drawable = null, IGraphicsRenderer renderer = null) : base(frame)
         {
             Drawable = drawable;
             Renderer = renderer;
             BackgroundColor = UIColor.White;
         }
 
-        public MTGraphicsView(IDrawable drawable = null, MTGraphicsRenderer renderer = null)
+        public NativeGraphicsView(IDrawable drawable = null, IGraphicsRenderer renderer = null)
         {
             Drawable = drawable;
             Renderer = renderer;
             BackgroundColor = UIColor.White;
         }
 
-        public MTGraphicsView(IntPtr aPtr) : base(aPtr)
+        public NativeGraphicsView(IntPtr aPtr) : base(aPtr)
         {
             BackgroundColor = UIColor.White;
         }
@@ -39,7 +39,7 @@ namespace System.Graphics.CoreGraphics
             set => _inPanOrZoom = value;
         }
 
-        public MTGraphicsRenderer Renderer
+        public IGraphicsRenderer Renderer
         {
             get => _renderer;
 
@@ -52,7 +52,7 @@ namespace System.Graphics.CoreGraphics
                     _renderer.Dispose();
                 }
 
-                _renderer = value ?? new MTDirectRenderer();
+                _renderer = value ?? new DirectRenderer();
 
                 _renderer.GraphicsView = this;
                 _renderer.Drawable = _drawable;

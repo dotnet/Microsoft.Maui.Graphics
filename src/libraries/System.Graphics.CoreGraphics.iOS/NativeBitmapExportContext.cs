@@ -4,12 +4,12 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTBitmapExportContext : BitmapExportContext
+    public class NativeBitmapExportContext : BitmapExportContext
     {
         private CGBitmapContext _bitmapContext;
         private NativeCanvas _canvas;
 
-        public MTBitmapExportContext(int width, int height, float displayScale, int dpi = 72, int border = 0) : base(width, height, dpi)
+        public NativeBitmapExportContext(int width, int height, float displayScale, int dpi = 72, int border = 0) : base(width, height, dpi)
         {
             var bitmapWidth = width + border * 2;
             var bitmapHeight = height + border * 2;
@@ -43,7 +43,7 @@ namespace System.Graphics.CoreGraphics
 
         public CGImage CGImage => _bitmapContext.ToImage();
 
-        public override IImage Image => new MTImage(UIImage);
+        public override IImage Image => new NativeImage(UIImage);
 
         public override void Dispose()
         {
@@ -61,7 +61,7 @@ namespace System.Graphics.CoreGraphics
 
             try
             {
-                MTFontService.Instance.ClearFontCache();
+                NativeFontService.Instance.ClearFontCache();
             }
             catch (Exception exc)
             {

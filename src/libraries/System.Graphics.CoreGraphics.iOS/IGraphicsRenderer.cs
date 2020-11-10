@@ -2,9 +2,9 @@
 
 namespace System.Graphics.CoreGraphics
 {
-    public interface MTGraphicsRenderer : IDisposable
+    public interface IGraphicsRenderer : IDisposable
     {
-        MTGraphicsView GraphicsView { set; }
+        NativeGraphicsView GraphicsView { set; }
         ICanvas Canvas { get; }
         IDrawable Drawable { get; set; }
         void Draw(CGContext coreGraphics, RectangleF dirtyRect, bool inPanOrZoom);

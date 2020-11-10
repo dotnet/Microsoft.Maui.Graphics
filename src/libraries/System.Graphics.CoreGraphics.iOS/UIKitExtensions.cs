@@ -2,7 +2,7 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public static class GraphicsMixins
+    public static class UIKitExtensions
     {
         public static UIColor AsUIColor(this Color color)
         {

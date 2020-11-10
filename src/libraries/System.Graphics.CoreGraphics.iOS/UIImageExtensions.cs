@@ -1,4 +1,3 @@
-using System.Drawing;
 using UIKit;
 
 namespace System.Graphics.CoreGraphics

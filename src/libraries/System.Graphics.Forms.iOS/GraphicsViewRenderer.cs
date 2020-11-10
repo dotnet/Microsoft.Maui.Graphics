@@ -11,7 +11,7 @@ using Xamarin.Forms.Platform.iOS;
 namespace System.Graphics.Forms.iOS
 {
     [Preserve]
-    public class GraphicsViewRenderer : ViewRenderer<GraphicsView, MTGraphicsView>
+    public class GraphicsViewRenderer : ViewRenderer<GraphicsView, NativeGraphicsView>
     {
         protected override void OnElementChanged(ElementChangedEventArgs<GraphicsView> e)
         {
@@ -25,7 +25,7 @@ namespace System.Graphics.Forms.iOS
 
             if (e.NewElement != null)
             {
-                SetNativeControl(new MTGraphicsView());
+                SetNativeControl(new NativeGraphicsView());
             }
         }
 

@@ -5,9 +5,9 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTFontService : AbstractFontService
+    public class NativeFontService : AbstractFontService
     {
-        public static MTFontService Instance = new MTFontService();
+        public static NativeFontService Instance = new NativeFontService();
 
         private CGFont _systemFont;
         private CGFont _boldSystemFont;
@@ -17,7 +17,7 @@ namespace System.Graphics.CoreGraphics
         private readonly string _systemFontName;
         private readonly string _boldSystemFontName;
 
-        protected MTFontService()
+        protected NativeFontService()
         {
             _fontFamilies = InitializeFontFamilies();
 
@@ -43,7 +43,7 @@ namespace System.Graphics.CoreGraphics
 
             foreach (var familyName in familyNames)
             {
-                var family = new MTFontFamily(familyName);
+                var family = new NativeFontFamily(familyName);
                 if (family.GetFontStyles().Length > 0)
                     families.Add(family);
             }

@@ -1,10 +1,10 @@
 ﻿namespace System.Graphics.CoreGraphics
 {
-    public class MTFontStyle : IFontStyle
+    public class NativeFontStyle : IFontStyle
     {
-        private readonly MTFontFamily _family;
+        private readonly NativeFontFamily _family;
 
-        public MTFontStyle(MTFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType)
+        public NativeFontStyle(NativeFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType)
         {
             _family = family;
             Id = id;
@@ -32,9 +32,9 @@
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (obj.GetType() != typeof(MTFontStyle))
+            if (obj.GetType() != typeof(NativeFontStyle))
                 return false;
-            MTFontStyle other = (MTFontStyle) obj;
+            NativeFontStyle other = (NativeFontStyle) obj;
             return Id == other.Id;
         }
 

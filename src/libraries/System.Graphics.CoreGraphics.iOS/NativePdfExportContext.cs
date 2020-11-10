@@ -5,14 +5,14 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTPdfExportContext : PdfExportContext
+    public class NativePdfExportContext : PdfExportContext
     {
         private string _tempFilePath;
         private readonly NSMutableDictionary _documentInfo;
         private readonly NativeCanvas _canvas;
         private bool _closed;
 
-        public MTPdfExportContext(
+        public NativePdfExportContext(
             float defaultWidth,
             float defaultHeight) : base(defaultWidth, defaultHeight)
         {

@@ -8,7 +8,7 @@ namespace System.Graphics.CoreGraphics
         public static PointF[] GetPointsInView(this UIView target, UIEvent touchEvent)
         {
             var touchSet = touchEvent.TouchesForView(target);
-            if (touchSet == null || touchSet.Count == 0)
+            if (touchSet.Count == 0)
             {
                 return new PointF[0];
             }

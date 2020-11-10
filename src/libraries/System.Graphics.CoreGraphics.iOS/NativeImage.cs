@@ -6,11 +6,11 @@ using UIKit;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MTImage : IImage
+    public class NativeImage : IImage
     {
         private UIImage _image;
 
-        public MTImage(UIImage image)
+        public NativeImage(UIImage image)
         {
             _image = image;
         }
@@ -22,18 +22,18 @@ namespace System.Graphics.CoreGraphics
         public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidthOrHeight, maxWidthOrHeight, disposeOriginal);
-            return new MTImage(scaledImage);
+            return new NativeImage(scaledImage);
         }
 
         public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidth, maxHeight, disposeOriginal);
-            return new MTImage(scaledImage);
+            return new NativeImage(scaledImage);
         }
 
         public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
-            using (var context = new MTBitmapExportContext((int) width, (int) height, 1))
+            using (var context = new NativeBitmapExportContext((int) width, (int) height, 1))
             {
                 var fx = width / Width;
                 var fy = height / Height;
