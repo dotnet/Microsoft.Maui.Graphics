@@ -6,25 +6,10 @@ namespace System.Graphics.CoreGraphics
 {
     public static class NSImageExtensions
     {
-        public static void Draw(this NSImage target, float x, float y)
-        {
-            Draw(target, new CGPoint(x, y));
-        }
-
-        public static void Draw(this NSImage target, CGPoint point)
-        {
-            target.Draw(new CGRect(point, target.Size), new CGRect(CGPoint.Empty, target.Size), NSCompositingOperation.SourceOver, 1, true, null);
-        }
-
-        public static void Draw(this NSImage target, CGPoint point, float alpha)
-        {
-            target.Draw(new CGRect(point, target.Size), new CGRect(CGPoint.Empty, target.Size), NSCompositingOperation.SourceOver, alpha, true, null);
-        }
-
         public static NSData AsPng(this NSImage target)
         {
             var representations = target.Representations();
-            if (representations != null && representations.Length > 0 && representations[0] is NSBitmapImageRep)
+            if (representations.Length > 0 && representations[0] is NSBitmapImageRep)
             {
                 var rep = (NSBitmapImageRep) representations[0];
                 return rep.RepresentationUsingTypeProperties(NSBitmapImageFileType.Png, new NSMutableDictionary());
@@ -32,8 +17,8 @@ namespace System.Graphics.CoreGraphics
             else
             {
                 var rect = new CGRect();
-                var cgimage = target.AsCGImage(ref rect, null, null);
-                var bitmap = new NSBitmapImageRep(cgimage);
+                var cgImage = target.AsCGImage(ref rect, null, null);
+                var bitmap = new NSBitmapImageRep(cgImage);
                 return bitmap.RepresentationUsingTypeProperties(NSBitmapImageFileType.Png, new NSMutableDictionary());
             }
         }
@@ -47,8 +32,8 @@ namespace System.Graphics.CoreGraphics
             }
 
             var rect = new CGRect();
-            var cgimage = target.AsCGImage(ref rect, null, null);
-            var bitmap = new NSBitmapImageRep(cgimage);
+            var cgImage = target.AsCGImage(ref rect, null, null);
+            var bitmap = new NSBitmapImageRep(cgImage);
             return bitmap.RepresentationUsingTypeProperties(NSBitmapImageFileType.Bmp, new NSMutableDictionary());
         }
 
@@ -87,19 +72,14 @@ namespace System.Graphics.CoreGraphics
             }
             catch (Exception exc)
             {
-                throw new Exception(
-                    string.Format(
-                        "Unable to allocate memory to scale the image to the size {0},{1}.",
-                        size.Width,
-                        size.Height),
-                    exc);
+                throw new Exception($"Unable to allocate memory to scale the image to the size {size.Width},{size.Height}.",exc);
             }
 
             try
             {
                 context.DrawImage(new CGRect(new CGPoint(0, 0), size), target.CGImage);
-                var cgimage = context.ToImage();
-                var downsizedImage = new NSImage(cgimage, size);
+                var cgImage = context.ToImage();
+                var downsizedImage = new NSImage(cgImage, size);
                 return downsizedImage;
             }
             finally

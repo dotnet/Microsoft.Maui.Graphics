@@ -26,8 +26,6 @@ namespace System.Graphics.SharpDX
         {
         }
 
-        public bool IsRetina => false;
-
         public string SystemFontName => "Arial";
         public string BoldSystemFontName => "Arial-Bold";
 

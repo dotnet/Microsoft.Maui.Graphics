@@ -2,9 +2,9 @@ using CoreGraphics;
 
 namespace System.Graphics.CoreGraphics
 {
-    public interface MMGraphicsRenderer : IDisposable
+    public interface IGraphicsRenderer : IDisposable
     {
-        MMGraphicsView GraphicsView { set; }
+        NativeGraphicsView GraphicsView { set; }
         ICanvas Canvas { get; }
         IDrawable Drawable { get; set; }
         void Draw(CGContext nativeCanvas, RectangleF dirtyRect, bool inPanOrZoom);

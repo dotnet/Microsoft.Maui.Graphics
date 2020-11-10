@@ -5,9 +5,9 @@ using CoreText;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMFontService : AbstractFontService
+    public class NativeFontService : AbstractFontService
     {
-        public static MMFontService Instance = new MMFontService();
+        public static NativeFontService Instance = new NativeFontService();
         private static string _systemFontName;
 
         private readonly IFontFamily[] _fontFamilies;
@@ -29,7 +29,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        protected MMFontService()
+        protected NativeFontService()
         {
             _fontFamilies = InitializeFontFamilies();
         }
@@ -48,7 +48,7 @@ namespace System.Graphics.CoreGraphics
             for (int i = 0; i < familyNames.Length; i++)
             {
                 var familyName = familyNames[i];
-                var family = new MMFontFamily(familyName);
+                var family = new NativeFontFamily(familyName);
                 if (family.GetFontStyles().Length > 0)
                 {
                     families.Add(family);
@@ -70,9 +70,9 @@ namespace System.Graphics.CoreGraphics
             {
                 if (!_fontCache.TryGetValue(vKey, out vFont))
                 {
-                    if (MMFontRegistry.Instance.IsCustomFont(aName))
+                    if (NativeFontRegistry.Instance.IsCustomFont(aName))
                     {
-                        var vCGFont = MMFontRegistry.Instance.GetCustomFont(aName);
+                        var vCGFont = NativeFontRegistry.Instance.GetCustomFont(aName);
                         vFont = vCGFont != null
                             ? new CTFont(vCGFont, aSize, CGAffineTransform.MakeIdentity())
                             : new CTFont("Helvetica", aSize);

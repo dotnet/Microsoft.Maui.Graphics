@@ -5,13 +5,13 @@ namespace System.Graphics.CoreGraphics
 {
     public class MTDirectRenderer : MTGraphicsRenderer
     {
-        private readonly CGCanvas _canvas;
+        private readonly NativeCanvas _canvas;
         private IDrawable _drawable;
         private MTGraphicsView _graphicsView;
 
         public MTDirectRenderer()
         {
-            _canvas = new CGCanvas(() => CGColorSpace.CreateDeviceRGB());
+            _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
         }
 
         public ICanvas Canvas => _canvas;

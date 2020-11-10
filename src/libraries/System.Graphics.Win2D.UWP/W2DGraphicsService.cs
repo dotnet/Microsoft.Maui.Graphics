@@ -68,7 +68,5 @@ namespace System.Graphics.Win2D
         {
             return null;
         }
-
-        public bool IsRetina => false;
     }
 }

@@ -59,23 +59,23 @@
     <ItemGroup>
         <Compile Include="AppKitConstants.cs" />
         <Compile Include="CoreGraphicsExtensions.cs" />
-        <Compile Include="MMImage.cs" />
-        <Compile Include="MMGraphicsView.cs" />
-        <Compile Include="MMGraphicsService.cs" />
-        <Compile Include="MMGraphicsRenderer.cs" />
-        <Compile Include="MMBitmapExportContext.cs" />
-        <Compile Include="MMDirectRenderer.cs" />
+        <Compile Include="NativeImage.cs" />
+        <Compile Include="NativeGraphicsView.cs" />
+        <Compile Include="NativeGraphicsService.cs" />
+        <Compile Include="IGraphicsRenderer.cs" />
+        <Compile Include="NativeBitmapExportContext.cs" />
+        <Compile Include="DirectRenderer.cs" />
         <Compile Include="GraphicsMac.Designer.cs">
             <DependentUpon>GraphicsMac.resx</DependentUpon>
         </Compile>
-        <Compile Include="MMFontService.cs" />
-        <Compile Include="MMFontFamily.cs" />
-        <Compile Include="MMFontStyle.cs" />
-        <Compile Include="MMGraphicsExtensions.cs" />
-        <Compile Include="MMImageExtensions.cs" />
-        <Compile Include="MMPdfExportService.cs" />
-        <Compile Include="MMPdfExportContext.cs" />
-        <Compile Include="MMFontRegistry.cs" />
+        <Compile Include="NativeFontService.cs" />
+        <Compile Include="NativeFontFamily.cs" />
+        <Compile Include="NativeFontStyle.cs" />
+        <Compile Include="DrawableExtensions.cs" />
+        <Compile Include="NativeImageExtensions.cs" />
+        <Compile Include="NativePdfExportService.cs" />
+        <Compile Include="NativePdfExportContext.cs" />
+        <Compile Include="NativeFontRegistry.cs" />
         <Compile Include="NSColorExtensions.cs" />
         <Compile Include="NSImageExtensions.cs" />
     </ItemGroup>

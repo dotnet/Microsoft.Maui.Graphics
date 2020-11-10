@@ -352,7 +352,7 @@ namespace System.Graphics.Android
             {
                 if (paint.Image is NativeImage image)
                 {
-                    var bitmap = image.Bitmap;
+                    var bitmap = image.NativeRepresentation;
 
                     if (bitmap != null)
                     {
@@ -784,7 +784,7 @@ namespace System.Graphics.Android
         {
             if (image is NativeImage mdimage)
             {
-                var bitmap = mdimage.Bitmap;
+                var bitmap = mdimage.NativeRepresentation;
                 if (bitmap != null)
                 {
                     var scaleX = CurrentState.ScaleX < 0 ? -1 : 1;

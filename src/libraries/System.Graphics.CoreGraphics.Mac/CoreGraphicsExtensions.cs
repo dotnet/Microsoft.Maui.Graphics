@@ -9,9 +9,8 @@ namespace System.Graphics.CoreGraphics
             if (target == null)
                 return null;
 
-            var image = new MMImage(target);
-            var paint = new Paint();
-            paint.Image = image;
+            var image = new NativeImage(target);
+            var paint = new Paint {Image = image};
             return paint;
         }
 

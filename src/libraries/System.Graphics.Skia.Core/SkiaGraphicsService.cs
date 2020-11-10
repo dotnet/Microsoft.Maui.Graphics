@@ -34,8 +34,6 @@ namespace System.Graphics.Skia
         public string SystemFontName => "Arial";
         public string BoldSystemFontName => "Arial-Bold";
 
-        public bool IsRetina => false;
-
         public IImage LoadImageFromStream(Stream stream, ImageFormat formatHint = ImageFormat.Png)
         {
             using (var s = new SKManagedStream(stream))

@@ -86,7 +86,7 @@ namespace System.Graphics.Android
             }
         }
 
-        public Bitmap Bitmap => _bitmap;
+        public Bitmap NativeRepresentation => _bitmap;
         
         public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {

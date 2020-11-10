@@ -9,9 +9,8 @@
     <Import_RootNamespace>Xamarin.Graphics.CoreGraphics</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CGCanvas.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CGCanvasState.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CGCanvasExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CGGraphicsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NativeCanvas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NativeCanvasState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NativeGraphicsExtensions.cs" />
   </ItemGroup>
 </Project>

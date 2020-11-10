@@ -24,8 +24,6 @@ namespace System.Graphics.CoreGraphics
             boldSystemFont.Dispose();
         }
 
-        public bool IsRetina => UIScreen.MainScreen.Scale > 2;
-
         public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png)
         {
             var data = NSData.FromStream(stream);
@@ -205,7 +203,7 @@ namespace System.Graphics.CoreGraphics
                 aPath.NativePath = vPath;
             }
 
-            return vPath.ContainsPoint(aPoint.ToCGPoint(), aPath.Closed);
+            return vPath.ContainsPoint(aPoint.AsCGPoint(), aPath.Closed);
         }
         
         #endregion

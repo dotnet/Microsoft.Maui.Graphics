@@ -4,12 +4,12 @@ using CoreGraphics;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMBitmapExportContext : BitmapExportContext
+    public class NativeBitmapExportContext : BitmapExportContext
     {
         private readonly CGBitmapContext _bitmapContext;
-        private readonly CGCanvas _canvas;
+        private readonly NativeCanvas _canvas;
 
-        public MMBitmapExportContext(int width, int height, float displayScale = 1, int dpi = 72, int border = 0) : base(width, height, dpi)
+        public NativeBitmapExportContext(int width, int height, float displayScale = 1, int dpi = 72, int border = 0) : base(width, height, dpi)
         {
             var bitmapWidth = width + border * 2;
             var bitmapHeight = height + border * 2;
@@ -24,7 +24,7 @@ namespace System.Graphics.CoreGraphics
             _bitmapContext.SetStrokeColorSpace(colorspace);
             _bitmapContext.SetFillColorSpace(colorspace);
 
-            _canvas = new CGCanvas(() => colorspace)
+            _canvas = new NativeCanvas(() => colorspace)
             {
                 Context = _bitmapContext,
                 DisplayScale = displayScale
@@ -52,7 +52,7 @@ namespace System.Graphics.CoreGraphics
 
         public CGImage CGImage => _bitmapContext.ToImage();
 
-        public override IImage Image => new MMImage(NSImage);
+        public override IImage Image => new NativeImage(NSImage);
 
         public override void Dispose()
         {

@@ -2,7 +2,7 @@
 
 namespace System.Graphics.CoreGraphics
 {
-    public static class CGGraphicsExtensions
+    public static class NativeGraphicsExtensions
     {
         public static CGRect AsCGRect(this RectangleF target)
         {
@@ -25,7 +25,7 @@ namespace System.Graphics.CoreGraphics
                 (float) target.Height);
         }
 
-        public static CGPoint ToCGPoint(this PointF target)
+        public static CGPoint AsCGPoint(this PointF target)
         {
             return new CGPoint(target.X, target.Y);
         }
@@ -366,6 +366,54 @@ namespace System.Graphics.CoreGraphics
             }
 
             return CGAffineTransform.MakeIdentity();
+        }
+        
+        public static CGColor AsCGColor(this Color color)
+        {
+            return new CGColor(color.Red, color.Green, color.Blue, color.Alpha);
+        }
+
+        public static void AddRoundedRectangle(this CGContext context, float x, float y, float width, float height, float cornerRadius)
+        {
+            nfloat actualRadius = cornerRadius;
+
+            var rect = new CGRect(x, y, width, height);
+
+            if (actualRadius > rect.Width)
+                actualRadius = rect.Width / 2;
+
+            if (actualRadius > rect.Height)
+                actualRadius = rect.Height / 2;
+
+            var minX = rect.X;
+            var minY = rect.Y;
+            var maxX = minX + rect.Width;
+            var maxY = minY + rect.Height;
+            var midX = minX + rect.Width / 2;
+            var midY = minY + rect.Height / 2;
+
+            context.MoveTo(minX, midY);
+            context.AddArcToPoint(minX, minY, midX, minY, (float) actualRadius);
+            context.AddArcToPoint(maxX, minY, maxX, midY, (float) actualRadius);
+            context.AddArcToPoint(maxX, maxY, midX, maxY, (float) actualRadius);
+            context.AddArcToPoint(minX, maxY, minX, midY, (float) actualRadius);
+            context.ClosePath();
+        }       
+        
+        public static void SetFillColor(this CGContext context, Color color)
+        {
+            if (color != null)
+                context.SetFillColor(color.Red, color.Green, color.Blue, color.Alpha);
+            else
+                context.SetFillColor(1, 1, 1, 1); // White
+        }
+
+        public static void SetStrokeColor(this CGContext context, Color color)
+        {
+            if (color != null)
+                context.SetStrokeColor(color.Red, color.Green, color.Blue, color.Alpha);
+            else
+                context.SetStrokeColor(0, 0, 0, 1); // Black
         }
     }
 }

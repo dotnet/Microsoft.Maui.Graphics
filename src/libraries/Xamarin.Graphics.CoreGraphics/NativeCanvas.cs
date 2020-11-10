@@ -10,7 +10,7 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class CGCanvas : AbstractCanvas<CGCanvasState>
+    public class NativeCanvas : AbstractCanvas<NativeCanvasState>
     {
         private static readonly nfloat[] EmptyNFloatArray = { };
         private static readonly CGAffineTransform FlipTransform = new CGAffineTransform(1.0f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
@@ -29,7 +29,7 @@ namespace System.Graphics.CoreGraphics
         private float _fontSize = 10f;
         private CGGradient _gradient;
 
-        private CGCanvas _fillPatternCanvas;
+        private NativeCanvas _fillPatternCanvas;
 
         private IPattern _fillPattern;
         private CGRect _fillPatternRect;
@@ -44,7 +44,7 @@ namespace System.Graphics.CoreGraphics
         // A local instance of a rectangle to avoid lots of object creation.
         private CGRect _rect = new CGRect(0, 0, 0, 0);
 
-        public CGCanvas(Func<CGColorSpace> getColorspace) : base(CreateNewState, CreateStateCopy)
+        public NativeCanvas(Func<CGColorSpace> getColorspace) : base(CreateNewState, CreateStateCopy)
         {
             _getColorspace = getColorspace;
 
@@ -73,14 +73,14 @@ namespace System.Graphics.CoreGraphics
             _fontName = _defaultFontName;
         }
 
-        private static CGCanvasState CreateNewState(object context)
+        private static NativeCanvasState CreateNewState(object context)
         {
-            return new CGCanvasState();
+            return new NativeCanvasState();
         }
 
-        private static CGCanvasState CreateStateCopy(CGCanvasState prototype)
+        private static NativeCanvasState CreateStateCopy(NativeCanvasState prototype)
         {
-            return new CGCanvasState(prototype);
+            return new NativeCanvasState(prototype);
         }
 
         public CGContext Context
@@ -661,7 +661,7 @@ namespace System.Graphics.CoreGraphics
             {
                 context.SetLineDash(0, EmptyNFloatArray);
                 if (_fillPatternCanvas == null)
-                    _fillPatternCanvas = new CGCanvas(_getColorspace);
+                    _fillPatternCanvas = new NativeCanvas(_getColorspace);
                 _fillPatternCanvas.Context = context;
                 fillPattern.Draw(_fillPatternCanvas);
             }
@@ -670,12 +670,12 @@ namespace System.Graphics.CoreGraphics
         private void DrawImageCallback(CGContext context)
         {
 #if MONOMAC
-			var nativeWrapper = _fillImage as MMImage;
+			var nativeWrapper = _fillImage as NativeImage;
 #else
             var nativeWrapper = _fillImage as MTImage;
 #endif
 
-            var nativeImage = nativeWrapper?.NativeImage;
+            var nativeImage = nativeWrapper?.NativeRepresentation;
             if (nativeImage != null)
             {
                 var rect = new CGRect
@@ -699,12 +699,12 @@ namespace System.Graphics.CoreGraphics
         public override void DrawImage(IImage image, float x, float y, float width, float height)
         {
 #if MONOMAC
-			var nativeWrapper = image as MMImage;
+			var nativeWrapper = image as NativeImage;
 #else
             var nativeWrapper = image as MTImage;
 #endif
 
-            var nativeImage = nativeWrapper?.NativeImage;
+            var nativeImage = nativeWrapper?.NativeRepresentation;
             if (nativeImage != null)
             {
                 _rect.X = x;
@@ -1143,7 +1143,7 @@ namespace System.Graphics.CoreGraphics
 
             // Load the font
 #if MONOMAC
-            var font = MMFontService.Instance.LoadFont(fontName, fontSize);
+            var font = NativeFontService.Instance.LoadFont(fontName, fontSize);
 #else
             var font = MTFontService.Instance.LoadFont(fontName, fontSize);
 #endif
@@ -1194,7 +1194,7 @@ namespace System.Graphics.CoreGraphics
                 if (verticalAlignment != VerticalAlignment.Top)
                 {
 #if MONOMAC
-                    var textFrameSize = MMGraphicsService.GetTextSize(frame);
+                    var textFrameSize = NativeGraphicsService.GetTextSize(frame);
 #else
                     var textFrameSize = MTGraphicsService.GetTextSize(frame);
 #endif
@@ -1285,7 +1285,7 @@ namespace System.Graphics.CoreGraphics
                 if (verticalAlignment != VerticalAlignment.Top)
                 {
 #if MONOMAC
-					var textSize = MMGraphicsService.GetTextSize(frame);
+					var textSize = NativeGraphicsService.GetTextSize(frame);
 #else
                     var textSize = MTGraphicsService.GetTextSize(frame);
 #endif

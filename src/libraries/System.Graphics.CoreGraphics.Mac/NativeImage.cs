@@ -7,11 +7,11 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMImage : IImage
+    public class NativeImage : IImage
     {
         private NSImage _image;
 
-        public MMImage(NSImage image)
+        public NativeImage(NSImage image)
         {
             _image = image;
         }
@@ -20,7 +20,7 @@ namespace System.Graphics.CoreGraphics
 
         public float Height => (float) _image.Size.Height;
 
-        public NSImage NativeImage => _image;
+        public NSImage NativeRepresentation => _image;
 
         public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {
@@ -84,18 +84,18 @@ namespace System.Graphics.CoreGraphics
         public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidthOrHeight, maxWidthOrHeight, disposeOriginal);
-            return new MMImage(scaledImage);
+            return new NativeImage(scaledImage);
         }
 
         public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false)
         {
             var scaledImage = _image.ScaleImage(maxWidth, maxHeight, disposeOriginal);
-            return new MMImage(scaledImage);
+            return new NativeImage(scaledImage);
         }
 
         public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false)
         {
-            using (var context = new MMBitmapExportContext((int) width, (int) height))
+            using (var context = new NativeBitmapExportContext((int) width, (int) height))
             {
                 var fx = width / Width;
                 var fy = height / Height;

@@ -87,7 +87,7 @@ namespace System.Graphics.CoreGraphics
             }
         }
 
-        public UIImage NativeImage => _image;
+        public UIImage NativeRepresentation => _image;
         
         public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1)
         {

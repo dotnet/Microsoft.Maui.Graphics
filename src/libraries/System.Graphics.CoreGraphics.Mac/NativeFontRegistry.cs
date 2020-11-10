@@ -5,21 +5,21 @@ using CoreGraphics;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMFontRegistry
+    public class NativeFontRegistry
     {
-        private static MMFontRegistry _instance = new MMFontRegistry();
+        private static NativeFontRegistry _instance = new NativeFontRegistry();
 
         private readonly Dictionary<string, CGFont> _customFonts = new Dictionary<string, CGFont>();
         private readonly string _systemFontName;
 
-        protected MMFontRegistry()
+        protected NativeFontRegistry()
         {
             var font = NSFont.SystemFontOfSize(NSFont.SystemFontSize);
             _systemFontName = font.FontName;
             font.Dispose();
         }
 
-        public static MMFontRegistry Instance => _instance ?? (_instance = new MMFontRegistry());
+        public static NativeFontRegistry Instance => _instance ?? (_instance = new NativeFontRegistry());
 
         public Dictionary<string, CGFont>.ValueCollection CustomFonts => _customFonts.Values;
 

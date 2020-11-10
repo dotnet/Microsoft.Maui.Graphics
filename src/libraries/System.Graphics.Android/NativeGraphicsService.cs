@@ -10,8 +10,6 @@ namespace System.Graphics.Android
 
         private static string _systemFontName;
         private static string _boldSystemFontName;
-        
-        public bool IsRetina => false;
 
         public IImage LoadImageFromStream(Stream stream, ImageFormat formatHint = ImageFormat.Png)
         {

@@ -4,21 +4,21 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMPdfExportContext : PdfExportContext
+    public class NativePdfExportContext : PdfExportContext
     {
         private NSMutableDictionary _documentInfo;
         private NSMutableData _data;
         private CGContextPDF _context;
-        private readonly CGCanvas _canvas;
+        private readonly NativeCanvas _canvas;
         private bool _closed;
         private bool _pageOpen;
 
-        public MMPdfExportContext(
+        public NativePdfExportContext(
             float defaultWidth,
             float defaultHeight) : base(defaultWidth, defaultHeight)
         {
             _documentInfo = new NSMutableDictionary();
-            _canvas = new CGCanvas(() => CGColorSpace.CreateDeviceRGB());
+            _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
         }
 
         protected override void AddPageImpl(float width, float height)

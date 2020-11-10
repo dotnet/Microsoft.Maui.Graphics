@@ -4,12 +4,12 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
+    public class NativeFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable
     {
         private readonly string _name;
         private IFontStyle[] _fontStyles;
 
-        public MMFontFamily(string name)
+        public NativeFontFamily(string name)
         {
             _name = name;
         }
@@ -44,7 +44,7 @@ namespace System.Graphics.CoreGraphics
                         if (index > 0)
                             fullName = $"{_name} {name}";
 
-                        styles.Add(new MMFontStyle(this, id, name, fullName, weight, styleType));
+                        styles.Add(new NativeFontStyle(this, id, name, fullName, weight, styleType));
                         index++;
                     });
             }
@@ -59,9 +59,9 @@ namespace System.Graphics.CoreGraphics
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (obj.GetType() != typeof(MMFontFamily))
+            if (obj.GetType() != typeof(NativeFontFamily))
                 return false;
-            MMFontFamily other = (MMFontFamily) obj;
+            NativeFontFamily other = (NativeFontFamily) obj;
             return _name == other._name;
         }
 

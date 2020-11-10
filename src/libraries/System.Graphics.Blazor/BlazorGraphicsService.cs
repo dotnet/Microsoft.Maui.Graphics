@@ -43,8 +43,6 @@ namespace System.Graphics.Blazor
             return null;
         }
 
-        public bool IsRetina => false;
-
         public string SystemFontName => "Arial";
         public string BoldSystemFontName => "Arial-Bold";
     }

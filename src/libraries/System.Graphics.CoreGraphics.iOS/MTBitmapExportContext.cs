@@ -7,7 +7,7 @@ namespace System.Graphics.CoreGraphics
     public class MTBitmapExportContext : BitmapExportContext
     {
         private CGBitmapContext _bitmapContext;
-        private CGCanvas _canvas;
+        private NativeCanvas _canvas;
 
         public MTBitmapExportContext(int width, int height, float displayScale, int dpi = 72, int border = 0) : base(width, height, dpi)
         {
@@ -24,7 +24,7 @@ namespace System.Graphics.CoreGraphics
             _bitmapContext.SetStrokeColorSpace(colorspace);
             _bitmapContext.SetFillColorSpace(colorspace);
 
-            _canvas = new CGCanvas(() => colorspace)
+            _canvas = new NativeCanvas(() => colorspace)
             {
                 Context = _bitmapContext,
                 DisplayScale = displayScale

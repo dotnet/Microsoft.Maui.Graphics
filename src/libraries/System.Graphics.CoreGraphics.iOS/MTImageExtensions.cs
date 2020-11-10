@@ -8,7 +8,7 @@ namespace System.Graphics.CoreGraphics
         {
             if (image is MTImage mtimage)
             {
-                return mtimage.NativeImage;
+                return mtimage.NativeRepresentation;
             }
 
             if (image != null)

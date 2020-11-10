@@ -9,7 +9,7 @@ namespace System.Graphics.CoreGraphics
     {
         private string _tempFilePath;
         private readonly NSMutableDictionary _documentInfo;
-        private readonly CGCanvas _canvas;
+        private readonly NativeCanvas _canvas;
         private bool _closed;
 
         public MTPdfExportContext(
@@ -17,7 +17,7 @@ namespace System.Graphics.CoreGraphics
             float defaultHeight) : base(defaultWidth, defaultHeight)
         {
             _documentInfo = new NSMutableDictionary();
-            _canvas = new CGCanvas(() => CGColorSpace.CreateDeviceRGB());
+            _canvas = new NativeCanvas(() => CGColorSpace.CreateDeviceRGB());
         }
 
         protected override void AddPageImpl(float width, float height)

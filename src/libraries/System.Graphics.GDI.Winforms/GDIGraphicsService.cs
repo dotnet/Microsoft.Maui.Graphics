@@ -40,7 +40,5 @@ namespace System.Graphics.GDI
         {
             return new GDIBitmapExportContext(width, height, displayScale);
         }
-
-        public bool IsRetina => false;
     }
 }

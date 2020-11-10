@@ -1,14 +1,14 @@
 namespace System.Graphics.CoreGraphics
 {
-    public class CGCanvasState : CanvasState
+    public class NativeCanvasState : CanvasState
     {
         private bool _shadowed;
 
-        public CGCanvasState() : base()
+        public NativeCanvasState() : base()
         {
         }
 
-        public CGCanvasState(CGCanvasState prototype) : base(prototype)
+        public NativeCanvasState(NativeCanvasState prototype) : base(prototype)
         {
             _shadowed = prototype._shadowed;
         }

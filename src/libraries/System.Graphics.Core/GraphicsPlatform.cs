@@ -22,9 +22,7 @@ namespace System.Graphics
         /// <param name="service"></param>
         public static void RegisterThreadLocalContext(IGraphicsService service)
         {
-            if (_threadLocalService == null)
-                _threadLocalService = new ThreadLocal<IGraphicsService>();
-
+            _threadLocalService ??= new ThreadLocal<IGraphicsService>();
             _threadLocalService.Value = service;
         }
 
@@ -76,7 +74,5 @@ namespace System.Graphics
         {
             _globalService = service;
         }
-
-        public static bool IsRetina => CurrentService.IsRetina;
     }
 }

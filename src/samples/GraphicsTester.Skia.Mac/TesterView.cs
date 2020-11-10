@@ -8,12 +8,12 @@ namespace GraphicsTester.Skia
     public class TesterView : NSView
     {
         private readonly NSTableView tableView;
-        private readonly MMGraphicsView graphicsView;
+        private readonly NativeGraphicsView graphicsView;
         private readonly TesterTableViewSource tableSource;
 
         public TesterView (CGRect rect) : base(rect)
         {
-            GraphicsPlatform.Register(MMGraphicsService.Instance);
+            GraphicsPlatform.Register(NativeGraphicsService.Instance);
 
             tableSource = new TesterTableViewSource ();
             tableSource.ScenarioSelected += (drawable) =>
@@ -32,7 +32,7 @@ namespace GraphicsTester.Skia
 
             AddSubview (tableView);
 
-            graphicsView = new MMGraphicsView ();
+            graphicsView = new NativeGraphicsView ();
             AddSubview (graphicsView);
 
             Layout ();

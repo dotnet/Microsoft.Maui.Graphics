@@ -3,16 +3,16 @@ using CoreGraphics;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMDirectRenderer : MMGraphicsRenderer
+    public class DirectRenderer : IGraphicsRenderer
     {
-        private readonly CGCanvas _canvas;
+        private readonly NativeCanvas _canvas;
         private IDrawable _drawable;
-        private MMGraphicsView _graphicsView;
+        private NativeGraphicsView _graphicsView;
 
-        public MMDirectRenderer()
+        public DirectRenderer()
         {
             var colorspace = NSColorSpace.DeviceRGBColorSpace.ColorSpace;
-            _canvas = new CGCanvas(() => colorspace);
+            _canvas = new NativeCanvas(() => colorspace);
         }
 
         public ICanvas Canvas => _canvas;
@@ -23,7 +23,7 @@ namespace System.Graphics.CoreGraphics
             set => _drawable = value;
         }
 
-        public MMGraphicsView GraphicsView
+        public NativeGraphicsView GraphicsView
         {
             set => _graphicsView = value;
         }

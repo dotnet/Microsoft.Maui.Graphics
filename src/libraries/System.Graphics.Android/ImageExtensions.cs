@@ -8,7 +8,7 @@ namespace System.Graphics.Android
         {
             if (image is NativeImage mdimage)
             {
-                return mdimage.Bitmap;
+                return mdimage.NativeRepresentation;
             }
 
             if (image != null)

@@ -2,9 +2,9 @@
 
 namespace System.Graphics.CoreGraphics
 {
-    public static class MMGraphicsExtensions
+    public static class DrawableExtensions
     {
-        public static MMImage ToMultiResolutionImage(this IDrawable drawable, int width, int height)
+        public static NativeImage ToMultiResolutionImage(this IDrawable drawable, int width, int height)
         {
             if (drawable == null)
                 return null;
@@ -22,7 +22,7 @@ namespace System.Graphics.CoreGraphics
             var combinedImage = new NSImage {MatchesOnMultipleResolution = true};
             combinedImage.AddRepresentations(new NSImageRep[] {normalImageRep, retinaImageRep});
 
-            return new MMImage(combinedImage);
+            return new NativeImage(combinedImage);
         }
     }
 }

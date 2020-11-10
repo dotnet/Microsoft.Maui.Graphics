@@ -7,14 +7,14 @@ using Foundation;
 
 namespace System.Graphics.CoreGraphics
 {
-    public class MMGraphicsService : IGraphicsService
+    public class NativeGraphicsService : IGraphicsService
     {
-        public static MMGraphicsService Instance = new MMGraphicsService();
+        public static NativeGraphicsService Instance = new NativeGraphicsService();
 
         private readonly string _boldSystemFontName;
         private readonly string _systemFontName;
 
-        private MMGraphicsService()
+        private NativeGraphicsService()
         {
             var vFont = NSFont.SystemFontOfSize(NSFont.SystemFontSize);
             _systemFontName = vFont.FontName;
@@ -35,7 +35,7 @@ namespace System.Graphics.CoreGraphics
             var data = NSData.FromStream(stream);
             var image = new NSImage(data);
             NSApplication.CheckForIllegalCrossThreadCalls = previous;
-            return new MMImage(image);
+            return new NativeImage(image);
         }
 
         #region GraphicsPlatform Members
@@ -45,7 +45,7 @@ namespace System.Graphics.CoreGraphics
 
         public string GetFont(string aFontName, bool aBold, bool aItalic)
         {
-            if (MMFontRegistry.Instance.IsCustomFont(aFontName))
+            if (NativeFontRegistry.Instance.IsCustomFont(aFontName))
             {
                 return aFontName;
             }
@@ -99,7 +99,7 @@ namespace System.Graphics.CoreGraphics
 
         public string GetFontName(string aFontName)
         {
-            if (MMFontRegistry.Instance.IsCustomFont(aFontName))
+            if (NativeFontRegistry.Instance.IsCustomFont(aFontName))
             {
                 return aFontName;
             }
@@ -190,7 +190,7 @@ namespace System.Graphics.CoreGraphics
             var vAttributes = new CTStringAttributes();
 
             // Load the font
-            var vFont = MMFontService.Instance.LoadFont(aFontName ?? _systemFontName, (float) fontSize);
+            var vFont = NativeFontService.Instance.LoadFont(aFontName ?? _systemFontName, (float) fontSize);
             vAttributes.Font = vFont;
 
             // Set the horizontal alignment
@@ -308,15 +308,13 @@ namespace System.Graphics.CoreGraphics
         public CTFont LoadFont(ITextAttributes aTextAttributes)
         {
             return aTextAttributes.FontName == null
-                ? MMFontService.Instance.LoadFont(_systemFontName, (float) aTextAttributes.FontSize)
-                : MMFontService.Instance.LoadFont(aTextAttributes.FontName, (float) aTextAttributes.FontSize);
+                ? NativeFontService.Instance.LoadFont(_systemFontName, (float) aTextAttributes.FontSize)
+                : NativeFontService.Instance.LoadFont(aTextAttributes.FontName, (float) aTextAttributes.FontSize);
         }
 
         public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1)
         {
-            return new MMBitmapExportContext(width, height, displayScale);
+            return new NativeBitmapExportContext(width, height, displayScale);
         }
-
-        public bool IsRetina => true;
     }
 }
