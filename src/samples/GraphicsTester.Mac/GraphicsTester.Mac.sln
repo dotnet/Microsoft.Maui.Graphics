@@ -5,18 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.Mac", "Graph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.Portable", "..\GraphicsTester.Portable\GraphicsTester.Portable.csproj", "{C7BBB0EB-F729-449D-B279-5B1D4669CFC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevenworks.Graphics.Portable", "..\..\Elevenworks.Graphics2\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj", "{DE03D2AE-72AF-44BA-A223-C54B88E726BA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevenworks.Graphics.Mac", "..\..\Elevenworks.Graphics2\Elevenworks.Graphics.Mac\Elevenworks.Graphics.Mac.csproj", "{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Elevenworks.Graphics.CoreGraphics", "..\..\Elevenworks.Graphics2\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.shproj", "{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevenworks.Text.Portable", "..\..\Elevenworks.Graphics2\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj", "{A6C6291F-5D7B-4911-993A-790992995CA8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevenworks.Text.Mac", "..\..\Elevenworks.Graphics2\Elevenworks.Text.Mac\Elevenworks.Text.Mac.csproj", "{87E2FB65-B701-4009-9509-6EFACA2DDA7B}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Elevenworks.Text.CoreGraphics", "..\..\Elevenworks.Graphics2\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.shproj", "{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

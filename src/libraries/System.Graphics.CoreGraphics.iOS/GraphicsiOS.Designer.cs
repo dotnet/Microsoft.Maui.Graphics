@@ -36,7 +36,7 @@ namespace System.Graphics.CoreGraphics {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Elevenworks.Graphics.GraphicsiOS", typeof(GraphicsiOS).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.Graphics.Coregraphics", typeof(GraphicsiOS).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

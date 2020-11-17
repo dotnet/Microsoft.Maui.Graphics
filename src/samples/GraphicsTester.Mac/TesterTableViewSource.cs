@@ -2,7 +2,7 @@ using System;
 using AppKit;
 using GraphicsTester.Scenarios;
 using Foundation;
-using Elevenworks.Graphics;
+using System.Graphics;
 
 namespace GraphicsTester.Mac
 {

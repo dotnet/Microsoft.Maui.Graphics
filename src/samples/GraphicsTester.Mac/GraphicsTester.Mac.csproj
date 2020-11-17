@@ -98,38 +98,6 @@
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elevenworks.Graphics.Mac\Elevenworks.Graphics.Mac.csproj">
-      <Project>{EDF26EBB-0AC3-4212-81D6-8DD08F5ACC17}</Project>
-      <Name>Elevenworks.Graphics.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{90EFC12E-8B00-4E15-AD76-809A3E9421E3}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Graphics.Skia.Portable\Elevenworks.Graphics.Skia.Portable.csproj">
-      <Project>{9D1F32F2-B081-4240-9150-7BDBFAA899CB}</Project>
-      <Name>Elevenworks.Graphics.Skia.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Mac\Elevenworks.Services.Mac.csproj">
-      <Project>{04c2e00e-d4d4-43b4-92e6-8595054268de}</Project>
-      <Name>Elevenworks.Services.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{b3522055-0ab5-4c61-9398-81f3409c8dd6}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Text.Mac\Elevenworks.Text.Mac.csproj">
-      <Project>{87E2FB65-B701-4009-9509-6EFACA2DDA7B}</Project>
-      <Name>Elevenworks.Text.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Text.Markdig.Portable\Elevenworks.Text.Markdig.Portable.csproj">
-      <Project>{3C370ACC-FA5D-4979-946A-6994149625A8}</Project>
-      <Name>Elevenworks.Text.Markdig.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Elevenworks.Text.Portable\Elevenworks.Text.Portable.csproj">
-      <Project>{4ECA6034-A9E7-41B4-BE21-01C6F0BF87D0}</Project>
-      <Name>Elevenworks.Text.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GraphicsTester.Portable\GraphicsTester.Portable.csproj">
       <Project>{d7b1d186-67d6-4a89-b67f-500c524776b8}</Project>
       <Name>GraphicsTester.Portable</Name>
