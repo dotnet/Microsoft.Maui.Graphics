@@ -14,4 +14,8 @@
         <PackageReference Include="Markdig" Version="0.22.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\System.Graphics.Core\System.Graphics.Core.csproj" />
+    </ItemGroup>
+
 </Project>

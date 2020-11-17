@@ -1,15 +1,15 @@
 ﻿using Android.Graphics;
 
-namespace System.Graphics.Text.Android
+namespace System.Graphics.Android.Text
 {
-    public static class CGColorExtensions
+    public static class ColorExtensions
     {
-        public static Color? ToColor(this int[] color)
+        public static global::Android.Graphics.Color? ToColor(this int[] color)
         {
             if (color == null)
                 return null;
 
-            return new Color(color[0], color[1], color[2], color[3]);
+            return new global::Android.Graphics.Color(color[0], color[1], color[2], color[3]);
         }
     }
 }

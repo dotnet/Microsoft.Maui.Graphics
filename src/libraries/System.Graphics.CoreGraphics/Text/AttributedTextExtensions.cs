@@ -3,10 +3,11 @@ using AppKit;
 #else
 using NSStringAttributeKey = UIKit.UIStringAttributeKey;
 #endif
+using System.Graphics.Text;
 using CoreText;
 using Foundation;
 
-namespace System.Graphics.Text
+namespace System.Graphics.CoreGraphics
 {
     public static class AttributedTextExtensions
     {
@@ -68,7 +69,7 @@ namespace System.Graphics.Text
 
         private static void AddAttributes(
             NSMutableAttributedString attributedString,
-            ITextAttributes attributes,
+            Text.ITextAttributes attributes,
             int start,
             int length,
             string contextFontName = null,

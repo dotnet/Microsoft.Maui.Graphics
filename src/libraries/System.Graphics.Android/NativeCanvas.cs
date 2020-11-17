@@ -1,5 +1,5 @@
+using System.Graphics.Android.Text;
 using System.Graphics.Text;
-using System.Graphics.Text.Android;
 using Android.Content;
 using Android.Graphics;
 using Android.Text;

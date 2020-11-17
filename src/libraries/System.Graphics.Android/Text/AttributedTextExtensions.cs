@@ -1,8 +1,9 @@
+using System.Graphics.Text;
 using Android.Graphics;
 using Android.Text;
 using Android.Text.Style;
 
-namespace System.Graphics.Text.Android
+namespace System.Graphics.Android.Text
 {
     public static class AttributedTextExtensions
     {
@@ -76,14 +77,14 @@ namespace System.Graphics.Text.Android
             var foregroundColor = attributes.GetForegroundColor()?.ParseAsInts()?.ToColor();
             if (foregroundColor != null)
             {
-                var span = new ForegroundColorSpan((Color) foregroundColor);
+                var span = new ForegroundColorSpan((global::Android.Graphics.Color) foregroundColor);
                 spannableString.SetSpan(span, start, end, SpanTypes.ExclusiveExclusive);
             }
 
             var backgroundColor = attributes.GetBackgroundColor()?.ParseAsInts()?.ToColor();
             if (backgroundColor != null)
             {
-                var span = new BackgroundColorSpan((Color) backgroundColor);
+                var span = new BackgroundColorSpan((global::Android.Graphics.Color) backgroundColor);
                 spannableString.SetSpan(span, start, end, SpanTypes.ExclusiveExclusive);
             }
 

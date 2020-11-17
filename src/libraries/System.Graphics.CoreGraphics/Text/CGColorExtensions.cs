@@ -1,6 +1,6 @@
 ﻿using CoreGraphics;
 
-namespace System.Graphics.Text
+namespace System.Graphics.CoreGraphics
 {
     public static class CGColorExtensions
     {

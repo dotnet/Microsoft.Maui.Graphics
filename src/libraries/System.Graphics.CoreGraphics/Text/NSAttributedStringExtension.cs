@@ -6,11 +6,12 @@ using NSFont = UIKit.UIFont;
 using NSColor = UIKit.UIColor;
 #endif
 using System.Collections.Generic;
+using System.Graphics.Text;
 using System.Graphics.Text.Immutable;
 using System.IO;
 using Foundation;
 
-namespace System.Graphics.Text
+namespace System.Graphics.CoreGraphics
 {
     public static class NSAttributedStringExtension
     {

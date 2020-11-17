@@ -3,7 +3,7 @@ using System.Graphics.Text.Immutable;
 using System.IO;
 using Android.Text;
 
-namespace System.Graphics.Text.Android
+namespace System.Graphics.Android.Text
 {
     public static class SpannableExtensions
     {
