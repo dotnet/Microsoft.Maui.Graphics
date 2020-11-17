@@ -104,7 +104,8 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup>
-  <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="AsyncPump.cs" />
     <Compile Include="W2DFontFamily.cs" />
@@ -131,10 +132,6 @@
     <ProjectReference Include="..\System.Graphics.Core\System.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
       <Name>System.Graphics.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj">
-      <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
-      <Name>System.Graphics.Text.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

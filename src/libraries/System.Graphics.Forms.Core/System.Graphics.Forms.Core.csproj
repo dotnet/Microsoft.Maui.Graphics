@@ -17,7 +17,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\System.Graphics.Core\System.Graphics.Core.csproj" />
-        <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -109,7 +109,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-  <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="DeviceManager.cs" />
     <Compile Include="DirectXPanelBase.cs" />
@@ -146,16 +147,12 @@
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
       <Name>System.Graphics.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj">
-      <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
-      <Name>System.Graphics.Text.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems" Label="Shared" />
+  <Import Project="..\System.Graphics.SharpDX.Shared\System.Graphics.SharpDX.Shared.projitems" Label="Shared" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

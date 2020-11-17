@@ -26,9 +26,8 @@
     <ItemGroup>
         <ProjectReference Include="..\..\External\SharpDX.Desktop\SharpDX.Desktop.csproj" />
         <ProjectReference Include="..\System.Graphics.Core\System.Graphics.Core.csproj" />
-        <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj" />
     </ItemGroup>
 
-    <Import Project="..\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems" Label="Shared" />
+    <Import Project="..\System.Graphics.SharpDX.Shared\System.Graphics.SharpDX.Shared.projitems" Label="Shared" />
     
 </Project>

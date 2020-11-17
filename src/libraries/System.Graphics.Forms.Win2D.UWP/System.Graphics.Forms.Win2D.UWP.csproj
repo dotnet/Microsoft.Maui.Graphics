@@ -123,10 +123,6 @@
       <Project>{be7203d5-b616-4f38-9d9f-b5d4d92dbdf3}</Project>
       <Name>System.Graphics.Forms.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj">
-      <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
-      <Name>System.Graphics.Text.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\System.Graphics.Win2D.UWP\System.Graphics.Win2D.UWP.csproj">
       <Project>{20794e60-3bfd-46f4-bc0b-87b3959aa3c7}</Project>
       <Name>System.Graphics.Win2D.UWP</Name>

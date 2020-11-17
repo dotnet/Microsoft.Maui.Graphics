@@ -6,11 +6,14 @@
     <SharedGUID>{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA}</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Xamarin.Graphics.CoreGraphics</Import_RootNamespace>
+    <Import_RootNamespace>System.Graphics.CoreGraphics</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)NativeCanvas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeCanvasState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeGraphicsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Text\AttributedTextExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Text\CGColorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Text\NSAttributedStringExtension.cs" />
   </ItemGroup>
 </Project>

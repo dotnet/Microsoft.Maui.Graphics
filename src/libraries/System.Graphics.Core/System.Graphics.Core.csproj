@@ -11,8 +11,4 @@
         <Folder Include="Properties\" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj" />
-    </ItemGroup>
-
 </Project>

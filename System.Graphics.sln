@@ -5,15 +5,7 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Core", "src\libraries\System.Graphics.Core\System.Graphics.Core.csproj", "{76F3031E-341E-43CC-BD92-B23F83495DB7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Text.Core", "src\libraries\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj", "{29F2DEBB-7346-4284-B7D9-82937622AB2A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Text.iOS", "src\libraries\System.Graphics.Text.iOS\System.Graphics.Text.iOS.csproj", "{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Text.Mac", "src\libraries\System.Graphics.Text.Mac\System.Graphics.Text.Mac.csproj", "{87E2FB65-B701-4009-9509-6EFACA2DDA7B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Text.Markdig", "src\libraries\System.Graphics.Text.Markdig\System.Graphics.Text.Markdig.csproj", "{ED36FB6D-7278-465D-9C44-D01927258BA1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Graphics.Text.Android", "src\libraries\System.Graphics.Text.Android\System.Graphics.Text.Android.csproj", "{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Graphics.Text.WPF", "src\libraries\System.Graphics.Text.WPF\System.Graphics.Text.WPF.csproj", "{029785AD-50DB-4DA0-8882-126483BF0F2F}"
 EndProject
@@ -77,23 +69,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpDX.Desktop", "src\external\SharpDX.Desktop\SharpDX.Desktop.csproj", "{D52F4128-20EA-41F3-BA67-0586BBCB3E5A}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Graphics.SharpDX.Shared", "src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.shproj", "{5163BCB2-4D70-42DA-975A-AF55D6B6A0B3}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "System.Graphics.SharpDX.Shared", "src\libraries\System.Graphics.SharpDX.Shared\System.Graphics.SharpDX.Shared.shproj", "{5163BCB2-4D70-42DA-975A-AF55D6B6A0B3}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Graphics.CoreGraphics", "src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.shproj", "{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Text.CoreGraphics", "src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.shproj", "{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "System.Graphics.CoreGraphics", "src\libraries\System.Graphics.CoreGraphics\System.Graphics.CoreGraphics.shproj", "{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.projitems*{18e74cfa-319a-4b5c-9ed0-ac6a7cf9985a}*SharedItemsImports = 4
-		src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.projitems*{2d3af21a-d534-4a3e-9ea7-3f4a38fd1652}*SharedItemsImports = 13
-		src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems*{5163bcb2-4d70-42da-975a-af55d6b6a0b3}*SharedItemsImports = 13
-		src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems*{694e970d-5c18-483f-bc48-d6d86da8e78f}*SharedItemsImports = 4
-		src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.projitems*{87e2fb65-b701-4009-9509-6efaca2dda7b}*SharedItemsImports = 4
-		src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems*{95a3e5f1-26b7-4bd8-8f01-48fe7bfd79fa}*SharedItemsImports = 13
-		src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems*{bc291304-fdc0-4e1d-a673-39f5e446b0e0}*SharedItemsImports = 5
-		src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems*{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}*SharedItemsImports = 4
-		src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems*{f8d43f64-af09-4e06-8473-5bdc37281908}*SharedItemsImports = 4
+		src\libraries\System.Graphics.SharpDX.Shared\System.Graphics.SharpDX.Shared.projitems*{5163bcb2-4d70-42da-975a-af55d6b6a0b3}*SharedItemsImports = 13
+		src\libraries\System.Graphics.SharpDX.Shared\System.Graphics.SharpDX.Shared.projitems*{694e970d-5c18-483f-bc48-d6d86da8e78f}*SharedItemsImports = 4
+		src\libraries\System.Graphics.CoreGraphics\System.Graphics.CoreGraphics.projitems*{95a3e5f1-26b7-4bd8-8f01-48fe7bfd79fa}*SharedItemsImports = 13
+		src\libraries\System.Graphics.SharpDX.Shared\System.Graphics.SharpDX.Shared.projitems*{bc291304-fdc0-4e1d-a673-39f5e446b0e0}*SharedItemsImports = 5
+		src\libraries\System.Graphics.CoreGraphics\System.Graphics.CoreGraphics.projitems*{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}*SharedItemsImports = 4
+		src\libraries\System.Graphics.CoreGraphics\System.Graphics.CoreGraphics.projitems*{f8d43f64-af09-4e06-8473-5bdc37281908}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,26 +91,10 @@ Global
 		{76F3031E-341E-43CC-BD92-B23F83495DB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F3031E-341E-43CC-BD92-B23F83495DB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F3031E-341E-43CC-BD92-B23F83495DB7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{29F2DEBB-7346-4284-B7D9-82937622AB2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{29F2DEBB-7346-4284-B7D9-82937622AB2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{29F2DEBB-7346-4284-B7D9-82937622AB2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{29F2DEBB-7346-4284-B7D9-82937622AB2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87E2FB65-B701-4009-9509-6EFACA2DDA7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87E2FB65-B701-4009-9509-6EFACA2DDA7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87E2FB65-B701-4009-9509-6EFACA2DDA7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87E2FB65-B701-4009-9509-6EFACA2DDA7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED36FB6D-7278-465D-9C44-D01927258BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED36FB6D-7278-465D-9C44-D01927258BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED36FB6D-7278-465D-9C44-D01927258BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED36FB6D-7278-465D-9C44-D01927258BA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D6FD6E58-258F-4DEC-A31D-567AB041D4D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{029785AD-50DB-4DA0-8882-126483BF0F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{029785AD-50DB-4DA0-8882-126483BF0F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{029785AD-50DB-4DA0-8882-126483BF0F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -238,11 +209,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76F3031E-341E-43CC-BD92-B23F83495DB7} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
-		{29F2DEBB-7346-4284-B7D9-82937622AB2A} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
-		{18E74CFA-319A-4B5C-9ED0-AC6A7CF9985A} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
-		{87E2FB65-B701-4009-9509-6EFACA2DDA7B} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{ED36FB6D-7278-465D-9C44-D01927258BA1} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
-		{D6FD6E58-258F-4DEC-A31D-567AB041D4D4} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{029785AD-50DB-4DA0-8882-126483BF0F2F} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{F63D421B-A5E5-4107-9BAC-9C45ED1363DE} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{B755D39B-1AD8-48FA-B56F-53FCA7478085} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
@@ -272,7 +239,6 @@ Global
 		{D52F4128-20EA-41F3-BA67-0586BBCB3E5A} = {5FDD2BE9-96B1-4E7D-8028-B8158E6A0FEC}
 		{5163BCB2-4D70-42DA-975A-AF55D6B6A0B3} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{95A3E5F1-26B7-4BD8-8F01-48FE7BFD79FA} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
-		{2D3AF21A-D534-4A3E-9EA7-3F4A38FD1652} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B07E734-6AE2-4A12-AD60-C072F3695854}
