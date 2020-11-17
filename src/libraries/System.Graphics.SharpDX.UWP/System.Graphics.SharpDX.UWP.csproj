@@ -109,7 +109,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
+  <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
   <ItemGroup>
     <Compile Include="DeviceManager.cs" />
     <Compile Include="DirectXPanelBase.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="SurfaceImageSourceTarget.cs" />
     <Compile Include="SwapPanelDeviceManager.cs" />
     <Compile Include="TargetBase.cs" />
-    <Content Include="Properties\Elevenworks.Graphics.SharpDX.WindowsUniversal.rd.xml" />
+    <Content Include="Properties\System.Graphics.SharpDX.WindowsUniversal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -150,9 +150,6 @@
       <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
       <Name>System.Graphics.Text.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Elevenworks.Graphics.SharpDX.WindowsUniversal.nuspec" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

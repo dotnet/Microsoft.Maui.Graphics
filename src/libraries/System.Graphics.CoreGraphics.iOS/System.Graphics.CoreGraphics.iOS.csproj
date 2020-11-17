@@ -61,7 +61,7 @@
     <EmbeddedResource Include="GraphicsiOS.resx">
       <Generator>Public.ResXFileCodeGenerator</Generator>
       <LastGenOutput>GraphicsiOS.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>Elevenworks.Graphics.iOS</CustomToolNamespace>
+      <CustomToolNamespace>System.Graphics.CoreGraphics</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -77,11 +77,6 @@
       <Project>{18e74cfa-319a-4b5c-9ed0-ac6a7cf9985a}</Project>
       <Name>System.Graphics.Text.iOS</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Elevenworks.Graphics.iOS.nuspec">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="..\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems" Label="Shared" />
 </Project>

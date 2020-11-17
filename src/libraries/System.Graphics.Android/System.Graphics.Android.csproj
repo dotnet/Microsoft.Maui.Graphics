@@ -65,9 +65,6 @@
         <Compile Include="NativeFontStyle.cs" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="Elevenworks.Graphics.Android.nuspec">
-            <SubType>Designer</SubType>
-        </None>
         <None Include="Resources\AboutResources.txt" />
     </ItemGroup>
     <ItemGroup>
@@ -101,10 +98,6 @@
         <EmbeddedResource Include="Fonts\TeXGyreTermes-Regular.otf" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-            <Project>{B3522055-0AB5-4C61-9398-81F3409C8DD6}</Project>
-            <Name>Elevenworks.Services.Portable</Name>
-        </ProjectReference>
         <ProjectReference Include="..\System.Graphics.Core\System.Graphics.Core.csproj">
           <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
           <Name>System.Graphics.Core</Name>

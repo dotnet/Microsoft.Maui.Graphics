@@ -25,7 +25,7 @@
     https://go.microsoft.com/fwlink/?LinkID=391919
 -->
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Library Name="Elevenworks.Graphics.Forms.Win2D">
+  <Library Name="System.Graphics.Forms.Win2D">
 
   	<!-- add directives for your library here -->
 

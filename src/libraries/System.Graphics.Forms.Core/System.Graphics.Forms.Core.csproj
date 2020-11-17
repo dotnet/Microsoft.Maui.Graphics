@@ -5,7 +5,6 @@
         <AssemblyName>System.Graphics.Forms</AssemblyName>
         <RootNamespace>System.Graphics.Forms</RootNamespace>
         <Version>2.0.0</Version>
-        <Company>Elevenworks LLC</Company>
     </PropertyGroup>
 
     <ItemGroup>

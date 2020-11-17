@@ -17,7 +17,7 @@
 	    <comment>Title for error messages.</comment>
 	</data>
 	<data name="unable_to_create_bitmap" xml:space="preserve">
-	    <value>Unable to allocate enough memory to create a bitmap of size {0}x{1}.</value>
-	    <comment>Error message that is presented when enough memory cannot be allocted to create an image.</comment>
+	    <value>Unable to allocate enough memory to create a bitmap of size {0}x{1}. </value>
+	    <comment>Error message that is presented when enough memory cannot be allocated to create an image.</comment>
 	</data>
 </root>

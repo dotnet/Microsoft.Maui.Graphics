@@ -50,17 +50,9 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GraphicsViewRenderer.cs" />
     <Compile Include="Forms.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Elevenworks.Graphics.Forms.iOS.nuspec">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\System.Graphics.CoreGraphics.iOS\System.Graphics.CoreGraphics.iOS.csproj">

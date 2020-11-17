@@ -51,9 +51,6 @@
         <Compile Include="ColorExtensions.cs" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="Elevenworks.Text.Android.nuspec">
-            <SubType>Designer</SubType>
-        </None>
         <None Include="Resources\AboutResources.txt" />
     </ItemGroup>
     <ItemGroup>

@@ -71,7 +71,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.Skia.Windows
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.WindowsUniversal", "src\samples\GraphicsTester.WindowsUniversal\GraphicsTester.WindowsUniversal.csproj", "{91CD8AD3-E080-4286-8DC7-C2EE5D1625D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.Xaml", "src\samples\GraphicsTester.Xaml\GraphicsTester.Xaml.csproj", "{9365DB5B-E4F4-4E05-8558-DAA01789D7F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.Xaml", "src\samples\GraphicsTester.Xaml\GraphicsTester.Xaml.csproj", "{9365DB5B-E4F4-4E05-8558-DAA01789D7F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5FDD2BE9-96B1-4E7D-8028-B8158E6A0FEC}"
 EndProject
@@ -85,15 +85,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Text.CoreGraphics",
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\libraries\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems*{18e74cfa-319a-4b5c-9ed0-ac6a7cf9985a}*SharedItemsImports = 4
-		src\libraries\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems*{2d3af21a-d534-4a3e-9ea7-3f4a38fd1652}*SharedItemsImports = 13
-		src\libraries\Elevenworks.Graphics.SharpDX.Shared\Elevenworks.Graphics.SharpDX.Shared.projitems*{5163bcb2-4d70-42da-975a-af55d6b6a0b3}*SharedItemsImports = 13
-		src\libraries\Elevenworks.Graphics.SharpDX.Shared\Elevenworks.Graphics.SharpDX.Shared.projitems*{694e970d-5c18-483f-bc48-d6d86da8e78f}*SharedItemsImports = 4
-		src\libraries\Elevenworks.Text.CoreGraphics\Elevenworks.Text.CoreGraphics.projitems*{87e2fb65-b701-4009-9509-6efaca2dda7b}*SharedItemsImports = 4
-		src\libraries\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.projitems*{95a3e5f1-26b7-4bd8-8f01-48fe7bfd79fa}*SharedItemsImports = 13
-		src\libraries\Elevenworks.Graphics.SharpDX.Shared\Elevenworks.Graphics.SharpDX.Shared.projitems*{bc291304-fdc0-4e1d-a673-39f5e446b0e0}*SharedItemsImports = 5
-		src\libraries\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.projitems*{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}*SharedItemsImports = 4
-		src\libraries\Elevenworks.Graphics.CoreGraphics\Elevenworks.Graphics.CoreGraphics.projitems*{f8d43f64-af09-4e06-8473-5bdc37281908}*SharedItemsImports = 4
+		src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.projitems*{18e74cfa-319a-4b5c-9ed0-ac6a7cf9985a}*SharedItemsImports = 4
+		src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.projitems*{2d3af21a-d534-4a3e-9ea7-3f4a38fd1652}*SharedItemsImports = 13
+		src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems*{5163bcb2-4d70-42da-975a-af55d6b6a0b3}*SharedItemsImports = 13
+		src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems*{694e970d-5c18-483f-bc48-d6d86da8e78f}*SharedItemsImports = 4
+		src\libraries\Xamarin.Text.CoreGraphics\Xamarin.Text.CoreGraphics.projitems*{87e2fb65-b701-4009-9509-6efaca2dda7b}*SharedItemsImports = 4
+		src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems*{95a3e5f1-26b7-4bd8-8f01-48fe7bfd79fa}*SharedItemsImports = 13
+		src\libraries\Xamarin.Graphics.SharpDX.Shared\Xamarin.Graphics.SharpDX.Shared.projitems*{bc291304-fdc0-4e1d-a673-39f5e446b0e0}*SharedItemsImports = 5
+		src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems*{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}*SharedItemsImports = 4
+		src\libraries\Xamarin.Graphics.CoreGraphics\Xamarin.Graphics.CoreGraphics.projitems*{f8d43f64-af09-4e06-8473-5bdc37281908}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

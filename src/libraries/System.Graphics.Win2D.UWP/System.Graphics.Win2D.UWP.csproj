@@ -104,7 +104,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
+  <RestoreProjectStyle>PackageReference</RestoreProjectStyle></PropertyGroup>
   <ItemGroup>
     <Compile Include="AsyncPump.cs" />
     <Compile Include="W2DFontFamily.cs" />
@@ -117,7 +117,7 @@
     <Compile Include="W2DGraphicsService.cs" />
     <Compile Include="W2DGraphicsView.cs" />
     <Compile Include="W2DImage.cs" />
-    <EmbeddedResource Include="Properties\Elevenworks.Graphics.Win2D.rd.xml" />
+    <EmbeddedResource Include="Properties\System.Graphics.Win2D.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -136,9 +136,6 @@
       <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
       <Name>System.Graphics.Text.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Elevenworks.Graphics.Win2D.WindowsUniversal.nuspec" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace System.Graphics.CoreGraphics {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -36,7 +39,7 @@ namespace System.Graphics.CoreGraphics {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Elevenworks.Graphics.GraphicsMac", typeof(GraphicsMac).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("System.Graphics.CoreGraphics.GraphicsMac", typeof(GraphicsMac).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,7 +70,7 @@ namespace System.Graphics.CoreGraphics {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to allocate enough memory to create a bitmap of size {0}x{1}..
+        ///   Looks up a localized string similar to Unable to allocate enough memory to create a bitmap of size {0}x{1}. .
         /// </summary>
         internal static string unable_to_create_bitmap {
             get {

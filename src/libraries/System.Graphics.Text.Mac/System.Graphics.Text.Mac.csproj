@@ -65,11 +65,6 @@
         <Compile Include="NSColorExtensions.cs" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="Elevenworks.Text.Mac.nuspec">
-            <SubType>Designer</SubType>
-        </None>
-    </ItemGroup>
-    <ItemGroup>
       <ProjectReference Include="..\System.Graphics.Text.Core\System.Graphics.Text.Core.csproj">
         <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
         <Name>System.Graphics.Text.Core</Name>

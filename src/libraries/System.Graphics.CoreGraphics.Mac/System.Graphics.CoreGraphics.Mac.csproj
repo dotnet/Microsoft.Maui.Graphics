@@ -83,7 +83,7 @@
         <EmbeddedResource Include="GraphicsMac.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>GraphicsMac.Designer.cs</LastGenOutput>
-            <CustomToolNamespace>Elevenworks.Resources</CustomToolNamespace>
+            <CustomToolNamespace>System.Graphics.CoreGraphics</CustomToolNamespace>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
@@ -99,9 +99,6 @@
           <Project>{87e2fb65-b701-4009-9509-6efaca2dda7b}</Project>
           <Name>System.Graphics.Text.Mac</Name>
         </ProjectReference>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Elevenworks.Graphics.Mac.nuspec" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Extensions" />

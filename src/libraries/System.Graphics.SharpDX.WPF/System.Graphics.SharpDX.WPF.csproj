@@ -4,7 +4,6 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>System.Graphics.SharpDX</RootNamespace>
         <Version>2.0.0</Version>
-        <Company>Elevenworks LLC</Company>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
     </PropertyGroup>

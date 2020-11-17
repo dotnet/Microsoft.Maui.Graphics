@@ -116,7 +116,7 @@
     <Compile Include="XamlCanvasSession.cs" />
     <Compile Include="XamlCanvasState.cs" />
     <Compile Include="XamlGraphicsExtensions.cs" />
-    <Content Include="Properties\Elevenworks.Graphics.WindowsUniversal.Xaml.rd.xml" />
+    <Content Include="Properties\System.Graphics.WindowsUniversal.Xaml.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -132,9 +132,6 @@
       <Project>{29f2debb-7346-4284-b7d9-82937622ab2a}</Project>
       <Name>System.Graphics.Text.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Elevenworks.Graphics.Xaml.WindowsUniversal.nuspec" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

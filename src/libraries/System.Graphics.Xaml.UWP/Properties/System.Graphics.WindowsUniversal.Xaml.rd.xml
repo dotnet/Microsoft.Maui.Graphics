@@ -22,10 +22,10 @@
         types or methods decorated with an attribute.
 
     For more information on writing Runtime Directives for libraries, please visit
-    http://go.microsoft.com/fwlink/?LinkID=391919
+    http://go.microsoft.com/fwlink/?LinkId=613100
 -->
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Library Name="Elevenworks.Graphics.Win2D">
+  <Library Name="System.Graphics.WindowsUniversal.Xaml">
 
   	<!-- add directives for your library here -->
 

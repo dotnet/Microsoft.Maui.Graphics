@@ -90,13 +90,9 @@
     <InterfaceDefinition Include="MainWindow.xib" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Elevenworks.Graphics2\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{D3D43654-2899-486E-8E3F-4F5A81BA7A4C}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libraries\Elevenworks.Graphics.Mac\Elevenworks.Graphics.Mac.csproj">
+    <ProjectReference Include="..\..\libraries\System.Graphics.CoreGraphics.Mac\System.Graphics.CoreGraphics.Mac.csproj">
       <Project>{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}</Project>
-      <Name>Elevenworks.Graphics.Mac</Name>
+      <Name>System.Graphics.Mac</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\libraries\System.Graphics.CoreGraphics.Mac\System.Graphics.CoreGraphics.Mac.csproj">
       <Project>{edf26ebb-0ac3-4212-81d6-8dd08f5acc17}</Project>

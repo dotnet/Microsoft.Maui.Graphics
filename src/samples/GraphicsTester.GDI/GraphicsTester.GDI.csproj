@@ -95,18 +95,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Elevenworks.Common2\Elevenworks.Common.Portable\Elevenworks.Common.Portable.csproj">
-      <Project>{93e88856-ee96-442d-a705-edcaed895888}</Project>
-      <Name>Elevenworks.Common.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Elevenworks.Common2\Elevenworks.Services.Portable\Elevenworks.Services.Portable.csproj">
-      <Project>{9aa8397f-e446-4cfe-9dd7-a8ebdd6ad5c3}</Project>
-      <Name>Elevenworks.Services.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Elevenworks.Graphics2\Elevenworks.Graphics.Portable\Elevenworks.Graphics.Portable.csproj">
-      <Project>{6762efdb-1f08-491e-859c-64a18d0c9082}</Project>
-      <Name>Elevenworks.Graphics.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\libraries\System.Graphics.Core\System.Graphics.Core.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
       <Name>System.Graphics.Core</Name>
