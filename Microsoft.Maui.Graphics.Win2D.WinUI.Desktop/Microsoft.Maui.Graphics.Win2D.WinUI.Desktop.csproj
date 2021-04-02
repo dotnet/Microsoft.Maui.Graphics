@@ -10,7 +10,11 @@
       <PackageReference Include="Microsoft.ProjectReunion" Version="0.5.0" />
       <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.5.0" />
       <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.5.0" />
+<<<<<<< HEAD
       <PackageReference Include="Microsoft.Graphics.Win2D" Version="0.5.0.13" />
+=======
+      <PackageReference Include="Microsoft.Graphics.Win2D" Version="0.5.0.12" />
+>>>>>>> Added WinUI/Win2D project.
   </ItemGroup>
 
   <ItemGroup>
