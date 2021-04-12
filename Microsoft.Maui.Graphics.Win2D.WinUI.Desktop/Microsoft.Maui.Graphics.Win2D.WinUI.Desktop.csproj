@@ -10,7 +10,7 @@
       <PackageReference Include="Microsoft.ProjectReunion" Version="0.5.0" />
       <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.5.0" />
       <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.5.0" />
-      <PackageReference Include="Microsoft.Graphics.Win2D" Version="0.5.0.12" />
+      <PackageReference Include="Microsoft.Graphics.Win2D" Version="0.5.0.13" />
   </ItemGroup>
 
   <ItemGroup>

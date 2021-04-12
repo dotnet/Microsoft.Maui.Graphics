@@ -19,7 +19,7 @@
         <EmbeddedResource Include="Resources\swirl_pattern.png" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Markdig" Version="0.22.1" />
+        <PackageReference Include="Markdig" Version="0.23.0" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\..\src\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics.csproj" />

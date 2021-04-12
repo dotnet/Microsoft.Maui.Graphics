@@ -22,15 +22,6 @@
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0" />
   </Dependencies>
 
-  <Extensions>
-    <Extension Category="windows.activatableClass.inProcessServer">
-        <InProcessServer>
-            <Path>Microsoft.Graphics.Canvas.dll</Path>
-            <ActivatableClass ActivatableClassId="Microsoft.Graphics.Canvas.Text.CanvasFontSet" ThreadingModel="both" />
-        </InProcessServer>
-    </Extension>
-  </Extensions>
-
   <Resources>
     <Resource Language="x-generate"/>
   </Resources>

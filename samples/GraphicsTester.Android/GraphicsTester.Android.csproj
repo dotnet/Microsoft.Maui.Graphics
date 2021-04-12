@@ -66,7 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Markdig">
-      <Version>0.22.0</Version>
+      <Version>0.23.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

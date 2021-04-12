@@ -63,9 +63,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.Skia.Tizen",
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "GraphicsTester.WinUI.Desktop (Package)", "samples\GraphicsTester.WinUI.Desktop\GraphicsTester.WinUI.Desktop (Package)\GraphicsTester.WinUI.Desktop (Package).wapproj", "{B172A9D1-79E3-4265-8BE5-E2F7D11BB5F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.WinUI.Desktop", "samples\GraphicsTester.WinUI.Desktop\GraphicsTester.WinUI.Desktop\GraphicsTester.WinUI.Desktop.csproj", "{1128B6A9-04D9-45CF-B3B8-0D0B0AAD40FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.WinUI.Desktop", "samples\GraphicsTester.WinUI.Desktop\GraphicsTester.WinUI.Desktop\GraphicsTester.WinUI.Desktop.csproj", "{1128B6A9-04D9-45CF-B3B8-0D0B0AAD40FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop", "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop\Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.csproj", "{E32E3C81-C94E-4629-90C2-AE25A5B20A71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop", "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop\Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.csproj", "{E32E3C81-C94E-4629-90C2-AE25A5B20A71}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

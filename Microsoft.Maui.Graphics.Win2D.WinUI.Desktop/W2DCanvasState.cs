@@ -12,6 +12,7 @@ namespace Microsoft.Maui.Graphics.Win2D
     public class W2DCanvasState : CanvasState
     {
         private static FontWeight _nativeFontWeight = new FontWeight();
+        private static float[] _emptyFloatArray = new float[] { };
 
         private readonly W2DCanvas _owner;
         private readonly W2DCanvasState _parentState;
@@ -564,7 +565,7 @@ namespace Microsoft.Maui.Graphics.Win2D
                     }
                     else
                     {
-                        _strokeStyle.CustomDashStyle = null;
+                        _strokeStyle.CustomDashStyle = _emptyFloatArray;
                     }
 
                     _strokeStyle.MiterLimit = _miterLimit;

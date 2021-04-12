@@ -783,6 +783,7 @@ namespace Microsoft.Maui.Graphics.Win2D
 
         private void DrawShadow(Action<CanvasDrawingSession> drawingAction)
         {
+            /*
             var context = GetOrCreateEffectContext();
             if (context != null)
             {
@@ -803,12 +804,12 @@ namespace Microsoft.Maui.Graphics.Win2D
                 _session.Transform = Matrix3x2.Identity;
                 _session.DrawImage(_shadowEffect, 0,0);
                 _session.Transform = CurrentState.Matrix;
-            }
+            }*/
         }
 
         private void DrawBlurred(Action<CanvasDrawingSession> drawingAction)
         { 
-            var context = GetOrCreateEffectContext();
+           /* var context = GetOrCreateEffectContext();
             if (context != null)
             {
                 using (var imageSession = context.CreateDrawingSession())
@@ -828,7 +829,7 @@ namespace Microsoft.Maui.Graphics.Win2D
                 _session.Transform = Matrix3x2.Identity;
                 _session.DrawImage(_blurEffect, 0, 0);
                 _session.Transform = CurrentState.Matrix;
-            }
+            }*/
         }
 
         private void SetRect(float x, float y, float width, float height)
