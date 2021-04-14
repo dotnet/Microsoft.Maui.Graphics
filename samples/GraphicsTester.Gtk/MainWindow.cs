@@ -51,14 +51,16 @@ namespace Samples {
             _skiaGraphicsView = new GtkSkiaGraphicsView {
                 BackgroundColor = Colors.White
             };
-            _skiaGraphicsRenderer = new GtkSkiaDirectRenderer ();
+
+            _skiaGraphicsRenderer = new GtkSkiaDirectRenderer {
+                BackgroundColor = Colors.White
+            };
             _skiaGraphicsView.Renderer = _skiaGraphicsRenderer;
 
             var scroll1 = new ScrolledWindow ();
             scroll1.Child = _skiaGraphicsView;
 
             hpanned.Pack2 (scroll1, true, true);
-
 
             Child = hpanned;
 
@@ -100,7 +102,8 @@ namespace Samples {
             // Init treeview
             _store = new TreeStore (typeof(string));
             _treeView.Model = _store;
-            _items = new Dictionary<string, AbstractScenario>();
+            _items = new Dictionary<string, AbstractScenario> ();
+
             foreach (var scenario in ScenarioList.Scenarios) {
 
                 _store.AppendValues (scenario.ToString ());
