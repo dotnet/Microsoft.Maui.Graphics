@@ -1,8 +1,9 @@
-// This is free and unencumbered software released into the public domain.
+﻿// This is free and unencumbered software released into the public domain.
 // Happy coding!!! - GtkSharp Team
 
 using System;
 using Gtk;
+using Microsoft.Maui.Graphics.Skia;
 
 namespace Samples
 {
@@ -54,13 +55,13 @@ namespace Samples
             var dialog = new AboutDialog
             {
                 TransientFor = Win,
-                ProgramName = "GtkSharp Sample Application",
+                ProgramName = $"{nameof(GtkSkiaGraphicsView)} Sample Application",
                 Version = "1.0.0.0",
-                Comments = "A sample application for the GtkSharp project.",
+                Comments = $"A gtk sample application for the {typeof(Microsoft.Maui.Graphics.Point).Namespace} project.",
                 LogoIconName = "system-run-symbolic",
                 License = "This sample application is licensed under public domain.",
-                Website = "https://www.github.com/GtkSharp/GtkSharp",
-                WebsiteLabel = "GtkSharp Website"
+                Website = "https://www.github.com/dotnet/Microsoft.Maui.Graphics",
+                WebsiteLabel = "Microsoft.Maui.Graphics Website"
             };
             dialog.Run();
             dialog.Hide();

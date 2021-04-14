@@ -29,7 +29,7 @@ namespace Samples {
 
             _headerBar = new HeaderBar ();
             _headerBar.ShowCloseButton = true;
-            _headerBar.Title = "GtkSharp Sample Application";
+            _headerBar.Title = $"{nameof(GtkSkiaGraphicsView)} Sample Application";
 
             var btnClickMe = new Button ();
             btnClickMe.AlwaysShowImage = true;
@@ -55,6 +55,7 @@ namespace Samples {
             _skiaGraphicsRenderer = new GtkSkiaDirectRenderer {
                 BackgroundColor = Colors.White
             };
+
             _skiaGraphicsView.Renderer = _skiaGraphicsRenderer;
 
             var scroll1 = new ScrolledWindow ();
@@ -81,6 +82,8 @@ namespace Samples {
 
                 if (_items.TryGetValue (s, out var scenario)) {
                     _skiaGraphicsView.Drawable = scenario;
+                    _skiaGraphicsView.HeightRequest = (int)scenario.Height;
+                    _skiaGraphicsView.WidthRequest = (int)scenario.Width;
                 }
 
             }
