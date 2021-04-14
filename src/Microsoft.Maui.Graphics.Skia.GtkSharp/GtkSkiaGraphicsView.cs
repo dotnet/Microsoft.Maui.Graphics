@@ -69,10 +69,5 @@ namespace Microsoft.Maui.Graphics.Skia
             base.OnSizeAllocated (allocation);
         }
 
-
-        public void Invalidate()
-        {
-            QueueDraw ();
-        }
     }
 }

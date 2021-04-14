@@ -87,16 +87,16 @@ namespace Microsoft.Maui.Graphics.Skia
 
         public void Invalidate()
         {
-            _graphicsView?.Invalidate();
+            _graphicsView?.QueueDraw();
         }
 
         public void Invalidate(
             float x,
             float y,
             float w,
-            float h)
-        {
-            _graphicsView?.Invalidate();
+            float h) {
+            _graphicsView?.QueueDrawArea ((int) x, (int) y, (int) w, (int) h);
         }
+
     }
 }
