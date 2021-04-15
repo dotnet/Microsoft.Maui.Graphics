@@ -39,11 +39,13 @@ namespace Samples {
             Titlebar = _headerBar;
 
             var hpanned = new HPaned ();
-            hpanned.Position = 200;
+            hpanned.Position = 300;
 
             _treeView = new TreeView ();
             _treeView.HeadersVisible = false;
-            hpanned.Pack1 (_treeView, false, true);
+            var scroll0 = new ScrolledWindow ();
+            scroll0.Child = _treeView;
+            hpanned.Pack1 (scroll0, true, true);
 
             Fonts.Register (new SkiaFontService ("", ""));
             GraphicsPlatform.RegisterGlobalService (SkiaGraphicsService.Instance);
