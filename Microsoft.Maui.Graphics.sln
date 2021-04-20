@@ -67,6 +67,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.WinUI.Deskto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop", "Microsoft.Maui.Graphics.Win2D.WinUI.Desktop\Microsoft.Maui.Graphics.Win2D.WinUI.Desktop.csproj", "{E32E3C81-C94E-4629-90C2-AE25A5B20A71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Maui.Graphics.Skia.GtkSharp", "src\Microsoft.Maui.Graphics.Skia.GtkSharp\Microsoft.Maui.Graphics.Skia.GtkSharp.csproj", "{2FFF012B-3B49-4613-863B-4F090006897C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.Gtk", "samples\GraphicsTester.Gtk\GraphicsTester.Gtk.csproj", "{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Microsoft.Maui.Graphics.SharpDX.Shared\Microsoft.Maui.Graphics.SharpDX.Shared.projitems*{5163bcb2-4d70-42da-975a-af55d6b6a0b3}*SharedItemsImports = 13
@@ -470,6 +474,7 @@ Global
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE}.Debug|x86.Build.0 = Debug|Any CPU
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE}.Release|arm64.ActiveCfg = Release|Any CPU
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE}.Release|arm64.Build.0 = Release|Any CPU
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE}.Release|x64.ActiveCfg = Release|Any CPU
@@ -526,6 +531,14 @@ Global
 		{E32E3C81-C94E-4629-90C2-AE25A5B20A71}.Release|x64.Build.0 = Release|Any CPU
 		{E32E3C81-C94E-4629-90C2-AE25A5B20A71}.Release|x86.ActiveCfg = Release|Any CPU
 		{E32E3C81-C94E-4629-90C2-AE25A5B20A71}.Release|x86.Build.0 = Release|Any CPU
+		{2FFF012B-3B49-4613-863B-4F090006897C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FFF012B-3B49-4613-863B-4F090006897C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FFF012B-3B49-4613-863B-4F090006897C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FFF012B-3B49-4613-863B-4F090006897C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -559,6 +572,8 @@ Global
 		{B172A9D1-79E3-4265-8BE5-E2F7D11BB5F8} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
 		{1128B6A9-04D9-45CF-B3B8-0D0B0AAD40FB} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
 		{E32E3C81-C94E-4629-90C2-AE25A5B20A71} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
+		{2FFF012B-3B49-4613-863B-4F090006897C} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
+		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B07E734-6AE2-4A12-AD60-C072F3695854}
