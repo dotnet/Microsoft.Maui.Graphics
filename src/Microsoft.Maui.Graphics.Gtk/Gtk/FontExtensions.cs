@@ -1,3 +1,5 @@
+using Pango;
+
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public static class FontExtensions {
@@ -22,8 +24,26 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			_ => Pango.Style.Normal
 		};
 
-		public static Pango.Weight ToFontWeigth(double it)
-			=> Pango.Weight.Normal;
+		// enum Pango.Weight { Thin = 100, Ultralight = 200, Light = 300, Semilight = 350, Book = 380, Normal = 400, Medium = 500, Semibold = 600, Bold = 700, Ultrabold = 800, Heavy = 900, Ultraheavy = 1000,}
+
+		public static Pango.Weight ToFontWeigth(double it) {
+			Pango.Weight Div(double v) => (Pango.Weight) ((int) v / 100  * 100);
+			switch (it) {
+				case < 100:
+					return Weight.Thin;
+				case > 1000:
+					return Weight.Ultraheavy;
+				case < 325:
+					return Div(it);
+				case > 390:
+					return Div(it);
+
+				// missing: Semilight = 350, Book = 380
+
+			}
+
+		}
+
 
 		public static double ToFontWeigth(this Pango.Weight it)
 			=> (int) it;
