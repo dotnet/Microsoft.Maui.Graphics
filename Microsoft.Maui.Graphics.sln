@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Maui.Graphics.Ski
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.Gtk", "samples\GraphicsTester.Gtk\GraphicsTester.Gtk.csproj", "{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Maui.Graphics.Gtk", "src\Microsoft.Maui.Graphics.Gtk\Microsoft.Maui.Graphics.Gtk.csproj", "{8567A420-D9BF-4146-ADCB-1417CAAAD24F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Microsoft.Maui.Graphics.SharpDX.Shared\Microsoft.Maui.Graphics.SharpDX.Shared.projitems*{5163bcb2-4d70-42da-975a-af55d6b6a0b3}*SharedItemsImports = 13
@@ -180,6 +182,10 @@ Global
 		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8567A420-D9BF-4146-ADCB-1417CAAAD24F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8567A420-D9BF-4146-ADCB-1417CAAAD24F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8567A420-D9BF-4146-ADCB-1417CAAAD24F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8567A420-D9BF-4146-ADCB-1417CAAAD24F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +218,7 @@ Global
 		{2CC7E5DC-FE0C-4139-8E76-69AF0D08A3FE} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
 		{2FFF012B-3B49-4613-863B-4F090006897C} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 		{7F259E67-DFB9-4A3A-9187-5471EED2CDB1} = {CE764F51-0699-4446-BEE2-17FBBDC99C5C}
+		{8567A420-D9BF-4146-ADCB-1417CAAAD24F} = {9E4B772B-D417-4147-B8B1-FD9E3B0B4EC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B07E734-6AE2-4A12-AD60-C072F3695854}
