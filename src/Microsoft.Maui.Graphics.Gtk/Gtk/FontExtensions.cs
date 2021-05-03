@@ -27,29 +27,28 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		// enum Pango.Weight { Thin = 100, Ultralight = 200, Light = 300, Semilight = 350, Book = 380, Normal = 400, Medium = 500, Semibold = 600, Bold = 700, Ultrabold = 800, Heavy = 900, Ultraheavy = 1000,}
 
 		public static Pango.Weight ToFontWeigth(double it) {
-			Pango.Weight Div(double v) => (Pango.Weight) ((int) v / 100  * 100);
-			switch (it) {
-				case < 100:
-					return Weight.Thin;
-				case > 1000:
-					return Weight.Ultraheavy;
-				case < 325:
-					return Div(it);
-				case > 390:
-					return Div(it);
+			static Pango.Weight Div(double v) => (Pango.Weight) ((int) v / 100 * 100);
 
-				// missing: Semilight = 350, Book = 380
-
-			}
+			if (it < 100)
+				return Weight.Thin;
+			else if (it > 1000)
+				return Weight.Ultraheavy;
+			else if (it > 390 || it < 325)
+				return Div(it);
+			else if (it > 375)
+				return Pango.Weight.Book;
+			else if (it > 325)
+				return Pango.Weight.Semilight;
+			else
+				return 0;
 
 		}
-
 
 		public static double ToFontWeigth(this Pango.Weight it)
 			=> (int) it;
 
 		public static Pango.FontDescription ToFontStyle(this IFontStyle it) =>
-			new() {
+			new FontDescription() {
 				Style = it.StyleType.ToFontStyle(),
 				Weight = ToFontWeigth(it.Weight),
 				Family = it.FontFamily?.Name,
