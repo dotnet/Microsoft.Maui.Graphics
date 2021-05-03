@@ -78,9 +78,18 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			throw new NotImplementedException();
 		}
 
-		protected override void NativeDrawLine(float x1, float y1, float x2, float y2) {
+		void AddLine(Cairo.Context context, float x1, float y1, float x2, float y2) {
 			Context.MoveTo(x1, y1);
 			Context.LineTo(x2, y2);
+		}
+
+		void Draw() {
+			Context.Stroke();
+		}
+
+		protected override void NativeDrawLine(float x1, float y1, float x2, float y2) {
+			AddLine(Context, x1, y1, x2, y2);
+			Draw();
 		}
 
 		void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
@@ -90,13 +99,17 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			var endAngleInRadians = Geometry.DegreesToRadians(-endAngle);
 			var center = new PointF(x + width / 2f, y + height / 2f);
 			context.Scale(width / 2f, height / 2f);
+			context.NewSubPath();
 			context.Arc(center.X, center.Y, 1, startAngleInRadians, endAngleInRadians);
+
+			if (closed)
+				context.ClosePath();
 		}
 
 		protected override void NativeDrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
 			Context.Save();
 			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, closed);
-			Context.Paint();
+			Draw();
 			Context.Restore();
 
 		}
@@ -107,7 +120,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		protected override void NativeDrawRectangle(float x, float y, float width, float height) {
 			AddRectangle(Context, x, y, width, height);
-			Context.Paint();
+			Draw();
 		}
 
 		void AddRoundedRectangle(Cairo.Context context, float x, float y, float width, float height, float radius) {
@@ -151,7 +164,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		protected override void NativeDrawRoundedRectangle(float x, float y, float width, float height, float radius) {
 			AddRoundedRectangle(Context, x, y, width, height, radius);
-			Context.Paint();
+			Draw();
 		}
 
 		protected override void NativeDrawEllipse(float x, float y, float width, float height) {
@@ -160,7 +173,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		protected override void NativeDrawPath(PathF path) {
 			AddPath(Context, path);
-			Context.Paint();
+			Draw();
 		}
 
 		private void AddPath(Cairo.Context context, PathF target) {
@@ -243,8 +256,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		protected override void NativeRotate(float degrees, float radians, float x, float y) {
-		}
+		protected override void NativeRotate(float degrees, float radians, float x, float y) { }
 
 		protected override void NativeRotate(float degrees, float radians) { }
 
@@ -256,8 +268,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Context.Translate(tx, ty);
 		}
 
-		protected override void NativeConcatenateTransform(AffineTransform transform) {
-		}
+		protected override void NativeConcatenateTransform(AffineTransform transform) { }
 
 		public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero) { }
 
@@ -273,44 +284,43 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public override void ClipRectangle(float x, float y, float width, float height) { }
 
+		public void Fill() {
+			Context.Fill();
+		}
+
 		public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 			Context.Save();
 			AddArc(Context, y, y, width, height, startAngle, endAngle, clockwise, true);
-			Context.Fill();
+			Fill();
 			Context.Restore();
 		}
 
 		public override void FillRectangle(float x, float y, float width, float height) {
 			AddRectangle(Context, x, y, width, height);
-			Context.Fill();
+			Fill();
 		}
 
 		public override void FillRoundedRectangle(float x, float y, float width, float height, float cornerRadius) {
 			AddRoundedRectangle(Context, x, y, width, height, cornerRadius);
-			Context.Fill();
+			Fill();
 		}
 
 		public override void FillEllipse(float x, float y, float width, float height) {
 			FillArc(x, y, width, height, 0, (float) (Math.PI * 2f), true);
 		}
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) {
-		}
+		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) { }
 
-		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) {
-		}
+		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) { }
 
-		public override void DrawText(IAttributedText value, float x, float y, float width, float height) {
-		}
+		public override void DrawText(IAttributedText value, float x, float y, float width, float height) { }
 
 		public override void FillPath(PathF path, WindingMode windingMode) {
 			AddPath(Context, path);
-			Context.ClosePath();
-			Context.Fill();
+			Fill();
 		}
 
-		public override void SubtractFromClip(float x, float y, float width, float height) {
-		}
+		public override void SubtractFromClip(float x, float y, float width, float height) { }
 
 	}
 
