@@ -6,7 +6,8 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
         <RootNamespace>GraphicsTester.Gtk</RootNamespace>
-        <AssemblyName>GraphicsTester.Gtk</AssemblyName>
+
+        <PackageId>GraphicsTester.Skia.Gtk</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
