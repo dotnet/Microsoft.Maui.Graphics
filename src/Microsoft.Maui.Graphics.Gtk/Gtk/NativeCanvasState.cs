@@ -2,9 +2,32 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public class NativeCanvasState : CanvasState {
 
-		public NativeCanvasState() { }
+		public NativeCanvasState() {
+			Alpha = 1;
+			StrokeColor = Colors.Black.ToCairoColor();
+			MiterLimit = 10;
+			LineJoin = Cairo.LineJoin.Miter;
+			LineCap = Cairo.LineCap.Butt;
+		}
 
-		public NativeCanvasState(NativeCanvasState prototype) { }
+		public NativeCanvasState(NativeCanvasState prototype) {
+
+			StrokeDashPattern = prototype.StrokeDashPattern;
+			StrokeSize = prototype.StrokeSize;
+			Scale = prototype.Scale;
+			Transform = prototype.Transform;
+
+			Antialias = prototype.Antialias;
+			MiterLimit = prototype.MiterLimit;
+			StrokeColor = prototype.StrokeColor;
+			LineCap = prototype.LineCap;
+			LineJoin = prototype.LineJoin;
+			FillColor = prototype.FillColor;
+			FontName = prototype.FontName;
+			FontSize = prototype.FontSize;
+			BlendMode = prototype.BlendMode;
+			Alpha = prototype.Alpha;
+		}
 
 		public Cairo.Antialias Antialias { get; set; }
 

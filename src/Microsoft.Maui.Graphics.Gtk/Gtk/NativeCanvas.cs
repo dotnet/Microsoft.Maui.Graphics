@@ -77,12 +77,22 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		protected override void NativeSetStrokeDashPattern(float[] pattern, float strokeSize) { }
 
 		void AddLine(Cairo.Context context, float x1, float y1, float x2, float y2) {
-			Context.MoveTo(x1, y1);
-			Context.LineTo(x2, y2);
+			context.MoveTo(x1, y1);
+			context.LineTo(x2, y2);
 		}
 
 		void Draw() {
+			Context.SetSourceRGBA(CurrentState.StrokeColor.R, CurrentState.StrokeColor.G, CurrentState.StrokeColor.B, CurrentState.StrokeColor.A * CurrentState.Alpha);
+			Context.LineWidth = CurrentState.StrokeSize;
+			Context.MiterLimit = CurrentState.MiterLimit;
+			Context.LineCap = CurrentState.LineCap;
+			Context.LineJoin = CurrentState.LineJoin;
 			Context.Stroke();
+		}
+
+		public void Fill() {
+			Context.SetSourceRGBA(CurrentState.FillColor.R, CurrentState.FillColor.G, CurrentState.FillColor.B, CurrentState.FillColor.A * CurrentState.Alpha);
+			Context.Fill();
 		}
 
 		protected override void NativeDrawLine(float x1, float y1, float x2, float y2) {
@@ -242,9 +252,15 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		protected override void NativeRotate(float degrees, float radians, float x, float y) { }
+		protected override void NativeRotate(float degrees, float radians, float x, float y) {
+			Context.Translate(x, y);
+			Context.Rotate(radians);
+			Context.Translate(-x, -y);
+		}
 
-		protected override void NativeRotate(float degrees, float radians) { }
+		protected override void NativeRotate(float degrees, float radians) {
+			Context.Rotate(radians);
+		}
 
 		protected override void NativeScale(float fx, float fy) {
 			Context.Scale(fx, fy);
@@ -256,8 +272,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		protected override void NativeConcatenateTransform(AffineTransform transform) { }
 
-		public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero) { }
-
 		public override void SetShadow(SizeF offset, float blur, Color color) { }
 
 		public override void SetFillPaint(Paint paint, RectangleF rectangle) { }
@@ -268,11 +282,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public override void DrawImage(IImage image, float x, float y, float width, float height) { }
 
-		public override void ClipRectangle(float x, float y, float width, float height) { }
+		public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero) { }
 
-		public void Fill() {
-			Context.Fill();
-		}
+		public override void ClipRectangle(float x, float y, float width, float height) { }
 
 		public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, true);
@@ -294,16 +306,16 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Fill();
 		}
 
+		public override void FillPath(PathF path, WindingMode windingMode) {
+			AddPath(Context, path);
+			Fill();
+		}
+
 		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) { }
 
 		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) { }
 
 		public override void DrawText(IAttributedText value, float x, float y, float width, float height) { }
-
-		public override void FillPath(PathF path, WindingMode windingMode) {
-			AddPath(Context, path);
-			Fill();
-		}
 
 		public override void SubtractFromClip(float x, float y, float width, float height) { }
 
