@@ -4,6 +4,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public class NativeGraphicsService : IGraphicsService {
 
+		public static NativeGraphicsService Instance = new NativeGraphicsService();
+
 		public string SystemFontName { get; set; }
 
 		public string BoldSystemFontName { get; set; }

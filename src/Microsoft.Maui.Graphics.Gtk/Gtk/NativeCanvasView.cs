@@ -5,7 +5,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 	public class NativeCanvasView : global::Gtk.EventBox {
 
 		private IDrawable _drawable;
-		private RectangleF _dirty;
+		private RectangleF _dirtyRect;
 		private Color _backgroundColor;
 
 		public NativeCanvasView() {
@@ -17,6 +17,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			// ensure cr does not get disposed before it is passed back to Gtk
 			var context = new NativeCanvas {Context = cr};
 
+			Drawable?.Draw(context, _dirtyRect);
 
 			return base.OnDrawn(cr);
 		}
@@ -37,6 +38,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
+		protected override void OnSizeAllocated (Gdk.Rectangle allocation) {
+			_dirtyRect.Width = allocation.Width;
+			_dirtyRect.Height = allocation.Height;
+			base.OnSizeAllocated (allocation);
+		}
 	}
 
 }

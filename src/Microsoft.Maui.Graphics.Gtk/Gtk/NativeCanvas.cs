@@ -47,7 +47,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		protected override float NativeStrokeSize {
-			set => throw new NotImplementedException();
+			set => CurrentState.StrokeSize = value;
 		}
 
 		public override Color FillColor {
@@ -74,9 +74,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			set => CurrentState.BlendMode = value;
 		}
 
-		protected override void NativeSetStrokeDashPattern(float[] pattern, float strokeSize) {
-			throw new NotImplementedException();
-		}
+		protected override void NativeSetStrokeDashPattern(float[] pattern, float strokeSize) { }
 
 		void AddLine(Cairo.Context context, float x1, float y1, float x2, float y2) {
 			Context.MoveTo(x1, y1);
@@ -95,12 +93,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
 			// https://developer.gnome.org/cairo/stable/cairo-Paths.html#cairo-arc
 			// Angles are measured in radians
-			var startAngleInRadians = Geometry.DegreesToRadians(-startAngle);
-			var endAngleInRadians = Geometry.DegreesToRadians(-endAngle);
-			var center = new PointF(x + width / 2f, y + height / 2f);
-			context.Scale(width / 2f, height / 2f);
+
 			context.NewSubPath();
-			context.Arc(center.X, center.Y, 1, startAngleInRadians, endAngleInRadians);
+			var r = new RectangleF(x, y, width, height);
+			AddArc(context, r.Location, new PointF(r.Right, r.Bottom), startAngle, endAngle, clockwise);
 
 			if (closed)
 				context.ClosePath();
@@ -124,6 +120,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		void AddRoundedRectangle(Cairo.Context context, float x, float y, float width, float height, float radius) {
+			context.NewSubPath();
+
 			if (radius > width - radius)
 				radius = width / 2;
 
@@ -168,12 +166,37 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		protected override void NativeDrawEllipse(float x, float y, float width, float height) {
-			NativeDrawArc(x, y, width, height, 0, (float) (Math.PI * 2d), true, true);
+			NativeDrawArc(x, y, width, height, 0, 180, true, true);
 		}
 
 		protected override void NativeDrawPath(PathF path) {
 			AddPath(Context, path);
 			Draw();
+		}
+
+		private void AddArc(Cairo.Context context, PointF topLeft, PointF bottomRight, float startAngle, float endAngle, bool clockwise) {
+			var startAngleInRadians = Geometry.DegreesToRadians(-startAngle);
+			var endAngleInRadians = Geometry.DegreesToRadians(-endAngle);
+
+			while (startAngleInRadians < 0) {
+				startAngleInRadians += (float) Math.PI * 2;
+			}
+
+			while (endAngleInRadians < 0) {
+				endAngleInRadians += (float) Math.PI * 2;
+			}
+
+			var cx = (bottomRight.X + topLeft.X) / 2;
+			var cy = (bottomRight.Y + topLeft.Y) / 2;
+			var width = bottomRight.X - topLeft.X;
+			var height = bottomRight.Y - topLeft.Y;
+			var r = width / 2;
+
+			if (clockwise) {
+				context.Arc(cx, cy, r, startAngleInRadians, endAngleInRadians);
+			} else {
+				context.ArcNegative(cx, cy, r, startAngleInRadians, endAngleInRadians);
+			}
 		}
 
 		private void AddPath(Cairo.Context context, PathF target) {
@@ -228,28 +251,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					var endAngle = target.GetArcAngle(arcAngleIndex++);
 					var clockwise = target.GetArcClockwise(arcClockwiseIndex++);
 
-					var startAngleInRadians = Geometry.DegreesToRadians(-startAngle);
-					var endAngleInRadians = Geometry.DegreesToRadians(-endAngle);
+					AddArc(context, topLeft, bottomRight, startAngle, endAngle, clockwise);
 
-					while (startAngleInRadians < 0) {
-						startAngleInRadians += (float) Math.PI * 2;
-					}
-
-					while (endAngleInRadians < 0) {
-						endAngleInRadians += (float) Math.PI * 2;
-					}
-
-					var cx = (bottomRight.X + topLeft.X) / 2;
-					var cy = (bottomRight.Y + topLeft.Y) / 2;
-					var width = bottomRight.X - topLeft.X;
-					var height = bottomRight.Y - topLeft.Y;
-					var r = width / 2;
-
-					if (clockwise) {
-						context.Arc(cx, cy, r, startAngle, endAngle);
-					} else {
-						context.ArcNegative(cx, cy, r, startAngle, endAngle);
-					}
 				} else if (type == PathOperation.Close) {
 					context.ClosePath();
 				}
