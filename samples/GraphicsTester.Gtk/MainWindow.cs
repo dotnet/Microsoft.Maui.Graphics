@@ -57,7 +57,9 @@ namespace Samples
 			Fonts.Register(new NativeFontService());
 			GraphicsPlatform.RegisterGlobalService(NativeGraphicsService.Instance);
 
-			_gtkNativeCanvasView = new NativeCanvasView();
+			_gtkNativeCanvasView = new NativeCanvasView {
+				BackgroundColor = Colors.White
+			};
 
 
 			var scroll1 = new ScrolledWindow
