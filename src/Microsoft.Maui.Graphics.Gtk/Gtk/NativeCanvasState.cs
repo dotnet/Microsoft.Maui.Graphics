@@ -1,3 +1,5 @@
+using System;
+
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public class NativeCanvasState : CanvasState {
@@ -27,6 +29,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			FontSize = prototype.FontSize;
 			BlendMode = prototype.BlendMode;
 			Alpha = prototype.Alpha;
+
+			Shadow = prototype.Shadow;
 		}
 
 		public Cairo.Antialias Antialias { get; set; }
@@ -51,6 +55,14 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public float Alpha { get; set; }
 
+		private readonly double[] zerodash = new double[0];
+
+		public double[] NativeDash => StrokeDashPattern != null ? Array.ConvertAll(StrokeDashPattern, f => (double) f) : zerodash;
+
+		public (SizeF offset, float blur, Color color) Shadow { get; set; }
+
 	}
 
 }
+
+

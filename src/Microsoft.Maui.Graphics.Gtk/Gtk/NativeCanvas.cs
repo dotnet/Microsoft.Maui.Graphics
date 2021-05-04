@@ -26,6 +26,17 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return new NativeCanvasState(prototype);
 		}
 
+		public override void SaveState() {
+			Context?.Save();
+			base.SaveState();
+		}
+
+		public override bool RestoreState() {
+			Context?.Restore();
+
+			return base.RestoreState();
+		}
+
 		public override bool Antialias {
 			set => CurrentState.Antialias = CanvasExtensions.ToAntialias(value);
 		}
@@ -74,7 +85,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			set => CurrentState.BlendMode = value;
 		}
 
-		protected override void NativeSetStrokeDashPattern(float[] pattern, float strokeSize) { }
+		protected override void NativeSetStrokeDashPattern(float[] pattern, float strokeSize) {
+			CurrentState.StrokeDashPattern = pattern;
+		}
 
 		void AddLine(Cairo.Context context, float x1, float y1, float x2, float y2) {
 			context.MoveTo(x1, y1);
@@ -87,11 +100,53 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Context.MiterLimit = CurrentState.MiterLimit;
 			Context.LineCap = CurrentState.LineCap;
 			Context.LineJoin = CurrentState.LineJoin;
+
+			Context.SetDash(CurrentState.NativeDash, 0);
+			DrawShadow();
 			Context.Stroke();
+		}
+
+		public Cairo.Context CreateContext() {
+			var sf = new Cairo.ImageSurface(null, Cairo.Format.A1, 0, 0, 0);
+			var context = new Cairo.Context(sf);
+
+			return context;
+
+		}
+
+		public void DrawShadow() {
+			return;
+
+			if (CurrentState.Shadow != default) {
+				using var path = Context.CopyPath();
+				Context.Save();
+
+				var shadow = CreateContext();
+				//var shadow = Context;
+				shadow.Translate(CurrentState.Shadow.offset.Width, CurrentState.Shadow.offset.Height);
+
+				shadow.AppendPath(path);
+				shadow.ClosePath();
+				var color = Colors.Red.ToCairoColor(); //CurrentState.Shadow.color.ToCairoColor();
+				shadow.SetSourceRGBA(color.R, color.G, color.B, color.A);
+				shadow.Stroke();
+				// shadow.ClipPreserve();
+				// shadow.PaintWithAlpha(color.A);
+				var sf = shadow.GetTarget();
+				sf.Show(shadow, 10, 10);
+				// Context.SetSourceSurface(sf,10,10);
+				// Context.PaintWithAlpha(color.A);;
+				shadow.Dispose();
+
+				sf.Dispose();
+
+				Context.Restore();
+			}
 		}
 
 		public void Fill() {
 			Context.SetSourceRGBA(CurrentState.FillColor.R, CurrentState.FillColor.G, CurrentState.FillColor.B, CurrentState.FillColor.A * CurrentState.Alpha);
+			DrawShadow();
 			Context.Fill();
 		}
 
@@ -272,7 +327,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		protected override void NativeConcatenateTransform(AffineTransform transform) { }
 
-		public override void SetShadow(SizeF offset, float blur, Color color) { }
+		public override void SetShadow(SizeF offset, float blur, Color color) {
+			CurrentState.Shadow = (offset, blur, color);
+		}
 
 		public override void SetFillPaint(Paint paint, RectangleF rectangle) { }
 
