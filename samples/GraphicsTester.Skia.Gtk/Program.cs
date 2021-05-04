@@ -16,7 +16,7 @@ namespace Samples {
 		public static void Main(string[] args) {
 			Application.Init();
 
-			App = new Application("Microsoft.Maui.Graphics.Samples", GLib.ApplicationFlags.None);
+			App = new Application("Microsoft.Maui.Graphics.Samples.Gtk.Skia", GLib.ApplicationFlags.None);
 
 			App.Startup += (s, e) => {
 
