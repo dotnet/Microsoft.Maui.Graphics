@@ -119,45 +119,19 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Draw();
 		}
 
-		void AddRoundedRectangle(Cairo.Context context, float x, float y, float width, float height, float radius) {
-			context.NewSubPath();
+		void AddRoundedRectangle(Cairo.Context context, float l, float t, float w, float h, float r) {
+			const double degrees = System.Math.PI / 180d;
 
-			if (radius > width - radius)
-				radius = width / 2;
-
-			if (radius > height - radius)
-				radius = height / 2;
-
-			// top-left corner
-			context.MoveTo(x + radius, y);
-
-			// top edge
-			context.LineTo(x + width - radius, y);
-
-			// top-right corner
-			if (radius > 0)
-				context.Arc(x + width - radius, y + radius, radius, -90, 0);
-
-			// right edge
-			context.LineTo(x + width, y + height - radius);
-
-			// bottom-right corner
-			if (radius > 0)
-				context.Arc(x + width - radius, y + height - radius, radius, 0, 90);
-
-			// bottom edge
-			context.LineTo(x + radius, y + height);
-
-			// bottom-left corner
-			if (radius > 0)
-				context.Arc(x + radius, y + height - radius, radius, 90, 180);
-
-			// left edge
-			context.LineTo(x, y + radius);
-
-			// top-left corner
-			if (radius > 0)
-				context.Arc(x + radius, y + radius, radius, 180, 270);
+			context.NewPath();
+			// top left
+			context.Arc(l + r, t + r, r, 180 * degrees, 270 * degrees);
+			// // top right
+			context.Arc(l + w - r, t + r, r, 270 * degrees, 0);
+			// // bottom right
+			context.Arc(l + w - r, t + h - r, r, 0, 90 * degrees);
+			// // bottom left
+			context.Arc(l + r, t + h - r, r, 90 * degrees, 180 * degrees);
+			context.ClosePath();
 		}
 
 		protected override void NativeDrawRoundedRectangle(float x, float y, float width, float height, float radius) {
@@ -166,7 +140,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		protected override void NativeDrawEllipse(float x, float y, float width, float height) {
-			NativeDrawArc(x, y, width, height, 0, 180, true, true);
+			NativeDrawArc(x, y, width, height, -45, 45, true, true);
 		}
 
 		protected override void NativeDrawPath(PathF path) {
