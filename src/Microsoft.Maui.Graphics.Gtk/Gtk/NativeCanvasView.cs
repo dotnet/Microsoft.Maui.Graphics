@@ -17,6 +17,19 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			// ensure cr does not get disposed before it is passed back to Gtk
 			var context = new NativeCanvas {Context = cr};
 
+			context.SaveState();
+
+			if (_backgroundColor != null)
+			{
+				context.FillColor = _backgroundColor;
+				context.FillRectangle(_dirtyRect);
+			}
+			else
+			{
+				context.ClipRectangle(_dirtyRect);
+			}
+
+			context.RestoreState();
 			Drawable?.Draw(context, _dirtyRect);
 
 			return base.OnDrawn(cr);
