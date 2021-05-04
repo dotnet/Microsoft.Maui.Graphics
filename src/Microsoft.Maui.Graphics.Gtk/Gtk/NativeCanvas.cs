@@ -94,19 +94,15 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			// https://developer.gnome.org/cairo/stable/cairo-Paths.html#cairo-arc
 			// Angles are measured in radians
 
-			context.NewSubPath();
-			var r = new RectangleF(x, y, width, height);
-			AddArc(context, r.Location, new PointF(r.Right, r.Bottom), startAngle, endAngle, clockwise);
+			AddArc(context, x, y, width, height, startAngle, endAngle, clockwise);
 
 			if (closed)
 				context.ClosePath();
 		}
 
 		protected override void NativeDrawArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
-			Context.Save();
 			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, closed);
 			Draw();
-			Context.Restore();
 
 		}
 
@@ -119,18 +115,19 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Draw();
 		}
 
-		void AddRoundedRectangle(Cairo.Context context, float l, float t, float w, float h, float r) {
-			const double degrees = System.Math.PI / 180d;
+		const double degrees = System.Math.PI / 180d;
+
+		void AddRoundedRectangle(Cairo.Context context, float left, float top, float width, float height, float radius) {
 
 			context.NewPath();
 			// top left
-			context.Arc(l + r, t + r, r, 180 * degrees, 270 * degrees);
+			context.Arc(left + radius, top + radius, radius, 180 * degrees, 270 * degrees);
 			// // top right
-			context.Arc(l + w - r, t + r, r, 270 * degrees, 0);
+			context.Arc(left + width - radius, top + radius, radius, 270 * degrees, 0);
 			// // bottom right
-			context.Arc(l + w - r, t + h - r, r, 0, 90 * degrees);
+			context.Arc(left + width - radius, top + height - radius, radius, 0, 90 * degrees);
 			// // bottom left
-			context.Arc(l + r, t + h - r, r, 90 * degrees, 180 * degrees);
+			context.Arc(left + radius, top + height - radius, radius, 90 * degrees, 180 * degrees);
 			context.ClosePath();
 		}
 
@@ -139,8 +136,20 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Draw();
 		}
 
+		public void AddEllipse(Cairo.Context context, float x, float y, float width, float height) {
+			context.Save();
+			context.NewPath();
+
+			context.Translate(x + width / 2, y + height / 2);
+			context.Scale(width / 2f, height / 2f);
+			context.Arc(0, 0, 1, 0, 2 * Math.PI);
+			context.Restore();
+
+		}
+
 		protected override void NativeDrawEllipse(float x, float y, float width, float height) {
-			NativeDrawArc(x, y, width, height, -45, 45, true, true);
+			AddEllipse(Context, x, y, width, height);
+			Draw();
 		}
 
 		protected override void NativeDrawPath(PathF path) {
@@ -148,29 +157,29 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Draw();
 		}
 
-		private void AddArc(Cairo.Context context, PointF topLeft, PointF bottomRight, float startAngle, float endAngle, bool clockwise) {
-			var startAngleInRadians = Geometry.DegreesToRadians(-startAngle);
-			var endAngleInRadians = Geometry.DegreesToRadians(-endAngle);
+		private void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 
-			while (startAngleInRadians < 0) {
-				startAngleInRadians += (float) Math.PI * 2;
+			var startAngleInRadians = startAngle * -degrees;
+			var endAngleInRadians = endAngle * -degrees;
+
+			var cx = x + width / 2f;
+			var cy = y + height / 2f;
+
+			var r = 1;
+
+			context.Save();
+
+			context.Translate(cx, cy);
+			context.Scale(width / 2f, height / 2f);
+
+			if (clockwise)
+				context.Arc(0, 0, r, startAngleInRadians, endAngleInRadians);
+			else {
+				context.ArcNegative(0, 0, r, startAngleInRadians, endAngleInRadians);
 			}
 
-			while (endAngleInRadians < 0) {
-				endAngleInRadians += (float) Math.PI * 2;
-			}
+			context.Restore();
 
-			var cx = (bottomRight.X + topLeft.X) / 2;
-			var cy = (bottomRight.Y + topLeft.Y) / 2;
-			var width = bottomRight.X - topLeft.X;
-			var height = bottomRight.Y - topLeft.Y;
-			var r = width / 2;
-
-			if (clockwise) {
-				context.Arc(cx, cy, r, startAngleInRadians, endAngleInRadians);
-			} else {
-				context.ArcNegative(cx, cy, r, startAngleInRadians, endAngleInRadians);
-			}
 		}
 
 		private void AddPath(Cairo.Context context, PathF target) {
@@ -225,7 +234,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					var endAngle = target.GetArcAngle(arcAngleIndex++);
 					var clockwise = target.GetArcClockwise(arcClockwiseIndex++);
 
-					AddArc(context, topLeft, bottomRight, startAngle, endAngle, clockwise);
+					AddArc(context, topLeft.X, topLeft.Y, bottomRight.X - topLeft.X, bottomRight.Y - topLeft.Y, startAngle, endAngle, clockwise);
 
 				} else if (type == PathOperation.Close) {
 					context.ClosePath();
@@ -266,10 +275,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
-			Context.Save();
-			AddArc(Context, y, y, width, height, startAngle, endAngle, clockwise, true);
+			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, true);
 			Fill();
-			Context.Restore();
 		}
 
 		public override void FillRectangle(float x, float y, float width, float height) {
@@ -283,7 +290,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		public override void FillEllipse(float x, float y, float width, float height) {
-			FillArc(x, y, width, height, 0, (float) (Math.PI * 2f), true);
+			AddEllipse(Context, x, y, width, height);
+			Fill();
 		}
 
 		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) { }
