@@ -61,6 +61,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public (SizeF offset, float blur, Color color) Shadow { get; set; }
 
+		public (Paint paint, RectangleF rectangle) FillPaint { get; set; }
+
 	}
 
 }

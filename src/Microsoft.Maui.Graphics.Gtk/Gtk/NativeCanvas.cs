@@ -331,7 +331,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			CurrentState.Shadow = (offset, blur, color);
 		}
 
-		public override void SetFillPaint(Paint paint, RectangleF rectangle) { }
+		public override void SetFillPaint(Paint paint, RectangleF rectangle) {
+			CurrentState.FillPaint = (paint, rectangle);
+		}
 
 		public override void SetToSystemFont() { }
 
@@ -346,6 +348,79 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, true);
 			Fill();
+		}
+
+		public void AddFillPaint(Cairo.Context context, Paint paint, RectangleF rectangle) {
+			if (paint == null)
+				paint = Colors.White.AsPaint();
+
+			if (paint is LinearGradientPaint linearGradientPaint) {
+				var x1 = (float) (linearGradientPaint.StartPoint.X * rectangle.Width) + rectangle.X;
+				var y1 = (float) (linearGradientPaint.StartPoint.Y * rectangle.Height) + rectangle.Y;
+
+				var x2 = (float) (linearGradientPaint.EndPoint.X * rectangle.Width) + rectangle.X;
+				var y2 = (float) (linearGradientPaint.EndPoint.Y * rectangle.Height) + rectangle.Y;
+
+				var colors = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
+
+				var stops = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Offset);
+				;
+
+				try {
+					;
+				} catch (Exception exc) {
+					Logger.Debug(exc);
+					FillColor = linearGradientPaint.BlendStartAndEndColors();
+				}
+			} else if (paint is RadialGradientPaint radialGradientPaint) {
+
+				var colors = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
+
+				var stops = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Offset);
+				;
+
+				var centerX = (float) (radialGradientPaint.Center.X * rectangle.Width) + rectangle.X;
+				var centerY = (float) (radialGradientPaint.Center.Y * rectangle.Height) + rectangle.Y;
+				var radius = (float) radialGradientPaint.Radius * Math.Max(rectangle.Height, rectangle.Width);
+
+				if (radius == 0)
+					radius = Geometry.GetDistance(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+
+				try { } catch (Exception exc) {
+					Logger.Debug(exc);
+					FillColor = radialGradientPaint.BlendStartAndEndColors();
+				}
+			} else if (paint is PatternPaint patternPaint) {
+				var bitmap = patternPaint.GetPatternBitmap(DisplayScale);
+
+				if (bitmap != null) {
+					try { } catch (Exception exc) {
+						Logger.Debug(exc);
+						FillColor = paint.BackgroundColor;
+					}
+				} else {
+					FillColor = paint.BackgroundColor;
+				}
+			} else if (paint is ImagePaint imagePaint) {
+				var image = imagePaint.Image as GtkImage;
+
+				if (image != null) {
+					var bitmap = image.NativeImage;
+
+					if (bitmap != null) {
+						try { } catch (Exception exc) {
+							Logger.Debug(exc);
+							FillColor = paint.BackgroundColor;
+						}
+					} else {
+						FillColor = Colors.White;
+					}
+				} else {
+					FillColor = Colors.White;
+				}
+			} else {
+				FillColor = paint.BackgroundColor;
+			}
 		}
 
 		public override void FillRectangle(float x, float y, float width, float height) {
