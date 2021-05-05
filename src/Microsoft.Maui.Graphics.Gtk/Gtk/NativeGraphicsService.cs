@@ -11,15 +11,18 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public string BoldSystemFontName { get; set; }
 
 		public SizeF GetStringSize(string value, string fontName, float textSize) {
-			throw new System.NotImplementedException();
+			return new SizeF(value?.Length * 10 ?? 0, 10);
 		}
 
 		public SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment) {
-			throw new System.NotImplementedException();
+			return new SizeF(value?.Length * 10 ?? 0, 10);
 		}
 
 		public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png) {
-			throw new System.NotImplementedException();
+			var px = new Gdk.Pixbuf(stream);
+			var img = new GtkImage(px);
+
+			return img;
 		}
 
 		public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1) {

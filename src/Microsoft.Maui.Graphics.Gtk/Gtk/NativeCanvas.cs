@@ -102,7 +102,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Context.LineJoin = CurrentState.LineJoin;
 
 			Context.SetDash(CurrentState.NativeDash, 0);
-			DrawShadow();
+			DrawShadow(false);
 			Context.Stroke();
 		}
 
@@ -114,31 +114,49 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		}
 
-		public void DrawShadow() {
-			return;
+		public void DrawShadow(bool fill) {
 
 			if (CurrentState.Shadow != default) {
 				using var path = Context.CopyPath();
 				Context.Save();
+				var sfctx = Context.GetTarget();
 
-				var shadow = CreateContext();
-				//var shadow = Context;
-				shadow.Translate(CurrentState.Shadow.offset.Width, CurrentState.Shadow.offset.Height);
+				var extents = Context.PathExtents();
+				var pathSize = new Size(extents.X + extents.Width, extents.Height + extents.Y);
 
-				shadow.AppendPath(path);
-				shadow.ClosePath();
-				var color = Colors.Red.ToCairoColor(); //CurrentState.Shadow.color.ToCairoColor();
-				shadow.SetSourceRGBA(color.R, color.G, color.B, color.A);
-				shadow.Stroke();
-				// shadow.ClipPreserve();
-				// shadow.PaintWithAlpha(color.A);
-				var sf = shadow.GetTarget();
-				sf.Show(shadow, 10, 10);
-				// Context.SetSourceSurface(sf,10,10);
-				// Context.PaintWithAlpha(color.A);;
-				shadow.Dispose();
+				var s = sfctx.GetSize();
 
-				sf.Dispose();
+				var shadowSurface = s.HasValue ?
+					sfctx.CreateSimilar(sfctx.Content, (int) pathSize.Width, (int) pathSize.Height) :
+					new Cairo.ImageSurface(Cairo.Format.ARGB32, (int) pathSize.Width, (int) pathSize.Height);
+
+				var shadowCtx = new Cairo.Context(shadowSurface);
+
+				var shadow = CurrentState.Shadow;
+
+				shadowCtx.AppendPath(path);
+
+				if (fill)
+					shadowCtx.ClosePath();
+
+				var color = shadow.color.ToCairoColor();
+				shadowCtx.SetSourceRGBA(color.R, color.G, color.B, color.A);
+				shadowCtx.Clip();
+
+				if (true)
+					shadowCtx.PaintWithAlpha(0.3);
+				else {
+					shadowCtx.LineWidth = 10;
+					shadowCtx.Stroke();
+				}
+
+				shadowCtx.PopGroupToSource();
+				Context.SetSource(shadowSurface, shadow.offset.Width, shadow.offset.Height);
+				Context.Paint();
+
+				shadowCtx.Dispose();
+
+				shadowSurface.Dispose();
 
 				Context.Restore();
 			}
@@ -146,7 +164,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public void Fill() {
 			Context.SetSourceRGBA(CurrentState.FillColor.R, CurrentState.FillColor.G, CurrentState.FillColor.B, CurrentState.FillColor.A * CurrentState.Alpha);
-			DrawShadow();
+			DrawShadow(true);
 			Context.Fill();
 		}
 
@@ -335,16 +353,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			CurrentState.FillPaint = (paint, rectangle);
 		}
 
-		public override void SetToSystemFont() { }
-
-		public override void SetToBoldSystemFont() { }
-
-		public override void DrawImage(IImage image, float x, float y, float width, float height) { }
-
-		public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero) { }
-
-		public override void ClipRectangle(float x, float y, float width, float height) { }
-
 		public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, true);
 			Fill();
@@ -439,9 +447,44 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		public override void FillPath(PathF path, WindingMode windingMode) {
+			Context.Save();
+			Context.FillRule = windingMode.ToFillRule();
 			AddPath(Context, path);
 			Fill();
+			Context.Restore();
 		}
+
+		public void DrawPixbuf(Cairo.Context context, Gdk.Pixbuf pixbuf, double x, double y, double width, double height) {
+			context.Save();
+			context.Translate(x, y);
+
+			context.Scale(width / (double) pixbuf.Width, height / (double) pixbuf.Height);
+			Gdk.CairoHelper.SetSourcePixbuf(context, pixbuf, 0, 0);
+
+			using (var p = context.GetSource()) {
+				if (p is Cairo.SurfacePattern pattern) {
+					if (width > pixbuf.Width || height > pixbuf.Height) {
+						// Fixes blur issue when rendering on an image surface
+						pattern.Filter = Cairo.Filter.Fast;
+					} else
+						pattern.Filter = Cairo.Filter.Good;
+				}
+			}
+
+			context.Paint();
+
+			context.Restore();
+		}
+
+		public override void DrawImage(IImage image, float x, float y, float width, float height) {
+			if (image is GtkImage g && g.NativeImage is Gdk.Pixbuf pixbuf) {
+				DrawPixbuf(Context, pixbuf, x, y, width, height);
+			}
+		}
+
+		public override void SetToSystemFont() { }
+
+		public override void SetToBoldSystemFont() { }
 
 		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) { }
 
@@ -450,6 +493,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public override void DrawText(IAttributedText value, float x, float y, float width, float height) { }
 
 		public override void SubtractFromClip(float x, float y, float width, float height) { }
+
+		public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero) { }
+
+		public override void ClipRectangle(float x, float y, float width, float height) { }
 
 	}
 

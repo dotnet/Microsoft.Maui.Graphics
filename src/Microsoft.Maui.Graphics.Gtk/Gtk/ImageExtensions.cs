@@ -1,4 +1,5 @@
 using System;
+using Cairo;
 using Gtk;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
@@ -15,7 +16,23 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				_ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null)
 			};
 
-		public static Gdk.Pixbuf GetPatternBitmap(this Paint it, float scale) => null;
+		public static Gdk.Pixbuf GetPatternBitmap(this Paint it, float scale) {
+			// TODO:
+			if (it is PatternPaint pat) {
+				using var sf = new Cairo.ImageSurface(Format.Argb32, (int) pat.Pattern.Width, (int) pat.Pattern.Height);
+				using var ctx = new Cairo.Context(sf);
+
+				using var canv = new NativeCanvas {
+					Context = ctx,
+					DisplayScale = scale,
+				};
+
+				pat.Pattern.Draw(canv);
+				sf.Flush();
+			}
+
+			return default;
+		}
 
 	}
 

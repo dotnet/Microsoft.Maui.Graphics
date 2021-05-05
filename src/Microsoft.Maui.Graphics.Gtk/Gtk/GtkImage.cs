@@ -14,11 +14,12 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		private Gdk.Pixbuf _image;
+
+		// https://developer.gnome.org/gdk-pixbuf/stable/gdk-pixbuf-The-GdkPixbuf-Structure.html
 		public Gdk.Pixbuf NativeImage => _image;
 
 		public void Draw(ICanvas canvas, RectangleF dirtyRect) {
-			canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float)Math.Round(dirtyRect.Width), (float)Math.Round(dirtyRect.Height));
-
+			canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float) Math.Round(dirtyRect.Width), (float) Math.Round(dirtyRect.Height));
 		}
 
 		public void Dispose() {
@@ -42,11 +43,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return this;
 		}
 
-		public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
-		}
+		public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) { }
 
-		public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
-		}
+		public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) { }
 
 	}
 
