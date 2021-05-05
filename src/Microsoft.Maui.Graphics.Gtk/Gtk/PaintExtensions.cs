@@ -1,19 +1,20 @@
+using System;
+
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public static class PaintExtensions {
 
-		public static Cairo.Context PaintToSurface(this PatternPaint it, Cairo.Surface sf, float scale) {
-			var ctx = new Cairo.Context(sf);
-
-			ctx.Scale(scale, scale);
+		public static Cairo.Context PaintToSurface(this PatternPaint it, Cairo.Surface surface, float scale) {
+			var context = new Cairo.Context(surface);
+			context.Scale(scale, scale);
 
 			using var canv = new NativeCanvas {
-				Context = ctx,
+				Context = context,
 			};
 
 			it.Pattern.Draw(canv);
 
-			return ctx;
+			return context;
 
 		}
 
@@ -31,23 +32,67 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public static void SetCairoExtend(Cairo.Extend it) { }
 
-		public static Gdk.Pixbuf GetPatternBitmap(this Paint it, float scale) {
-			if (it is PatternPaint pat) {
-				using var sf = new Cairo.ImageSurface(Cairo.Format.Argb32, (int) pat.Pattern.Width, (int) pat.Pattern.Height);
-				using var ctx = pat.PaintToSurface(sf, scale);
-				sf.Flush();
+		public static Gdk.Pixbuf GetPatternBitmap(this PatternPaint it, float scale) {
+			using var surface = new Cairo.ImageSurface(Cairo.Format.Argb32, (int) it.Pattern.Width, (int) it.Pattern.Height);
+			using var context = it.PaintToSurface(surface, scale);
+			surface.Flush();
 
-				return sf.CreatePixbuf();
-			}
+			return surface.CreatePixbuf();
 
-			return default;
 		}
 
-		public static Cairo.Pattern GetCairoPattern(this PatternPaint pat, Cairo.Surface surface, float scale) {
+		/// <summary>
+		/// does not work, pattern isn't shown
+		/// </summary>
 
-			using var ctx = pat.PaintToSurface(surface, scale);
+		[GtkMissingImplementation]
+		public static Cairo.Pattern GetCairoPattern(this PatternPaint it, Cairo.Surface surface, float scale) {
+
+			using var context = it.PaintToSurface(surface, scale);
 			surface.Flush();
-			var pattern = new Cairo.SurfacePattern(surface) { };
+
+			var pattern = new Cairo.SurfacePattern(surface);
+
+			return pattern;
+		}
+
+		public static Cairo.Pattern GetCairoPattern(this LinearGradientPaint linearGradientPaint, RectangleF rectangle, float scaleFactor) {
+			var x1 = linearGradientPaint.StartPoint.X * rectangle.Width + rectangle.X;
+			var y1 = linearGradientPaint.StartPoint.Y * rectangle.Height + rectangle.Y;
+
+			var x2 = linearGradientPaint.EndPoint.X * rectangle.Width + rectangle.X;
+			var y2 = linearGradientPaint.EndPoint.Y * rectangle.Height + rectangle.Y;
+
+			// https://developer.gnome.org/cairo/stable/cairo-cairo-pattern-t.html#cairo-pattern-create-linear
+			var pattern = new Cairo.LinearGradient(x1, y1, x2, y2);
+
+			foreach (var s in linearGradientPaint.GetSortedStops()) {
+				pattern.AddColorStop(s.Offset, s.Color.ToCairoColor());
+			}
+
+			return pattern;
+		}
+
+		public static Cairo.Pattern GetCairoPattern(this RadialGradientPaint radialGradientPaint, RectangleF rectangle, float scaleFactor) {
+
+			var centerX = radialGradientPaint.Center.X * rectangle.Width;
+			var centerY = radialGradientPaint.Center.Y * rectangle.Height;
+
+			var x1 = centerX + rectangle.X;
+			var y1 = centerY + rectangle.Y;
+
+			var x2 = rectangle.Right - centerX;
+			var y2 = rectangle.Bottom - centerY;
+
+			var radius1 = radialGradientPaint.Radius * 1;
+			var radius2 = radialGradientPaint.Radius * Math.Max(rectangle.Width, rectangle.Height);
+
+			// https://developer.gnome.org/cairo/stable/cairo-cairo-pattern-t.html#cairo-pattern-create-radial
+			var pattern = new Cairo.RadialGradient(x1, y1, radius1, x2, y2, radius2);
+
+			foreach (var s in radialGradientPaint.GetSortedStops()) {
+				pattern.AddColorStop(s.Offset, s.Color.ToCairoColor());
+			}
 
 			return pattern;
 		}

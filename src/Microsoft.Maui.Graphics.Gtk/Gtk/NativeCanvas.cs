@@ -94,7 +94,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			context.LineTo(x2, y2);
 		}
 
-		void Draw() {
+		void Draw(bool preserve = false) {
 			Context.SetSourceRGBA(CurrentState.StrokeColor.R, CurrentState.StrokeColor.G, CurrentState.StrokeColor.B, CurrentState.StrokeColor.A * CurrentState.Alpha);
 			Context.LineWidth = CurrentState.StrokeSize;
 			Context.MiterLimit = CurrentState.MiterLimit;
@@ -103,15 +103,24 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 			Context.SetDash(CurrentState.NativeDash, 0);
 			DrawShadow(false);
-			Context.Stroke();
+
+			if (preserve)
+				Context.StrokePreserve();
+			else {
+				Context.Stroke();
+			}
 		}
 
-		public void Fill() {
+		public void Fill(bool preserve = false) {
 			Context.SetSourceRGBA(CurrentState.FillColor.R, CurrentState.FillColor.G, CurrentState.FillColor.B, CurrentState.FillColor.A * CurrentState.Alpha);
 			DrawShadow(true);
 			AddFillPaint(Context, CurrentState.FillPaint.paint, CurrentState.FillPaint.rectangle);
 
-			Context.Fill();
+			if (preserve)
+				Context.FillPreserve();
+			else
+				Context.Fill();
+
 		}
 
 		Cairo.Surface CreateSurface(Cairo.Context context, bool imageSurface = false) {
@@ -122,7 +131,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 			var s = surface.GetSize();
 
-			var shadowSurface = s.HasValue && ! imageSurface?
+			var shadowSurface = s.HasValue && !imageSurface ?
 				surface.CreateSimilar(surface.Content, (int) pathSize.Width, (int) pathSize.Height) :
 				new Cairo.ImageSurface(Cairo.Format.ARGB32, (int) pathSize.Width, (int) pathSize.Height);
 
@@ -160,7 +169,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					shadowCtx.Stroke();
 				}
 
-				shadowCtx.PopGroupToSource();
+				// shadowCtx.PopGroupToSource();
 				Context.SetSource(shadowSurface, shadow.offset.Width, shadow.offset.Height);
 				Context.Paint();
 
@@ -172,26 +181,24 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		[GtkMissingImplementation]
 		public void AddFillPaint(Cairo.Context context, Paint paint, RectangleF rectangle) {
 			if (paint == null)
 				return;
 
 			switch (paint) {
+				case SolidPaint solidPaint: {
+					FillColor = solidPaint.Color;
+
+					break;
+				}
 				case LinearGradientPaint linearGradientPaint: {
-					var x1 = (float) (linearGradientPaint.StartPoint.X * rectangle.Width) + rectangle.X;
-					var y1 = (float) (linearGradientPaint.StartPoint.Y * rectangle.Height) + rectangle.Y;
-
-					var x2 = (float) (linearGradientPaint.EndPoint.X * rectangle.Width) + rectangle.X;
-					var y2 = (float) (linearGradientPaint.EndPoint.Y * rectangle.Height) + rectangle.Y;
-
-					var colors = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
-
-					var stops = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Offset);
-					;
-
 					try {
-						;
+						if (linearGradientPaint.GetCairoPattern(rectangle, DisplayScale) is { } pattern) {
+							context.SetSource(pattern);
+							pattern.Dispose();
+						} else {
+							FillColor = paint.BackgroundColor;
+						}
 					} catch (Exception exc) {
 						Logger.Debug(exc);
 						FillColor = linearGradientPaint.BlendStartAndEndColors();
@@ -200,19 +207,15 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					break;
 				}
 				case RadialGradientPaint radialGradientPaint: {
-					var colors = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
 
-					var stops = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Offset);
-					;
-
-					var centerX = (float) (radialGradientPaint.Center.X * rectangle.Width) + rectangle.X;
-					var centerY = (float) (radialGradientPaint.Center.Y * rectangle.Height) + rectangle.Y;
-					var radius = (float) radialGradientPaint.Radius * Math.Max(rectangle.Height, rectangle.Width);
-
-					if (radius == 0)
-						radius = Geometry.GetDistance(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
-
-					try { } catch (Exception exc) {
+					try {
+						if (radialGradientPaint.GetCairoPattern(rectangle, DisplayScale) is { } pattern) {
+							context.SetSource(pattern);
+							pattern.Dispose();
+						} else {
+							FillColor = paint.BackgroundColor;
+						}
+					} catch (Exception exc) {
 						Logger.Debug(exc);
 						FillColor = radialGradientPaint.BlendStartAndEndColors();
 					}
@@ -220,44 +223,60 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					break;
 				}
 				case PatternPaint patternPaint: {
-					var pattern = patternPaint.GetCairoPattern(CreateSurface(context, true), DisplayScale);
+					try {
 
-					if (pattern != null) {
-						try {
+#if UseSurfacePattern
+						using var paintSurface = CreateSurface(context, true);
+
+						if (patternPaint.GetCairoPattern(paintSurface, DisplayScale) is { } pattern) {
 							pattern.Extend = Cairo.Extend.Repeat;
 							context.SetSource(pattern);
-						} catch (Exception exc) {
-							Logger.Debug(exc);
+							pattern.Dispose();
+
+
+						} else {
 							FillColor = paint.BackgroundColor;
 						}
-					} else {
+#else
+						using var px = patternPaint.GetPatternBitmap(DisplayScale);
+						using var pattern = px.CreatePattern(DisplayScale);
+						pattern.Extend = Cairo.Extend.Repeat;
+						context.SetSource(pattern);
+
+#endif
+
+					} catch (Exception exc) {
+						Logger.Debug(exc);
 						FillColor = paint.BackgroundColor;
 					}
 
 					break;
 				}
-				case ImagePaint imagePaint when imagePaint.Image is GtkImage image: {
+				case ImagePaint {Image: GtkImage image} imagePaint: {
 					var bitmap = image.NativeImage;
 
-					if (bitmap != null) {
+					if (bitmap != null && bitmap.CreatePattern(DisplayScale) is { } pattern) {
 						try {
-							;
+
+							context.SetSource(pattern);
+							pattern.Dispose();
+
 						} catch (Exception exc) {
 							Logger.Debug(exc);
 							FillColor = paint.BackgroundColor;
 						}
 					} else {
-						FillColor = Colors.White;
+						FillColor = paint.BackgroundColor ?? Colors.White;
 					}
 
 					break;
 				}
 				case ImagePaint imagePaint:
-					FillColor = Colors.White;
+					FillColor = paint.BackgroundColor ?? Colors.White;
 
 					break;
 				default:
-					FillColor = paint.BackgroundColor;
+					FillColor = paint.BackgroundColor ?? Colors.White;
 
 					break;
 			}
