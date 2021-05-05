@@ -27,7 +27,7 @@ namespace Samples
 			var headerBar = new HeaderBar
 			{
 				ShowCloseButton = true,
-				Title = $"{nameof(NativeCanvasView)} Sample Application"
+				Title = $"{typeof(Point).Namespace} Gtk Sample Application"
 			};
 
 			var btnClickMe = new Button
