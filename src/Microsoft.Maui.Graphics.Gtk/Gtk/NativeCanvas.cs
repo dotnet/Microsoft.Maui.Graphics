@@ -114,6 +114,22 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Context.Fill();
 		}
 
+		Cairo.Surface CreateSurface(Cairo.Context context, bool imageSurface = false) {
+			var surface = context.GetTarget();
+
+			var extents = context.PathExtents();
+			var pathSize = new Size(extents.X + extents.Width, extents.Height + extents.Y);
+
+			var s = surface.GetSize();
+
+			var shadowSurface = s.HasValue && ! imageSurface?
+				surface.CreateSimilar(surface.Content, (int) pathSize.Width, (int) pathSize.Height) :
+				new Cairo.ImageSurface(Cairo.Format.ARGB32, (int) pathSize.Width, (int) pathSize.Height);
+
+			return shadowSurface;
+
+		}
+
 		public void DrawShadow(bool fill) {
 
 			if (CurrentState.Shadow != default) {
@@ -122,16 +138,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 				Context.Save();
 
-				var sfctx = Context.GetTarget();
-
-				var extents = Context.PathExtents();
-				var pathSize = new Size(extents.X + extents.Width, extents.Height + extents.Y);
-
-				var s = sfctx.GetSize();
-
-				var shadowSurface = s.HasValue ?
-					sfctx.CreateSimilar(sfctx.Content, (int) pathSize.Width, (int) pathSize.Height) :
-					new Cairo.ImageSurface(Cairo.Format.ARGB32, (int) pathSize.Width, (int) pathSize.Height);
+				var shadowSurface = CreateSurface(Context);
 
 				var shadowCtx = new Cairo.Context(shadowSurface);
 
@@ -213,10 +220,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					break;
 				}
 				case PatternPaint patternPaint: {
-					var pattern = patternPaint.GetCairoPattern(context.GetTarget(), DisplayScale);
+					var pattern = patternPaint.GetCairoPattern(CreateSurface(context, true), DisplayScale);
 
 					if (pattern != null) {
 						try {
+							pattern.Extend = Cairo.Extend.Repeat;
 							context.SetSource(pattern);
 						} catch (Exception exc) {
 							Logger.Debug(exc);
