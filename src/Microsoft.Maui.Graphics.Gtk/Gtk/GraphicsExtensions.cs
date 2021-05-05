@@ -1,3 +1,5 @@
+using System;
+
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public static class GraphicsExtensions {
@@ -40,6 +42,15 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public static Gdk.Size ToNative(this SizeF it)
 			=> new Gdk.Size((int) it.Width, (int) it.Height);
+
+		public static double ScaledFromPango(this int it)
+			=> Math.Ceiling(it/ Pango.Scale.PangoScale);
+
+		public static int ScaledToPango(this double it)
+			=> (int) Math.Ceiling(it * Pango.Scale.PangoScale);
+
+		public static int ScaledToPango(this float it)
+			=> (int) Math.Ceiling(it * Pango.Scale.PangoScale);
 
 	}
 

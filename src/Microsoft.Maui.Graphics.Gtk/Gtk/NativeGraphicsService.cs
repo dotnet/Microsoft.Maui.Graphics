@@ -19,33 +19,50 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
+		public string SystemFontName => NativeFontService.Instance.SystemFontName;
+
+		public string BoldSystemFontName => NativeFontService.Instance.BoldSystemFontName;
+
+		private static TextLayout? _textLayout;
+
+		public TextLayout SharedTextLayout => _textLayout ??= new TextLayout(SharedContext);
+
+		public SizeF GetStringSize(string value, string fontName, float textHeigth) {
+			if (string.IsNullOrEmpty(value))
+				return new SizeF();
+
+			lock (SharedTextLayout) {
+				SharedTextLayout.FontFamily = fontName;
+
+				return SharedTextLayout.GetSize(value, textHeigth);
+			}
+
+		}
+
+		public SizeF GetStringSize(string value, string fontName, float textHeigth, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment) {
+			if (string.IsNullOrEmpty(value))
+				return new SizeF();
+
+			lock (SharedTextLayout) {
+				SharedTextLayout.FontFamily = fontName;
+				SharedTextLayout.HorizontalAlignment = horizontalAlignment;
+				SharedTextLayout.VerticalAlignment = verticalAlignment;
+
+				return SharedTextLayout.GetSize(value, textHeigth);
+			}
+		}
+
+		public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png) {
+			var px = new Gdk.Pixbuf(stream);
+			var img = new GtkImage(px);
+
+			return img;
+		}
+
+		public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1) {
+			return new GtkBitmapExportContext(width, height, displayScale);
+		}
+
 	}
 
-	public string SystemFontName => NativeFontService.Instance.SystemFontName;
-
-	public string BoldSystemFontName => NativeFontService.Instance.BoldSystemFontName;
-
-	[GtkMissingImplementation]
-	public SizeF GetStringSize(string value, string fontName, float textSize) {
-	return new SizeF(value?.Length * 10 ?? 0, 10);
-
-}
-
-[GtkMissingImplementation]
-public SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment) {
-	return new SizeF(value?.Length * 10 ?? 0, 10);
-}
-
-public IImage LoadImageFromStream(Stream stream, ImageFormat format = ImageFormat.Png) {
-	var px = new Gdk.Pixbuf(stream);
-	var img = new GtkImage(px);
-
-	return img;
-}
-
-public BitmapExportContext CreateBitmapExportContext(int width, int height, float displayScale = 1) {
-	return new GtkBitmapExportContext(width, height, displayScale);
-}
-
-}
 }
