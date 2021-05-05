@@ -11,6 +11,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		Pango.Context SystemContext => _systemContext ??= Gdk.PangoHelper.ContextGet();
 
+		[GtkMissingImplementation]
 		public override IFontFamily[] GetFontFamilies() {
 			throw new NotImplementedException();
 		}

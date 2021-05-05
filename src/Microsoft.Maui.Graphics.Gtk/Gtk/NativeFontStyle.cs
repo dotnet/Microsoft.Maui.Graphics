@@ -64,6 +64,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
             return string.Compare(Name, other.Name, StringComparison.Ordinal);
         }
 
+        [GtkMissingImplementation]
         public System.IO.Stream OpenStream()
         {
             throw new NotImplementedException();

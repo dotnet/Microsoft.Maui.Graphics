@@ -16,6 +16,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				_ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null)
 			};
 
+		[GtkMissingImplementation]
 		public static Gdk.Pixbuf GetPatternBitmap(this Paint it, float scale) {
 			// TODO:
 			if (it is PatternPaint pat) {

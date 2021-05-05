@@ -14,5 +14,10 @@
     <ItemGroup>
         <PackageReference Include="GtkSharp" Version="3.24.24.34" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="GtkMissingImplementationAttribute.cs">
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 
 </Project>

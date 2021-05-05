@@ -48,7 +48,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			=> (int) it;
 
 		public static Pango.FontDescription ToFontStyle(this IFontStyle it) =>
-			new FontDescription() {
+			new FontDescription {
 				Style = it.StyleType.ToFontStyle(),
 				Weight = ToFontWeigth(it.Weight),
 				Family = it.FontFamily?.Name,

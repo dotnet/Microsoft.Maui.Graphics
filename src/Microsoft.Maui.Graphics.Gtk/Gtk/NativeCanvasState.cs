@@ -31,6 +31,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Alpha = prototype.Alpha;
 
 			Shadow = prototype.Shadow;
+			FillPaint = prototype.FillPaint;
+
 		}
 
 		public Cairo.Antialias Antialias { get; set; }

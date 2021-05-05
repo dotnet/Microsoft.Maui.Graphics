@@ -20,6 +20,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return _fontStyles ??= GetAvailableFontStyles();
 		}
 
+		[GtkMissingImplementation]
 		private IFontStyle[] GetAvailableFontStyles() {
 			throw new NotImplementedException();
 		}

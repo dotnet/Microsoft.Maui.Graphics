@@ -31,20 +31,25 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public float Height { get; }
 
+		[GtkMissingImplementation]
 		public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false) {
 			return this;
 		}
 
+		[GtkMissingImplementation]
 		public IImage Downsize(float maxWidth, float maxHeight, bool disposeOriginal = false) {
 			return this;
 		}
 
+		[GtkMissingImplementation]
 		public IImage Resize(float width, float height, ResizeMode resizeMode = ResizeMode.Fit, bool disposeOriginal = false) {
 			return this;
 		}
 
+		[GtkMissingImplementation]
 		public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) { }
 
+		[GtkMissingImplementation]
 		public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) { }
 
 	}

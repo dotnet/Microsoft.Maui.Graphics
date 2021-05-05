@@ -12,14 +12,14 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public Cairo.Context Context {
 			get => _context;
 			set {
-				_context = null;
+				_context = default;
 				ResetState();
 				_context = value;
 			}
 		}
 
 		private static NativeCanvasState CreateNewState(object context) {
-			return new NativeCanvasState() { };
+			return new NativeCanvasState { };
 		}
 
 		private static NativeCanvasState CreateStateCopy(NativeCanvasState prototype) {
@@ -33,7 +33,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public override bool RestoreState() {
 			Context?.Restore();
-
 			return base.RestoreState();
 		}
 
@@ -106,19 +105,20 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Context.Stroke();
 		}
 
-		public Cairo.Context CreateContext() {
-			var sf = new Cairo.ImageSurface(null, Cairo.Format.A1, 0, 0, 0);
-			var context = new Cairo.Context(sf);
-
-			return context;
-
+		public void Fill() {
+			Context.SetSourceRGBA(CurrentState.FillColor.R, CurrentState.FillColor.G, CurrentState.FillColor.B, CurrentState.FillColor.A * CurrentState.Alpha);
+			DrawShadow(true);
+			Context.Fill();
 		}
 
 		public void DrawShadow(bool fill) {
 
 			if (CurrentState.Shadow != default) {
+
 				using var path = Context.CopyPath();
+
 				Context.Save();
+
 				var sfctx = Context.GetTarget();
 
 				var extents = Context.PathExtents();
@@ -162,10 +162,77 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		public void Fill() {
-			Context.SetSourceRGBA(CurrentState.FillColor.R, CurrentState.FillColor.G, CurrentState.FillColor.B, CurrentState.FillColor.A * CurrentState.Alpha);
-			DrawShadow(true);
-			Context.Fill();
+		[GtkMissingImplementation]
+		public void AddFillPaint(Cairo.Context context, Paint paint, RectangleF rectangle) {
+			if (paint == null)
+				paint = Colors.White.AsPaint();
+
+			if (paint is LinearGradientPaint linearGradientPaint) {
+				var x1 = (float) (linearGradientPaint.StartPoint.X * rectangle.Width) + rectangle.X;
+				var y1 = (float) (linearGradientPaint.StartPoint.Y * rectangle.Height) + rectangle.Y;
+
+				var x2 = (float) (linearGradientPaint.EndPoint.X * rectangle.Width) + rectangle.X;
+				var y2 = (float) (linearGradientPaint.EndPoint.Y * rectangle.Height) + rectangle.Y;
+
+				var colors = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
+
+				var stops = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Offset);
+				;
+
+				try {
+					;
+				} catch (Exception exc) {
+					Logger.Debug(exc);
+					FillColor = linearGradientPaint.BlendStartAndEndColors();
+				}
+			} else if (paint is RadialGradientPaint radialGradientPaint) {
+
+				var colors = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
+
+				var stops = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Offset);
+				;
+
+				var centerX = (float) (radialGradientPaint.Center.X * rectangle.Width) + rectangle.X;
+				var centerY = (float) (radialGradientPaint.Center.Y * rectangle.Height) + rectangle.Y;
+				var radius = (float) radialGradientPaint.Radius * Math.Max(rectangle.Height, rectangle.Width);
+
+				if (radius == 0)
+					radius = Geometry.GetDistance(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
+
+				try { } catch (Exception exc) {
+					Logger.Debug(exc);
+					FillColor = radialGradientPaint.BlendStartAndEndColors();
+				}
+			} else if (paint is PatternPaint patternPaint) {
+				var bitmap = patternPaint.GetPatternBitmap(DisplayScale);
+
+				if (bitmap != null) {
+					try { } catch (Exception exc) {
+						Logger.Debug(exc);
+						FillColor = paint.BackgroundColor;
+					}
+				} else {
+					FillColor = paint.BackgroundColor;
+				}
+			} else if (paint is ImagePaint imagePaint) {
+
+				if (imagePaint.Image is GtkImage image) {
+					var bitmap = image.NativeImage;
+
+					if (bitmap != null) {
+						try { } catch (Exception exc) {
+							Logger.Debug(exc);
+							FillColor = paint.BackgroundColor;
+						}
+					} else {
+						FillColor = Colors.White;
+					}
+				} else {
+					FillColor = Colors.White;
+				}
+			} else {
+				FillColor = paint.BackgroundColor;
+			}
 		}
 
 		protected override void NativeDrawLine(float x1, float y1, float x2, float y2) {
@@ -174,8 +241,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
-			// https://developer.gnome.org/cairo/stable/cairo-Paths.html#cairo-arc
-			// Angles are measured in radians
+
 
 			AddArc(context, x, y, width, height, startAngle, endAngle, clockwise);
 
@@ -198,19 +264,22 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Draw();
 		}
 
-		const double degrees = System.Math.PI / 180d;
+		/// <summary>
+		/// degree-value * mRadians = radians
+		/// </summary>
+		const double mRadians = System.Math.PI / 180d;
 
 		void AddRoundedRectangle(Cairo.Context context, float left, float top, float width, float height, float radius) {
 
 			context.NewPath();
 			// top left
-			context.Arc(left + radius, top + radius, radius, 180 * degrees, 270 * degrees);
+			context.Arc(left + radius, top + radius, radius, 180 * mRadians, 270 * mRadians);
 			// // top right
-			context.Arc(left + width - radius, top + radius, radius, 270 * degrees, 0);
+			context.Arc(left + width - radius, top + radius, radius, 270 * mRadians, 0);
 			// // bottom right
-			context.Arc(left + width - radius, top + height - radius, radius, 0, 90 * degrees);
+			context.Arc(left + width - radius, top + height - radius, radius, 0, 90 * mRadians);
 			// // bottom left
-			context.Arc(left + radius, top + height - radius, radius, 90 * degrees, 180 * degrees);
+			context.Arc(left + radius, top + height - radius, radius, 90 * mRadians, 180 * mRadians);
 			context.ClosePath();
 		}
 
@@ -242,8 +311,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		private void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 
-			var startAngleInRadians = startAngle * -degrees;
-			var endAngleInRadians = endAngle * -degrees;
+			// https://developer.gnome.org/cairo/stable/cairo-Paths.html#cairo-arc
+			// Angles are measured in radians
+
+			var startAngleInRadians = startAngle * -mRadians;
+			var endAngleInRadians = endAngle * -mRadians;
 
 			var cx = x + width / 2f;
 			var cy = y + height / 2f;
@@ -343,6 +415,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Context.Translate(tx, ty);
 		}
 
+		[GtkMissingImplementation]
 		protected override void NativeConcatenateTransform(AffineTransform transform) { }
 
 		public override void SetShadow(SizeF offset, float blur, Color color) {
@@ -356,79 +429,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public override void FillArc(float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise) {
 			AddArc(Context, x, y, width, height, startAngle, endAngle, clockwise, true);
 			Fill();
-		}
-
-		public void AddFillPaint(Cairo.Context context, Paint paint, RectangleF rectangle) {
-			if (paint == null)
-				paint = Colors.White.AsPaint();
-
-			if (paint is LinearGradientPaint linearGradientPaint) {
-				var x1 = (float) (linearGradientPaint.StartPoint.X * rectangle.Width) + rectangle.X;
-				var y1 = (float) (linearGradientPaint.StartPoint.Y * rectangle.Height) + rectangle.Y;
-
-				var x2 = (float) (linearGradientPaint.EndPoint.X * rectangle.Width) + rectangle.X;
-				var y2 = (float) (linearGradientPaint.EndPoint.Y * rectangle.Height) + rectangle.Y;
-
-				var colors = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
-
-				var stops = Array.ConvertAll(linearGradientPaint.GetSortedStops(), s => s.Offset);
-				;
-
-				try {
-					;
-				} catch (Exception exc) {
-					Logger.Debug(exc);
-					FillColor = linearGradientPaint.BlendStartAndEndColors();
-				}
-			} else if (paint is RadialGradientPaint radialGradientPaint) {
-
-				var colors = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Color.ToCairoColor());
-
-				var stops = Array.ConvertAll(radialGradientPaint.GetSortedStops(), s => s.Offset);
-				;
-
-				var centerX = (float) (radialGradientPaint.Center.X * rectangle.Width) + rectangle.X;
-				var centerY = (float) (radialGradientPaint.Center.Y * rectangle.Height) + rectangle.Y;
-				var radius = (float) radialGradientPaint.Radius * Math.Max(rectangle.Height, rectangle.Width);
-
-				if (radius == 0)
-					radius = Geometry.GetDistance(rectangle.Left, rectangle.Top, rectangle.Right, rectangle.Bottom);
-
-				try { } catch (Exception exc) {
-					Logger.Debug(exc);
-					FillColor = radialGradientPaint.BlendStartAndEndColors();
-				}
-			} else if (paint is PatternPaint patternPaint) {
-				var bitmap = patternPaint.GetPatternBitmap(DisplayScale);
-
-				if (bitmap != null) {
-					try { } catch (Exception exc) {
-						Logger.Debug(exc);
-						FillColor = paint.BackgroundColor;
-					}
-				} else {
-					FillColor = paint.BackgroundColor;
-				}
-			} else if (paint is ImagePaint imagePaint) {
-				var image = imagePaint.Image as GtkImage;
-
-				if (image != null) {
-					var bitmap = image.NativeImage;
-
-					if (bitmap != null) {
-						try { } catch (Exception exc) {
-							Logger.Debug(exc);
-							FillColor = paint.BackgroundColor;
-						}
-					} else {
-						FillColor = Colors.White;
-					}
-				} else {
-					FillColor = Colors.White;
-				}
-			} else {
-				FillColor = paint.BackgroundColor;
-			}
 		}
 
 		public override void FillRectangle(float x, float y, float width, float height) {
@@ -482,20 +482,28 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
+		[GtkMissingImplementation]
 		public override void SetToSystemFont() { }
 
+		[GtkMissingImplementation]
 		public override void SetToBoldSystemFont() { }
 
+		[GtkMissingImplementation]
 		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) { }
 
+		[GtkMissingImplementation]
 		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) { }
 
+		[GtkMissingImplementation]
 		public override void DrawText(IAttributedText value, float x, float y, float width, float height) { }
 
+		[GtkMissingImplementation]
 		public override void SubtractFromClip(float x, float y, float width, float height) { }
 
+		[GtkMissingImplementation]
 		public override void ClipPath(PathF path, WindingMode windingMode = WindingMode.NonZero) { }
 
+		[GtkMissingImplementation]
 		public override void ClipRectangle(float x, float y, float width, float height) { }
 
 	}

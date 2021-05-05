@@ -3,6 +3,7 @@ using System.IO;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
+	[GtkMissingImplementation]
 	public class GtkBitmapExportContext : BitmapExportContext {
 
 		public GtkBitmapExportContext(int width, int height, float dpi) : base(width, height, dpi) { }

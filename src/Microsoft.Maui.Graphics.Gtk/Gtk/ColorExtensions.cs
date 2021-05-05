@@ -5,7 +5,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 	public static class ColorExtensions {
 
 		public static Gdk.RGBA ToGdkRgba(this Color color)
-			=> color == default ? default : new RGBA() {Red = color.Red, Green = color.Green, Blue = color.Blue, Alpha = color.Alpha};
+			=> color == default ? default : new RGBA {Red = color.Red, Green = color.Green, Blue = color.Blue, Alpha = color.Alpha};
 
 		public static Gdk.Color ToGdkColor(this Gdk.RGBA color)
 			=> new Gdk.Color((byte) (color.Red * 255), (byte) (color.Green * 255), (byte) (color.Blue * 255));
