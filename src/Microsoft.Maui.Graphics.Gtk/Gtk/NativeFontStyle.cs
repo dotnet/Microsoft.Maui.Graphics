@@ -1,74 +1,76 @@
 using System;
+using Pango;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
-    public class NativeFontStyle : IFontStyle
-    {
-        private readonly NativeFontFamily _family;
+	public class NativeFontStyle : IFontStyle {
 
-        public NativeFontStyle(NativeFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType)
-        {
-            _family = family;
-            Id = id;
-            Name = name;
-            FullName = fullName;
-            Weight = weight;
-            StyleType = styleType;
-        }
+		private NativeFontFamily? _family;
 
-        public IFontFamily FontFamily => _family;
+		public NativeFontStyle(string family, double size, int weight, Pango.Stretch stretch, FontStyleType styleType) {
+			FamilyName = family;
+			Size = size;
+			Weight = weight;
+			StyleType = styleType;
+			Stretch = stretch;
+		}
 
-        public string Id { get; }
+		protected Stretch Stretch { get; }
 
-        public string Name { get; }
+		protected string FamilyName { get; }
 
-        public string FullName { get; }
+		public IFontFamily FontFamily => _family ??= new NativeFontFamily(FamilyName);
 
-        public int Weight { get; }
+		public string Id => $"{FamilyName} {Size:N0} {StyleType.ToPangoStyle()}";
 
-        public FontStyleType StyleType { get; }
+		public double Size { get; }
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-            if (obj.GetType() != typeof(NativeFontStyle))
-                return false;
-            var other = (NativeFontStyle) obj;
-            return Id == other.Id;
-        }
+		public string Name => Id;
 
-        public override int GetHashCode()
-        {
-            return Id != null ? Id.GetHashCode() : 0;
-        }
+		public string FullName => Id;
 
-        public override string ToString()
-        {
-            return Name;
-        }
+		public int Weight { get; }
 
-        public int CompareTo(IFontStyle other)
-        {
-            if (Name.Equals("Regular") || Name.Equals("Plain") || Name.Equals("Normal"))
-            {
-                return -1;
-            }
-            else if (other.Name.Equals("Regular") || other.Name.Equals("Plain") || other.Name.Equals("Normal"))
-            {
-                return 1;
-            }
+		public FontStyleType StyleType { get; }
 
-            return string.Compare(Name, other.Name, StringComparison.Ordinal);
-        }
+		public override bool Equals(object obj) {
+			if (obj == null)
+				return false;
 
-        [GtkMissingImplementation]
-        public System.IO.Stream OpenStream()
-        {
-            throw new NotImplementedException();
-        }
-    }
+			if (ReferenceEquals(this, obj))
+				return true;
+
+			if (obj.GetType() != typeof(NativeFontStyle))
+				return false;
+
+			var other = (NativeFontStyle) obj;
+
+			return Id == other.Id;
+		}
+
+		public override int GetHashCode() {
+			return Id != null ? Id.GetHashCode() : 0;
+		}
+
+		public override string ToString() {
+			return Name;
+		}
+
+		public int CompareTo(IFontStyle other) {
+			if (Name.Equals("Regular") || Name.Equals("Plain") || Name.Equals("Normal")) {
+				return -1;
+			} else if (other.Name.Equals("Regular") || other.Name.Equals("Plain") || other.Name.Equals("Normal")) {
+				return 1;
+			}
+
+			return string.Compare(Name, other.Name, StringComparison.Ordinal);
+		}
+
+		[GtkMissingImplementation]
+		public System.IO.Stream OpenStream() {
+			throw new NotImplementedException();
+		}
+
+	}
 
 }

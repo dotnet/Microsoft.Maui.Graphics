@@ -217,11 +217,14 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		[GtkMissingImplementation]
-		public override void SetToSystemFont() { }
+		public override void SetToSystemFont() {
+			CurrentState.FontName = NativeFontService.Instance.SystemFontName;
 
-		[GtkMissingImplementation]
-		public override void SetToBoldSystemFont() { }
+		}
+
+		public override void SetToBoldSystemFont() {
+			CurrentState.FontName = NativeFontService.Instance.BoldSystemFontName;
+		}
 
 		[GtkMissingImplementation]
 		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) { }
