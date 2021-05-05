@@ -505,7 +505,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			context.Save();
 			context.Translate(x, y);
 
-			context.Scale(width / (double) pixbuf.Width, height / (double) pixbuf.Height);
+			context.Scale(width / pixbuf.Width, height / pixbuf.Height);
 			Gdk.CairoHelper.SetSourcePixbuf(context, pixbuf, 0, 0);
 
 			using (var p = context.GetSource()) {

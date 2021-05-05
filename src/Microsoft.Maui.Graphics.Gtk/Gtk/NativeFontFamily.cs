@@ -41,7 +41,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		public override int GetHashCode() {
-			return (_name != null ? _name.GetHashCode() : 0);
+			return _name != null ? _name.GetHashCode() : 0;
 		}
 
 		public override string ToString() {

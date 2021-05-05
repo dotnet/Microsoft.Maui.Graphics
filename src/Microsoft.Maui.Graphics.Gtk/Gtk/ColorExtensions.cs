@@ -26,7 +26,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			=> color == default ? default : new Gdk.Color((byte) (color.Red * 255), (byte) (color.Green * 255), (byte) (color.Blue * 255));
 
 		public static Color ToColor(this Gdk.Color color)
-			=> new Color((float) color.Red / (float) ushort.MaxValue, (float) color.Green / (float) ushort.MaxValue, (float) color.Blue / (float) ushort.MaxValue);
+			=> new Color(color.Red / (float) ushort.MaxValue, color.Green / (float) ushort.MaxValue, color.Blue / (float) ushort.MaxValue);
 
 	}
 

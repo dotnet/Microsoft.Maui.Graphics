@@ -42,7 +42,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
         public override int GetHashCode()
         {
-            return (Id != null ? Id.GetHashCode() : 0);
+            return Id != null ? Id.GetHashCode() : 0;
         }
 
         public override string ToString()

@@ -17,7 +17,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public static Gdk.Pixbuf CreatePixbuf(this Cairo.ImageSurface sf) {
 			byte[] surfaceData = sf.Data;
 			var nbytes = sf.Format == Cairo.Format.Argb32 ? 4 : 3;
-			byte[] pixData = new byte[(surfaceData.Length / 4) * nbytes];
+			byte[] pixData = new byte[surfaceData.Length / 4 * nbytes];
 
 			var i = 0;
 			var n = 0;
@@ -77,14 +77,12 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 			using var surface = new Cairo.ImageSurface(Cairo.Format.Argb32, (int) (pixbuf.Width * scaleFactor), (int) (pixbuf.Height * scaleFactor));
 			using var context = new Cairo.Context(surface);
-			context.Scale((double) surface.Width / (double) pixbuf.Width, (double) surface.Height / (double) pixbuf.Height);
+			context.Scale(surface.Width / (double) pixbuf.Width, surface.Height / (double) pixbuf.Height);
 			Gdk.CairoHelper.SetSourcePixbuf(context, pixbuf, 0, 0);
 			context.Paint();
 			surface.Flush();
 
-			var pattern = new Cairo.SurfacePattern(surface) {
-
-			};
+			var pattern = new Cairo.SurfacePattern(surface);
 
 			var matrix = new Cairo.Matrix();
 			matrix.Scale(scaleFactor, scaleFactor);
