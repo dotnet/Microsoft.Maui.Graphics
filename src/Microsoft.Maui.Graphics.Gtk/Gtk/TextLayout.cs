@@ -44,8 +44,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					_layout.FontDescription = FontDescription;
 				}
 
-				_layout.Alignment = HorizontalAlignment.ToPango();
-				_layout.Justify = HorizontalAlignment.HasFlag(HorizontalAlignment.Justified);
+				// allign & justify per Size
+				// _layout.Alignment = HorizontalAlignment.ToPango();
+				// _layout.Justify = HorizontalAlignment.HasFlag(HorizontalAlignment.Justified);
 				_layout.Wrap = LineBreakMode.ToPangoWrap();
 				_layout.Ellipsize = LineBreakMode.ToPangoEllipsize();
 
@@ -120,12 +121,31 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			Pango.CairoHelper.ShowLayout(Context, Layout);
 		}
 
+		float GetX(float x, int width) {
+			if (HorizontalAlignment == HorizontalAlignment.Left)
+				return x;
+
+			if (HorizontalAlignment == HorizontalAlignment.Right)
+				return x - width;
+
+			if (HorizontalAlignment == HorizontalAlignment.Center)
+				return x - width / 2;
+
+			return x;
+		}
+
 		public void DrawString(string value, float x, float y) {
+
 			Context.Save();
+
 			Layout.SetText(value);
 			Layout.GetPixelSize(out var textWidth, out var textHeight);
-			Layout.Width = textWidth;
-			Context.MoveTo(x, y);
+
+			if (Layout.IsWrapped || Layout.IsEllipsized) {
+				Layout.Width = textWidth;
+			}
+
+			Context.MoveTo(GetX(x, textWidth), y - Layout.Baseline.ScaledFromPango());
 			Draw();
 			Context.Restore();
 
