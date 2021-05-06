@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Maui.Graphics.Text;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
@@ -27,6 +26,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			layout.HorizontalAlignment = horizontalAlignment;
 
 			layout.DrawString(value, x, y);
+
 		}
 
 		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) {
@@ -38,6 +38,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			layout.LineSpacingAdjustment = lineSpacingAdjustment;
 
 			layout.DrawString(value, x, y, width, height);
+
 		}
 
 		[GtkMissingImplementation]
@@ -45,6 +46,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			using var layout = CreateTextLayout();
 
 			layout.DrawAttributedText(value, x, y, width, height);
+
 		}
 
 	}

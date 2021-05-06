@@ -4,7 +4,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public partial class NativeCanvas {
 
-		Cairo.Surface CreateSurface(Cairo.Context context, bool imageSurface = false) {
+		private Cairo.Surface CreateSurface(Cairo.Context context, bool imageSurface = false) {
 			var surface = context.GetTarget();
 
 			var extents = context.PathExtents();
@@ -20,12 +20,12 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		}
 
-		void AddLine(Cairo.Context context, float x1, float y1, float x2, float y2) {
+		private void AddLine(Cairo.Context context, float x1, float y1, float x2, float y2) {
 			context.MoveTo(x1, y1);
 			context.LineTo(x2, y2);
 		}
 
-		void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
+		private void AddArc(Cairo.Context context, float x, float y, float width, float height, float startAngle, float endAngle, bool clockwise, bool closed) {
 
 			AddArc(context, x, y, width, height, startAngle, endAngle, clockwise);
 
@@ -33,16 +33,16 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				context.ClosePath();
 		}
 
-		void AddRectangle(Cairo.Context context, float x, float y, float width, float height) {
+		private void AddRectangle(Cairo.Context context, float x, float y, float width, float height) {
 			context.Rectangle(x, y, width, height);
 		}
 
 		/// <summary>
 		/// degree-value * mRadians = radians
 		/// </summary>
-		const double mRadians = System.Math.PI / 180d;
+		private const double mRadians = System.Math.PI / 180d;
 
-		void AddRoundedRectangle(Cairo.Context context, float left, float top, float width, float height, float radius) {
+		private void AddRoundedRectangle(Cairo.Context context, float left, float top, float width, float height, float radius) {
 
 			context.NewPath();
 			// top left
@@ -153,7 +153,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				}
 			}
 		}
-
 
 		public void DrawPixbuf(Cairo.Context context, Gdk.Pixbuf pixbuf, double x, double y, double width, double height) {
 			context.Save();

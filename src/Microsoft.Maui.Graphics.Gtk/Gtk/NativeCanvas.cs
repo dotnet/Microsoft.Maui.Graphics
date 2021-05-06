@@ -1,6 +1,3 @@
-using System;
-using Microsoft.Maui.Graphics.Text;
-
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public partial class NativeCanvas : AbstractCanvas<NativeCanvasState> {
@@ -89,7 +86,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			CurrentState.StrokeDashPattern = pattern;
 		}
 
-		void Draw(bool preserve = false) {
+		private void Draw(bool preserve = false) {
 			Context.SetSourceRGBA(CurrentState.StrokeColor.R, CurrentState.StrokeColor.G, CurrentState.StrokeColor.B, CurrentState.StrokeColor.A * CurrentState.Alpha);
 			Context.LineWidth = CurrentState.StrokeSize;
 			Context.MiterLimit = CurrentState.MiterLimit;

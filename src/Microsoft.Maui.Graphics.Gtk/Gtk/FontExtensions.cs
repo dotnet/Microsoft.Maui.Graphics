@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,8 +15,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		/// <returns></returns>
 		public static double GetSize(this Pango.FontDescription it)
 			=> it.Size.ScaledFromPango();
-
-
 
 		public static Pango.Style ToPangoStyle(this FontStyleType it) => it switch {
 			FontStyleType.Oblique => Pango.Style.Oblique,

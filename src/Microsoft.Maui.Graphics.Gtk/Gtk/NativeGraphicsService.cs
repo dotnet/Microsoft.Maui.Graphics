@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public static NativeGraphicsService Instance = new NativeGraphicsService();
 
-		static Cairo.Context? _sharedContext;
+		private static Cairo.Context? _sharedContext;
 
 		public Cairo.Context SharedContext {
 			get {
