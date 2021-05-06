@@ -13,6 +13,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public static void SetCanvasState(this TextLayout it, NativeCanvasState state) {
 			it.FontFamily = state.FontName;
 			it.PangoFontSize = state.FontSize.ScaledToPango();
+			it.TextColor = state.FontColor;
 		}
 
 		public static Size GetSize(this TextLayout it, string text, float textHeigth) {
@@ -29,11 +30,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public static Pango.WrapMode ToPangoWrap(this Extras.LineBreakMode it) {
 			if (it.HasFlag(Extras.LineBreakMode.CharacterWrap))
-				return Pango.WrapMode.WordChar;
-			else if (it.HasFlag(Extras.LineBreakMode.WordCharacterWrap))
-				return Pango.WrapMode.Word;
-			else
 				return Pango.WrapMode.Char;
+			else if (it.HasFlag(Extras.LineBreakMode.WordCharacterWrap))
+				return Pango.WrapMode.WordChar;
+			else
+				return Pango.WrapMode.Word;
 		}
 
 		public static Pango.EllipsizeMode ToPangoEllipsize(this Extras.LineBreakMode lbm) {

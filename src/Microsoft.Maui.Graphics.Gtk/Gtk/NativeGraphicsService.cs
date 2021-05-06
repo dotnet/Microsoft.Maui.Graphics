@@ -11,7 +11,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public Cairo.Context SharedContext {
 			get {
 				if (_sharedContext == null) {
-					using var sf = new Cairo.ImageSurface(Cairo.Format.ARGB32, 100, 100);
+					using var sf = new Cairo.ImageSurface(Cairo.Format.ARGB32, 1, 1);
 					_sharedContext = new Cairo.Context(sf);
 				}
 

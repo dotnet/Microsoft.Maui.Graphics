@@ -65,6 +65,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public (Paint paint, RectangleF rectangle) FillPaint { get; set; }
 
+		public override void Dispose() {
+			FillPaint = default;
+			Shadow = default;
+
+			base.Dispose();
+		}
+
 	}
 
 }

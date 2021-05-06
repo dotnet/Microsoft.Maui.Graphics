@@ -48,6 +48,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				_layout.Justify = HorizontalAlignment.HasFlag(HorizontalAlignment.Justified);
 				_layout.Wrap = LineBreakMode.ToPangoWrap();
 				_layout.Ellipsize = LineBreakMode.ToPangoEllipsize();
+
 				// _layout.SingleParagraphMode = true;
 				return _layout;
 			}
@@ -90,6 +91,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
+		public Cairo.Color TextColor { get; set; }
+
 		public void Dispose() {
 			if (_fontDescriptionOwned) {
 				_fontDescription?.Dispose();
@@ -107,9 +110,25 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 
 			Layout.SetText(text);
-			Layout.GetPixelSize(out var text_width, out var text_height);
+			Layout.GetPixelSize(out var textWidth, out var textHeight);
 
-			return (text_width, text_height);
+			return (textWidth, textHeight);
+		}
+
+		void Draw() {
+			Context.SetSourceRGBA(TextColor.R, TextColor.G, TextColor.B, TextColor.A);
+			Pango.CairoHelper.ShowLayout(Context, Layout);
+		}
+
+		public void DrawString(string value, float x, float y) {
+			Context.Save();
+			Layout.SetText(value);
+			Layout.GetPixelSize(out var textWidth, out var textHeight);
+			Layout.Width = textWidth;
+			Context.MoveTo(x, y);
+			Draw();
+			Context.Restore();
+
 		}
 
 	}
