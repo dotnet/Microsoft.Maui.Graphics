@@ -54,7 +54,7 @@ namespace Samples
 			};
 			hpanned.Pack1(scroll0, true, true);
 
-			Fonts.Register(new NativeFontService());
+			Fonts.Register(NativeFontService.Instance);
 			GraphicsPlatform.RegisterGlobalService(NativeGraphicsService.Instance);
 
 			_gtkNativeCanvasView = new NativeCanvasView {

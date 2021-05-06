@@ -18,6 +18,7 @@ namespace Samples {
 
 			App = new Application("Microsoft.Maui.Graphics.Samples", GLib.ApplicationFlags.None);
 
+			App.Startup += (s, e) => StartupTests();
 			App.Startup += (s, e) => {
 
 				Win = new MainWindow();
@@ -45,6 +46,10 @@ namespace Samples {
 			};
 
 			((GLib.Application) App).Run();
+		}
+
+		private static void StartupTests() {
+			StartupTest.InitTests();
 		}
 
 		private static void AboutActivated(object sender, EventArgs e) {
