@@ -8,11 +8,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public static NativeFontService Instance = new NativeFontService();
 
-		static Pango.Context? _systemContext;
+		private static Pango.Context? _systemContext;
 
 		public Pango.Context SystemContext => _systemContext ??= Gdk.PangoHelper.ContextGet();
 
-		Pango.FontDescription? _systemFontDescription;
+		private Pango.FontDescription? _systemFontDescription;
 
 		public Pango.FontDescription SystemFontDescription => _systemFontDescription ??= SystemContext.FontDescription;
 
@@ -27,28 +27,26 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		private IFontFamily[]? _fontFamilies;
 
 		public override IFontFamily[] GetFontFamilies()
-			=> _fontFamilies ??= SystemContext.FontMap?.Families.Select(fam => fam.ToFontFamily()).OrderBy(f => f.Name).ToArray() ?? Array.Empty<IFontFamily>();
+			=> _fontFamilies ??= SystemContext.FontMap?.Families?.Select(fam => fam.ToFontFamily()).OrderBy(f => f.Name).ToArray() ?? Array.Empty<IFontFamily>();
 
-		private IEnumerable<(Pango.FontFamily family, Pango.FontDescription description)> GetAvailableFamilyFaces(Pango.FontFamily family) {
+		public IEnumerable<IFontStyle> GetFontStylesFor(IFontFamily family) {
+			var fam = SystemContext.FontMap?.Families?.FirstOrDefault(f => f.Name == family.Name);
 
-			if (family != default) {
-				foreach (var face in family.Faces)
-					yield return (family, face.Describe());
+			if (fam == null) yield break;
+
+			foreach (var s in fam.GetAvailableFontStyles()) {
+				yield return s;
 			}
 
 		}
 
-		private Pango.FontDescription[] GetAvailableFontStyles() {
-			var fontFamilies = SystemContext.FontMap?.Families.ToArray();
+		private IEnumerable<(Pango.FontFamily family, Pango.FontDescription description)> GetAvailableFamilyFaces(Pango.FontFamily? family) {
 
-			var styles = new List<Pango.FontDescription>();
+			if (family == default) yield break;
 
-			if (fontFamilies != null) {
-				styles.AddRange(fontFamilies.SelectMany(GetAvailableFamilyFaces).Select(font => font.description)
-				   .OrderBy(d => d.Family));
-			}
+			foreach (var face in family.Faces)
+				yield return (family, face.Describe());
 
-			return styles.ToArray();
 		}
 
 	}

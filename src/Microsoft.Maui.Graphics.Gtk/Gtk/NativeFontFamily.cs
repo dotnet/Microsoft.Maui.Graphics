@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
@@ -20,9 +19,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return _fontStyles ??= NativeFontService.Instance.GetFontStylesFor(this).ToArray();
 		}
 
-		[GtkMissingImplementation]
 		private IFontStyle[] GetAvailableFontStyles() {
-			throw new NotImplementedException();
+			return GetFontStyles();
+
 		}
 
 		public override bool Equals(object obj) {
