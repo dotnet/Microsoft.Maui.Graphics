@@ -15,9 +15,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				_ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null)
 			};
 
-		public static Gdk.Pixbuf SaveToStream(this Cairo.ImageSurface sf, Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
+		public static Gdk.Pixbuf? SaveToStream(this Cairo.ImageSurface? surface, Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
+			if (surface == null)
+				return null;
 			try {
-				var px = sf.CreatePixbuf();
+				var px = surface.CreatePixbuf();
 				SaveToStream(px, stream, format, quality);
 
 				return px;
@@ -45,18 +47,21 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return true;
 		}
 
-		public static Gdk.Pixbuf CreatePixbuf(this Cairo.ImageSurface sf) {
-			var surfaceData = sf.Data;
-			var nbytes = sf.Format == Cairo.Format.Argb32 ? 4 : 3;
+		public static Gdk.Pixbuf? CreatePixbuf(this Cairo.ImageSurface? surface) {
+			if (surface == null)
+				return null;
+
+			var surfaceData = surface.Data;
+			var nbytes = surface.Format == Cairo.Format.Argb32 ? 4 : 3;
 			var pixData = new byte[surfaceData.Length / 4 * nbytes];
 
 			var i = 0;
 			var n = 0;
-			var stride = sf.Stride;
-			var ncols = sf.Width;
+			var stride = surface.Stride;
+			var ncols = surface.Width;
 
 			if (BitConverter.IsLittleEndian) {
-				var row = sf.Height;
+				var row = surface.Height;
 
 				while (row-- > 0) {
 					var prevPos = n;
@@ -78,7 +83,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					n = prevPos + stride;
 				}
 			} else {
-				var row = sf.Height;
+				var row = surface.Height;
 
 				while (row-- > 0) {
 					var prevPos = n;
@@ -101,10 +106,12 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				}
 			}
 
-			return new Gdk.Pixbuf(pixData, Gdk.Colorspace.Rgb, nbytes == 4, 8, sf.Width, sf.Height, sf.Width * nbytes, null);
+			return new Gdk.Pixbuf(pixData, Gdk.Colorspace.Rgb, nbytes == 4, 8, surface.Width, surface.Height, surface.Width * nbytes, null);
 		}
 
-		public static Cairo.Pattern CreatePattern(this Gdk.Pixbuf pixbuf, double scaleFactor) {
+		public static Cairo.Pattern? CreatePattern(this Gdk.Pixbuf? pixbuf, double scaleFactor) {
+			if (pixbuf == null)
+				return null;
 
 			using var surface = new Cairo.ImageSurface(Cairo.Format.Argb32, (int) (pixbuf.Width * scaleFactor), (int) (pixbuf.Height * scaleFactor));
 			using var context = new Cairo.Context(surface);

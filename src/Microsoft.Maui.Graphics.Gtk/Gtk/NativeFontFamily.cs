@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 	public class NativeFontFamily : IFontFamily, IComparable<IFontFamily>, IComparable {
 
 		private readonly string _name;
-		private IFontStyle[] _fontStyles = new IFontStyle[0];
+		private IFontStyle[]? _fontStyles;
 
 		public NativeFontFamily(string name) {
 			_name = name;
@@ -17,7 +17,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public string Name => _name;
 
 		public IFontStyle[] GetFontStyles() {
-			return _fontStyles ??= GetAvailableFontStyles();
+			return _fontStyles ??= NativeFontService.Instance.GetFontStylesFor(this).ToArray();
 		}
 
 		[GtkMissingImplementation]

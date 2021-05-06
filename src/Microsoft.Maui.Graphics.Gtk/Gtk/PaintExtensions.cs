@@ -4,7 +4,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public static class PaintExtensions {
 
-		public static Cairo.Context PaintToSurface(this PatternPaint it, Cairo.Surface surface, float scale) {
+		public static Cairo.Context? PaintToSurface(this PatternPaint? it, Cairo.Surface? surface, float scale) {
+			if (surface == null || it == null)
+				return null;
+
 			var context = new Cairo.Context(surface);
 			context.Scale(scale, scale);
 
@@ -32,7 +35,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public static void SetCairoExtend(Cairo.Extend it) { }
 
-		public static Gdk.Pixbuf GetPatternBitmap(this PatternPaint it, float scale) {
+		public static Gdk.Pixbuf? GetPatternBitmap(this PatternPaint? it, float scale) {
+			if (it == null)
+				return null;
+
 			using var surface = new Cairo.ImageSurface(Cairo.Format.Argb32, (int) it.Pattern.Width, (int) it.Pattern.Height);
 			using var context = it.PaintToSurface(surface, scale);
 			surface.Flush();
@@ -44,9 +50,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		/// <summary>
 		/// does not work, pattern isn't shown
 		/// </summary>
-
 		[GtkMissingImplementation]
-		public static Cairo.Pattern GetCairoPattern(this PatternPaint it, Cairo.Surface surface, float scale) {
+		public static Cairo.Pattern? GetCairoPattern(this PatternPaint? it, Cairo.Surface? surface, float scale) {
+			if (surface == null || it == null)
+				return null;
 
 			using var context = it.PaintToSurface(surface, scale);
 			surface.Flush();
@@ -56,27 +63,32 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return pattern;
 		}
 
-		public static Cairo.Pattern GetCairoPattern(this LinearGradientPaint linearGradientPaint, RectangleF rectangle, float scaleFactor) {
-			var x1 = linearGradientPaint.StartPoint.X * rectangle.Width + rectangle.X;
-			var y1 = linearGradientPaint.StartPoint.Y * rectangle.Height + rectangle.Y;
+		public static Cairo.Pattern? GetCairoPattern(this LinearGradientPaint? it, RectangleF rectangle, float scaleFactor) {
+			if (it == null)
+				return null;
 
-			var x2 = linearGradientPaint.EndPoint.X * rectangle.Width + rectangle.X;
-			var y2 = linearGradientPaint.EndPoint.Y * rectangle.Height + rectangle.Y;
+			var x1 = it.StartPoint.X * rectangle.Width + rectangle.X;
+			var y1 = it.StartPoint.Y * rectangle.Height + rectangle.Y;
+
+			var x2 = it.EndPoint.X * rectangle.Width + rectangle.X;
+			var y2 = it.EndPoint.Y * rectangle.Height + rectangle.Y;
 
 			// https://developer.gnome.org/cairo/stable/cairo-cairo-pattern-t.html#cairo-pattern-create-linear
 			var pattern = new Cairo.LinearGradient(x1, y1, x2, y2);
 
-			foreach (var s in linearGradientPaint.GetSortedStops()) {
+			foreach (var s in it.GetSortedStops()) {
 				pattern.AddColorStop(s.Offset, s.Color.ToCairoColor());
 			}
 
 			return pattern;
 		}
 
-		public static Cairo.Pattern GetCairoPattern(this RadialGradientPaint radialGradientPaint, RectangleF rectangle, float scaleFactor) {
+		public static Cairo.Pattern? GetCairoPattern(this RadialGradientPaint? it, RectangleF rectangle, float scaleFactor) {
+			if (it == null)
+				return null;
 
-			var centerX = radialGradientPaint.Center.X * rectangle.Width;
-			var centerY = radialGradientPaint.Center.Y * rectangle.Height;
+			var centerX = it.Center.X * rectangle.Width;
+			var centerY = it.Center.Y * rectangle.Height;
 
 			var x1 = centerX + rectangle.X;
 			var y1 = centerY + rectangle.Y;
@@ -84,13 +96,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			var x2 = rectangle.Right - centerX;
 			var y2 = rectangle.Bottom - centerY;
 
-			var radius1 = radialGradientPaint.Radius * 1;
-			var radius2 = radialGradientPaint.Radius * Math.Max(rectangle.Width, rectangle.Height);
+			var radius1 = it.Radius * 1;
+			var radius2 = it.Radius * Math.Max(rectangle.Width, rectangle.Height);
 
 			// https://developer.gnome.org/cairo/stable/cairo-cairo-pattern-t.html#cairo-pattern-create-radial
 			var pattern = new Cairo.RadialGradient(x1, y1, radius1, x2, y2, radius2);
 
-			foreach (var s in radialGradientPaint.GetSortedStops()) {
+			foreach (var s in it.GetSortedStops()) {
 				pattern.AddColorStop(s.Offset, s.Color.ToCairoColor());
 			}
 

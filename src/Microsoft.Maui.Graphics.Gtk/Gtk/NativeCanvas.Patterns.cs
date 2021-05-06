@@ -4,16 +4,18 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public partial class NativeCanvas {
 
-		public void DrawFillPaint(Cairo.Context context, Paint paint, RectangleF rectangle) {
-			if (paint == null)
+		public void DrawFillPaint(Cairo.Context? context, Paint? paint, RectangleF rectangle) {
+			if (paint == null || context == null)
 				return;
 
 			switch (paint) {
+
 				case SolidPaint solidPaint: {
 					FillColor = solidPaint.Color;
 
 					break;
 				}
+
 				case LinearGradientPaint linearGradientPaint: {
 					try {
 						if (linearGradientPaint.GetCairoPattern(rectangle, DisplayScale) is { } pattern) {
@@ -29,6 +31,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 					break;
 				}
+
 				case RadialGradientPaint radialGradientPaint: {
 
 					try {
@@ -45,10 +48,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 					break;
 				}
+
 				case PatternPaint patternPaint: {
 					try {
 
 #if UseSurfacePattern
+						// would be nice to have: draw pattern without creating a pixpuf:
+
 						using var paintSurface = CreateSurface(context, true);
 
 						if (patternPaint.GetCairoPattern(paintSurface, DisplayScale) is { } pattern) {
@@ -61,10 +67,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 							FillColor = paint.BackgroundColor;
 						}
 #else
-						using var px = patternPaint.GetPatternBitmap(DisplayScale);
-						using var pattern = px.CreatePattern(DisplayScale);
-						pattern.Extend = Cairo.Extend.Repeat;
-						context.SetSource(pattern);
+						using var pixbuf = patternPaint.GetPatternBitmap(DisplayScale);
+
+						if (pixbuf?.CreatePattern(DisplayScale) is { } pattern) {
+							pattern.Extend = Cairo.Extend.Repeat;
+							context.SetSource(pattern);
+							pattern.Dispose();
+						}
 
 #endif
 
@@ -75,10 +84,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 					break;
 				}
-				case ImagePaint {Image: GtkImage image} imagePaint: {
-					var bitmap = image.NativeImage;
 
-					if (bitmap != null && bitmap.CreatePattern(DisplayScale) is { } pattern) {
+				case ImagePaint {Image: GtkImage image} imagePaint: {
+					var pixbuf = image.NativeImage;
+
+					if (pixbuf?.CreatePattern(DisplayScale) is { } pattern) {
 						try {
 
 							context.SetSource(pattern);
@@ -94,10 +104,12 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 					break;
 				}
+
 				case ImagePaint imagePaint:
 					FillColor = paint.BackgroundColor ?? Colors.White;
 
 					break;
+
 				default:
 					FillColor = paint.BackgroundColor ?? Colors.White;
 
