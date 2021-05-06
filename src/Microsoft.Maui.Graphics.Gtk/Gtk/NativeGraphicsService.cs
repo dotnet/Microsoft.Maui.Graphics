@@ -25,7 +25,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		private static TextLayout? _textLayout;
 
-		public TextLayout SharedTextLayout => _textLayout ??= new TextLayout(SharedContext);
+		public TextLayout SharedTextLayout => _textLayout ??= new TextLayout(SharedContext) {
+			HeightForWidth = true
+		};
 
 		public SizeF GetStringSize(string value, string fontName, float textWidth) {
 			if (string.IsNullOrEmpty(value))
