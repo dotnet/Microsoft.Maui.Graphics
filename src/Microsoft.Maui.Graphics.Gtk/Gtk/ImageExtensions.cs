@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
@@ -8,16 +9,46 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			imageFormat switch {
 				ImageFormat.Bmp => "bmp",
 				ImageFormat.Png => "png",
-				ImageFormat.Jpeg => "jpg",
+				ImageFormat.Jpeg => "jpeg",
 				ImageFormat.Gif => "gif",
 				ImageFormat.Tiff => "tiff",
 				_ => throw new ArgumentOutOfRangeException(nameof(imageFormat), imageFormat, null)
 			};
 
+		public static Gdk.Pixbuf SaveToStream(this Cairo.ImageSurface sf, Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
+			try {
+				var px = sf.CreatePixbuf();
+				SaveToStream(px, stream, format, quality);
+
+				return px;
+			} catch (Exception ex) {
+				Logger.Error(ex);
+
+				return default;
+			}
+		}
+
+		public static bool SaveToStream(this Gdk.Pixbuf? pixbuf, Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
+			if (pixbuf == null)
+				return false;
+
+			try {
+				var puf = pixbuf.SaveToBuffer(format.ToImageExtension());
+				stream.Write(puf, 0, puf.Length);
+				puf = null;
+			} catch (Exception ex) {
+				Logger.Error(ex);
+
+				return false;
+			}
+
+			return true;
+		}
+
 		public static Gdk.Pixbuf CreatePixbuf(this Cairo.ImageSurface sf) {
-			byte[] surfaceData = sf.Data;
+			var surfaceData = sf.Data;
 			var nbytes = sf.Format == Cairo.Format.Argb32 ? 4 : 3;
-			byte[] pixData = new byte[surfaceData.Length / 4 * nbytes];
+			var pixData = new byte[surfaceData.Length / 4 * nbytes];
 
 			var i = 0;
 			var n = 0;

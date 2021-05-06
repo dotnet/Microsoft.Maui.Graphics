@@ -1,19 +1,55 @@
 using System;
 using System.IO;
+using System.Threading;
 
 namespace Microsoft.Maui.Graphics.Native.Gtk {
 
-	[GtkMissingImplementation]
 	public class GtkBitmapExportContext : BitmapExportContext {
 
-		public GtkBitmapExportContext(int width, int height, float dpi) : base(width, height, dpi) { }
+		private NativeCanvas _canvas;
+		private Cairo.ImageSurface _surface;
+		private Cairo.Context _context;
+		private Gdk.Pixbuf? _pixbuf;
 
-		public override ICanvas Canvas { get; }
+		public GtkBitmapExportContext(int width, int height, float dpi) : base(width, height, dpi) {
+			_surface = new Cairo.ImageSurface(Cairo.Format.Argb32, width, height);
+			_context = new Cairo.Context(_surface);
 
-		public override void WriteToStream(Stream stream) {
+			_canvas = new NativeCanvas() {
+				Context = _context
+			};
 		}
 
-		public override IImage Image { get; }
+		public ImageFormat Format => ImageFormat.Png;
+
+		public override ICanvas Canvas => _canvas;
+
+		/// <summary>
+		/// writes a pixbuf to stream
+		/// </summary>
+		/// <param name="stream"></param>
+		public override void WriteToStream(Stream stream) {
+			if (_pixbuf != null) {
+				_pixbuf.SaveToStream(stream, Format);
+			} else {
+				_pixbuf = _surface.SaveToStream(stream, Format);
+			}
+		}
+
+		public override IImage Image => new GtkImage(_pixbuf ??= _surface.CreatePixbuf());
+
+		public override void Dispose() {
+			_canvas?.Dispose();
+			_context?.Dispose();
+			_surface?.Dispose();
+
+			if (_pixbuf != null) {
+				var previousValue = Interlocked.Exchange(ref _pixbuf, null);
+				previousValue?.Dispose();
+			}
+
+			base.Dispose();
+		}
 
 	}
 

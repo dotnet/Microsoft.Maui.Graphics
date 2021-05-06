@@ -8,28 +8,26 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 	public class GtkImage : IImage {
 
 		public GtkImage(Gdk.Pixbuf pix) {
-			_image = pix;
-			Width = pix.Width;
-			Height = pix.Height;
+			_pixbuf = pix;
 		}
 
-		private Gdk.Pixbuf _image;
+		private Gdk.Pixbuf _pixbuf;
 
 		// https://developer.gnome.org/gdk-pixbuf/stable/gdk-pixbuf-The-GdkPixbuf-Structure.html
-		public Gdk.Pixbuf NativeImage => _image;
+		public Gdk.Pixbuf NativeImage => _pixbuf;
 
 		public void Draw(ICanvas canvas, RectangleF dirtyRect) {
 			canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float) Math.Round(dirtyRect.Width), (float) Math.Round(dirtyRect.Height));
 		}
 
 		public void Dispose() {
-			var previousValue = Interlocked.Exchange(ref _image, null);
+			var previousValue = Interlocked.Exchange(ref _pixbuf, null);
 			previousValue?.Dispose();
 		}
 
-		public float Width { get; }
+		public float Width => NativeImage.Width;
 
-		public float Height { get; }
+		public float Height => NativeImage.Width;
 
 		[GtkMissingImplementation]
 		public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false) {
@@ -46,11 +44,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return this;
 		}
 
-		[GtkMissingImplementation]
-		public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) { }
+		public void Save(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
+			NativeImage.SaveToStream(stream, format, quality);
+		}
 
-		[GtkMissingImplementation]
-		public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) { }
+		public async Task SaveAsync(Stream stream, ImageFormat format = ImageFormat.Png, float quality = 1) {
+			await Task.Run(() => NativeImage.SaveToStream(stream, format, quality));
+		}
 
 	}
 
