@@ -45,6 +45,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public bool HeightForWidth { get; set; } = true;
 
+		public Action<TextLayout> BeforeDrawn { get; set; }
+
+		public Action<TextLayout> AfterDrawn { get; set; }
+
 		public void SetLayout(Pango.Layout value) {
 			_layout = value;
 			_layoutOwned = false;
@@ -136,6 +140,8 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				return;
 
 			Context.SetSourceRGBA(TextColor.R, TextColor.G, TextColor.B, TextColor.A);
+
+			BeforeDrawn?.Invoke(this);
 
 			// https://developer.gnome.org/pango/1.46/pango-Cairo-Rendering.html#pango-cairo-show-layout
 			// Draws a PangoLayout in the specified cairo context.

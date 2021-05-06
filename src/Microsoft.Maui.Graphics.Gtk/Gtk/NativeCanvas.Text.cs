@@ -9,8 +9,17 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			var layout = new TextLayout(Context)
 			   .WithCanvasState(CurrentState);
 
+			layout.BeforeDrawn = LayoutBeforeDrawn;
+			layout.AfterDrawn = LayoutAfterDrawn;
+
 			return layout;
 		}
+
+		private void LayoutBeforeDrawn(TextLayout layout) {
+			DrawFillPaint(Context, CurrentState.FillPaint.paint, CurrentState.FillPaint.rectangle);
+		}
+
+		private void LayoutAfterDrawn(TextLayout layout) { }
 
 		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) {
 
