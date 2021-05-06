@@ -44,12 +44,18 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			=> new Gdk.Size((int) it.Width, (int) it.Height);
 
 		public static double ScaledFromPango(this int it)
-			=> Math.Ceiling(it/ Pango.Scale.PangoScale);
+			=> Math.Ceiling(it / Pango.Scale.PangoScale);
+
+		public static float ScaledFromPangoF(this int it)
+			=> (float) Math.Ceiling(it / Pango.Scale.PangoScale);
 
 		public static int ScaledToPango(this double it)
 			=> (int) Math.Ceiling(it * Pango.Scale.PangoScale);
 
 		public static int ScaledToPango(this float it)
+			=> (int) Math.Ceiling(it * Pango.Scale.PangoScale);
+
+		public static int ScaledToPango(this int it)
 			=> (int) Math.Ceiling(it * Pango.Scale.PangoScale);
 
 	}

@@ -6,7 +6,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public NativeCanvasState() {
 			Alpha = 1;
+
 			StrokeColor = Colors.Black.ToCairoColor();
+			FontColor = StrokeColor;
+			FillColor = Colors.White.ToCairoColor();
+
 			MiterLimit = 10;
 			LineJoin = Cairo.LineJoin.Miter;
 			LineCap = Cairo.LineCap.Butt;
@@ -25,8 +29,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			LineCap = prototype.LineCap;
 			LineJoin = prototype.LineJoin;
 			FillColor = prototype.FillColor;
+
 			FontName = prototype.FontName;
 			FontSize = prototype.FontSize;
+			FontColor = prototype.FontColor;
+
 			BlendMode = prototype.BlendMode;
 			Alpha = prototype.Alpha;
 
@@ -66,8 +73,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public (Paint paint, RectangleF rectangle) FillPaint { get; set; }
 
 		public override void Dispose() {
+
 			FillPaint = default;
 			Shadow = default;
+			StrokeDashPattern = default;
 
 			base.Dispose();
 		}
@@ -75,5 +84,3 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 	}
 
 }
-
-

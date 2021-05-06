@@ -8,12 +8,22 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			it.FontFamily = fs.FontFamily.Name;
 			it.Weight = FontExtensions.ToFontWeigth(fs.Weight);
 			it.Style = fs.StyleType.ToPangoStyle();
+
+			if (fs is NativeFontStyle nfs) {
+				it.PangoFontSize = nfs.Size.ScaledToPango();
+			}
 		}
 
 		public static void SetCanvasState(this TextLayout it, NativeCanvasState state) {
 			it.FontFamily = state.FontName;
 			it.PangoFontSize = state.FontSize.ScaledToPango();
 			it.TextColor = state.FontColor;
+		}
+
+		public static TextLayout WithCanvasState(this TextLayout it, NativeCanvasState state) {
+			it.SetCanvasState(state);
+
+			return it;
 		}
 
 		public static Size GetSize(this TextLayout it, string text, float textHeigth) {

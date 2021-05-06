@@ -227,12 +227,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		[GtkMissingImplementation]
-		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) { }
-
-		[GtkMissingImplementation]
-		public override void DrawText(IAttributedText value, float x, float y, float width, float height) { }
-
-		[GtkMissingImplementation]
 		public override void SubtractFromClip(float x, float y, float width, float height) { }
 
 		[GtkMissingImplementation]
