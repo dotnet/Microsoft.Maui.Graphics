@@ -209,14 +209,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		public override void DrawImage(IImage image, float x, float y, float width, float height) {
-			if (image is GtkImage g && g.NativeImage is Gdk.Pixbuf pixbuf) {
+			if (image is GtkImage {NativeImage: { } pixbuf}) {
 				DrawPixbuf(Context, pixbuf, x, y, width, height);
 			}
 		}
 
 		public override void SetToSystemFont() {
 			CurrentState.FontName = NativeFontService.Instance.SystemFontName;
-
 		}
 
 		public override void SetToBoldSystemFont() {

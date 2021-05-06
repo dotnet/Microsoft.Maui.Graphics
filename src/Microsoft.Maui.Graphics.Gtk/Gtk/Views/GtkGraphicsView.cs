@@ -34,7 +34,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return base.OnDrawn(context);
 		}
 
-		public Color BackgroundColor {
+		public Color? BackgroundColor {
 			get => _backgroundColor;
 			set {
 				_backgroundColor = value;
@@ -42,7 +42,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		public IDrawable Drawable {
+		public IDrawable? Drawable {
 			get => _drawable;
 			set {
 				_drawable = value;

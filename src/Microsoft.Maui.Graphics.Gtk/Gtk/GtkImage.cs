@@ -11,10 +11,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			_pixbuf = pix;
 		}
 
-		private Gdk.Pixbuf _pixbuf;
+		private Gdk.Pixbuf? _pixbuf;
 
 		// https://developer.gnome.org/gdk-pixbuf/stable/gdk-pixbuf-The-GdkPixbuf-Structure.html
-		public Gdk.Pixbuf NativeImage => _pixbuf;
+		public Gdk.Pixbuf? NativeImage => _pixbuf;
 
 		public void Draw(ICanvas canvas, RectangleF dirtyRect) {
 			canvas.DrawImage(this, dirtyRect.Left, dirtyRect.Top, (float) Math.Round(dirtyRect.Width), (float) Math.Round(dirtyRect.Height));
@@ -25,9 +25,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			previousValue?.Dispose();
 		}
 
-		public float Width => NativeImage.Width;
+		public float Width => NativeImage?.Width ?? 0;
 
-		public float Height => NativeImage.Width;
+		public float Height => NativeImage?.Width ?? 0;
 
 		[GtkMissingImplementation]
 		public IImage Downsize(float maxWidthOrHeight, bool disposeOriginal = false) {

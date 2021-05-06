@@ -35,7 +35,17 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		public override IImage Image => new GtkImage(_pixbuf ??= _surface.CreatePixbuf());
+		private GtkImage? _image;
+
+		public override IImage? Image {
+			get {
+				_pixbuf ??= _surface.CreatePixbuf();
+
+				if (_pixbuf != null) return _image ??= new GtkImage(_pixbuf);
+
+				return _image;
+			}
+		}
 
 		public override void Dispose() {
 			_canvas?.Dispose();
