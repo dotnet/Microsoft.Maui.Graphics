@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public HorizontalAlignment HorizontalAlignment { get; set; }
 
-		public VerticalAlignment VerticalAlignment{ get; set; }
+		public VerticalAlignment VerticalAlignment { get; set; }
 
 		public LineBreakMode LineBreakMode { get; set; } = LineBreakMode.EndTruncation;
 
@@ -44,6 +44,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 					_layout.FontDescription = FontDescription;
 				}
 
+				_layout.Alignment = HorizontalAlignment.ToPango();
+				_layout.Justify = HorizontalAlignment.HasFlag(HorizontalAlignment.Justified);
+				_layout.Wrap = LineBreakMode.ToPangoWrap();
+				_layout.Ellipsize = LineBreakMode.ToPangoEllipsize();
+				// _layout.SingleParagraphMode = true;
 				return _layout;
 			}
 			set {
@@ -95,7 +100,13 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			}
 		}
 
-		public (int width, int height) GetPixelSize(string text) {
+		public (int width, int height) GetPixelSize(string text, int desiredWidth = -1) {
+
+			if (desiredWidth > 0) {
+				Layout.Width = desiredWidth;
+			}
+
+			Layout.SetText(text);
 			Layout.GetPixelSize(out var text_width, out var text_height);
 
 			return (text_width, text_height);
