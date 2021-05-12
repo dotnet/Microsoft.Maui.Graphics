@@ -56,9 +56,9 @@ namespace Microsoft.Maui.Graphics
             MoveTo(point.X, point.Y);
         }
 
-        public PathF(float x, float y) : this(new PointF(x, y))
+        public PathF(float x, float y) : this()
         {
-            MoveTo(x,y);
+            MoveTo(x, y);
         }
 
         public PathF()

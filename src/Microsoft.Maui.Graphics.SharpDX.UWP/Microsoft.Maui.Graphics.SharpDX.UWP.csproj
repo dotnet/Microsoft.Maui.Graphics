@@ -145,7 +145,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Microsoft.Maui.Graphics.Core</Name>
+      <Name>Microsoft.Maui.Graphics</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

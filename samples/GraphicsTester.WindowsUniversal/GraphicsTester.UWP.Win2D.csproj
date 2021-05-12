@@ -132,11 +132,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics.csproj">
       <Project>{76f3031e-341e-43cc-bd92-b23f83495db7}</Project>
-      <Name>Microsoft.Maui.Graphics.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Microsoft.Maui.Graphics.SharpDX.UWP\Microsoft.Maui.Graphics.SharpDX.UWP.csproj">
-      <Project>{694e970d-5c18-483f-bc48-d6d86da8e78f}</Project>
-      <Name>Microsoft.Maui.Graphics.SharpDX.UWP</Name>
+      <Name>Microsoft.Maui.Graphics</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Microsoft.Maui.Graphics.Win2D.UWP\Microsoft.Maui.Graphics.Win2D.UWP.csproj">
       <Project>{20794e60-3bfd-46f4-bc0b-87b3959aa3c7}</Project>

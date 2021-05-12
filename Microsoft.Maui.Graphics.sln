@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.Skia.Mac", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.Skia.Windows", "samples\GraphicsTester.Skia.Windows\GraphicsTester.Skia.Windows.csproj", "{9C362B66-3EBC-4574-9897-77DB85CD0255}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.WindowsUniversal", "samples\GraphicsTester.WindowsUniversal\GraphicsTester.WindowsUniversal.csproj", "{91CD8AD3-E080-4286-8DC7-C2EE5D1625D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsTester.UWP.Win2D", "samples\GraphicsTester.WindowsUniversal\GraphicsTester.UWP.Win2D.csproj", "{91CD8AD3-E080-4286-8DC7-C2EE5D1625D3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphicsTester.Xaml", "samples\GraphicsTester.Xaml\GraphicsTester.Xaml.csproj", "{9365DB5B-E4F4-4E05-8558-DAA01789D7F6}"
 EndProject
