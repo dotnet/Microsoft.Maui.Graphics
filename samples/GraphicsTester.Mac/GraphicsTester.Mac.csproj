@@ -75,6 +75,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.Mac" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindow.cs" />
@@ -102,18 +104,21 @@
       <Project>{D1878E17-08A7-4858-94B8-DE8B38BE2632}</Project>
       <Name>GraphicsTester.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\System.Graphics\System.Graphics.csproj">
+    <ProjectReference Include="..\..\src\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics.csproj">
       <Project>{76F3031E-341E-43CC-BD92-B23F83495DB7}</Project>
-      <Name>System.Graphics</Name>
+      <Name>Microsoft.Maui.Graphics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\System.Graphics.Text.Markdig\System.Graphics.Text.Markdig.csproj">
+    <ProjectReference Include="..\..\src\Microsoft.Maui.Graphics.Text.Markdig\Microsoft.Maui.Graphics.Text.Markdig.csproj">
       <Project>{ED36FB6D-7278-465D-9C44-D01927258BA1}</Project>
-      <Name>System.Graphics.Text.Markdig</Name>
+      <Name>Microsoft.Maui.Graphics.Text.Markdig</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Markdig">
       <Version>0.22.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Numerics.Vectors">
+      <Version>4.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />

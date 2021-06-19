@@ -1,0 +1,143 @@
+variables:
+  BuildVersion: $[counter('release-counter', 1)]
+  IsRunningOnCI: true
+  DotNetVersion: 6.0.100-preview.4.21255.9
+  DotNet.Cli.Telemetry.OptOut: true
+  MauiCheck.Version: 0.4.1
+  MauiCheck.Manifest: https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/manifests/maui-dev.manifest.json
+
+parameters:
+  - name: BuildEverything
+    type: boolean
+    default: false
+  - name: BuildConfigurations
+    type: object
+    default:
+      - Debug
+      - Release
+
+trigger:
+  branches:
+    include:
+    - main
+  tags:
+    include:
+    - '*'
+  paths:
+    include:
+    - '*'
+    exclude:
+    - .github/*
+    - docs/*
+    - CODE-OF-CONDUCT.md
+    - CONTRIBUTING.md
+    - LICENSE.TXT
+    - PATENTS.TXT
+    - README.md
+    - SECURITY.md
+    - THIRD-PARTY-NOTICES.TXT
+
+pr:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - '*'
+    exclude:
+    - .github/*
+    - docs/*
+    - CODE-OF-CONDUCT.md
+    - CONTRIBUTING.md
+    - LICENSE.TXT
+    - PATENTS.TXT
+    - README.md
+    - SECURITY.md
+    - THIRD-PARTY-NOTICES.TXT
+
+resources:
+  repositories:
+    - repository: xamarin-templates
+      type: github
+      name: xamarin/yaml-templates
+      endpoint: xamarin
+      ref: refs/heads/main # still defaults to master even though main is the main branch
+
+stages:
+  - stage: windows
+    displayName: Build Windows
+    jobs:
+      - ${{ each BuildCondition in parameters.BuildConfigurations }}:
+        - job: win_hosted_${{ BuildCondition }}
+          workspace:
+            clean: all
+          displayName: Build Windows Phase (${{ BuildCondition }})
+          timeoutInMinutes: 60
+          pool:
+            vmImage:  windows-latest
+          steps:
+            # - powershell: |
+            #     $ProgressPreference = 'SilentlyContinue'
+            #     Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
+            #     & .\dotnet-install.ps1 -Version $(DotNetVersion) -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
+            #     & dotnet --list-sdks
+            #   displayName: install .NET $(DotNetVersion)
+            #   errorActionPreference: stop
+       
+
+            # - powershell: |
+            #     & dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json
+            #     & maui-check --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --manifest $(MauiCheck.Manifest)
+            #   displayName: maui-check
+            #   errorActionPreference: stop
+
+            - script: dotnet tool restore
+              displayName: install dotnet tools
+
+            - script: dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
+              displayName: update vs
+
+            - script: dotnet cake --configuration=${{ BuildCondition }}
+              displayName: build net6 solutions
+
+            - task: NuGetCommand@2
+              displayName: 'Pack nupkg'
+              inputs:
+                command: 'pack'
+                packagesToPack: '**\\Microsoft.Maui.*.nuspec'
+                packDestination: '$(Build.ArtifactStagingDirectory)/${{ BuildCondition }}'
+                configuration: ${{ BuildCondition }}
+                basePath: '$(System.DefaultWorkingDirectory)'
+                versioningScheme : 'byEnvVar'
+                versionEnvVar: 'BUILD_BUILDNUMBER'
+                
+            - task: CopyFiles@2
+              displayName: 'Copy SignList.xml and Packages'
+              inputs:
+                Contents: |
+                  **/SignList.xml
+                TargetFolder: '$(Build.ArtifactStagingDirectory)/${{ BuildCondition }}'
+                flattenFolders: true
+
+            - task: PublishBuildArtifacts@1
+              condition: always()
+              displayName: publish artifacts
+              inputs:
+                ArtifactName: nuget
+
+# only sign using the private server
+  - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+    - stage: nuget_signing
+      dependsOn: windows
+      displayName: Sign Nuget
+      jobs:
+        - template: sign-artifacts/jobs/v2.yml@xamarin-templates
+          parameters:
+            teamName: Maui
+            usePipelineArtifactTasks: false
+            targetFolder: $(Build.ArtifactStagingDirectory)/nuget/signed
+            artifactPath: release
+            signedArtifactName: nuget
+            signedArtifactPath: signed
+            displayName: Sign Phase
+            condition: and(succeeded(), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
