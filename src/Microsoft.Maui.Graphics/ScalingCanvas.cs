@@ -213,12 +213,11 @@ namespace Microsoft.Maui.Graphics
 		{
 			_scaleX *= Math.Abs(sx);
 			_scaleY *= Math.Abs(sy);
-			_canvas.Scale(sx, sy);
 		}
 
 		public void Translate(float tx, float ty)
 		{
-			_canvas.Translate(tx, ty);
+			_canvas.Translate(tx * _scaleX, ty * _scaleY);
 		}
 
 		public void ConcatenateTransform(AffineTransform transform)
