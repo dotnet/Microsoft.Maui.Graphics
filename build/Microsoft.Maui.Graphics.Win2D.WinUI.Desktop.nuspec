@@ -19,6 +19,7 @@
         <dependency id="Microsoft.Maui.Graphics" version="$version$" exclude="Build,Analyzers" />
         <dependency id="Microsoft.Graphics.Win2D" version="0.8.0.21" exclude="Build,Analyzers" />
         <dependency id="Microsoft.WindowsAppSdk" version="1.0.0-experimental1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.WindowsAppSdk.InteractiveExperiences" version="1.0.0-experimental1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
