@@ -125,7 +125,7 @@ stages:
               displayName: 'Pack nupkg'
               inputs:
                 command: 'pack'
-                packagesToPack: '**\\Microsoft.Maui.*.nuspec'
+                packagesToPack: '**\Microsoft.Maui.*.nuspec'
                 packDestination: '$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}'
                 configuration: ${{ BuildConfiguration }}
                 basePath: '$(System.DefaultWorkingDirectory)'
