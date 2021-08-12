@@ -5,7 +5,7 @@ variables:
   DotNet.Cli.Telemetry.OptOut: true
   MauiCheck.Version: 0.6.7
   Maui.Version: ''
-  Tizen.Version: 6.5.100-preview.5.57
+  Tizen.Version: 6.5.100-preview.7.84
 
 parameters:
   - name: BuildConfigurations
