@@ -89,8 +89,6 @@
 
     <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/xamarin.ios10/Microsoft.Maui.Graphics.Skia.dll" target="lib/xamarin.ios10/Microsoft.Maui.Graphics.Skia.dll"/>
     <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/xamarin.ios10/Microsoft.Maui.Graphics.Skia.pdb" target="lib/xamarin.ios10/Microsoft.Maui.Graphics.Skia.pdb"/>
-    <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/xamarin.ios10/Microsoft.Maui.Graphics.Skia.dll" target="lib/xamarin.ios10/Microsoft.Maui.Graphics.Skia.dll"/>
-    <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/xamarin.ios10/Microsoft.Maui.Graphics.Skia.pdb" target="lib/xamarin.ios10/Microsoft.Maui.Graphics.Skia.pdb"/>
     <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/monoandroid10.0/Microsoft.Maui.Graphics.Skia.dll" target="lib/monoandroid10.0/Microsoft.Maui.Graphics.Skia.dll"/>
     <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/monoandroid10.0/Microsoft.Maui.Graphics.Skia.pdb" target="lib/monoandroid10.0/Microsoft.Maui.Graphics.Skia.pdb"/>
     <file src="src/Microsoft.Maui.Graphics.Skia/bin/$configuration$/xamarin.mac20/Microsoft.Maui.Graphics.Skia.dll" target="lib/xamarin.mac20/Microsoft.Maui.Graphics.Skia.dll"/>
