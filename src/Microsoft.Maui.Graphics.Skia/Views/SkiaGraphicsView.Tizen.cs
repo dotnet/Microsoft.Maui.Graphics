@@ -1,5 +1,3 @@
-using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Graphics.Skia;
 using SkiaSharp.Views.Tizen;
 using ElmSharp;
 
@@ -17,8 +15,9 @@ namespace Microsoft.Maui.Graphics.Skia.Views
 			_scalingCanvas = new ScalingCanvas(_canvas);
 			Drawable = drawable;
 			PaintSurface += OnPaintSurface;
-			IgnorePixelScaling = true;
 		}
+
+		public float DeviceScalingFactor { get; set; }
 
 		public IDrawable Drawable
 		{
@@ -38,7 +37,21 @@ namespace Microsoft.Maui.Graphics.Skia.Views
 			skiaCanvas.Clear();
 
 			_canvas.Canvas = skiaCanvas;
-			_drawable.Draw(_scalingCanvas, new RectangleF(0, 0, GetSurfaceSize().Width, GetSurfaceSize().Height));
+			_scalingCanvas.ResetState();
+
+			float width = e.Info.Width;
+			float height = e.Info.Height;
+			if (DeviceScalingFactor > 0)
+			{
+				width = width / DeviceScalingFactor;
+				height = height / DeviceScalingFactor;
+			}
+
+			_scalingCanvas.SaveState();
+			if (DeviceScalingFactor > 0)
+				_scalingCanvas.Scale(DeviceScalingFactor, DeviceScalingFactor);
+			_drawable.Draw(_scalingCanvas, new RectangleF(0, 0, width, height));
+			_scalingCanvas.RestoreState();
 		}
 	}
 }
