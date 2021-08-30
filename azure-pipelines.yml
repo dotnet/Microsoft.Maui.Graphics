@@ -96,6 +96,9 @@ stages:
                 dotnet vs where
               displayName: update vs
 
+            - pwsh: echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
+              displayName: Select JDK 11
+
             - pwsh: |
                 & dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json
                 & maui-check $(Maui.Version) --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --skip edgewebview2
