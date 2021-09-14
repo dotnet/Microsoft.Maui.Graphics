@@ -1,7 +1,6 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100-rc.1.21452.64
   DotNet.Cli.Telemetry.OptOut: true
   Maui.Version: '--preview'
 
@@ -74,23 +73,10 @@ stages:
           pool:
             vmImage:  windows-2022
           steps:
-            - pwsh: |
-                $ProgressPreference = 'SilentlyContinue'
-                Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
-                & .\dotnet-install.ps1 -Version $(DotNet.Version) -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
-                & dotnet --list-sdks
-                echo "##vso[task.setvariable variable=DOTNET_ROOT]C:\Program Files\dotnet"
-              displayName: install .NET $(DotNet.Version)
-              errorActionPreference: stop
-
             - pwsh: dotnet tool restore
               displayName: install dotnet tools
 
             - pwsh: |
-                # # Update the installer installer
-                # Invoke-WebRequest -UseBasicParsing -Uri "https://aka.ms/vs/install/latest/vs_setup.exe" -OutFile vs_setup.exe
-                # & .\vs_setup.exe --update --quiet --wait | Out-Null
-
                 dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
                 dotnet vs where
               displayName: update vs
