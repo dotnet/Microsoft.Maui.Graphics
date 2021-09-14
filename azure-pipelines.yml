@@ -1,11 +1,9 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100-rc.1.21426.23
+  DotNet.Version: 6.0.100-rc.1.21452.64
   DotNet.Cli.Telemetry.OptOut: true
-  MauiCheck.Version: 0.8.4
   Maui.Version: '--preview'
-  Tizen.Version: 6.5.100-preview.7.84
 
 parameters:
   - name: BuildConfigurations
@@ -74,7 +72,7 @@ stages:
           displayName: Build Windows Phase (${{ BuildConfiguration }})
           timeoutInMinutes: 60
           pool:
-            vmImage:  windows-latest
+            vmImage:  windows-2022
           steps:
             - pwsh: |
                 $ProgressPreference = 'SilentlyContinue'
@@ -87,26 +85,27 @@ stages:
             - pwsh: dotnet tool restore
               displayName: install dotnet tools
 
-            - pwsh: |
-                # Update the installer installer
-                Invoke-WebRequest -UseBasicParsing -Uri "https://aka.ms/vs/install/latest/vs_setup.exe" -OutFile vs_setup.exe
-                & .\vs_setup.exe --update --quiet --wait | Out-Null
+            # - pwsh: |
+            #     # Update the installer installer
+            #     Invoke-WebRequest -UseBasicParsing -Uri "https://aka.ms/vs/install/latest/vs_setup.exe" -OutFile vs_setup.exe
+            #     & .\vs_setup.exe --update --quiet --wait | Out-Null
 
-                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
-                dotnet vs where
-              displayName: update vs
+            #     dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
+            #     dotnet vs where
+            #   displayName: update vs
 
             - pwsh: echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
               displayName: Select JDK 11
 
             - pwsh: |
-                & dotnet tool update --global redth.net.maui.check --version $(MauiCheck.Version) --add-source https://api.nuget.org/v3/index.json
+                & dotnet tool update --global redth.net.maui.check --add-source https://api.nuget.org/v3/index.json
                 & maui-check $(Maui.Version) --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --skip edgewebview2
               displayName: maui-check
               errorActionPreference: stop
 
             - pwsh:
-                dotnet boots --url https://workload-bin.s3.ap-northeast-2.amazonaws.com/windows/Samsung.NET.Workload.Tizen.$(Tizen.Version).msi
+                Invoke-WebRequest 'https://raw.githubusercontent.com/Samsung/Tizen.NET/main/workload/scripts/workload-install.ps1' -Proxy $env:HTTP_PROXY -ProxyUseDefaultCredentials -OutFile 'workload-install.ps1';
+                .\workload-install.ps1
               displayName: install tizen
 
             - pwsh: |
