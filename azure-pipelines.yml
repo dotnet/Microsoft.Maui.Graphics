@@ -86,14 +86,14 @@ stages:
             - pwsh: dotnet tool restore
               displayName: install dotnet tools
 
-            # - pwsh: |
-            #     # Update the installer installer
-            #     Invoke-WebRequest -UseBasicParsing -Uri "https://aka.ms/vs/install/latest/vs_setup.exe" -OutFile vs_setup.exe
-            #     & .\vs_setup.exe --update --quiet --wait | Out-Null
+            - pwsh: |
+                # # Update the installer installer
+                # Invoke-WebRequest -UseBasicParsing -Uri "https://aka.ms/vs/install/latest/vs_setup.exe" -OutFile vs_setup.exe
+                # & .\vs_setup.exe --update --quiet --wait | Out-Null
 
-            #     dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
-            #     dotnet vs where
-            #   displayName: update vs
+                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
+                dotnet vs where
+              displayName: update vs
 
             - pwsh: echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
               displayName: Select JDK 11
