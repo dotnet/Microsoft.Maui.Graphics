@@ -93,7 +93,7 @@ stages:
 
             - pwsh: |
                 $uri = 'https://go.microsoft.com/fwlink/?linkid=2083338'
-                .\scripts\download-file.ps1 -Uri $uri -OutFile winsdksetup.exe
+                Invoke-WebRequest -Uri $uri -OutFile winsdksetup.exe
                 .\winsdksetup.exe /norestart /quiet | Out-Null
                 dir "C:\Program Files (x86)\Windows Kits\10\References\"
               displayName: install Windows 10 SDK, version 1903 (10.0.18362.1)
