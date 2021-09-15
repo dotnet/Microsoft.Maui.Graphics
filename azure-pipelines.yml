@@ -87,8 +87,7 @@ stages:
               displayName: install dotnet tools
 
             - pwsh: |
-                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
-                dotnet vs modify preview Enterprise +core +mobile +desktop +uwp --quiet
+                dotnet vs install preview Enterprise +core +mobile +desktop +uwp +Microsoft.VisualStudio.Component.Windows10SDK.18362 --quiet
                 dotnet vs where
               displayName: update vs
 
