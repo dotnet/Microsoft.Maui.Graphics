@@ -87,11 +87,16 @@ stages:
               displayName: install dotnet tools
 
             - pwsh: |
-                dir "C:\Program Files (x86)\Windows Kits\10\References\"
-                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --add Microsoft.VisualStudio.Component.Windows10SDK.18362 --quiet
-                dir "C:\Program Files (x86)\Windows Kits\10\References\"
+                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
                 dotnet vs where
               displayName: update vs
+
+            - pwsh: |
+                $uri = 'https://go.microsoft.com/fwlink/?linkid=2083338'
+                .\scripts\download-file.ps1 -Uri $uri -OutFile $env:TEMP\winsdksetup.exe
+                $env:TEMP\winsdksetup.exe /norestart /quiet | Out-Null
+                dir "C:\Program Files (x86)\Windows Kits\10\References\"
+              displayName: install Windows 10 SDK, version 1903 (10.0.18362.1)
 
             - pwsh: echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
               displayName: Select JDK 11
