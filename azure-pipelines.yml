@@ -88,8 +88,7 @@ stages:
 
             - pwsh: |
                 dir "C:\Program Files (x86)\Windows Kits\10\References\"
-                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
-                dotnet vs install preview Community --add Microsoft.VisualStudio.Component.Windows10SDK.18362 --quiet
+                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --add Microsoft.VisualStudio.Component.Windows10SDK.18362 --quiet
                 dir "C:\Program Files (x86)\Windows Kits\10\References\"
                 dotnet vs where
               displayName: update vs
