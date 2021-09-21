@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0-rc.2.21455.6" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.4.2" />
+		<PackageReference Include="SkiaSharp" Version="2.88.0-preview.140" />
+	</ItemGroup>
+
+</Project>

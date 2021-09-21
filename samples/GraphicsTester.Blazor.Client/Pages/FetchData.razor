@@ -1,0 +1,65 @@
+﻿@page "/fetchdata"
+
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+
+@inject HttpClient Http
+
+<h1>SkiaSharp Canvas</h1>
+
+<div>
+    <SKCanvasView @ref="skiaCanvas" OnPaintSurface="@OnPaintSurface" Width="320" Height="240" IgnorePixelScaling="@ignorePixelScaling" />
+</div>
+
+<div>
+    <button class="btn btn-primary" @onclick="RefreshSurface">Refresh</button>
+    <button class="btn" @onclick="ToggleScaling">Scaling</button>
+</div>
+
+<div>
+    IgnorePixelScaling: @ignorePixelScaling
+</div>
+
+@code {
+    SKCanvasView skiaCanvas = null!;
+    bool ignorePixelScaling = true;
+
+    void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+
+        var colors = new[] { SKColors.Cyan, SKColors.Magenta, SKColors.Yellow, SKColors.Cyan };
+        var center = new SKPoint(e.Info.Width / 2, e.Info.Height / 2);
+
+        canvas.Clear(SKColors.Transparent);
+
+        using (var paint = new SKPaint())
+        using (var gradient = SKShader.CreateSweepGradient(center, colors))
+        {
+            paint.IsAntialias = true;
+            paint.Shader = gradient;
+
+            canvas.DrawRoundRect(new SKRect(5, 5, e.Info.Width - 5, e.Info.Height - 5), 25, 25, paint);
+        }
+
+        using (var paint = new SKPaint())
+        {
+            paint.IsAntialias = true;
+            paint.Color = SKColors.DarkBlue;
+            paint.TextSize = 24;
+            paint.TextAlign = SKTextAlign.Center;
+
+            canvas.DrawText("SkiaSharp", center.X, (center.Y / 2) + (paint.TextSize / 2), paint);
+        }
+    }
+
+    async void RefreshSurface()
+    {
+        await skiaCanvas.InvalidateAsync();
+    }
+
+    void ToggleScaling()
+    {
+        ignorePixelScaling = !ignorePixelScaling;
+    }
+}

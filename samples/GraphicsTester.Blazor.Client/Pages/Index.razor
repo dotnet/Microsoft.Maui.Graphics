@@ -1,0 +1,135 @@
+﻿@page "/"
+
+@using SkiaSharp
+@using SkiaSharp.Views.Blazor
+
+<h1>SkiaSharp Canvas</h1>
+
+<style>
+    .skiaCanvas {
+        width: 100%;
+        height: 240px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <SKCanvasView @ref="skiaCanvas" OnPaintSurface="@OnPaintSurface" IgnorePixelScaling="@ignorePixelScaling" class="skiaCanvas" />
+        </div>
+        <div class="col-6">
+            <SKGLView @ref="glCanvas" OnPaintSurface="@OnPaintGLSurface" EnableRenderLoop="@renderLoop" class="skiaCanvas" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <SKCanvasView @ref="skiaCanvas2" OnPaintSurface="@OnPaintSurface" IgnorePixelScaling="@ignorePixelScaling" class="skiaCanvas" />
+        </div>
+        <div class="col-6">
+            <SKGLView @ref="glCanvas2" OnPaintSurface="@OnPaintGLSurface" EnableRenderLoop="@(!renderLoop)" class="skiaCanvas" />
+        </div>
+    </div>
+</div>
+
+<div>
+    <button class="btn btn-primary" @onclick="RefreshSurface">Refresh</button>
+    <button class="btn btn-secondary" @onclick="ToggleScaling">Scaling</button>
+    <button class="btn btn-secondary" @onclick="ToggleRenderLoop">Render Loop</button>
+</div>
+
+<div>
+    IgnorePixelScaling: @ignorePixelScaling
+</div>
+
+@code {
+    SKCanvasView skiaCanvas = null!;
+    SKCanvasView skiaCanvas2 = null!;
+    SKGLView glCanvas = null!;
+    SKGLView glCanvas2 = null!;
+    bool ignorePixelScaling = true;
+    bool renderLoop = true;
+
+    int tickIndex = 0;
+    int tickSum = 0;
+    int[] tickList = new int[100];
+    int lastTick = Math.Abs(Environment.TickCount);
+
+    double CalcAverageTick()
+    {
+        var newTick = Math.Abs(Environment.TickCount);
+        var delta = Math.Max(newTick, lastTick) - Math.Min(newTick, lastTick);
+        lastTick = newTick;
+
+        tickSum -= tickList[tickIndex];
+        tickSum += delta;
+        tickList[tickIndex] = delta;
+
+        if (++tickIndex == tickList.Length)
+            tickIndex = 0;
+
+        return ((double)tickSum / tickList.Length);
+    }
+
+    void OnPaintSurface(SKPaintSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+        var info = e.Info.Size;
+        Paint(canvas, info, false);
+    }
+
+    void OnPaintGLSurface(SKPaintGLSurfaceEventArgs e)
+    {
+        var canvas = e.Surface.Canvas;
+        var info = e.BackendRenderTarget.Size;
+        Paint(canvas, info, true);
+    }
+
+    void Paint(SKCanvas canvas, SKSizeI info, bool fps)
+    {
+        var colors = new[] { SKColors.Cyan, SKColors.Magenta, SKColors.Yellow, SKColors.Cyan };
+        var center = new SKPoint(info.Width / 2, info.Height / 2);
+
+        canvas.Clear(SKColors.Transparent);
+
+        using (var paint = new SKPaint())
+        using (var gradient = SKShader.CreateLinearGradient(new SKPoint(0, 0), new SKPoint(0, info.Height), colors, SKShaderTileMode.Clamp))
+        {
+            paint.IsAntialias = true;
+            paint.Shader = gradient;
+
+            canvas.DrawRoundRect(new SKRect(5, 5, info.Width - 5, info.Height - 5), 25, 25, paint);
+        }
+
+        using (var paint = new SKPaint())
+        {
+            paint.IsAntialias = true;
+            paint.Color = SKColors.DarkBlue;
+            paint.TextSize = 24;
+            paint.TextAlign = SKTextAlign.Center;
+
+            canvas.DrawText("SkiaSharp", center.X, (center.Y / 2), paint);
+            canvas.DrawText(DateTime.Now.ToString("HH:mm:ss"), center.X, (center.Y / 2) + paint.TextSize, paint);
+
+            if (fps)
+                canvas.DrawText(CalcAverageTick().ToString("0.00") + "fps", center.X, (center.Y / 2) + (paint.TextSize * 2), paint);
+        }
+    }
+
+    async void RefreshSurface()
+    {
+        await skiaCanvas.InvalidateAsync();
+        await skiaCanvas2.InvalidateAsync();
+        await glCanvas.InvalidateAsync();
+        await glCanvas2.InvalidateAsync();
+    }
+
+    void ToggleScaling()
+    {
+        ignorePixelScaling = !ignorePixelScaling;
+    }
+
+    void ToggleRenderLoop()
+    {
+        renderLoop = !renderLoop;
+    }
+}
