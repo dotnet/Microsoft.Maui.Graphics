@@ -81,6 +81,7 @@ stages:
                 versionSpec: '5.x'
 
             - pwsh: |
+                dir env:
                 echo "$env:ProgramFiles\dotnet"
                 dir $env:ProgramFiles\dotnet
                 echo "##vso[task.setvariable variable=DOTNET_ROOT]$env:ProgramFiles\dotnet"
