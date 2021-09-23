@@ -88,7 +88,7 @@ stages:
             - pwsh: |
                 $ProgressPreference = 'SilentlyContinue'
                 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/Clean-Old-DotNet6-Previews.ps1" -OutFile Clean-Old-DotNet6-Previews.ps1
-                & .\Clean-Old-DotNet6-Previews.ps1
+                & .\Clean-Old-DotNet6-Previews.ps1 -FullDelete $true
                 & dotnet --list-sdks
               displayName: remove old dotnet 6
               errorActionPreference: stop
