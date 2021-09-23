@@ -1,9 +1,9 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100-rc.1.21458.32
+  DotNet.Version: 6.0.100-rc.2.21465.13
   DotNet.Cli.Telemetry.OptOut: true
-  Maui.Version: '--preview'
+  Maui.Version: '--main'
 
 parameters:
   - name: BuildConfigurations
