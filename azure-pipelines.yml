@@ -81,14 +81,17 @@ stages:
                 versionSpec: '5.x'
 
             - pwsh: |
+                echo "$env:ProgramFiles\dotnet"
+                dir $env:ProgramFiles\dotnet
                 echo "##vso[task.setvariable variable=DOTNET_ROOT]$env:ProgramFiles\dotnet"
               displayName: set DOTNET_ROOT
               errorActionPreference: stop
 
             - pwsh: |
+                echo "$env:DOTNET_ROOT"
                 $ProgressPreference = 'SilentlyContinue'
                 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/Clean-Old-DotNet6-Previews.ps1" -OutFile Clean-Old-DotNet6-Previews.ps1
-                & .\Clean-Old-DotNet6-Previews.ps1 -FullDelete $true
+                & .\Clean-Old-DotNet6-Previews.ps1 -FullDelete $true -DotnetRoot "$env:DOTNET_ROOT"
                 & dotnet --list-sdks
               displayName: remove old dotnet 6
               errorActionPreference: stop
