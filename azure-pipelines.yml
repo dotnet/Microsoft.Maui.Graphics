@@ -1,9 +1,9 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100-rc.2.21465.13
+  DotNet.Version: 6.0.100-rc.2.21471.36
+  DotNet.Workloads: https://aka.ms/dotnet/maui/main.json
   DotNet.Cli.Telemetry.OptOut: true
-  Maui.Version: '--main'
 
 parameters:
   - name: BuildConfigurations
@@ -85,8 +85,6 @@ stages:
                 Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
                 & .\dotnet-install.ps1 -Version $(DotNet.Version) -InstallDir "$env:ProgramFiles\dotnet\" -Verbose
                 & dotnet --list-sdks
-                echo "vso[task.setvariable variable=DOTNET_ROOT]$env:ProgramFiles\dotnet"
-                echo "##vso[task.setvariable variable=DOTNET_ROOT]$env:ProgramFiles\dotnet"
               displayName: install .NET $(DotNet.Version)
               errorActionPreference: stop
 
@@ -109,9 +107,9 @@ stages:
               displayName: Select JDK 11
 
             - pwsh: |
-                & dotnet tool update --global redth.net.maui.check --add-source https://api.nuget.org/v3/index.json
-                & maui-check $(Maui.Version) --ci --non-interactive --fix --skip androidsdk --skip xcode --skip vswin --skip vsmac --skip edgewebview2
-              displayName: maui-check
+                & dotnet workload update --from-rollback-file $(DotNet.Workloads) --source https://aka.ms/dotnet6/nuget/index.json
+                & dotnet workload install maui --skip-manifest-update --source https://aka.ms/dotnet6/nuget/index.json
+              displayName: install dotnet workloads
               errorActionPreference: stop
 
             - pwsh: |
