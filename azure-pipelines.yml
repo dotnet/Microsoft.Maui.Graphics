@@ -1,7 +1,7 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100-rc.2.21474.31
+  DotNet.Version: 6.0.100-rc.2.21465.13
   DotNet.Workloads: https://aka.ms/dotnet/maui/preview.9.json
   DotNet.Cli.Telemetry.OptOut: true
 
@@ -120,7 +120,8 @@ stages:
               displayName: Select JDK 11
 
             - pwsh: |
-                & dotnet workload update --from-rollback-file "$(DotNet.Workloads)" --source https://aka.ms/dotnet6/nuget/index.json
+                Invoke-WebRequest -Uri "$(DotNet.Workloads)" -OutFile rollback.json
+                & dotnet workload update --from-rollback-file rollback.json --source https://aka.ms/dotnet6/nuget/index.json
                 & dotnet workload install maui --skip-manifest-update --source https://aka.ms/dotnet6/nuget/index.json
               displayName: install dotnet workloads
               errorActionPreference: stop
