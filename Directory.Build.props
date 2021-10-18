@@ -1,4 +1,7 @@
 <Project>
+  <PropertyGroup>
+    <OfficialBuildId>20211018.1</OfficialBuildId>
+  </PropertyGroup>
   <!-- This is for arcade support. -->
   <Import Project="Sdk.props" Sdk="Microsoft.DotNet.Arcade.Sdk" />
   <Import Project="eng\TargetFrameworkDefaults.props" />
