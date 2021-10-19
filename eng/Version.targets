@@ -71,7 +71,7 @@
     <PropertyGroup>
       <VersionMetadataLabel>@(VersionMetadata -> '%(Identity)', '-')</VersionMetadataLabel>
       <VersionMetadataPlusLabel Condition="'$(VersionMetadataLabel)' != ''">+$(VersionMetadataLabel)</VersionMetadataPlusLabel>
-      <Version>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</Version>
+      <VersionGit>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</VersionGit>
       <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersion>
 
       <PackageVersion Condition="$(CI)">$(GitSemVerMajor).$(GitSemVerMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(BUILDVERSION)$(VersionMetadataPlusLabel)</PackageVersion>
@@ -79,7 +79,7 @@
 
     <PropertyGroup>
       <InformationalVersion>$(PackageVersion)</InformationalVersion>
-      <FileVersion>$(Version).$(GitCommits)</FileVersion>
+      <FileVersion>$(VersionGit).$(GitCommits)</FileVersion>
       <AssemblyVersion>1.0.0.0</AssemblyVersion> <!-- THIS SHALL REMAIN 1.0.0.0 -->
     </PropertyGroup>
 
@@ -105,7 +105,7 @@
   FileVersion:            $(FileVersion)
   InformationalVersion:   $(InformationalVersion)
   PackageVersion:         $(PackageVersion)
-  Version:        $(Version)
+  Version:        $(VersionGit)
   VersionPrefix:  $(VersionPrefix)
   VersionSuffix:  $(VersionSuffix)
 "/>
