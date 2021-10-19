@@ -96,7 +96,7 @@
 
   
     <Message Condition="$(CI) and '$(BUILD_REASON)' == 'Schedule'" Importance="high" Text="##vso[build.addbuildtag]$(NightlyTag)"/>
-    <Message Condition="$(CI)" Importance="high" Text="##vso[task.setvariable variable=THEPACKAGEVERSION;]$(PackageVersionGit)"/>
+    <Message Condition="$(CI)" Importance="high" Text="##vso[task.setvariable variable=THEPACKAGEVERSION;]$(Version)"/>
   </Target>
 
   <Target Name="VersionInfoReport" DependsOnTargets="SetVersions">
