@@ -41,16 +41,16 @@
     <file src="Microsoft.Maui.Graphics/$configuration$/xamarin.mac20/Microsoft.Maui.Graphics.dll" target="lib/xamarin.mac20/Microsoft.Maui.Graphics.dll"/>
     <file src="Microsoft.Maui.Graphics/$configuration$/xamarin.mac20/Microsoft.Maui.Graphics.pdb" target="lib/xamarin.mac20/Microsoft.Maui.Graphics.pdb"/>
 
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-ios/Microsoft.Maui.Graphics.dll" target="lib/net6.0-ios13.6/Microsoft.Maui.Graphics.dll"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-ios/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-ios13.6/Microsoft.Maui.Graphics.pdb"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-android/Microsoft.Maui.Graphics.dll" target="lib/net6.0-android30.0/Microsoft.Maui.Graphics.dll"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-android/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-android30.0/Microsoft.Maui.Graphics.pdb"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-maccatalyst/Microsoft.Maui.Graphics.dll" target="lib/net6.0-maccatalyst13.5/Microsoft.Maui.Graphics.dll"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-maccatalyst/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-maccatalyst13.5/Microsoft.Maui.Graphics.pdb"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.dll" target="lib/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.dll"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.pdb"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-tizen6.5/Microsoft.Maui.Graphics.dll" target="lib/net6.0-tizen6.5/Microsoft.Maui.Graphics.dll"/>
-    <file src="Microsoft.Maui.Graphics/$configuration$/net6.0-tizen6.5/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-tizen6.5/Microsoft.Maui.Graphics.pdb"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-ios/Microsoft.Maui.Graphics.dll" target="lib/net6.0-ios13.6/Microsoft.Maui.Graphics.dll"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-ios/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-ios13.6/Microsoft.Maui.Graphics.pdb"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-android/Microsoft.Maui.Graphics.dll" target="lib/net6.0-android30.0/Microsoft.Maui.Graphics.dll"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-android/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-android30.0/Microsoft.Maui.Graphics.pdb"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-maccatalyst/Microsoft.Maui.Graphics.dll" target="lib/net6.0-maccatalyst13.5/Microsoft.Maui.Graphics.dll"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-maccatalyst/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-maccatalyst13.5/Microsoft.Maui.Graphics.pdb"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.dll" target="lib/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.dll"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-windows10.0.18362/Microsoft.Maui.Graphics.pdb"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-tizen6.5/Microsoft.Maui.Graphics.dll" target="lib/net6.0-tizen6.5/Microsoft.Maui.Graphics.dll"/>
+    <file src="Microsoft.Maui.Graphics-net6/$configuration$/net6.0-tizen6.5/Microsoft.Maui.Graphics.pdb" target="lib/net6.0-tizen6.5/Microsoft.Maui.Graphics.pdb"/>
     <file src="Microsoft.Maui.Graphics/$configuration$/tizen40/Microsoft.Maui.Graphics.dll" target="lib/tizen40/Microsoft.Maui.Graphics.dll"/>
     <file src="Microsoft.Maui.Graphics/$configuration$/tizen40/Microsoft.Maui.Graphics.pdb" target="lib/tizen40/Microsoft.Maui.Graphics.pdb"/>
   </files>
