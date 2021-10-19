@@ -94,6 +94,9 @@
       </AssemblyAttribute>
     </ItemGroup>
 
+    <ItemGroup>
+      <EnvironmentVariables Include="THEPACKAGEVERSION=$(PackageVersion)" />
+    </ItemGroup>
     <Message Condition="$(CI) and '$(BUILD_REASON)' == 'Schedule'" Importance="high" Text="##vso[build.addbuildtag]$(NightlyTag)"/>
     <!-- <Message Condition="$(CI)" Importance="high" Text="##vso[build.updatebuildnumber]$(PackageVersion)"/> -->
   </Target>
