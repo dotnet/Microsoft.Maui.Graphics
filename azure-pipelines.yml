@@ -150,7 +150,7 @@ stages:
                 packagesToPack: '**\Microsoft.Maui.*.nuspec'
                 packDestination: '$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}'
                 configuration: ${{ BuildConfiguration }}
-                basePath: '$(System.DefaultWorkingDirectory)'
+                basePath: '$(System.DefaultWorkingDirectory)/artifacts/bin'
                 versioningScheme : 'byEnvVar'
                 versionEnvVar: 'BUILD_BUILDNUMBER'
 
