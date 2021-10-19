@@ -72,9 +72,9 @@
       <VersionMetadataLabel>@(VersionMetadata -> '%(Identity)', '-')</VersionMetadataLabel>
       <VersionMetadataPlusLabel Condition="'$(VersionMetadataLabel)' != ''">+$(VersionMetadataLabel)</VersionMetadataPlusLabel>
       <VersionGit>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</VersionGit>
-      <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersion>
+      <PackageVersionGit>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersionGit>
 
-      <PackageVersion Condition="$(CI)">$(GitSemVerMajor).$(GitSemVerMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(BUILDVERSION)$(VersionMetadataPlusLabel)</PackageVersion>
+      <PackageVersionGit Condition="$(CI)">$(GitSemVerMajor).$(GitSemVerMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(BUILDVERSION)$(VersionMetadataPlusLabel)</PackageVersionGit>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -90,15 +90,13 @@
       </AssemblyAttribute>
       <AssemblyAttribute Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>PackageVersion</_Parameter1>
-        <_Parameter2>$(PackageVersion)</_Parameter2>
+        <_Parameter2>$(PackageVersionGit)</_Parameter2>
       </AssemblyAttribute>
     </ItemGroup>
 
-    <ItemGroup>
-      <EnvironmentVariables Include="THEPACKAGEVERSION=$(PackageVersion)" />
-    </ItemGroup>
+  
     <Message Condition="$(CI) and '$(BUILD_REASON)' == 'Schedule'" Importance="high" Text="##vso[build.addbuildtag]$(NightlyTag)"/>
-    <!-- <Message Condition="$(CI)" Importance="high" Text="##vso[build.updatebuildnumber]$(PackageVersion)"/> -->
+    <Message Condition="$(CI)" Importance="high" Text="##vso[task.setvariable variable=THEPACKAGEVERSION;]$(PackageVersionGit)"/>
   </Target>
 
   <Target Name="VersionInfoReport" DependsOnTargets="SetVersions">
@@ -107,7 +105,7 @@
   AssemblyVersion:        $(AssemblyVersion)
   FileVersion:            $(FileVersion)
   InformationalVersion:   $(InformationalVersion)
-  PackageVersion:         $(PackageVersion)
+  PackageVersion:         $(PackageVersionGit)
   Version:        $(VersionGit)
   VersionPrefix:  $(VersionPrefix)
   VersionSuffix:  $(VersionSuffix)
