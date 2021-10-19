@@ -1,6 +1,5 @@
 <Project>
-  <!-- <Import Project="eng\Versions.props" /> -->
-  <!-- This is for arcade support. -->
+   <!-- This is for arcade support. -->
   <Import Project="Sdk.props" Sdk="Microsoft.DotNet.Arcade.Sdk" />
   <Import Project="eng\TargetFrameworkDefaults.props" />
   <PropertyGroup Condition="'$(DotNetBuildFromSource)' == 'true'">
@@ -21,9 +20,9 @@
     <MsbuildTaskMicrosoftCodeAnalysisCSharpVersion>$(MicrosoftCodeAnalysisCSharpVersion)</MsbuildTaskMicrosoftCodeAnalysisCSharpVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
+    <IncludeSymbols>true</IncludeSymbols> -->
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <ProduceReferenceAssembly Condition="'$(UsingMicrosoftNETSdk)' == 'True' AND '$(Configuration)' == 'Debug'">True</ProduceReferenceAssembly>
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
@@ -35,9 +34,6 @@
     <DotNetToolPath>$(DotNetDirectory)dotnet</DotNetToolPath>
     <DotNetPacksDirectory>$(DotNetDirectory)packs/</DotNetPacksDirectory>
     <DotNetSdkManifestsDirectory>$(DotNetDirectory)sdk-manifests/$(DotNetPreviewVersionBand)/</DotNetSdkManifestsDirectory>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GitDefaultBranch>main</GitDefaultBranch>
   </PropertyGroup>
   <PropertyGroup>
     <Company>Microsoft</Company>
@@ -53,8 +49,5 @@
     <PackageVersion>0.0.1-alpha1</PackageVersion>
     <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputPath>
   </PropertyGroup>
-  <!-- This target is replaced by GitInfo when restored. Allows Version.targets to rely on it before restore. -->
-  <!-- <Target Name="GitVersion" />
-  <Target Name="GitInfo" /> -->
   <Import Condition="'$(EnvironmentBuildPropsImported)' != 'True'" Project="$(MSBuildThisFileDirectory)eng\Environment.Build.props" />
 </Project>
