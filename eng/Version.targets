@@ -71,15 +71,15 @@
     <PropertyGroup>
       <VersionMetadataLabel>@(VersionMetadata -> '%(Identity)', '-')</VersionMetadataLabel>
       <VersionMetadataPlusLabel Condition="'$(VersionMetadataLabel)' != ''">+$(VersionMetadataLabel)</VersionMetadataPlusLabel>
-      <Version>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</Version>
-      <PackageVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersion>
+      <VersionGit>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</VersionGit>
+      <PackageVersionGit>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)$(VersionMetadataPlusLabel)</PackageVersionGit>
 
-      <PackageVersion Condition="$(CI)">$(GitSemVerMajor).$(GitSemVerMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(BUILDVERSION)$(VersionMetadataPlusLabel)</PackageVersion>
+      <PackageVersionGit Condition="$(CI)">$(GitSemVerMajor).$(GitSemVerMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(BUILDVERSION)$(VersionMetadataPlusLabel)</PackageVersionGit>
     </PropertyGroup>
 
     <PropertyGroup>
       <InformationalVersion>$(PackageVersion)</InformationalVersion>
-      <FileVersion>$(Version).$(GitCommits)</FileVersion>
+      <FileVersion>$(VersionGit).$(GitCommits)</FileVersion>
       <AssemblyVersion>1.0.0.0</AssemblyVersion> <!-- THIS SHALL REMAIN 1.0.0.0 -->
     </PropertyGroup>
 
@@ -90,12 +90,13 @@
       </AssemblyAttribute>
       <AssemblyAttribute Include="System.Reflection.AssemblyMetadata">
         <_Parameter1>PackageVersion</_Parameter1>
-        <_Parameter2>$(PackageVersion)</_Parameter2>
+        <_Parameter2>$(PackageVersionGit)</_Parameter2>
       </AssemblyAttribute>
     </ItemGroup>
 
+  
     <Message Condition="$(CI) and '$(BUILD_REASON)' == 'Schedule'" Importance="high" Text="##vso[build.addbuildtag]$(NightlyTag)"/>
-    <Message Condition="$(CI)" Importance="high" Text="##vso[build.updatebuildnumber]$(PackageVersion)"/>
+    <Message Condition="$(CI)" Importance="high" Text="##vso[task.setvariable variable=THEPACKAGEVERSION;]$(Version)"/>
   </Target>
 
   <Target Name="VersionInfoReport" DependsOnTargets="SetVersions">
@@ -104,8 +105,8 @@
   AssemblyVersion:        $(AssemblyVersion)
   FileVersion:            $(FileVersion)
   InformationalVersion:   $(InformationalVersion)
-  PackageVersion:         $(PackageVersion)
-  Version:        $(Version)
+  PackageVersion:         $(PackageVersionGit)
+  Version:        $(VersionGit)
   VersionPrefix:  $(VersionPrefix)
   VersionSuffix:  $(VersionSuffix)
 "/>
