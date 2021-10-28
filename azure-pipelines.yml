@@ -1,7 +1,7 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100
+  DotNet.Version: 6.0.100-rtm.21525.3
   DotNet.Workloads: https://aka.ms/dotnet/maui/preview.10.json
   DotNet.Cli.Telemetry.OptOut: true
 
@@ -83,14 +83,6 @@ stages:
             - pwsh: |
                 echo "##vso[task.setvariable variable=DOTNET_ROOT]$env:ProgramFiles\dotnet"
               displayName: set DOTNET_ROOT
-              errorActionPreference: stop
-
-            - pwsh: |
-                $ProgressPreference = 'SilentlyContinue'
-                Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Redth/dotnet-maui-check/main/Clean-Old-DotNet6-Previews.ps1" -OutFile Clean-Old-DotNet6-Previews.ps1
-                & .\Clean-Old-DotNet6-Previews.ps1 -FullDelete -DotnetRoot "$env:DOTNET_ROOT"
-                & dotnet --list-sdks
-              displayName: remove old dotnet 6
               errorActionPreference: stop
 
             - pwsh: |
