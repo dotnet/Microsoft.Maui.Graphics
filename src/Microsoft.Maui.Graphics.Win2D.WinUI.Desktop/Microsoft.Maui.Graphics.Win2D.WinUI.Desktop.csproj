@@ -10,8 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="Microsoft.WindowsAppSdk" Version="1.0.0-preview3" />
-      <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.28-preview2" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.18" TargetingPackVersion="10.0.19041.18" />
+    <PackageReference Include="Microsoft.WindowsAppSdk" Version="1.0.0-preview3" />
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.0.28-preview2" />
   </ItemGroup>
 
   <ItemGroup>
