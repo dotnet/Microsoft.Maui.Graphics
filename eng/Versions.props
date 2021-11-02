@@ -2,7 +2,7 @@
   <!--Package versions-->
   <PropertyGroup>
     <MicrosoftDotnetSdkInternalPackageVersion>6.0.100-rtm.21527.11</MicrosoftDotnetSdkInternalPackageVersion>
-    <MicrosoftAndroidSdkWindowsPackageVersion>31.0.101-preview.11.73</MicrosoftAndroidSdkWindowsPackageVersion>
+    <MicrosoftAndroidSdkWindowsPackageVersion>31.0.101-preview.11.74</MicrosoftAndroidSdkWindowsPackageVersion>
     <MicrosoftMacCatalystSdkPackageVersion>15.0.101-preview.10.175</MicrosoftMacCatalystSdkPackageVersion>
     <MicrosoftiOSSdkPackageVersion>15.0.101-preview.10.175</MicrosoftiOSSdkPackageVersion>
     <MicrosofttvOSSdkPackageVersion>15.0.101-preview.10.175</MicrosofttvOSSdkPackageVersion>
