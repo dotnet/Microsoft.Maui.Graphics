@@ -1,8 +1,6 @@
 variables:
   BuildVersion: $[counter('release-counter', 1)]
   IsRunningOnCI: true
-  DotNet.Version: 6.0.100-rtm.21476.2
-  DotNet.Workloads: https://aka.ms/dotnet/maui/main.json
   DotNet.Cli.Telemetry.OptOut: true
 
 parameters:
