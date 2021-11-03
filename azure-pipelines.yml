@@ -97,7 +97,18 @@ stages:
               displayName: Select JDK 11
 
             - pwsh: |
-                dotnet build ./build/DotNet/DotNet.csproj -p:DotNetDirectory="$env:DOTNET_ROOT" -p:RemoveOldDotNet=false
+                [xml] $fileXml = Get-Content "eng\Versions.props"
+                $DotNetVersion = $fileXml.SelectSingleNode("Project/PropertyGroup/MicrosoftDotnetSdkInternalPackageVersion").InnerText
+                echo "Installing .NET $DotNetVersion"
+
+                Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile dotnet-install.ps1
+                & .\dotnet-install.ps1 -Version $DotNetVersion -InstallDir "$env:DOTNET_ROOT" -Verbose
+                & dotnet --list-sdks
+              displayName: install .NET
+              errorActionPreference: stop
+
+            - pwsh: |
+                dotnet build ./build/DotNet/DotNet.csproj -p:DotNetDirectory="$env:DOTNET_ROOT" -p:InstallDotNet=false
               displayName: install dotnet workloads
               errorActionPreference: stop
 
