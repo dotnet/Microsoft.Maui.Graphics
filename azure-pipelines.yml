@@ -97,7 +97,7 @@ stages:
               displayName: Select JDK 11
 
             - pwsh: |
-                dotnet build ./build/DotNet/DotNet.csproj -p:DotNetDirectory="$env:DOTNET_ROOT"
+                dotnet build ./build/DotNet/DotNet.csproj -p:DotNetDirectory="$env:DOTNET_ROOT" -p:RemoveOldDotNet=false
               displayName: install dotnet workloads
               errorActionPreference: stop
 
