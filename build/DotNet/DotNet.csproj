@@ -40,6 +40,7 @@
     <_Inputs>
       $(MSBuildThisFile);
       ../../eng/Versions.props;
+      ../../NuGet.config;
     </_Inputs>
   </PropertyGroup>
 
