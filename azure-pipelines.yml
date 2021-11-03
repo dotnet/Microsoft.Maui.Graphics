@@ -93,13 +93,6 @@ stages:
                 dotnet vs where
               displayName: update vs
 
-            - pwsh: |
-                $uri = 'https://go.microsoft.com/fwlink/?linkid=2083338'
-                Invoke-WebRequest -Uri $uri -OutFile winsdksetup.exe
-                .\winsdksetup.exe /norestart /quiet | Out-Null
-                dir "C:\Program Files (x86)\Windows Kits\10\References\"
-              displayName: install Windows 10 SDK, version 1903 (10.0.18362.1)
-
             - pwsh: echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
               displayName: Select JDK 11
 
@@ -112,6 +105,13 @@ stages:
                 Invoke-WebRequest 'https://raw.githubusercontent.com/Samsung/Tizen.NET/main/workload/scripts/workload-install.ps1' -OutFile 'workload-install.ps1'
                 .\workload-install.ps1
               displayName: install tizen
+
+            - pwsh: |
+                $uri = 'https://go.microsoft.com/fwlink/?linkid=2083338'
+                Invoke-WebRequest -Uri $uri -OutFile winsdksetup.exe
+                .\winsdksetup.exe /norestart /quiet | Out-Null
+                dir "C:\Program Files (x86)\Windows Kits\10\References\"
+              displayName: install Windows 10 SDK, version 1903 (10.0.18362.1)
 
             - pwsh: |
                 $vs = & dotnet vs where --preview --prop=InstallationPath
