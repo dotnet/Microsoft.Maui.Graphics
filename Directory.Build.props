@@ -13,6 +13,7 @@
     <DotNetOutputPath>$(MSBuildThisFileDirectory)bin/</DotNetOutputPath>
     <DotNetTempDirectory>$(DotNetOutputPath)temp/</DotNetTempDirectory>
     <DotNetDirectory Condition="'$(DotNetDirectory)' == ''">$(DotNetOutputPath)dotnet/</DotNetDirectory>
+    <DotNetDirectory>$([MSBuild]::EnsureTrailingSlash('$(DotNetDirectory)'))</DotNetDirectory>
     <DotNetToolPath>$(DotNetDirectory)dotnet</DotNetToolPath>
     <DotNetPacksDirectory>$(DotNetDirectory)packs/</DotNetPacksDirectory>
     <DotNetLibraryPacksDirectory>$(DotNetDirectory)library-packs/</DotNetLibraryPacksDirectory>
