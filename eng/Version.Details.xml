@@ -28,5 +28,9 @@
       <Uri>https://github.com/xamarin/xamarin-macios</Uri>
       <Sha>0fc978214a679cd6e379434695df01cb606642d6</Sha>
     </Dependency>
+    <Dependency Name="Microsoft.NET.Workload.Emscripten.Manifest-6.0.100" Version="6.0.0">
+      <Uri>https://github.com/dotnet/emsdk</Uri>
+      <Sha>1ec2e17fcfd86bdd6f7e7246b6d527e94e34c15a</Sha>
+    </Dependency>
   </ProductDependencies>
 </Dependencies>
