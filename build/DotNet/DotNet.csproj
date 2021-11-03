@@ -45,7 +45,8 @@
 
   <Target Name="_DownloadDotNetInstallScript"
       Inputs="$(_Inputs)"
-      Outputs="$(DotNetInstallScriptPath)">
+      Outputs="$(DotNetInstallScriptPath)"
+      Condition="'$(InstallDotNet)' != 'false'">
     <DownloadFile
         SourceUrl="$(DotNetInstallScriptUrl)"
         DestinationFolder="$(DotNetOutputPath)"
