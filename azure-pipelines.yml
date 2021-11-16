@@ -125,13 +125,13 @@ stages:
               displayName: install Windows 10 SDK, version 1903 (10.0.18362.1)
 
             - pwsh: |
-                $vs = (& dotnet vs where --preview --prop=InstallationPath)[0]
+                $vs = & dotnet vs where --preview --prop=InstallationPath
                 $msbuild = "$vs\MSBuild\Current\Bin\MSBuild.exe"
                 & $msbuild /r /m ./build/Build.Microsoft.Maui.Graphics.Windows.sln /p:Configuration=${{ BuildConfiguration }} /bl:$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}.binlog
               displayName: build classic solutions
 
             - pwsh: |
-                $vs = (& dotnet vs where --preview --prop=InstallationPath)[0]
+                $vs = & dotnet vs where --preview --prop=InstallationPath
                 $msbuild = "$vs\MSBuild\Current\Bin\MSBuild.exe"
                 & $msbuild /r /m ./Microsoft.Maui.Graphics-net6.sln /p:Configuration=${{ BuildConfiguration }} /bl:$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}-net6.binlog
               displayName: build net6 solutions
