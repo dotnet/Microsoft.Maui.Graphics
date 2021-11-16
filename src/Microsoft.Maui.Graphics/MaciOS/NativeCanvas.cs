@@ -1029,16 +1029,16 @@ namespace Microsoft.Maui.Graphics.Native
 			string value,
 			float x,
 			float y,
-			HorizontalAlignment horizontalAlignment)
+			TextAlignment horizontalAlignment)
 		{
 			if (_fontName != null && _fontName[0] == '.')
 				_fontName = "Helvetica";
 
-			if (horizontalAlignment == HorizontalAlignment.Left)
+			if (horizontalAlignment == TextAlignment.Start)
 			{
 				DrawString(value, x, y);
 			}
-			else if (horizontalAlignment == HorizontalAlignment.Right)
+			else if (horizontalAlignment == TextAlignment.End)
 			{
 				var size = GraphicsPlatform.CurrentService.GetStringSize(value, _fontName, _fontSize);
 				x -= size.Width;
@@ -1067,8 +1067,8 @@ namespace Microsoft.Maui.Graphics.Native
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -1114,8 +1114,8 @@ namespace Microsoft.Maui.Graphics.Native
 		private void DrawStringInNativePath(
 			CGPath path,
 			string value,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow,
 			CGContext context,
 			String fontName,
@@ -1145,11 +1145,11 @@ namespace Microsoft.Maui.Graphics.Native
 			if (font != null && font.Handle != IntPtr.Zero)
 				attributes.Font = font;
 
-			if (verticalAlignment ==  VerticalAlignment.Center)
+			if (verticalAlignment == TextAlignment.Center)
 			{
 			   iy += -(float)(font.DescentMetric / 2);
 			}
-			else if (verticalAlignment == VerticalAlignment.Bottom)
+			else if (verticalAlignment == TextAlignment.End)
 			{
 				iy += -(float)(font.DescentMetric);
 			}
@@ -1158,18 +1158,18 @@ namespace Microsoft.Maui.Graphics.Native
 			var paragraphSettings = new CTParagraphStyleSettings();
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
+				case TextAlignment.Start:
 					paragraphSettings.Alignment = CTTextAlignment.Left;
 					break;
-				case HorizontalAlignment.Center:
+				case TextAlignment.Center:
 					paragraphSettings.Alignment = CTTextAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
+				case TextAlignment.End:
 					paragraphSettings.Alignment = CTTextAlignment.Right;
 					break;
-				case HorizontalAlignment.Justified:
-					paragraphSettings.Alignment = CTTextAlignment.Justified;
-					break;
+				//case TextAlignment.Justified:
+				//	paragraphSettings.Alignment = CTTextAlignment.Justified;
+				//	break;
 			}
 
 			var paragraphStyle = new CTParagraphStyle(paragraphSettings);
@@ -1186,7 +1186,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 			if (frame != null)
 			{
-				if (verticalAlignment != VerticalAlignment.Top)
+				if (verticalAlignment != TextAlignment.Start)
 				{
 #if MONOMAC
 					var textFrameSize = NativeGraphicsService.GetTextSize(frame);
@@ -1196,7 +1196,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 					if (textFrameSize.Height > 0)
 					{
-						if (verticalAlignment == VerticalAlignment.Bottom)
+						if (verticalAlignment == TextAlignment.End)
 						{
 							var dy = rect.Height - textFrameSize.Height + iy;
 							context.TranslateCTM(-ix, -dy);
@@ -1255,7 +1255,7 @@ namespace Microsoft.Maui.Graphics.Native
 			float iy = 0)
 		{
 			var rect = path.PathBoundingBox;
-			var verticalAlignment = VerticalAlignment.Top;
+			var verticalAlignment = TextAlignment.Start;
 
 			context.SaveState();
 			context.TranslateCTM(0, rect.Height);
@@ -1277,7 +1277,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 			if (frame != null)
 			{
-				if (verticalAlignment != VerticalAlignment.Top)
+				if (verticalAlignment != TextAlignment.Start)
 				{
 #if MONOMAC
 					var textSize = NativeGraphicsService.GetTextSize(frame);
@@ -1287,7 +1287,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 					if (textSize.Height > 0)
 					{
-						if (verticalAlignment == VerticalAlignment.Bottom)
+						if (verticalAlignment == TextAlignment.End)
 						{
 							var dy = rect.Height - textSize.Height + iy;
 							context.TranslateCTM(-ix, -dy);

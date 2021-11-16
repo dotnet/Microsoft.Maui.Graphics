@@ -10,8 +10,8 @@ namespace Microsoft.Maui.Graphics
 
 		Color TextFontColor { get; set; }
 
-		HorizontalAlignment HorizontalAlignment { get; set; }
+		TextAlignment HorizontalAlignment { get; set; }
 
-		VerticalAlignment VerticalAlignment { get; set; }
+		TextAlignment VerticalAlignment { get; set; }
 	}
 }

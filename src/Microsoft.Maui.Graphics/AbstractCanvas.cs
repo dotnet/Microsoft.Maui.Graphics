@@ -169,7 +169,7 @@ namespace Microsoft.Maui.Graphics
 		}
 
 		public abstract void FillEllipse(float x, float y, float width, float height);
-		public abstract void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment);
+		public abstract void DrawString(string value, float x, float y, TextAlignment horizontalAlignment);
 
 		public abstract void DrawString(
 			string value,
@@ -177,8 +177,8 @@ namespace Microsoft.Maui.Graphics
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0);
 

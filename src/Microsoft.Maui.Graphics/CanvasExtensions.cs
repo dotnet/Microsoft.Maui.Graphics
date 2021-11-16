@@ -143,8 +143,8 @@ namespace Microsoft.Maui.Graphics
 			this ICanvas target,
 			string value,
 			Rectangle bounds,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -155,8 +155,8 @@ namespace Microsoft.Maui.Graphics
 			this ICanvas target,
 			string value,
 			RectangleF bounds,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{

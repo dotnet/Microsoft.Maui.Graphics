@@ -678,16 +678,16 @@ namespace Microsoft.Maui.Graphics.Skia
 			string value,
 			float x,
 			float y,
-			HorizontalAlignment horizAlignment)
+			TextAlignment horizAlignment)
 		{
 			if (string.IsNullOrEmpty(value))
 				return;
 
-			if (horizAlignment == HorizontalAlignment.Left)
+			if (horizAlignment == TextAlignment.Start)
 			{
 				_canvas.DrawText(value, x, y, CurrentState.FontPaint);
 			}
-			else if (horizAlignment == HorizontalAlignment.Right)
+			else if (horizAlignment == TextAlignment.End)
 			{
 				var paint = CurrentState.FontPaint;
 				var width = paint.MeasureText(value);
@@ -709,8 +709,8 @@ namespace Microsoft.Maui.Graphics.Skia
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizAlignment,
-			VerticalAlignment vertAlignment,
+			TextAlignment horizAlignment,
+			TextAlignment vertAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -747,7 +747,7 @@ namespace Microsoft.Maui.Graphics.Skia
 		public override void DrawText(IAttributedText value, float x, float y, float width, float height)
 		{
 			Logger.Debug("Not yet implemented.");
-			DrawString(value?.Text, x, y, width, height, HorizontalAlignment.Left, VerticalAlignment.Top);
+			DrawString(value?.Text, x, y, width, height, TextAlignment.Start, TextAlignment.Start);
 		}
 
 		public override void ResetState()

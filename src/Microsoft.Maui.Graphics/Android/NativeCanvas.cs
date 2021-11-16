@@ -623,11 +623,11 @@ namespace Microsoft.Maui.Graphics.Native
 			nativePath.Dispose();
 		}
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizAlignment)
+		public override void DrawString(string value, float x, float y, TextAlignment horizAlignment)
 		{
-			if (horizAlignment == HorizontalAlignment.Left)
+			if (horizAlignment == TextAlignment.Start)
 				DrawString(value, x, y);
-			else if (horizAlignment == HorizontalAlignment.Right)
+			else if (horizAlignment == TextAlignment.End)
 			{
 				SizeF vSize = NativeGraphicsService.Instance.GetStringSize(
 					value,
@@ -672,8 +672,8 @@ namespace Microsoft.Maui.Graphics.Native
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizAlignment,
-			VerticalAlignment vertAlignment,
+			TextAlignment horizAlignment,
+			TextAlignment vertAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -683,11 +683,11 @@ namespace Microsoft.Maui.Graphics.Native
 			_canvas.Save();
 
 			var alignment = Layout.Alignment.AlignNormal;
-			if (horizAlignment == HorizontalAlignment.Center)
+			if (horizAlignment == TextAlignment.Center)
 			{
 				alignment = Layout.Alignment.AlignCenter;
 			}
-			else if (horizAlignment == HorizontalAlignment.Right)
+			else if (horizAlignment == TextAlignment.End)
 			{
 				alignment = Layout.Alignment.AlignOpposite;
 			}
@@ -704,7 +704,7 @@ namespace Microsoft.Maui.Graphics.Native
 			_canvas.Save();
 			var span = value.AsSpannableString();
 			var layout = TextLayoutUtils.CreateLayoutForSpannedString(span, CurrentState.FontPaint, (int) width, Layout.Alignment.AlignNormal);
-			var offset = layout.GetOffsetsToDrawText(x, y, width, height, HorizontalAlignment.Left, VerticalAlignment.Top);
+			var offset = layout.GetOffsetsToDrawText(x, y, width, height, TextAlignment.Start, TextAlignment.Start);
 			_canvas.Translate(offset.Width, offset.Height);
 			layout.Draw(_canvas);
 			layout.Dispose();
