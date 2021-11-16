@@ -40,9 +40,9 @@ namespace Microsoft.Maui.Graphics.Skia
 					else if (fontStyle != null)
 					{
 						var slant = SKFontStyleSlant.Upright;
-						if (fontStyle.StyleType == FontStyleType.Italic)
+						if (fontStyle.StyleType == FontSlant.Italic)
 							slant = SKFontStyleSlant.Italic;
-						else if (fontStyle.StyleType == FontStyleType.Oblique)
+						else if (fontStyle.StyleType == FontSlant.Oblique)
 							slant = SKFontStyleSlant.Oblique;
 
 						typeface = SKTypeface.FromFamilyName(fontStyle.FontFamily.Name, fontStyle.Weight, (int) SKFontStyleWidth.Normal, slant);

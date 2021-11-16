@@ -9,14 +9,14 @@ namespace Microsoft.Maui.Graphics
 		string Name { get; }
 		string FullName { get; }
 		int Weight { get; }
-		FontStyleType StyleType { get; }
+		FontSlant StyleType { get; }
 		IFontFamily FontFamily { get; }
 		Stream OpenStream();
 	}
 
-	public enum FontStyleType
+	public enum FontSlant
 	{
-		Normal,
+		Default,
 		Italic,
 		Oblique
 	}

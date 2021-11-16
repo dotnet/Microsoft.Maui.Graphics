@@ -44,14 +44,14 @@ namespace Microsoft.Maui.Graphics
 			return Regular;
 		}
 
-		public static FontStyleType GetStyleType(string styleName)
+		public static FontSlant GetStyleType(string styleName)
 		{
-			if (styleName == null) return FontStyleType.Normal;
+			if (styleName == null) return FontSlant.Default;
 
-			if (styleName.Contains("Italic")) return FontStyleType.Italic;
-			if (styleName.Contains("Oblique")) return FontStyleType.Oblique;
+			if (styleName.Contains("Italic")) return FontSlant.Italic;
+			if (styleName.Contains("Oblique")) return FontSlant.Oblique;
 
-			return FontStyleType.Normal;
+			return FontSlant.Default;
 		}
 	}
 }

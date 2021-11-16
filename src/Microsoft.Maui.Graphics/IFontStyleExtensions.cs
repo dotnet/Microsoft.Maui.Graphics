@@ -24,10 +24,10 @@ namespace Microsoft.Maui.Graphics
 			if (style == null)
 				return null;
 
-			if (style.StyleType == FontStyleType.Italic)
+			if (style.StyleType == FontSlant.Italic)
 				return "italic";
 
-			if (style.StyleType == FontStyleType.Oblique)
+			if (style.StyleType == FontSlant.Oblique)
 				return "oblique";
 
 			return "normal";
