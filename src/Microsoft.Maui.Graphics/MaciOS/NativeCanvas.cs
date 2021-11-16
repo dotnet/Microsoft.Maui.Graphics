@@ -139,19 +139,19 @@ namespace Microsoft.Maui.Graphics.Native
 			}
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set
 			{
-				if (value == LineJoin.Miter)
+				if (value == PenLineJoin.Miter)
 				{
 					_context.SetLineJoin(CGLineJoin.Miter);
 				}
-				else if (value == LineJoin.Round)
+				else if (value == PenLineJoin.Round)
 				{
 					_context.SetLineJoin(CGLineJoin.Round);
 				}
-				else if (value == LineJoin.Bevel)
+				else if (value == PenLineJoin.Bevel)
 				{
 					_context.SetLineJoin(CGLineJoin.Bevel);
 				}

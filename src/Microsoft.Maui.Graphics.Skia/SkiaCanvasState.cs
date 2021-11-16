@@ -101,15 +101,15 @@ namespace Microsoft.Maui.Graphics.Skia
 			}
 		}
 
-		public LineJoin StrokeLineJoin
+		public PenLineJoin StrokeLineJoin
 		{
 			set
 			{
-				if (value == LineJoin.Miter)
+				if (value == PenLineJoin.Miter)
 					StrokePaint.StrokeJoin = SKStrokeJoin.Miter;
-				else if (value == LineJoin.Round)
+				else if (value == PenLineJoin.Round)
 					StrokePaint.StrokeJoin = SKStrokeJoin.Round;
-				else if (value == LineJoin.Bevel)
+				else if (value == PenLineJoin.Bevel)
 					StrokePaint.StrokeJoin = SKStrokeJoin.Bevel;
 			}
 		}

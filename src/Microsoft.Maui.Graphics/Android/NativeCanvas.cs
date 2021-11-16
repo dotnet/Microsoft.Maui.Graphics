@@ -112,7 +112,7 @@ namespace Microsoft.Maui.Graphics.Native
 			set => CurrentState.StrokeLineCap = value;
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set => CurrentState.StrokeLineJoin = value;
 		}

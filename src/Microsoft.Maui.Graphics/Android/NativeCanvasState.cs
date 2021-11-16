@@ -93,15 +93,15 @@ namespace Microsoft.Maui.Graphics.Native
 			}
 		}
 
-		public LineJoin StrokeLineJoin
+		public PenLineJoin StrokeLineJoin
 		{
 			set
 			{
-				if (value == LineJoin.Miter)
+				if (value == PenLineJoin.Miter)
 					StrokePaint.StrokeJoin = global::Android.Graphics.Paint.Join.Miter;
-				else if (value == LineJoin.Round)
+				else if (value == PenLineJoin.Round)
 					StrokePaint.StrokeJoin = global::Android.Graphics.Paint.Join.Round;
-				else if (value == LineJoin.Bevel)
+				else if (value == PenLineJoin.Bevel)
 					StrokePaint.StrokeJoin = global::Android.Graphics.Paint.Join.Bevel;
 			}
 		}

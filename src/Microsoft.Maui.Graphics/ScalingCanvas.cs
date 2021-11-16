@@ -62,7 +62,7 @@ namespace Microsoft.Maui.Graphics
 			set => _canvas.Alpha = value;
 		}
 
-		public LineJoin StrokeLineJoin
+		public PenLineJoin StrokeLineJoin
 		{
 			set => _canvas.StrokeLineJoin = value;
 		}

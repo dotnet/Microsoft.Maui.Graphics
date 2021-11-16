@@ -69,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Win2D
             set => CurrentState.StrokeLineCap = value;
         }
 
-        public override LineJoin StrokeLineJoin
+        public override PenLineJoin StrokeLineJoin
         {
             set => CurrentState.StrokeLineJoin = value;
         }

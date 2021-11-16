@@ -60,7 +60,7 @@ namespace Microsoft.Maui.Graphics.Skia
 			set => CurrentState.StrokeLineCap = value;
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set => CurrentState.StrokeLineJoin = value;
 		}

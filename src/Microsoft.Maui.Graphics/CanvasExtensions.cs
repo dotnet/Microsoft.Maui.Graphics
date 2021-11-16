@@ -322,7 +322,7 @@ namespace Microsoft.Maui.Graphics
 		{
 			canvas.StrokeSize = 1;
 			canvas.StrokeDashPattern = null;
-			canvas.StrokeLineJoin = LineJoin.Miter;
+			canvas.StrokeLineJoin = PenLineJoin.Miter;
 			canvas.StrokeLineCap = PenLineCap.Flat;
 			canvas.StrokeColor = Colors.Black;
 		}

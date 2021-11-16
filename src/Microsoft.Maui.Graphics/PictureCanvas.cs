@@ -61,7 +61,7 @@ namespace Microsoft.Maui.Graphics
 			set { _commands.Add(canvas => canvas.StrokeLineCap = value); }
 		}
 
-		public LineJoin StrokeLineJoin
+		public PenLineJoin StrokeLineJoin
 		{
 			set { _commands.Add(canvas => canvas.StrokeLineJoin = value); }
 		}
