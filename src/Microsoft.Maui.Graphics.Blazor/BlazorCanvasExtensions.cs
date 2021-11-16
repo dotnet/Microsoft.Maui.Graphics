@@ -5,15 +5,15 @@ namespace Microsoft.Maui.Graphics.Blazor
 	public static class BlazorCanvasExtensions
 	{
 		public static Canvas2D.LineCap AsCanvasValue(
-			this LineCap target)
+			this PenLineCap target)
 		{
 			switch (target)
 			{
-				case LineCap.Butt:
+				case PenLineCap.Flat:
 					return Canvas2D.LineCap.Butt;
-				case LineCap.Round:
+				case PenLineCap.Round:
 					return Canvas2D.LineCap.Round;
-				case LineCap.Square:
+				case PenLineCap.Square:
 					return Canvas2D.LineCap.Square;
 			}
 
@@ -21,15 +21,15 @@ namespace Microsoft.Maui.Graphics.Blazor
 		}
 
 		public static Canvas2D.LineJoin AsCanvasValue(
-			this LineJoin target)
+			this PenLineJoin target)
 		{
 			switch (target)
 			{
-				case LineJoin.Miter:
+				case PenLineJoin.Miter:
 					return Canvas2D.LineJoin.Miter;
-				case LineJoin.Round:
+				case PenLineJoin.Round:
 					return Canvas2D.LineJoin.Round;
-				case LineJoin.Bevel:
+				case PenLineJoin.Bevel:
 					return Canvas2D.LineJoin.Bevel;
 			}
 

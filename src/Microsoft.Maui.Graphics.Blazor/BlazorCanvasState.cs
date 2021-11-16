@@ -10,8 +10,8 @@ namespace Microsoft.Maui.Graphics.Blazor
 		private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
 		private Color _strokeColor = Colors.Black;
 		private float _lineWidth = 1;
-		private LineJoin _lineJoin;
-		private LineCap _lineCap;
+		private PenLineJoin _lineJoin;
+		private PenLineCap _lineCap;
 		private float _alpha = 1;
 		private float[] _dashPattern;
 
@@ -77,7 +77,7 @@ namespace Microsoft.Maui.Graphics.Blazor
 			}
 		}
 
-		public LineJoin LineJoin
+		public PenLineJoin LineJoin
 		{
 			get => _lineJoin;
 			set
@@ -90,7 +90,7 @@ namespace Microsoft.Maui.Graphics.Blazor
 			}
 		}
 
-		public LineCap LineCap
+		public PenLineCap LineCap
 		{
 			get => _lineCap;
 			set

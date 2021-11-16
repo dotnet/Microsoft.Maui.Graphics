@@ -34,7 +34,7 @@ namespace GraphicsTester.Scenarios
 					dy,
 					190,
 					140,
-					TextAlignment.Left,
+					TextAlignment.Start,
 					verticalAlignment,
 					TextFlow.OverflowBounds);
 			}
