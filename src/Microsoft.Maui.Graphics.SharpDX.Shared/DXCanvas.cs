@@ -15,6 +15,7 @@ using TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode;
 using System;
 
 using NumericsMatrix3x2 = System.Numerics.Matrix3x2;
+using SharpDXTextAlignment = SharpDX.DirectWrite.TextAlignment;
 
 namespace Microsoft.Maui.Graphics.SharpDX
 {
@@ -139,12 +140,12 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			set => CurrentState.StrokeColor = value;
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set => CurrentState.StrokeLineCap = value;
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set => CurrentState.StrokeLineJoin = value;
 		}
@@ -516,7 +517,7 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			Draw(ctx => ctx.FillGeometry(geometry, CurrentState.DxFillBrush));
 		}
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
+		public override void DrawString(string value, float x, float y, TextAlignment horizontalAlignment)
 		{
 			// Initialize a TextFormat
 #if DEBUG
@@ -530,23 +531,23 @@ namespace Microsoft.Maui.Graphics.SharpDX
 					CurrentState.FontStyle,
 					CurrentState.FontSize);
 
-				if (horizontalAlignment == HorizontalAlignment.Left)
+				if (horizontalAlignment == TextAlignment.Start)
 				{
 					_rect.Left = x;
 					_rect.Right = x + _renderTarget.PixelSize.Width;
-					textFormat.TextAlignment = TextAlignment.Leading;
+					textFormat.TextAlignment = SharpDXTextAlignment.Leading;
 				}
-				else if (horizontalAlignment == HorizontalAlignment.Right)
+				else if (horizontalAlignment == TextAlignment.End)
 				{
 					_rect.Right = x;
 					_rect.Left = x - _renderTarget.PixelSize.Width;
-					textFormat.TextAlignment = TextAlignment.Trailing;
+					textFormat.TextAlignment = SharpDXTextAlignment.Trailing;
 				}
 				else
 				{
 					_rect.Left = x - _renderTarget.PixelSize.Width;
 					_rect.Right = x + _renderTarget.PixelSize.Width;
-					textFormat.TextAlignment = TextAlignment.Center;
+					textFormat.TextAlignment = SharpDXTextAlignment.Center;
 				}
 
 				_rect.Top = y - CurrentState.FontSize;
@@ -573,8 +574,8 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineAdjustment = 0)
 		{
@@ -584,29 +585,29 @@ namespace Microsoft.Maui.Graphics.SharpDX
 
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
-					textFormat.TextAlignment = TextAlignment.Leading;
+				case TextAlignment.Start:
+					textFormat.TextAlignment = SharpDXTextAlignment.Leading;
 					break;
-				case HorizontalAlignment.Center:
-					textFormat.TextAlignment = TextAlignment.Center;
+				case TextAlignment.Center:
+					textFormat.TextAlignment = SharpDXTextAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
-					textFormat.TextAlignment = TextAlignment.Trailing;
+				case TextAlignment.End:
+					textFormat.TextAlignment = SharpDXTextAlignment.Trailing;
 					break;
-				case HorizontalAlignment.Justified:
-					textFormat.TextAlignment = TextAlignment.Justified;
-					break;
+				//case HorizontalAlignment.Justified:
+				//	textFormat.TextAlignment = TextAlignment.Justified;
+				//	break;
 			}
 
 			switch (verticalAlignment)
 			{
-				case VerticalAlignment.Top:
+				case TextAlignment.Start:
 					textFormat.ParagraphAlignment = ParagraphAlignment.Near;
 					break;
-				case VerticalAlignment.Center:
+				case TextAlignment.Center:
 					textFormat.ParagraphAlignment = ParagraphAlignment.Center;
 					break;
-				case VerticalAlignment.Bottom:
+				case TextAlignment.End:
 					textFormat.ParagraphAlignment = ParagraphAlignment.Far;
 					break;
 			}

@@ -34,8 +34,8 @@ namespace Microsoft.Maui.Graphics.Blazor
 
 		public override float MiterLimit { set => CurrentState.MiterLimit = value; }
 		public override Color StrokeColor { set => CurrentState.StrokeColor = value; }
-		public override LineCap StrokeLineCap { set => CurrentState.LineCap = value; }
-		public override LineJoin StrokeLineJoin { set => CurrentState.LineJoin = value; }
+		public override PenLineCap StrokeLineCap { set => CurrentState.LineCap = value; }
+		public override PenLineJoin StrokeLineJoin { set => CurrentState.LineJoin = value; }
 		public override Color FillColor { set => CurrentState.FillColor = value; }
 		public override Color FontColor { set => CurrentState.TextColor = value; }
 		public override string FontName { set => CurrentState.Font = value; }
@@ -83,7 +83,7 @@ namespace Microsoft.Maui.Graphics.Blazor
 			string value,
 			float x,
 			float y,
-			HorizontalAlignment horizontalAlignment)
+			TextAlignment horizontalAlignment)
 		{
 			if (string.IsNullOrWhiteSpace(value))
 				return;
@@ -93,11 +93,11 @@ namespace Microsoft.Maui.Graphics.Blazor
 
 			y += (float)(metrics.FontBoundingBoxAscent + metrics.FontBoundingBoxDescent);
 
-			if (horizontalAlignment == HorizontalAlignment.Right)
+			if (horizontalAlignment == TextAlignment.End)
 			{
 				x -= (float)metrics.Width;
 			}
-			else if (horizontalAlignment == HorizontalAlignment.Center)
+			else if (horizontalAlignment == TextAlignment.Center)
 			{
 				x -= (float)(metrics.Width / 2);
 			}
@@ -112,8 +112,8 @@ namespace Microsoft.Maui.Graphics.Blazor
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -127,22 +127,22 @@ namespace Microsoft.Maui.Graphics.Blazor
 			float dx = 0;
 			float dy = 0;
 
-			if (horizontalAlignment == HorizontalAlignment.Center)
+			if (horizontalAlignment == TextAlignment.Center)
 			{
 				var diff = width - size.Width;
 				dx = diff / 4;
 			}
-			else if (horizontalAlignment == HorizontalAlignment.Right)
+			else if (horizontalAlignment == TextAlignment.End)
 			{
 				var diff = width - size.Width;
 				dx = diff / 2;
 			}
 
-			if (verticalAlignment == VerticalAlignment.Top)
+			if (verticalAlignment == TextAlignment.Start)
 				dy = CurrentState.FontSize * .8f;
-			else if (verticalAlignment == VerticalAlignment.Center)
+			else if (verticalAlignment == TextAlignment.Center)
 				dy = ((height - size.Height) / 2) + (CurrentState.FontSize *.6f / 2);
-			else if (verticalAlignment == VerticalAlignment.Bottom)
+			else if (verticalAlignment == TextAlignment.End)
 				dy = height - size.Height - CurrentState.FontSize * .3f;
 
 			x += dx;

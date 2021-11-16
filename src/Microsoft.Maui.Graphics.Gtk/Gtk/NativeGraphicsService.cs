@@ -41,7 +41,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		}
 
-		public SizeF GetStringSize(string value, string fontName, float textWidth, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment) {
+		public SizeF GetStringSize(string value, string fontName, float textWidth, TextAlignment horizontalAlignment, TextAlignment verticalAlignment) {
 			if (string.IsNullOrEmpty(value))
 				return new SizeF();
 

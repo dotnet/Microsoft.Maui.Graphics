@@ -18,29 +18,29 @@ namespace GraphicsTester.Scenarios
 			canvas.FontSize = 12f;
 
 			canvas.Translate(0, 10);
-			canvas.DrawString("Arial - Left", 100, 10, HorizontalAlignment.Left);
+			canvas.DrawString("Arial - Left", 100, 10, TextAlignment.Start);
 			canvas.FillCircle(100, 10, 2);
 
 			canvas.Translate(0, 30);
-			canvas.DrawString("Arial - Center", 100, 10, HorizontalAlignment.Center);
+			canvas.DrawString("Arial - Center", 100, 10, TextAlignment.Center);
 			canvas.FillCircle(100, 10, 2);
 
 			canvas.Translate(0, 30);
-			canvas.DrawString("Arial - Right", 100, 10, HorizontalAlignment.Right);
+			canvas.DrawString("Arial - Right", 100, 10, TextAlignment.End);
 			canvas.FillCircle(100, 10, 2);
 
 			canvas.SetToSystemFont();
 
 			canvas.Translate(0, 30);
-			canvas.DrawString("System - Left", 100, 10, HorizontalAlignment.Left);
+			canvas.DrawString("System - Left", 100, 10, TextAlignment.Start);
 			canvas.FillCircle(100, 10, 2);
 
 			canvas.Translate(0, 30);
-			canvas.DrawString("System - Center", 100, 10, HorizontalAlignment.Center);
+			canvas.DrawString("System - Center", 100, 10, TextAlignment.Center);
 			canvas.FillCircle(100, 10, 2);
 
 			canvas.Translate(0, 30);
-			canvas.DrawString("System - Right", 100, 10, HorizontalAlignment.Right);
+			canvas.DrawString("System - Right", 100, 10, TextAlignment.End);
 			canvas.FillCircle(100, 10, 2);
 
 			canvas.RestoreState();

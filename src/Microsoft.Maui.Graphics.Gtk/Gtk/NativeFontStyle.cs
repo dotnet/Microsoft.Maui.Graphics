@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		private NativeFontFamily? _family;
 
-		public NativeFontStyle(string family, double size, int weight, Pango.Stretch stretch, FontStyleType styleType) {
+		public NativeFontStyle(string family, double size, int weight, Pango.Stretch stretch, FontSlant styleType) {
 			FamilyName = family;
 			Size = size;
 			Weight = weight;
@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public int Weight { get; }
 
-		public FontStyleType StyleType { get; }
+		public FontSlant StyleType { get; }
 
 		public override bool Equals(object obj) {
 			if (obj == null)

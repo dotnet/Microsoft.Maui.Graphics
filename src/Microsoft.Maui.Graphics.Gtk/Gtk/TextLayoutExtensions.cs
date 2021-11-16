@@ -30,9 +30,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			return new Size(width, height);
 		}
 
-		public static Pango.Alignment ToPango(this HorizontalAlignment it) => it switch {
-			HorizontalAlignment.Center => Pango.Alignment.Center,
-			HorizontalAlignment.Right => Pango.Alignment.Right,
+		public static Pango.Alignment ToPango(this TextAlignment it) => it switch {
+			TextAlignment.Center => Pango.Alignment.Center,
+			TextAlignment.End => Pango.Alignment.Right,
 			_ => Pango.Alignment.Left
 		};
 

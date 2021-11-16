@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Numerics;
+using WTextAlignment = System.Windows.TextAlignment;
 
 namespace Microsoft.Maui.Graphics.Xaml
 {
@@ -513,8 +514,8 @@ namespace Microsoft.Maui.Graphics.Xaml
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineAdjustment = 0)
 		{
@@ -536,30 +537,30 @@ namespace Microsoft.Maui.Graphics.Xaml
 
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
-					block.TextAlignment = TextAlignment.Left;
+				case TextAlignment.Start:
+					block.TextAlignment = WTextAlignment.Left;
 					break;
-				case HorizontalAlignment.Center:
-					block.TextAlignment = TextAlignment.Center;
+				case TextAlignment.Center:
+					block.TextAlignment = WTextAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
-					block.TextAlignment = TextAlignment.Right;
+				case TextAlignment.End:
+					block.TextAlignment = WTextAlignment.Right;
 					break;
-				case HorizontalAlignment.Justified:
-					block.TextAlignment = TextAlignment.Justify;
-					break;
+				//case TextAlignment.Justified:
+				//	block.TextAlignment = WTextAlignment.Justify;
+				//	break;
 			}
 
 			switch (verticalAlignment)
 			{
-				case VerticalAlignment.Top:
-					block.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+				case TextAlignment.Start:
+					block.VerticalAlignment = VerticalAlignment.Top;
 					break;
-				case VerticalAlignment.Center:
-					block.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+				case TextAlignment.Center:
+					block.VerticalAlignment = VerticalAlignment.Center;
 					break;
-				case VerticalAlignment.Bottom:
-					block.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+				case TextAlignment.End:
+					block.VerticalAlignment = VerticalAlignment.Bottom;
 					break;
 			}
 
@@ -576,7 +577,7 @@ namespace Microsoft.Maui.Graphics.Xaml
 			block.RenderTransform = CurrentState.GetXamlTransform(_rectX, _rectY);
 		}
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
+		public override void DrawString(string value, float x, float y, TextAlignment horizontalAlignment)
 		{
 			var item = GetOrCreateItem(ItemType.DrawText);
 			var element = (TextBlock) item.Element;
@@ -584,18 +585,18 @@ namespace Microsoft.Maui.Graphics.Xaml
 
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
-					element.TextAlignment = TextAlignment.Left;
+				case TextAlignment.Start:
+					element.TextAlignment = WTextAlignment.Left;
 					break;
-				case HorizontalAlignment.Center:
-					element.TextAlignment = TextAlignment.Center;
+				case TextAlignment.Center:
+					element.TextAlignment = WTextAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
-					element.TextAlignment = TextAlignment.Right;
+				case TextAlignment.End:
+					element.TextAlignment = WTextAlignment.Right;
 					break;
-				case HorizontalAlignment.Justified:
-					element.TextAlignment = TextAlignment.Justify;
-					break;
+				//case TextAlignment.Justified:
+				//	element.TextAlignment = WTextAlignment.Justify;
+				//	break;
 			}
 
 			Canvas.SetLeft(element, _rectX);
@@ -695,12 +696,12 @@ namespace Microsoft.Maui.Graphics.Xaml
 			set => CurrentState.StrokeColor = value;
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set => CurrentState.StrokeLineCap = value;
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set => CurrentState.StrokeLineJoin = value;
 		}

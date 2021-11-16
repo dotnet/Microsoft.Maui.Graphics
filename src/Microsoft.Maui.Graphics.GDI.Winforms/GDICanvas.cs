@@ -61,16 +61,16 @@ namespace Microsoft.Maui.Graphics.GDI
 			set => CurrentState.StrokeColor = value?.AsColor() ?? System.Drawing.Color.Black;
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set
 			{
 				switch (value)
 				{
-					case LineCap.Round:
+					case PenLineCap.Round:
 						CurrentState.StrokeLineCap = Drawing.Drawing2D.LineCap.Round;
 						break;
-					case LineCap.Square:
+					case PenLineCap.Square:
 						CurrentState.StrokeLineCap = Drawing.Drawing2D.LineCap.Square;
 						break;
 					default:
@@ -80,16 +80,16 @@ namespace Microsoft.Maui.Graphics.GDI
 			}
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set
 			{
 				switch (value)
 				{
-					case LineJoin.Bevel:
+					case PenLineJoin.Bevel:
 						CurrentState.StrokeLineJoin = System.Drawing.Drawing2D.LineJoin.Bevel;
 						break;
-					case LineJoin.Round:
+					case PenLineJoin.Round:
 						CurrentState.StrokeLineJoin = Drawing.Drawing2D.LineJoin.Round;
 						break;
 					default:
@@ -361,18 +361,18 @@ namespace Microsoft.Maui.Graphics.GDI
 			Draw(g => g.FillEllipse(CurrentState.FillBrush, _rect));
 		}
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
+		public override void DrawString(string value, float x, float y, TextAlignment horizontalAlignment)
 		{
 			var font = CurrentState.Font;
 			var size = _graphics.MeasureString(value, font);
 
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Right:
+				case TextAlignment.End:
 					x -= size.Width;
 					break;
-				case HorizontalAlignment.Center:
-				case HorizontalAlignment.Justified:
+				case TextAlignment.Center:
+				//case TextAlignment.Justified:
 					x -= size.Width / 2;
 					break;
 			}
@@ -380,7 +380,7 @@ namespace Microsoft.Maui.Graphics.GDI
 			Draw(g => g.DrawString(value, font, CurrentState.TextBrush, x, y - size.Height));
 		}
 
-		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+		public override void DrawString(string value, float x, float y, float width, float height, TextAlignment horizontalAlignment, TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds, float lineAdjustment = 0)
 		{
 			var font = CurrentState.Font;
@@ -388,13 +388,13 @@ namespace Microsoft.Maui.Graphics.GDI
 
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
+				case TextAlignment.Start:
 					format.Alignment = StringAlignment.Near;
 					break;
-				case HorizontalAlignment.Center:
+				case TextAlignment.Center:
 					format.Alignment = StringAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
+				case TextAlignment.End:
 					format.Alignment = StringAlignment.Far;
 					break;
 				default:
@@ -404,13 +404,13 @@ namespace Microsoft.Maui.Graphics.GDI
 
 			switch (verticalAlignment)
 			{
-				case VerticalAlignment.Top:
+				case TextAlignment.Start:
 					format.LineAlignment = StringAlignment.Near;
 					break;
-				case VerticalAlignment.Center:
+				case TextAlignment.Center:
 					format.LineAlignment = StringAlignment.Center;
 					break;
-				case VerticalAlignment.Bottom:
+				case TextAlignment.End:
 					format.LineAlignment = StringAlignment.Far;
 					break;
 			}
@@ -427,10 +427,10 @@ namespace Microsoft.Maui.Graphics.GDI
 
 					switch (verticalAlignment)
 					{
-						case VerticalAlignment.Center:
+						case TextAlignment.Center:
 							_rect.Y -= difference / 2;
 							break;
-						case VerticalAlignment.Bottom:
+						case TextAlignment.End:
 							_rect.Y -= difference;
 							break;
 					}

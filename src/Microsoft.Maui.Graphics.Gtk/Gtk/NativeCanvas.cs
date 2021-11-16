@@ -48,11 +48,11 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			set => CurrentState.StrokeColor = value.ToCairoColor();
 		}
 
-		public override LineCap StrokeLineCap {
+		public override PenLineCap StrokeLineCap {
 			set => CurrentState.LineCap = value.ToLineCap();
 		}
 
-		public override LineJoin StrokeLineJoin {
+		public override PenLineJoin StrokeLineJoin {
 			set => CurrentState.LineJoin = value.ToLineJoin();
 		}
 

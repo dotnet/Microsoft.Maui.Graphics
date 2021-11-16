@@ -22,28 +22,28 @@ namespace GraphicsTester.Scenarios
 			path.LineTo(390, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Miter;
+			canvas.StrokeLineJoin = PenLineJoin.Miter;
 			path = new PathF();
 			path.MoveTo(400, 120);
 			path.LineTo(420, 180);
 			path.LineTo(440, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Round;
+			canvas.StrokeLineJoin = PenLineJoin.Round;
 			path = new PathF();
 			path.MoveTo(450, 120);
 			path.LineTo(470, 180);
 			path.LineTo(490, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Bevel;
+			canvas.StrokeLineJoin = PenLineJoin.Bevel;
 			path = new PathF();
 			path.MoveTo(500, 120);
 			path.LineTo(520, 180);
 			path.LineTo(540, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Miter;
+			canvas.StrokeLineJoin = PenLineJoin.Miter;
 			canvas.MiterLimit = 2;
 			path = new PathF();
 			path.MoveTo(550, 120);

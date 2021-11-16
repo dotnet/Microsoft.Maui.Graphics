@@ -16,16 +16,16 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		public static double GetSize(this Pango.FontDescription it)
 			=> it.Size.ScaledFromPango();
 
-		public static Pango.Style ToPangoStyle(this FontStyleType it) => it switch {
-			FontStyleType.Oblique => Pango.Style.Oblique,
-			FontStyleType.Italic => Pango.Style.Italic,
+		public static Pango.Style ToPangoStyle(this FontSlant it) => it switch {
+			FontSlant.Oblique => Pango.Style.Oblique,
+			FontSlant.Italic => Pango.Style.Italic,
 			_ => Pango.Style.Normal
 		};
 
-		public static FontStyleType ToFontStyleType(this Pango.Style it) => it switch {
-			Pango.Style.Oblique => FontStyleType.Oblique,
-			Pango.Style.Italic => FontStyleType.Italic,
-			_ => FontStyleType.Normal
+		public static FontSlant ToFontStyleType(this Pango.Style it) => it switch {
+			Pango.Style.Oblique => FontSlant.Oblique,
+			Pango.Style.Italic => FontSlant.Italic,
+			_ => FontSlant.Default
 		};
 
 		// enum Pango.Weight { Thin = 100, Ultralight = 200, Light = 300, Semilight = 350, Book = 380, Normal = 400, Medium = 500, Semibold = 600, Bold = 700, Ultrabold = 800, Heavy = 900, Ultraheavy = 1000,}
