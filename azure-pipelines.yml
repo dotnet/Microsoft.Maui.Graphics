@@ -88,11 +88,6 @@ stages:
             - pwsh: dotnet tool restore
               displayName: install dotnet tools
 
-            - pwsh: |
-                dotnet vs install preview Enterprise +core +mobile +desktop +uwp --quiet
-                dotnet vs where
-              displayName: update vs
-
             - pwsh: echo "##vso[task.setvariable variable=JAVA_HOME]$(JAVA_HOME_11_X64)"
               displayName: Select JDK 11
 
@@ -127,13 +122,13 @@ stages:
             - pwsh: |
                 $vs = & dotnet vs where --preview --prop=InstallationPath
                 $msbuild = "$vs\MSBuild\Current\Bin\MSBuild.exe"
-                & $msbuild /r ./build/Build.Microsoft.Maui.Graphics.Windows.sln /p:Configuration=${{ BuildConfiguration }} /bl:$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}.binlog
+                & $msbuild /r /m ./build/Build.Microsoft.Maui.Graphics.Windows.sln /p:Configuration=${{ BuildConfiguration }} /bl:$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}.binlog
               displayName: build classic solutions
 
             - pwsh: |
                 $vs = & dotnet vs where --preview --prop=InstallationPath
                 $msbuild = "$vs\MSBuild\Current\Bin\MSBuild.exe"
-                & $msbuild /r ./Microsoft.Maui.Graphics-net6.sln /p:Configuration=${{ BuildConfiguration }} /bl:$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}-net6.binlog
+                & $msbuild /r /m ./Microsoft.Maui.Graphics-net6.sln /p:Configuration=${{ BuildConfiguration }} /bl:$(Build.ArtifactStagingDirectory)/${{ BuildConfiguration }}-net6.binlog
               displayName: build net6 solutions
 
             - task: NuGetCommand@2
