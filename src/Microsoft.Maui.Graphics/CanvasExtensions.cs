@@ -313,7 +313,7 @@ namespace Microsoft.Maui.Graphics
 		///  - Stroke Dash Pattern: None
 		///  - Stroke Location: Center
 		///  - Stroke Line Join: Miter
-		///  - Stroke Line Cap: Butt
+		///  - Stroke Line Cap: Flat
 		///  - Stroke Brush: None
 		///  - Stroke Color: Black
 		/// </summary>
@@ -323,7 +323,7 @@ namespace Microsoft.Maui.Graphics
 			canvas.StrokeSize = 1;
 			canvas.StrokeDashPattern = null;
 			canvas.StrokeLineJoin = LineJoin.Miter;
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 			canvas.StrokeColor = Colors.Black;
 		}
 

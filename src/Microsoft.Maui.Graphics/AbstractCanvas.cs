@@ -98,7 +98,7 @@ namespace Microsoft.Maui.Graphics
 
 		public abstract float MiterLimit { set; }
 		public abstract Color StrokeColor { set; }
-		public abstract LineCap StrokeLineCap { set; }
+		public abstract PenLineCap StrokeLineCap { set; }
 		public abstract LineJoin StrokeLineJoin { set; }
 
 		public float[] StrokeDashPattern

@@ -120,19 +120,19 @@ namespace Microsoft.Maui.Graphics.Native
 			set => _context.SetAlpha(value);
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set
 			{
-				if (value == LineCap.Butt)
+				if (value == PenLineCap.Flat)
 				{
 					_context.SetLineCap(CGLineCap.Butt);
 				}
-				else if (value == LineCap.Round)
+				else if (value == PenLineCap.Round)
 				{
 					_context.SetLineCap(CGLineCap.Round);
 				}
-				else if (value == LineCap.Square)
+				else if (value == PenLineCap.Square)
 				{
 					_context.SetLineCap(CGLineCap.Square);
 				}

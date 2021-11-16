@@ -55,7 +55,7 @@ namespace Microsoft.Maui.Graphics.Skia
 			set => CurrentState.Alpha = value;
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set => CurrentState.StrokeLineCap = value;
 		}

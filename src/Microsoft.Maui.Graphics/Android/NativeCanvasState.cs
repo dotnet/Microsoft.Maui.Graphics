@@ -80,15 +80,15 @@ namespace Microsoft.Maui.Graphics.Native
 			}
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			set
 			{
-				if (value == LineCap.Butt)
+				if (value == PenLineCap.Flat)
 					StrokePaint.StrokeCap = global::Android.Graphics.Paint.Cap.Butt;
-				else if (value == LineCap.Round)
+				else if (value == PenLineCap.Round)
 					StrokePaint.StrokeCap = global::Android.Graphics.Paint.Cap.Round;
-				else if (value == LineCap.Square)
+				else if (value == PenLineCap.Square)
 					StrokePaint.StrokeCap = global::Android.Graphics.Paint.Cap.Square;
 			}
 		}

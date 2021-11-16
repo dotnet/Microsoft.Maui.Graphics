@@ -88,15 +88,15 @@ namespace Microsoft.Maui.Graphics.Skia
 			}
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			set
 			{
-				if (value == LineCap.Butt)
+				if (value == PenLineCap.Flat)
 					StrokePaint.StrokeCap = SKStrokeCap.Butt;
-				else if (value == LineCap.Round)
+				else if (value == PenLineCap.Round)
 					StrokePaint.StrokeCap = SKStrokeCap.Round;
-				else if (value == LineCap.Square)
+				else if (value == PenLineCap.Square)
 					StrokePaint.StrokeCap = SKStrokeCap.Square;
 			}
 		}

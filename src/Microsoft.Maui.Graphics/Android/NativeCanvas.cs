@@ -107,7 +107,7 @@ namespace Microsoft.Maui.Graphics.Native
 			set => CurrentState.Alpha = value;
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set => CurrentState.StrokeLineCap = value;
 		}

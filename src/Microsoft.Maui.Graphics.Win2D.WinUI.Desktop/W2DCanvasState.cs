@@ -212,16 +212,16 @@ namespace Microsoft.Maui.Graphics.Win2D
 			}
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			set
 			{
 				switch (value)
 				{
-					case LineCap.Butt:
+					case PenLineCap.Flat:
 						_lineCap = CanvasCapStyle.Flat;
 						break;
-					case LineCap.Round:
+					case PenLineCap.Round:
 						_lineCap = CanvasCapStyle.Round;
 						break;
 					default:

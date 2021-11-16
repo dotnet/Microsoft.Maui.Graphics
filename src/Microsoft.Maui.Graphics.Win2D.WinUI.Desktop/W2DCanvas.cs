@@ -64,7 +64,7 @@ namespace Microsoft.Maui.Graphics.Win2D
             set => CurrentState.StrokeColor = value;
         }
 
-        public override LineCap StrokeLineCap
+        public override PenLineCap StrokeLineCap
         {
             set => CurrentState.StrokeLineCap = value;
         }

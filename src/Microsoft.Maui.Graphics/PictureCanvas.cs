@@ -56,7 +56,7 @@ namespace Microsoft.Maui.Graphics
 			set { _commands.Add(canvas => canvas.StrokeColor = value); }
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			set { _commands.Add(canvas => canvas.StrokeLineCap = value); }
 		}
