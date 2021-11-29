@@ -69,7 +69,7 @@ namespace Microsoft.Maui.Graphics.Skia
 			return new SizeF(width, fontSize);
 		}
 
-		public SizeF GetStringSize(string value, string fontName, float fontSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
+		public SizeF GetStringSize(string value, string fontName, float fontSize, TextAlignment horizontalAlignment, TextAlignment verticalAlignment)
 		{
 			if (string.IsNullOrEmpty(value))
 				return new SizeF();

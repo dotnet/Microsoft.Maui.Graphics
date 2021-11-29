@@ -30,7 +30,7 @@ namespace GraphicsTester.Scenarios
 
 			canvas.FontColor = Colors.Black;
 			canvas.FontSize = 16f;
-			canvas.DrawString($"{Width}x{Height}", Width / 2, 50, HorizontalAlignment.Center);
+			canvas.DrawString($"{Width}x{Height}", Width / 2, 50, TextAlignment.Center);
 		}
 	}
 }

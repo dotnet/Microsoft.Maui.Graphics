@@ -7,7 +7,7 @@ namespace Microsoft.Maui.Graphics.Native
 	{
 		private readonly NativeFontFamily _family;
 
-		public NativeFontStyle(NativeFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType, string path, bool resource = false)
+		public NativeFontStyle(NativeFontFamily family, string id, string name, string fullName, int weight, FontSlant styleType, string path, bool resource = false)
 		{
 			_family = family;
 			Id = id;
@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 		public int Weight { get; }
 
-		public FontStyleType StyleType { get; }
+		public FontSlant StyleType { get; }
 
 		public string Path { get; }
 

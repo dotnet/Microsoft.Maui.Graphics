@@ -169,17 +169,17 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			}
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			set
 			{
 				switch (value)
 				{
-					case LineCap.Butt:
+					case PenLineCap.Flat:
 						_strokeStyleProperties.EndCap = CapStyle.Flat;
 						_strokeStyleProperties.StartCap = CapStyle.Flat;
 						break;
-					case LineCap.Round:
+					case PenLineCap.Round:
 						_strokeStyleProperties.EndCap = CapStyle.Round;
 						_strokeStyleProperties.StartCap = CapStyle.Round;
 						break;

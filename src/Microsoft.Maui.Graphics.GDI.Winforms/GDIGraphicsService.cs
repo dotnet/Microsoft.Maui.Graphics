@@ -21,7 +21,7 @@ namespace Microsoft.Maui.Graphics.GDI
 		}
 
 
-		public SizeF GetStringSize(string aString, string aFontName, float fontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
+		public SizeF GetStringSize(string aString, string aFontName, float fontSize, TextAlignment aHorizontalAlignment, TextAlignment aVerticalAlignment)
 		{
 			var fontEntry = GDIFontManager.GetMapping(aFontName);
 			var font = new Font(fontEntry.Name, fontSize * .75f);

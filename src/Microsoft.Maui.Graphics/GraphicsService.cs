@@ -10,7 +10,7 @@ namespace Microsoft.Maui.Graphics
 		string BoldSystemFontName { get; }
 
 		SizeF GetStringSize(string value, string fontName, float textSize);
-		SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment);
+		SizeF GetStringSize(string value, string fontName, float textSize, TextAlignment horizontalAlignment, TextAlignment verticalAlignment);
 
 		RectangleF GetPathBounds(PathF path);
 

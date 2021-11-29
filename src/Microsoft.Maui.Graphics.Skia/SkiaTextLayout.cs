@@ -67,18 +67,18 @@ namespace Microsoft.Maui.Graphics.Skia
 			var top = y;
 			var bottom = y + height;
 
-			if (_textAttributes.HorizontalAlignment == HorizontalAlignment.Right)
+			if (_textAttributes.HorizontalAlignment == TextAlignment.End)
 				_paint.TextAlign = SKTextAlign.Right;
-			else if (_textAttributes.HorizontalAlignment == HorizontalAlignment.Center)
+			else if (_textAttributes.HorizontalAlignment == TextAlignment.Center)
 				_paint.TextAlign = SKTextAlign.Center;
 
 			var lines = CreateLines(y, bottom, width);
 			switch (_textAttributes.VerticalAlignment)
 			{
-				case VerticalAlignment.Center:
+				case TextAlignment.Center:
 					LayoutCenterAligned(lines, x, width, top, height);
 					break;
-				case VerticalAlignment.Bottom:
+				case TextAlignment.End:
 					LayoutBottomAligned(lines, x, width, bottom, top);
 					break;
 				default:
@@ -130,10 +130,10 @@ namespace Microsoft.Maui.Graphics.Skia
 				var point = new PointF(x, y);
 				switch (_textAttributes.HorizontalAlignment)
 				{
-					case HorizontalAlignment.Center:
+					case TextAlignment.Center:
 						point.X = x + width / 2;
 						break;
-					case HorizontalAlignment.Right:
+					case TextAlignment.End:
 						point.X = x + width;
 						break;
 				}
@@ -161,10 +161,10 @@ namespace Microsoft.Maui.Graphics.Skia
 				var point = new PointF(x, y);
 				switch (_textAttributes.HorizontalAlignment)
 				{
-					case HorizontalAlignment.Center:
+					case TextAlignment.Center:
 						point.X = x + width / 2;
 						break;
-					case HorizontalAlignment.Right:
+					case TextAlignment.End:
 						point.X = x + width;
 						break;
 				}
@@ -190,10 +190,10 @@ namespace Microsoft.Maui.Graphics.Skia
 				var point = new PointF(x, y);
 				switch (_textAttributes.HorizontalAlignment)
 				{
-					case HorizontalAlignment.Center:
+					case TextAlignment.Center:
 						point.X = x + width / 2;
 						break;
-					case HorizontalAlignment.Right:
+					case TextAlignment.End:
 						point.X = x + width;
 						break;
 				}
@@ -212,7 +212,7 @@ namespace Microsoft.Maui.Graphics.Skia
 			{
 				y += _lineHeight;
 
-				if (_textFlow == TextFlow.ClipBounds && _textAttributes.VerticalAlignment == VerticalAlignment.Top && y > bottom)
+				if (_textFlow == TextFlow.ClipBounds && _textAttributes.VerticalAlignment == TextAlignment.Start && y > bottom)
 					return lines;
 
 				var count = (int) _paint.BreakText(_value.Substring(index), width, out var textWidth);

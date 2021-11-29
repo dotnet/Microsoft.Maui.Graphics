@@ -6,12 +6,12 @@ namespace Microsoft.Maui.Graphics
 
 		public float FontSize { get; set; }
 
-		public HorizontalAlignment HorizontalAlignment { get; set; }
+		public TextAlignment HorizontalAlignment { get; set; }
 
 		public float Margin { get; set; }
 
 		public Color TextFontColor { get; set; }
 
-		public VerticalAlignment VerticalAlignment { get; set; }
+		public TextAlignment VerticalAlignment { get; set; }
 	}
 }

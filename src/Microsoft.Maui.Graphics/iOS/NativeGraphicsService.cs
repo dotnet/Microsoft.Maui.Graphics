@@ -55,8 +55,8 @@ namespace Microsoft.Maui.Graphics.Native
 			string value,
 			string fontName,
 			float fontSize,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment)
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment)
 		{
 			float factor = 1;
 			while (fontSize > 10)
@@ -81,18 +81,18 @@ namespace Microsoft.Maui.Graphics.Native
 			var paragraphSettings = new CTParagraphStyleSettings();
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
+				case TextAlignment.Start:
 					paragraphSettings.Alignment = CTTextAlignment.Left;
 					break;
-				case HorizontalAlignment.Center:
+				case TextAlignment.Center:
 					paragraphSettings.Alignment = CTTextAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
+				case TextAlignment.End:
 					paragraphSettings.Alignment = CTTextAlignment.Right;
 					break;
-				case HorizontalAlignment.Justified:
-					paragraphSettings.Alignment = CTTextAlignment.Justified;
-					break;
+				//case TextAlignment.Justified:
+				//	paragraphSettings.Alignment = CTTextAlignment.Justified;
+				//	break;
 			}
 
 			var paragraphStyle = new CTParagraphStyle(paragraphSettings);

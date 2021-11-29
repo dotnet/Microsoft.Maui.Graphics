@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Graphics.Skia
 	{
 		private readonly SkiaFontFamily _family;
 
-		public SkiaFontStyle(SkiaFontFamily family, string id, string name, string fullName, int weight, FontStyleType styleType)
+		public SkiaFontStyle(SkiaFontFamily family, string id, string name, string fullName, int weight, FontSlant styleType)
 		{
 			_family = family;
 			Id = id;
@@ -26,7 +26,7 @@ namespace Microsoft.Maui.Graphics.Skia
 
 		public int Weight { get; }
 
-		public FontStyleType StyleType { get; }
+		public FontSlant StyleType { get; }
 
 		public override bool Equals(object obj)
 		{

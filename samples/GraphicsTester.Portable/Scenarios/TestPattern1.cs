@@ -79,18 +79,18 @@ namespace GraphicsTester.Scenarios
 			canvas.DrawLine(100, 120, 300, 120);
 
 			canvas.StrokeColor = Colors.Red;
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 			canvas.DrawLine(100, 140, 300, 140);
 
 			canvas.StrokeColor = Colors.Green;
-			canvas.StrokeLineCap = LineCap.Round;
+			canvas.StrokeLineCap = PenLineCap.Round;
 			canvas.DrawLine(100, 160, 300, 160);
 
 			canvas.StrokeColor = Colors.Blue;
-			canvas.StrokeLineCap = LineCap.Square;
+			canvas.StrokeLineCap = PenLineCap.Square;
 			canvas.DrawLine(100, 180, 300, 180);
 
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 
 			//
 			// Line Joins
@@ -104,28 +104,28 @@ namespace GraphicsTester.Scenarios
 			path.LineTo(390, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Miter;
+			canvas.StrokeLineJoin = PenLineJoin.Miter;
 			path = new PathF();
 			path.MoveTo(400, 120);
 			path.LineTo(420, 180);
 			path.LineTo(440, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Round;
+			canvas.StrokeLineJoin = PenLineJoin.Round;
 			path = new PathF();
 			path.MoveTo(450, 120);
 			path.LineTo(470, 180);
 			path.LineTo(490, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Bevel;
+			canvas.StrokeLineJoin = PenLineJoin.Bevel;
 			path = new PathF();
 			path.MoveTo(500, 120);
 			path.LineTo(520, 180);
 			path.LineTo(540, 120);
 			canvas.DrawPath(path);
 
-			canvas.StrokeLineJoin = LineJoin.Miter;
+			canvas.StrokeLineJoin = PenLineJoin.Miter;
 			canvas.MiterLimit = 2;
 			path = new PathF();
 			path.MoveTo(550, 120);
@@ -152,7 +152,7 @@ namespace GraphicsTester.Scenarios
 			canvas.StrokeDashPattern = SOLID;
 			canvas.DrawLine(650, 180, 800, 180);
 
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 
 			//
 			// Linear Gradient Fill
@@ -418,8 +418,8 @@ namespace GraphicsTester.Scenarios
 
 					canvas.DrawRectangle(dx, dy, 190, 140);
 
-					var vHorizontalAlignment = (HorizontalAlignment)x;
-					var vVerticalAlignment = (VerticalAlignment)y;
+					var vHorizontalAlignment = (TextAlignment)x;
+					var vVerticalAlignment = (TextAlignment)y;
 
 					canvas.FontName = "Arial";
 					canvas.FontSize = 12f;
@@ -439,8 +439,8 @@ namespace GraphicsTester.Scenarios
 
 					canvas.DrawRectangle(dx, dy, 190, 140);
 
-					var vHorizontalAlignment = (HorizontalAlignment)x;
-					var vVerticalAlignment = (VerticalAlignment)y;
+					var vHorizontalAlignment = (TextAlignment)x;
+					var vVerticalAlignment = (TextAlignment)y;
 
 					canvas.FontName = "Arial";
 					canvas.FontSize = 12f;
@@ -457,8 +457,8 @@ namespace GraphicsTester.Scenarios
 
 				canvas.DrawRectangle(dx, dy, 190, 140);
 
-				const HorizontalAlignment vHorizontalAlignment = HorizontalAlignment.Left;
-				var vVerticalAlignment = (VerticalAlignment)y;
+				const TextAlignment vHorizontalAlignment = TextAlignment.Start;
+				var vVerticalAlignment = (TextAlignment)y;
 
 				canvas.FontName = "Arial";
 				canvas.FontSize = 12f;
@@ -481,10 +481,10 @@ namespace GraphicsTester.Scenarios
 			canvas.DrawLine(1000, 1350, 1200, 1350);
 			canvas.DrawLine(1000, 1375, 1200, 1375);
 			canvas.DrawLine(1100, 1300, 1100, 1400);
-			canvas.DrawString("This is a test.", 1100, 1300, HorizontalAlignment.Left);
-			canvas.DrawString("This is a test.", 1100, 1325, HorizontalAlignment.Center);
-			canvas.DrawString("This is a test.", 1100, 1350, HorizontalAlignment.Right);
-			canvas.DrawString("This is a test.", 1100, 1375, HorizontalAlignment.Justified);
+			canvas.DrawString("This is a test.", 1100, 1300, TextAlignment.Start);
+			canvas.DrawString("This is a test.", 1100, 1325, TextAlignment.Center);
+			canvas.DrawString("This is a test.", 1100, 1350, TextAlignment.End);
+			//canvas.DrawString("This is a test.", 1100, 1375, TextAlignment.Justified);
 
 			//
 			// Test inverse clipping area
@@ -508,7 +508,7 @@ namespace GraphicsTester.Scenarios
 				for (int i = 0; i < 4; i++)
 				{
 					canvas.FontSize = 12 + i * 6;
-					canvas.DrawString("Test String Length", 650, 400 + (100 * i), HorizontalAlignment.Left);
+					canvas.DrawString("Test String Length", 650, 400 + (100 * i), TextAlignment.Start);
 
 					var size = graphicsPlatform.GetStringSize("Test String Length", "Arial", 12 + i * 6);
 					canvas.DrawRectangle(650, 400 + (100 * i), size.Width, size.Height);

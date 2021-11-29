@@ -16,7 +16,7 @@ namespace Microsoft.Maui.Graphics
 			return new SizeF(value.Length * 10, textSize + 2);
 		}
 
-		public SizeF GetStringSize(string value, string fontName, float textSize, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
+		public SizeF GetStringSize(string value, string fontName, float textSize, TextAlignment horizontalAlignment, TextAlignment verticalAlignment)
 		{
 			return new SizeF(value.Length * 10, textSize + 2);
 		}

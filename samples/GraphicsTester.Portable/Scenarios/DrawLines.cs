@@ -47,16 +47,16 @@ namespace GraphicsTester.Scenarios
 			canvas.StrokeColor = Colors.Black;
 			canvas.StrokeSize = 20;
 			canvas.StrokeDashPattern = null;
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 			canvas.DrawLine(50, 250, 200, 250);
-			canvas.StrokeLineCap = LineCap.Round;
+			canvas.StrokeLineCap = PenLineCap.Round;
 			canvas.DrawLine(50, 300, 200, 300);
-			canvas.StrokeLineCap = LineCap.Square;
+			canvas.StrokeLineCap = PenLineCap.Square;
 			canvas.DrawLine(50, 350, 200, 350);
 
 			canvas.StrokeColor = Colors.Blue;
 			canvas.StrokeSize = 1;
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 			canvas.DrawLine(50, 250, 200, 250);
 			canvas.DrawLine(50, 300, 200, 300);
 			canvas.DrawLine(50, 350, 200, 350);

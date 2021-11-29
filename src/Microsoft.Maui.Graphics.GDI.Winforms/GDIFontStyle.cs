@@ -26,7 +26,7 @@ namespace Microsoft.Maui.Graphics.GDI
 
 		public string FullName { get; }
 
-		public FontStyleType StyleType { get; }
+		public FontSlant StyleType { get; }
 
 		public int Weight { get; }
 
@@ -79,15 +79,15 @@ namespace Microsoft.Maui.Graphics.GDI
 
 	public static class FontStyleExtensions
 	{
-		public static FontStyleType AsStyleType(this FontStyle style)
+		public static FontSlant AsStyleType(this FontStyle style)
 		{
 			switch (style)
 			{
 				case FontStyle.Italic:
-					return FontStyleType.Italic;
+					return FontSlant.Italic;
 			}
 
-			return FontStyleType.Normal;
+			return FontSlant.Default;
 		}
 	}
 }

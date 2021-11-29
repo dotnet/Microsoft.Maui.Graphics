@@ -1,9 +1,9 @@
 namespace Microsoft.Maui.Graphics
 {
-	public enum LineJoin
+	public enum PenLineJoin
 	{
 		Miter,
-		Round,
-		Bevel
+		Bevel,
+		Round
 	}
 }

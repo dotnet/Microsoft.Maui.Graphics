@@ -52,7 +52,7 @@ namespace Microsoft.Maui.Graphics
 			set => _canvas.StrokeColor = value;
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			set => _canvas.StrokeLineCap = value;
 		}
@@ -62,7 +62,7 @@ namespace Microsoft.Maui.Graphics
 			set => _canvas.Alpha = value;
 		}
 
-		public LineJoin StrokeLineJoin
+		public PenLineJoin StrokeLineJoin
 		{
 			set => _canvas.StrokeLineJoin = value;
 		}
@@ -142,12 +142,12 @@ namespace Microsoft.Maui.Graphics
 			_canvas.DrawRoundedRectangle(x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, cornerRadius * _scaleX);
 		}
 
-		public void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
+		public void DrawString(string value, float x, float y, TextAlignment horizontalAlignment)
 		{
 			_canvas.DrawString(value, x * _scaleX, y * _scaleY, horizontalAlignment);
 		}
 
-		public void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment,
+		public void DrawString(string value, float x, float y, float width, float height, TextAlignment horizontalAlignment, TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0)
 		{
 			_canvas.DrawString(value, x * _scaleX, y * _scaleY, width * _scaleX, height * _scaleY, horizontalAlignment, verticalAlignment, textFlow);

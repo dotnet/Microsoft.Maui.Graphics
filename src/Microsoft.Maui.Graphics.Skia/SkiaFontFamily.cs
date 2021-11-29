@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics.Skia
 					_name,
 					_name,
 					FontUtils.Normal,
-					FontStyleType.Normal));
+					FontSlant.Default));
 
 			styles.Sort();
 			return styles.ToArray();

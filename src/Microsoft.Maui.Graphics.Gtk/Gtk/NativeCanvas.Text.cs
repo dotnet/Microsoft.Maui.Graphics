@@ -20,7 +20,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		private void LayoutAfterDrawn(TextLayout layout) { }
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment) {
+		public override void DrawString(string value, float x, float y, TextAlignment horizontalAlignment) {
 
 			using var layout = CreateTextLayout();
 			layout.HorizontalAlignment = horizontalAlignment;
@@ -29,7 +29,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		}
 
-		public override void DrawString(string value, float x, float y, float width, float height, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) {
+		public override void DrawString(string value, float x, float y, float width, float height, TextAlignment horizontalAlignment, TextAlignment verticalAlignment, TextFlow textFlow = TextFlow.ClipBounds, float lineSpacingAdjustment = 0) {
 
 			using var layout = CreateTextLayout();
 			layout.HorizontalAlignment = horizontalAlignment;
@@ -46,9 +46,6 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 			using var layout = CreateTextLayout();
 
 			layout.DrawAttributedText(value, x, y, width, height);
-
 		}
-
 	}
-
 }

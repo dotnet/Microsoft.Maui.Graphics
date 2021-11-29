@@ -3,6 +3,8 @@ using System.Numerics;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
+using WPenLineCap = System.Windows.Media.PenLineCap;
+using WPenLineJoin = System.Windows.Media.PenLineJoin;
 
 namespace Microsoft.Maui.Graphics.Xaml
 {
@@ -24,8 +26,8 @@ namespace Microsoft.Maui.Graphics.Xaml
 		private Effect _shadowEffect;
 		private Effect _blurEffect = null;
 		private float _miterLimit = CanvasDefaults.DefaultMiterLimit;
-		private LineCap _strokeLineCap = LineCap.Butt;
-		private LineJoin _strokeLineJoin = LineJoin.Miter;
+		private PenLineCap _strokeLineCap = PenLineCap.Flat;
+		private PenLineJoin _strokeLineJoin = PenLineJoin.Miter;
 		private TransformGroup _transformGroup;
 		private bool _transformUsed;
 		private double _fontSize;
@@ -133,7 +135,7 @@ namespace Microsoft.Maui.Graphics.Xaml
 			set => _miterLimit = value;
 		}
 
-		public LineCap StrokeLineCap
+		public PenLineCap StrokeLineCap
 		{
 			get => _strokeLineCap;
 			set => _strokeLineCap = value;
@@ -150,7 +152,7 @@ namespace Microsoft.Maui.Graphics.Xaml
 			set => _fontColor = value ?? Colors.Black;
 		}
 
-		public LineJoin StrokeLineJoin
+		public PenLineJoin StrokeLineJoin
 		{
 			get => _strokeLineJoin;
 			set => _strokeLineJoin = value;
@@ -190,40 +192,40 @@ namespace Microsoft.Maui.Graphics.Xaml
 			set => _dashArray = value;
 		}
 
-		public PenLineJoin XamlLineJoin
+		public WPenLineJoin XamlLineJoin
 		{
 			get
 			{
 				switch (_strokeLineJoin)
 				{
-					case LineJoin.Miter:
-						return PenLineJoin.Miter;
-					case LineJoin.Bevel:
-						return PenLineJoin.Bevel;
-					case LineJoin.Round:
-						return PenLineJoin.Round;
+					case PenLineJoin.Miter:
+						return WPenLineJoin.Miter;
+					case PenLineJoin.Bevel:
+						return WPenLineJoin.Bevel;
+					case PenLineJoin.Round:
+						return WPenLineJoin.Round;
 				}
 
-				return PenLineJoin.Miter;
+				return WPenLineJoin.Miter;
 			}
 		}
 
 
-		public PenLineCap XamlLineCap
+		public WPenLineCap XamlLineCap
 		{
 			get
 			{
 				switch (_strokeLineCap)
 				{
-					case LineCap.Butt:
-						return PenLineCap.Flat;
-					case LineCap.Square:
-						return PenLineCap.Square;
-					case LineCap.Round:
-						return PenLineCap.Round;
+					case PenLineCap.Flat:
+						return WPenLineCap.Flat;
+					case PenLineCap.Square:
+						return WPenLineCap.Square;
+					case PenLineCap.Round:
+						return WPenLineCap.Round;
 				}
 
-				return PenLineCap.Flat;
+				return WPenLineCap.Flat;
 			}
 		}
 
@@ -335,9 +337,9 @@ namespace Microsoft.Maui.Graphics.Xaml
 					var styleType = style.StyleType;
 					switch (styleType)
 					{
-						case FontStyleType.Italic:
+						case FontSlant.Italic:
 							return FontStyles.Italic;
-						case FontStyleType.Oblique:
+						case FontSlant.Oblique:
 							return FontStyles.Oblique;
 					}
 				}

@@ -5,6 +5,7 @@ using SharpDX.DirectWrite;
 using SharpDX.WIC;
 using Factory = SharpDX.Direct2D1.Factory;
 using FactoryType = SharpDX.Direct2D1.FactoryType;
+using SharpDXTextAlignment = SharpDX.DirectWrite.TextAlignment;
 
 namespace Microsoft.Maui.Graphics.SharpDX
 {
@@ -47,7 +48,7 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			var size = new SizeF();
 
 			var textFormat = new TextFormat(FactoryDirectWrite, fontName, fontSize);
-			textFormat.TextAlignment = TextAlignment.Leading;
+			textFormat.TextAlignment = SharpDXTextAlignment.Leading;
 			textFormat.ParagraphAlignment = ParagraphAlignment.Near;
 
 			var textLayout = new TextLayout(FactoryDirectWrite, value, textFormat, 512, 512);
@@ -64,8 +65,8 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			string value,
 			string fontName,
 			float textSize,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment)
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment)
 		{
 			if (value == null) return new SizeF();
 
@@ -81,32 +82,32 @@ namespace Microsoft.Maui.Graphics.SharpDX
 
 			var textFormat = new TextFormat(FactoryDirectWrite, SystemFontName, FontWeight.Regular, FontStyle.Normal,
 				fontSize);
-			if (horizontalAlignment == HorizontalAlignment.Left)
+			if (horizontalAlignment == TextAlignment.Start)
 			{
-				textFormat.TextAlignment = TextAlignment.Leading;
+				textFormat.TextAlignment = SharpDXTextAlignment.Leading;
 			}
-			else if (horizontalAlignment == HorizontalAlignment.Center)
+			else if (horizontalAlignment == TextAlignment.Center)
 			{
-				textFormat.TextAlignment = TextAlignment.Center;
+				textFormat.TextAlignment = SharpDXTextAlignment.Center;
 			}
-			else if (horizontalAlignment == HorizontalAlignment.Right)
+			else if (horizontalAlignment == TextAlignment.End)
 			{
-				textFormat.TextAlignment = TextAlignment.Trailing;
+				textFormat.TextAlignment = SharpDXTextAlignment.Trailing;
 			}
-			else if (horizontalAlignment == HorizontalAlignment.Justified)
-			{
-				textFormat.TextAlignment = TextAlignment.Justified;
-			}
+			//else if (horizontalAlignment == TextAlignment.Justified)
+			//{
+			//	textFormat.TextAlignment = SharpDXTextAlignment.Justified;
+			//}
 
-			if (verticalAlignment == VerticalAlignment.Top)
+			if (verticalAlignment == TextAlignment.Start)
 			{
 				textFormat.ParagraphAlignment = ParagraphAlignment.Near;
 			}
-			else if (verticalAlignment == VerticalAlignment.Center)
+			else if (verticalAlignment == TextAlignment.Center)
 			{
 				textFormat.ParagraphAlignment = ParagraphAlignment.Center;
 			}
-			else if (verticalAlignment == VerticalAlignment.Bottom)
+			else if (verticalAlignment == TextAlignment.End)
 			{
 				textFormat.ParagraphAlignment = ParagraphAlignment.Far;
 			}

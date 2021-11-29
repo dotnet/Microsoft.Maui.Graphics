@@ -143,8 +143,8 @@ namespace Microsoft.Maui.Graphics
 			this ICanvas target,
 			string value,
 			Rectangle bounds,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -155,8 +155,8 @@ namespace Microsoft.Maui.Graphics
 			this ICanvas target,
 			string value,
 			RectangleF bounds,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineSpacingAdjustment = 0)
 		{
@@ -313,7 +313,7 @@ namespace Microsoft.Maui.Graphics
 		///  - Stroke Dash Pattern: None
 		///  - Stroke Location: Center
 		///  - Stroke Line Join: Miter
-		///  - Stroke Line Cap: Butt
+		///  - Stroke Line Cap: Flat
 		///  - Stroke Brush: None
 		///  - Stroke Color: Black
 		/// </summary>
@@ -322,8 +322,8 @@ namespace Microsoft.Maui.Graphics
 		{
 			canvas.StrokeSize = 1;
 			canvas.StrokeDashPattern = null;
-			canvas.StrokeLineJoin = LineJoin.Miter;
-			canvas.StrokeLineCap = LineCap.Butt;
+			canvas.StrokeLineJoin = PenLineJoin.Miter;
+			canvas.StrokeLineCap = PenLineCap.Flat;
 			canvas.StrokeColor = Colors.Black;
 		}
 

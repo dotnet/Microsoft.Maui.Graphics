@@ -6,7 +6,7 @@ namespace Microsoft.Maui.Graphics
 	{
 		public static IFontStyle GetBoldStyle(
 			this IFontFamily family,
-			FontStyleType type = FontStyleType.Normal)
+			FontSlant type = FontSlant.Default)
 		{
 			return family?.GetStyleWithWeightNearestTo(500, type);
 		}
@@ -14,7 +14,7 @@ namespace Microsoft.Maui.Graphics
 		public static IFontStyle GetStyleWithWeightNearestTo(
 			this IFontFamily family,
 			int weight,
-			FontStyleType type = FontStyleType.Normal)
+			FontSlant type = FontSlant.Default)
 		{
 			if (family == null)
 				return null;

@@ -406,10 +406,10 @@ namespace Microsoft.Maui.Graphics.Native
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment)
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment)
 		{
-			if (verticalAlignment != VerticalAlignment.Top)
+			if (verticalAlignment != TextAlignment.Start)
 			{
 				SizeF vTextFrameSize = target.GetTextSize();
 
@@ -418,7 +418,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 				if (height > 0)
 				{
-					if (verticalAlignment == VerticalAlignment.Bottom)
+					if (verticalAlignment == TextAlignment.End)
 						vOffsetY = height - vTextFrameSize.Height;
 					else
 						vOffsetY = (height - vTextFrameSize.Height) / 2;

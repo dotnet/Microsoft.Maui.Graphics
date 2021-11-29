@@ -33,9 +33,9 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 		public TextFlow TextFlow { get; set; } = TextFlow.OverflowBounds;
 
-		public HorizontalAlignment HorizontalAlignment { get; set; }
+		public TextAlignment HorizontalAlignment { get; set; }
 
-		public VerticalAlignment VerticalAlignment { get; set; }
+		public TextAlignment VerticalAlignment { get; set; }
 
 		public LineBreakMode LineBreakMode { get; set; } = LineBreakMode.EndTruncation;
 
@@ -99,7 +99,7 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 			// allign & justify per Size
 			_layout.Alignment = HorizontalAlignment.ToPango();
-			_layout.Justify = HorizontalAlignment.HasFlag(HorizontalAlignment.Justified);
+			//_layout.Justify = HorizontalAlignment.HasFlag(TextAlignment.Justified);
 			_layout.Wrap = LineBreakMode.ToPangoWrap();
 			_layout.Ellipsize = LineBreakMode.ToPangoEllipsize();
 
@@ -150,30 +150,30 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 		}
 
 		private float GetX(float x, int width) => HorizontalAlignment switch {
-			HorizontalAlignment.Left => x,
-			HorizontalAlignment.Right => x - width,
-			HorizontalAlignment.Center => x - width / 2f,
+			TextAlignment.Start => x,
+			TextAlignment.End => x - width,
+			TextAlignment.Center => x - width / 2f,
 			_ => x
 		};
 
 		private float GetY(float y, int height) => VerticalAlignment switch {
-			VerticalAlignment.Top => y,
-			VerticalAlignment.Center => y - height,
-			VerticalAlignment.Bottom => y - height / 2f,
+			TextAlignment.Start => y,
+			TextAlignment.Center => y - height,
+			TextAlignment.End => y - height / 2f,
 			_ => y
 		};
 
 		private float GetDx(int width) => HorizontalAlignment switch {
-			HorizontalAlignment.Left => 0,
-			HorizontalAlignment.Center => width / 2f,
-			HorizontalAlignment.Right => width,
+			TextAlignment.Start => 0,
+			TextAlignment.Center => width / 2f,
+			TextAlignment.End => width,
 			_ => 0
 		};
 
 		private float GetDy(int height) => VerticalAlignment switch {
-			VerticalAlignment.Top => 0,
-			VerticalAlignment.Center => height / 2f,
-			VerticalAlignment.Bottom => height,
+			TextAlignment.Start => 0,
+			TextAlignment.Center => height / 2f,
+			TextAlignment.End => height,
 			_ => 0
 		};
 

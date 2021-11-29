@@ -65,7 +65,7 @@ namespace Microsoft.Maui.Graphics.Native
 
 
 
-		public SizeF GetStringSize(string aString, string aFontName, float aFontSize, HorizontalAlignment aHorizontalAlignment, VerticalAlignment aVerticalAlignment)
+		public SizeF GetStringSize(string aString, string aFontName, float aFontSize, TextAlignment aHorizontalAlignment, TextAlignment aVerticalAlignment)
 		{
 			if (aString == null) return new SizeF();
 
@@ -75,10 +75,10 @@ namespace Microsoft.Maui.Graphics.Native
 			Layout.Alignment vAlignment;
 			switch (aHorizontalAlignment)
 			{
-				case HorizontalAlignment.Center:
+				case TextAlignment.Center:
 					vAlignment = Layout.Alignment.AlignCenter;
 					break;
-				case HorizontalAlignment.Right:
+				case TextAlignment.End:
 					vAlignment = Layout.Alignment.AlignOpposite;
 					break;
 				default:

@@ -2,10 +2,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 
 	public static class CanvasExtensions {
 
-		public static Cairo.LineJoin ToLineJoin(this LineJoin lineJoin) =>
+		public static Cairo.LineJoin ToLineJoin(this PenLineJoin lineJoin) =>
 			lineJoin switch {
-				LineJoin.Bevel => Cairo.LineJoin.Bevel,
-				LineJoin.Round => Cairo.LineJoin.Round,
+				PenLineJoin.Bevel => Cairo.LineJoin.Bevel,
+				PenLineJoin.Round => Cairo.LineJoin.Round,
 				_ => Cairo.LineJoin.Miter
 			};
 
@@ -15,10 +15,10 @@ namespace Microsoft.Maui.Graphics.Native.Gtk {
 				_ => Cairo.FillRule.Winding
 			};
 
-		public static Cairo.LineCap ToLineCap(this LineCap lineCap) =>
+		public static Cairo.LineCap ToLineCap(this PenLineCap lineCap) =>
 			lineCap switch {
-				LineCap.Butt => Cairo.LineCap.Butt,
-				LineCap.Round => Cairo.LineCap.Round,
+				PenLineCap.Flat => Cairo.LineCap.Butt,
+				PenLineCap.Round => Cairo.LineCap.Round,
 				_ => Cairo.LineCap.Square
 			};
 

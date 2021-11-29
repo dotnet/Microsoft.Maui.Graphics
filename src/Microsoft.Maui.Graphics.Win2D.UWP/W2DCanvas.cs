@@ -64,12 +64,12 @@ namespace Microsoft.Maui.Graphics.Win2D
 			set => CurrentState.StrokeColor = value;
 		}
 
-		public override LineCap StrokeLineCap
+		public override PenLineCap StrokeLineCap
 		{
 			set => CurrentState.StrokeLineCap = value;
 		}
 
-		public override LineJoin StrokeLineJoin
+		public override PenLineJoin StrokeLineJoin
 		{
 			set => CurrentState.StrokeLineJoin = value;
 		}
@@ -234,7 +234,7 @@ namespace Microsoft.Maui.Graphics.Win2D
 			Draw(s => s.FillEllipse(_point1, radiusX, radiusY, CurrentState.NativeFillBrush));
 		}
 
-		public override void DrawString(string value, float x, float y, HorizontalAlignment horizontalAlignment)
+		public override void DrawString(string value, float x, float y, TextAlignment horizontalAlignment)
 		{
 			// Initialize a TextFormat
 #if DEBUG
@@ -252,12 +252,12 @@ namespace Microsoft.Maui.Graphics.Win2D
 
 				switch (horizontalAlignment)
 				{
-					case HorizontalAlignment.Left:
+					case TextAlignment.Start:
 						_rect.X = x;
 						_rect.Width = CanvasSize.Width;
 						textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
 						break;
-					case HorizontalAlignment.Right:
+					case TextAlignment.End:
 						_rect.X = x - CanvasSize.Width;
 						_rect.Width = CanvasSize.Width;
 						textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Right;
@@ -300,8 +300,8 @@ namespace Microsoft.Maui.Graphics.Win2D
 			float y,
 			float width,
 			float height,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment,
+			TextAlignment horizontalAlignment,
+			TextAlignment verticalAlignment,
 			TextFlow textFlow = TextFlow.ClipBounds,
 			float lineAdjustment = 0)
 		{
@@ -315,29 +315,29 @@ namespace Microsoft.Maui.Graphics.Win2D
 
 			switch (horizontalAlignment)
 			{
-				case HorizontalAlignment.Left:
+				case TextAlignment.Start:
 					textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Left;
 					break;
-				case HorizontalAlignment.Center:
+				case TextAlignment.Center:
 					textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Center;
 					break;
-				case HorizontalAlignment.Right:
+				case TextAlignment.End:
 					textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Right;
 					break;
-				case HorizontalAlignment.Justified:
-					textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Justified;
-					break;
+				//case TextAlignment.Justified:
+				//	textFormat.HorizontalAlignment = CanvasHorizontalAlignment.Justified;
+				//	break;
 			}
 
 			switch (verticalAlignment)
 			{
-				case VerticalAlignment.Top:
+				case TextAlignment.Start:
 					textFormat.VerticalAlignment = CanvasVerticalAlignment.Top;
 					break;
-				case VerticalAlignment.Center:
+				case TextAlignment.Center:
 					textFormat.VerticalAlignment = CanvasVerticalAlignment.Center;
 					break;
-				case VerticalAlignment.Bottom:
+				case TextAlignment.End:
 					textFormat.VerticalAlignment = CanvasVerticalAlignment.Bottom;
 					break;
 			}

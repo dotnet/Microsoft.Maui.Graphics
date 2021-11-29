@@ -75,9 +75,9 @@ namespace Microsoft.Maui.Graphics.Native
 					if (type.Contains("Bold"))
 						weight = FontUtils.Bold;
 
-					var styleType = FontStyleType.Normal;
+					var styleType = FontSlant.Default;
 					if (type.Contains("Italic"))
-						styleType = FontStyleType.Italic;
+						styleType = FontSlant.Italic;
 
 					var fullName = $"{familyName} {type}";
 					if ("Regular".Equals(type))
@@ -140,7 +140,7 @@ namespace Microsoft.Maui.Graphics.Native
 						if ("Regular".Equals(type))
 							fullName = familyName;
 
-						if (styleType == FontStyleType.Italic)
+						if (styleType == FontSlant.Italic)
 						{
 							if (weight == FontUtils.Bold)
 								id = id + "-" + "Bold" + italic + suffix;
@@ -148,7 +148,7 @@ namespace Microsoft.Maui.Graphics.Native
 								id = id + "-" + italic + suffix;
 
 							if ("Oblique".Equals(italic))
-								styleType = FontStyleType.Oblique;
+								styleType = FontSlant.Oblique;
 						}
 						else if (weight == FontUtils.Bold)
 						{
