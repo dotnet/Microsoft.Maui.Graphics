@@ -233,7 +233,7 @@ namespace Microsoft.Maui.Graphics.Xaml
 			get
 			{
 				var style = Fonts.CurrentService.GetFontStyleById(_font ?? "Arial");
-				return new global::Windows.UI.Xaml.Media.FontFamily(style.FontFamily.Name);
+				return new global::Windows.UI.Xaml.Media.FontFamily(style != null ? style.FontFamily.Name : "Arial");
 			}
 		}
 
