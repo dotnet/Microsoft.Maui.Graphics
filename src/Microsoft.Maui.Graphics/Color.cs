@@ -16,6 +16,27 @@ namespace Microsoft.Maui.Graphics
 		public readonly float Blue;
 		public readonly float Alpha = 1;
 
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use Red instead.")]
+		public float R => Red;
+
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use Green instead.")]
+		public float G => Green;
+
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use Blue instead.")]
+		public float B => Blue;
+
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use Alpha instead.")]
+		public float A => Alpha;
+
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use GetHue() instead.")]
+		public float Hue => GetHue();
+
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use GetLuminosity() instead.")]
+		public float Luminosity => GetLuminosity();
+
+		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use GetSaturation() instead.")]
+		public float Saturation => GetSaturation();
+
 		public Color()
 		{
 			// Default Black
