@@ -12,12 +12,6 @@
     <MicrosoftMacCatalystSdkPackageVersion>15.2.300-preview.14.200</MicrosoftMacCatalystSdkPackageVersion>
     <MicrosoftmacOSSdkPackageVersion>12.1.300-preview.14.200</MicrosoftmacOSSdkPackageVersion>
     <MicrosofttvOSSdkPackageVersion>15.2.300-preview.14.200</MicrosofttvOSSdkPackageVersion>
-    <!-- emsdk -->
-    <MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>6.0.0</MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>
-    <!-- <DotNetVersionBandMonoToolchain></DotNetVersionBandMonoToolchain> -->
-    <DotNetVersionBandEmscripten>6.0.100</DotNetVersionBandEmscripten>
-    <!-- <DotNetVersionBandAndroid></DotNetVersionBandAndroid> -->
-    <!-- <DotNetVersionBandApple></DotNetVersionBandApple> -->
   </PropertyGroup>
   <PropertyGroup>
     <!-- NOTE: temporarily hardcode 6.0.100, until we have new branding on dotnet/runtime packs -->
