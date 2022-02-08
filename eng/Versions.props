@@ -13,9 +13,7 @@
     <MicrosoftmacOSSdkPackageVersion>12.1.301-preview.13.2</MicrosoftmacOSSdkPackageVersion>
     <MicrosofttvOSSdkPackageVersion>15.2.301-preview.13.2</MicrosofttvOSSdkPackageVersion>
     <!-- emsdk -->
-    <MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>6.0.0</MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>
     <!-- <DotNetVersionBandMonoToolchain></DotNetVersionBandMonoToolchain> -->
-    <DotNetVersionBandEmscripten>6.0.100</DotNetVersionBandEmscripten>
     <!-- <DotNetVersionBandAndroid></DotNetVersionBandAndroid> -->
     <!-- <DotNetVersionBandApple></DotNetVersionBandApple> -->
   </PropertyGroup>
