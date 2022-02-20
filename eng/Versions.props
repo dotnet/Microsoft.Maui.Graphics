@@ -5,16 +5,22 @@
     <MicrosoftDotnetSdkInternalPackageVersion>6.0.200-rtm.22107.3</MicrosoftDotnetSdkInternalPackageVersion>
     <!-- dotnet/runtime -->
     <MicrosoftNETCoreAppRefPackageVersion>6.0.3</MicrosoftNETCoreAppRefPackageVersion>
+
+    <!-- dotnet/emsdk -->
+    <MicrosoftNETWorkloadEmscriptenPackageVersion>6.0.2</MicrosoftNETWorkloadEmscriptenPackageVersion>
+
     <!-- xamarin/xamarin-android -->
     <MicrosoftAndroidSdkWindowsPackageVersion>31.0.200-preview.14.95</MicrosoftAndroidSdkWindowsPackageVersion>
+
     <!-- xamarin/xamarin-macios -->
-    <MicrosoftiOSSdkPackageVersion>15.2.300-preview.14.200</MicrosoftiOSSdkPackageVersion>
-    <MicrosoftMacCatalystSdkPackageVersion>15.2.300-preview.14.200</MicrosoftMacCatalystSdkPackageVersion>
-    <MicrosoftmacOSSdkPackageVersion>12.1.300-preview.14.200</MicrosoftmacOSSdkPackageVersion>
-    <MicrosofttvOSSdkPackageVersion>15.2.300-preview.14.200</MicrosofttvOSSdkPackageVersion>
+    <MicrosoftiOSSdkPackageVersion>15.2.302-preview.14.34</MicrosoftiOSSdkPackageVersion>
+    <MicrosoftMacCatalystSdkPackageVersion>15.2.302-preview.14.34</MicrosoftMacCatalystSdkPackageVersion>
+    <MicrosoftmacOSSdkPackageVersion>12.1.302-preview.14.34</MicrosoftmacOSSdkPackageVersion>
+    <MicrosofttvOSSdkPackageVersion>15.2.302-preview.14.34</MicrosofttvOSSdkPackageVersion>
   </PropertyGroup>
   <PropertyGroup>
     <!-- NOTE: temporarily hardcode 6.0.100, until we have new branding on dotnet/runtime packs -->
     <DotNetVersionBand Condition=" '$(DotNetVersionBand)' == '' ">6.0.200</DotNetVersionBand>
+    <DotNetVersionBandApple>6.0.300</DotNetVersionBandApple>
   </PropertyGroup>
 </Project>
