@@ -9,6 +9,7 @@
     <DotNetInstallScriptPath>$(DotNetOutputPath)$(DotNetInstallScriptName)</DotNetInstallScriptPath>
     <DotNetInstallCommand>&amp; '$(DotNetInstallScriptPath)' -Version $(MicrosoftDotnetSdkInternalPackageVersion) -InstallDir '$(DotNetDirectory)' -Verbose</DotNetInstallCommand>
     <DotNetInstallCommand>powershell -ExecutionPolicy ByPass -NoProfile -Command &quot;$(DotNetInstallCommand)&quot;</DotNetInstallCommand>
+    <DotNetInstallStripSigningCommand>'$(MSBuildProgramFiles32)\Windows Kits\10\App Certification Kit\signtool.exe' remove /s '$(DotNetDirectory)\sdk\$(DotNetVersionBand)\dotnet.dll'</DotNetInstallStripSigningCommand>
   </PropertyGroup>
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
     <DotNetInstallScriptUrl>https://dot.net/v1/dotnet-install.sh</DotNetInstallScriptUrl>
@@ -61,6 +62,7 @@
       Condition="'$(InstallDotNet)' != 'false'">
     <RemoveDir Directories="$(DotNetDirectory)" />
     <Exec Command="$(DotNetInstallCommand)" />
+    <Exec Command="$(DotNetInstallStripSigningCommand)" Condition="'$(DotNetInstallStripSigningCommand)' != ''" />
     <Touch Files="$(DotNetDirectory).stamp" AlwaysCreate="true" />
   </Target>
 
