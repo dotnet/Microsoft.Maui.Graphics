@@ -79,10 +79,10 @@ stages:
           steps:
 
             - pwsh:
-              ${{ if variables['signingCondition'] }}:
-                displayName: "SIGNED ${{ variables['signingCondition'] }}"
-              ${{ if not(variables['signingCondition']) }}:
-                displayName: "NOT SIGNED  ${{ variables['signingCondition'] }}"
+              ${{ if variables.signingCondition }}:
+                displayName: "SIGNED"
+              ${{ if not(variables.signingCondition) }}:
+                displayName: "NOT SIGNED"
             
 
             - template: /eng/pipelines/common/provision.yml
