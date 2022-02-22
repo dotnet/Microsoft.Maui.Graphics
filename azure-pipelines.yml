@@ -68,16 +68,6 @@ stages:
   - stage: windows
     displayName: Build Windows
     jobs:
-
-      - job: calculate_sbom
-        pool:
-          vmImage: windows-2022
-        steps:
-          - checkout: none
-          - pwsh: |
-              echo "$(signingCondition)"
-              echo "##vso[task.setvariable variable=sbomArtifactMap;isOutput=true]apple"
-
       - ${{ each BuildConfiguration in parameters.BuildConfigurations }}:
         - job: win_hosted_${{ BuildConfiguration }}
           workspace:
@@ -87,9 +77,6 @@ stages:
           pool:
             vmImage: windows-2022
           steps:
-
-            - pwsh: echo "hello"
-              displayName: ${{ variables['sbomArtifactMap'] }}
 
             - template: /eng/pipelines/common/provision.yml
               parameters:
@@ -225,6 +212,13 @@ stages:
         - template: compliance/sbom/job.v1.yml@xamarin-templates
           parameters:
             artifactNames: ['nuget']
+            packageName: 'Microsoft Maui Graphics'
+            packageFilter: '*.nupkg'
+            condition: ${{ not(variables['signingCondition']) }}
+        - template: compliance/sbom/job.v1.yml@xamarin-templates
+          parameters:
+            artifactNames: ['nuget']
             artifactMap: ['nuget/signed']
             packageName: 'Microsoft Maui Graphics'
             packageFilter: '*.nupkg'
+            condition: ${{ variables['signingCondition'] }}
