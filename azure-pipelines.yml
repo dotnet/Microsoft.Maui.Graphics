@@ -207,18 +207,15 @@ stages:
 
     - stage: sbom
       displayName: 'Software Bill of Materials'
-      dependsOn: [ 'nuget_signing' ]
+      ${{ if not(variables['signingCondition']) }}:
+        dependsOn: [ 'windows' ]
+      ${{ if variables['signingCondition'] }}:
+        dependsOn: [ 'nuget_signing' ]
       jobs:
-        - template: compliance/sbom/job.v1.yml@xamarin-templates
-          parameters:
-            artifactNames: ['nuget']
-            packageName: 'Microsoft Maui Graphics'
-            packageFilter: '*.nupkg'
-            condition: ${{ not(variables['signingCondition']) }}
-        - template: compliance/sbom/job.v1.yml@xamarin-templates
-          parameters:
-            artifactNames: ['nuget']
+      - template: compliance/sbom/job.v1.yml@xamarin-templates
+        parameters:
+          artifactNames: ['nuget']
+          ${{ if variables['signingCondition'] }}:
             artifactMap: ['nuget/signed']
-            packageName: 'Microsoft Maui Graphics'
-            packageFilter: '*.nupkg'
-            condition: ${{ variables['signingCondition'] }}
+          packageName: 'Microsoft Maui Graphics'
+          packageFilter: '*.nupkg'
