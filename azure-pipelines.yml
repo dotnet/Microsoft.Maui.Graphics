@@ -69,12 +69,14 @@ stages:
     displayName: Build Windows
     jobs:
 
-      - job: calculate_sbom
-        steps:
-          - checkout: none
-          - pwsh: |
-              echo "${{ variables['signingCondition'] }}"
-              echo "##vso[task.setvariable variable=sbomArtifactMap;isOutput=true]apple"
+      # - job: calculate_sbom
+      #   pool:
+      #     vmImage: windows-2022
+      #   steps:
+      #     - checkout: none
+      #     - pwsh: |
+      #         echo "${{ variables['signingCondition'] }}"
+      #         echo "##vso[task.setvariable variable=sbomArtifactMap;isOutput=true]apple"
 
       - ${{ each BuildConfiguration in parameters.BuildConfigurations }}:
         - job: win_hosted_${{ BuildConfiguration }}
@@ -86,8 +88,15 @@ stages:
             vmImage: windows-2022
           steps:
 
-            - pwsh: echo "hello"
-              displayName: ${{ variables['sbomArtifactMap'] }}
+
+            - pwsh:
+              $[ if parameters.signingCondition ]:
+                displayName: "SIGNED"
+              $[ if not(parameters.signingCondition) ]:
+                displayName: "NOT SIGNED"
+
+            # - pwsh: echo "hello"
+            #   displayName: ${{ variables['sbomArtifactMap'] }}
 
             - template: /eng/pipelines/common/provision.yml
               parameters:
