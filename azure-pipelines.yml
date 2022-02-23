@@ -6,19 +6,11 @@ variables:
   provisionator.path: '$(System.DefaultWorkingDirectory)/eng/provisioning/provisioning.csx'
   provisionator.vs: '$(System.DefaultWorkingDirectory)/eng/provisioning/vs.csx'
   provisionator.extraArguments: '--v'
-  signingCondition: and(succeeded(),
-                        or(eq(variables['Sign'], 'true'),
-                           or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
-                              or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') )
-                             )
+  signingCondition: or(eq(variables['Sign'], 'true'),
+                       or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
+                          or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') )
                           )
-                       )
-  unsignedCondition: not(or(eq(variables['Sign'], 'true'),
-                           or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
-                              or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') )
-                             )
-                           )
-                        )
+                      )
 
 parameters:
   - name: BuildConfigurations
@@ -215,7 +207,7 @@ stages:
             signedArtifactName: nuget
             signedArtifactPath: signed
             displayName: Sign Phase
-            condition: ${{ variables['signingCondition'] }}
+            condition: and(succeeded(), ${{ variables['signingCondition'] }} )
 
     - stage: sbom
       displayName: 'Software Bill of Materials'
@@ -226,9 +218,10 @@ stages:
           jobName: SBOM_PR
           jobDisplayName: 'Software Bill of Materials (PR)'
           artifactNames: ['nuget']
+          artifactMap: ['nuget/Release']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: ${{ variables['unsignedCondition'] }}      # Executed when signing is not enabled such as for PRs
+          condition: not(${{ variables['signingCondition'] }})                # Executed when signing is not enabled such as for PRs
 
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
@@ -238,4 +231,4 @@ stages:
           artifactMap: ['nuget/signed']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: ${{ variables['signingCondition'] }}                 # Executed when signing is enabled such as for CIs
+          condition: and(succeeded(), ${{ variables['signingCondition'] }} )  # Executed when signing is enabled such as for CIs
