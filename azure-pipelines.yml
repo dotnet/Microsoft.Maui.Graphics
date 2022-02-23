@@ -6,8 +6,19 @@ variables:
   provisionator.path: '$(System.DefaultWorkingDirectory)/eng/provisioning/provisioning.csx'
   provisionator.vs: '$(System.DefaultWorkingDirectory)/eng/provisioning/vs.csx'
   provisionator.extraArguments: '--v'
-  signingCondition: and(succeeded(), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') ))))
-  unsignedCondition: and(or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') ))))
+  signingCondition: and(succeeded(),
+                        or(eq(variables['Sign'], 'true'),
+                           or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
+                              or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') )
+                             )
+                          )
+                       )
+  unsignedCondition: not(or(eq(variables['Sign'], 'true'),
+                           or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
+                              or(startsWith(variables['Build.SourceBranch'],'refs/tags/'),  startsWith(variables['Build.SourceBranch'],'refs/heads/release/') )
+                             )
+                           )
+                        )
 
 parameters:
   - name: BuildConfigurations
