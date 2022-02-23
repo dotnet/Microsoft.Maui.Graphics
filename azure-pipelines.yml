@@ -211,7 +211,8 @@ stages:
 
     - stage: sbom
       displayName: 'Software Bill of Materials'
-      dependsOn: [ 'nuget_signing' ]
+      dependsOn: [ 'windows', 'nuget_signing' ]
+      condition: succeeded('windows')
       jobs:
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
@@ -221,7 +222,7 @@ stages:
           artifactMap: ['nuget/Release']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: and(succeeded('windows'), not(${{ variables['signingCondition'] }})) # Executed when signing is not enabled such as for PRs
+          condition: not(${{ variables['signingCondition'] }})                    # Executed when signing is not enabled such as for PRs
 
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
@@ -231,4 +232,4 @@ stages:
           artifactMap: ['nuget/signed']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: and(succeeded(), ${{ variables['signingCondition'] }} )              # Executed when signing is enabled such as for CIs
+          condition: and(succeeded(), ${{ variables['signingCondition'] }} )      # Executed when signing is enabled such as for CIs
