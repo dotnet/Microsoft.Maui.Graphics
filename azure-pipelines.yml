@@ -221,7 +221,7 @@ stages:
           artifactMap: ['nuget/Release']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: not(${{ variables['signingCondition'] }})                # Executed when signing is not enabled such as for PRs
+          condition: and(succeeded('windows'), not(${{ variables['signingCondition'] }}))                # Executed when signing is not enabled such as for PRs
 
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
