@@ -205,25 +205,21 @@ stages:
             displayName: Sign Phase
             condition: ${{ variables['signingCondition'] }}
 
-    - stage: sbomPR
-      displayName: 'Software Bill of Materials (PR)'
-      dependsOn: [ 'windows' ]
-      condition: ${{ not(variables['signingCondition']) }}
+    - stage: sbom
+      displayName: 'Software Bill of Materials'
+      dependsOn: [ 'nuget_signing' ]
       jobs:
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
           artifactNames: ['nuget']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
+          condition: ${{ eq(variables['signingCondition'], false) }}      # Executed when signing is not enabled such as for PRs
 
-    - stage: sbomCI
-      displayName: 'Software Bill of Materials (CI)'
-      dependsOn: [ 'nuget_signing' ]
-      condition: ${{ variables['signingCondition'] }}
-      jobs:
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
           artifactNames: ['nuget']
           artifactMap: ['nuget/signed']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
+          condition: ${{ variables['signingCondition'] }}                 # Executed when signing is enabled such as for CIs
