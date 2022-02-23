@@ -62,7 +62,7 @@ resources:
       type: github
       name: xamarin/yaml-templates
       endpoint: xamarin
-      ref: refs/heads/main # still defaults to master even though main is the main branch
+      ref: refs/heads/dev/bond/sbom-update    # UNDONE: DO NOT MERGE TO MAIN
 
 stages:
   - stage: windows
@@ -211,6 +211,8 @@ stages:
       jobs:
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
+          jobName: SBOM_PR
+          jobDisplayName: 'Software Bill of Materials (PR)'
           artifactNames: ['nuget']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
@@ -218,6 +220,8 @@ stages:
 
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
+          jobName: SBOM_CI
+          jobDisplayName: 'Software Bill of Materials (CI)'
           artifactNames: ['nuget']
           artifactMap: ['nuget/signed']
           packageName: 'Microsoft Maui Graphics'
