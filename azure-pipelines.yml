@@ -66,7 +66,7 @@ resources:
       type: github
       name: xamarin/yaml-templates
       endpoint: xamarin
-      ref: refs/heads/dev/bond/sbom-update    # UNDONE: DO NOT MERGE TO MAIN
+      ref: refs/heads/main
 
 stages:
   - stage: windows
@@ -221,7 +221,7 @@ stages:
           artifactMap: ['nuget/Release']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: and(succeeded('windows'), not(${{ variables['signingCondition'] }}))                # Executed when signing is not enabled such as for PRs
+          condition: and(succeeded('windows'), not(${{ variables['signingCondition'] }})) # Executed when signing is not enabled such as for PRs
 
       - template: compliance/sbom/job.v1.yml@xamarin-templates
         parameters:
@@ -231,4 +231,4 @@ stages:
           artifactMap: ['nuget/signed']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
-          condition: and(succeeded(), ${{ variables['signingCondition'] }} )  # Executed when signing is enabled such as for CIs
+          condition: and(succeeded(), ${{ variables['signingCondition'] }} )              # Executed when signing is enabled such as for CIs
