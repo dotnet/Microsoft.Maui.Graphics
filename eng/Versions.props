@@ -18,7 +18,7 @@
     <MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>6.0.2</MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>
     <DotNetVersionBandMonoToolchain>6.0.200</DotNetVersionBandMonoToolchain>
     <DotNetVersionBandEmscripten>6.0.200</DotNetVersionBandEmscripten>
-    <DotNetVersionBandAndroid>6.0.200</DotNetVersionBandAndroid>
+    <DotNetVersionBandAndroid>6.0.300</DotNetVersionBandAndroid>
     <DotNetVersionBandApple>6.0.200</DotNetVersionBandApple>
   </PropertyGroup>
   <PropertyGroup>
