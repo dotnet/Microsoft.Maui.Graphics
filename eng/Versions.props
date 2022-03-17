@@ -6,7 +6,7 @@
     <!-- dotnet/runtime -->
     <MicrosoftNETCoreAppRefPackageVersion>6.0.4</MicrosoftNETCoreAppRefPackageVersion>
     <!-- dotnet/emsdk -->
-    <MicrosoftNETWorkloadEmscriptenPackageVersion>6.0.2</MicrosoftNETWorkloadEmscriptenPackageVersion>
+    <MicrosoftNETWorkloadEmscriptenPackageVersion>6.0.4</MicrosoftNETWorkloadEmscriptenPackageVersion>
     <!-- xamarin/xamarin-android -->
     <MicrosoftAndroidSdkWindowsPackageVersion>31.0.300-rc.1.20</MicrosoftAndroidSdkWindowsPackageVersion>
     <!-- xamarin/xamarin-macios -->
