@@ -4,9 +4,9 @@
     <!-- dotnet/installer -->
     <MicrosoftDotnetSdkInternalPackageVersion>6.0.300-preview.22128.2</MicrosoftDotnetSdkInternalPackageVersion>
     <!-- dotnet/runtime -->
-    <MicrosoftNETCoreAppRefPackageVersion>6.0.3</MicrosoftNETCoreAppRefPackageVersion>
+    <MicrosoftNETCoreAppRefPackageVersion>6.0.4</MicrosoftNETCoreAppRefPackageVersion>
     <!-- dotnet/emsdk -->
-    <MicrosoftNETWorkloadEmscriptenPackageVersion>6.0.2</MicrosoftNETWorkloadEmscriptenPackageVersion>
+    <MicrosoftNETWorkloadEmscriptenPackageVersion>6.0.4</MicrosoftNETWorkloadEmscriptenPackageVersion>
     <!-- xamarin/xamarin-android -->
     <MicrosoftAndroidSdkWindowsPackageVersion>31.0.200-preview.14.106</MicrosoftAndroidSdkWindowsPackageVersion>
     <!-- xamarin/xamarin-macios -->
@@ -15,11 +15,11 @@
     <MicrosoftmacOSSdkPackageVersion>12.3.100-rc.1.39</MicrosoftmacOSSdkPackageVersion>
     <MicrosofttvOSSdkPackageVersion>15.4.100-rc.1.39</MicrosofttvOSSdkPackageVersion>
     <!-- emsdk -->
-    <MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>6.0.2</MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>
-    <DotNetVersionBandMonoToolchain>6.0.200</DotNetVersionBandMonoToolchain>
-    <DotNetVersionBandEmscripten>6.0.200</DotNetVersionBandEmscripten>
-    <DotNetVersionBandAndroid>6.0.200</DotNetVersionBandAndroid>
-    <DotNetVersionBandApple>6.0.200</DotNetVersionBandApple>
+    <MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>6.0.4</MicrosoftNETWorkloadEmscriptenManifest60100PackageVersion>
+    <DotNetVersionBandMonoToolchain>6.0.300</DotNetVersionBandMonoToolchain>
+    <DotNetVersionBandEmscripten>6.0.300</DotNetVersionBandEmscripten>
+    <DotNetVersionBandAndroid>6.0.300</DotNetVersionBandAndroid>
+    <DotNetVersionBandApple>6.0.300</DotNetVersionBandApple>
   </PropertyGroup>
   <PropertyGroup>
     <!-- NOTE: temporarily hardcode 6.0.100, until we have new branding on dotnet/runtime packs -->
