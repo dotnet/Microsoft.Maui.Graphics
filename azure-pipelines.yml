@@ -131,7 +131,7 @@ stages:
                 # https://raw.githubusercontent.com/Samsung/Tizen.NET/main/workload/scripts/workload-install.ps1
                 [xml] $fileXml = Get-Content "eng\Versions.props"
                 $DotNetVersionBand = $fileXml.SelectSingleNode("Project/PropertyGroup/DotNetVersionBand").InnerText
-                Invoke-WebRequest 'https://gist.githubusercontent.com/mattleibow/48d9ec636f7bcfd0c3dca4de1df0b733/raw/4e8520c3865b1b9ba4f4cb9ffd6d4dbc26199628/install-tizen.ps1' -OutFile 'workload-install.ps1'
+                Invoke-WebRequest 'https://gist.githubusercontent.com/mattleibow/48d9ec636f7bcfd0c3dca4de1df0b733/raw/3aaed55d6d62765b6ccb14c7d1413334aeffe029/install-tizen.ps1' -OutFile 'workload-install.ps1'
                 .\workload-install.ps1 -DotnetTargetVersionBand $DotNetVersionBand
               displayName: install tizen
 
