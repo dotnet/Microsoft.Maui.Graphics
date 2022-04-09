@@ -128,10 +128,9 @@ stages:
                 PRIVATE_BUILD: $(PrivateBuild)
              
             - pwsh: |
-                # https://raw.githubusercontent.com/Samsung/Tizen.NET/main/workload/scripts/workload-install.ps1
                 [xml] $fileXml = Get-Content "eng\Versions.props"
                 $DotNetVersionBand = $fileXml.SelectSingleNode("Project/PropertyGroup/DotNetVersionBand").InnerText
-                Invoke-WebRequest 'https://gist.githubusercontent.com/mattleibow/48d9ec636f7bcfd0c3dca4de1df0b733/raw/2633898c488a6817030d610896bd000c4ce823c9/install-tizen.ps1' -OutFile 'workload-install.ps1'
+                Invoke-WebRequest 'https://raw.githubusercontent.com/Samsung/Tizen.NET/main/workload/scripts/workload-install.ps1' -OutFile 'workload-install.ps1'
                 .\workload-install.ps1 -DotnetTargetVersionBand $DotNetVersionBand
               displayName: install tizen
 
