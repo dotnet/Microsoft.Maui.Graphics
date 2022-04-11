@@ -255,6 +255,7 @@ stages:
           artifactMap: ['nuget/Release']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
+          enableSBOMSigning: false      # UNDONE: TEST: Try turning off SBOM signing
           condition: not(${{ variables['signingCondition'] }})                    # Executed when signing is not enabled such as for pull request builds (PRs)
 
       - template: compliance/sbom/job.v1.yml@xamarin-templates
@@ -265,4 +266,5 @@ stages:
           artifactMap: ['nuget/signed']
           packageName: 'Microsoft Maui Graphics'
           packageFilter: '*.nupkg'
+          enableSBOMSigning: false    # UNDONE: TEST: Try turning off SBOM signing
           condition: and(succeeded(), ${{ variables['signingCondition'] }} )      # Executed when signing is enabled such as for continuous integration builds (CIs)
