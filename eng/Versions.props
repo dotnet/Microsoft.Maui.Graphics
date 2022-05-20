@@ -19,6 +19,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <DotNetVersionBand Condition=" '$(DotNetVersionBand)' == '' ">7.0.100</DotNetVersionBand>
+    <DotNetSdkManifestsFolder>$(DotNetVersionBand)$([System.Text.RegularExpressions.Regex]::Match($(MicrosoftDotnetSdkInternalPackageVersion), `\-preview.\d+`))</DotNetSdkManifestsFolder>
     <DotNetMauiManifestVersionBand>$(DotNetVersionBand)</DotNetMauiManifestVersionBand>
     <DotNetMonoManifestVersionBand>$(DotNetVersionBand)</DotNetMonoManifestVersionBand>
     <DotNetEmscriptenManifestVersionBand>$(DotNetVersionBand)</DotNetEmscriptenManifestVersionBand>
