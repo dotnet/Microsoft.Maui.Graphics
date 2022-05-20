@@ -26,6 +26,7 @@ trigger:
   branches:
     include:
     - main
+    - net7.0
     - release/*
     - darc-*
   tags:
@@ -49,6 +50,7 @@ pr:
   branches:
     include:
     - main
+    - net7.0
     - release/*
   paths:
     include:
