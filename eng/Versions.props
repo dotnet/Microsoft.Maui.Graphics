@@ -7,7 +7,7 @@
     <MicrosoftNETCoreAppRefPackageVersion>7.0.0-preview.5.22258.4</MicrosoftNETCoreAppRefPackageVersion>
     <!-- dotnet/emsdk -->
     <MicrosoftNETWorkloadEmscriptenManifest70100PackageVersion>7.0.0-preview.4.22215.1</MicrosoftNETWorkloadEmscriptenManifest70100PackageVersion>
-    <MicrosoftNETWorkloadEmscriptenPackageVersion>$(MicrosoftNETWorkloadEmscriptenManifest60300PackageVersion)</MicrosoftNETWorkloadEmscriptenPackageVersion>
+    <MicrosoftNETWorkloadEmscriptenPackageVersion>$(MicrosoftNETWorkloadEmscriptenManifest70100PackageVersion)</MicrosoftNETWorkloadEmscriptenPackageVersion>
     <!-- xamarin/xamarin-android -->
     <MicrosoftAndroidSdkWindowsPackageVersion>33.0.0-preview.4.6</MicrosoftAndroidSdkWindowsPackageVersion>
     <!-- xamarin/xamarin-macios -->
