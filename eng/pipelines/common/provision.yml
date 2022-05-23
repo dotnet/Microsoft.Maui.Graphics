@@ -84,8 +84,7 @@ steps:
       displayName: 'Setup MSBuild Paths'
       condition: eq(variables['provisioningVS'], 'true')
     - pwsh: |
-        ls -r -n "${env:ProgramFiles(x86)}\Android\android-sdk\"
-        'y' | & "${env:ProgramFiles(x86)}\Android\android-sdk\tools\bin\sdkmanager" "platforms;android-32"
+        'y' | & "${env:ProgramFiles(x86)}\Android\android-sdk\cmdline-tools\5.0\bin\sdkmanager" "platforms;android-32"
       displayName: Install Android API 32
 
   # # Prepare Both
