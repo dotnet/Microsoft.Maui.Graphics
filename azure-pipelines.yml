@@ -135,6 +135,7 @@ stages:
                 Invoke-WebRequest 'https://raw.githubusercontent.com/Samsung/Tizen.NET/main/workload/scripts/workload-install.ps1' -OutFile 'workload-install.ps1'
                 .\workload-install.ps1 -DotnetTargetVersionBand $DotNetVersionBand
               displayName: install tizen
+              condition: false
 
             - pwsh: |
                 $uri = 'https://go.microsoft.com/fwlink/?linkid=2083338'
