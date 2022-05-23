@@ -108,7 +108,7 @@ stages:
             - pwsh: dotnet tool restore
               displayName: install dotnet tools
             
-            - pwsh: ./build.ps1 --target=dotnet-local-workloads --configuration="${{ BuildConfiguration.name }}" --verbosity=diagnostic
+            - pwsh: ./build.ps1 --target=dotnet --configuration="${{ BuildConfiguration.name }}" --verbosity=diagnostic
               displayName: 'install .NET and workloads'
               retryCountOnTaskFailure: 3
               env:

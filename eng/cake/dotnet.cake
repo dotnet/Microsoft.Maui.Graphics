@@ -5,7 +5,7 @@ var dotnetPath = $"./bin/dotnet/dotnet{ext}";
 
 // Tasks for CI
 
-Task("dotnet-local-workloads")
+Task("dotnet")
     .Does(() =>
     {
         DotNetCoreBuild("./build/DotNet/DotNet.csproj", new DotNetCoreBuildSettings
