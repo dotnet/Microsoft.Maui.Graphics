@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-ios</TargetFramework>
+		<TargetFramework>net7.0-ios</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>GraphicsTester.iOS</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>10.0</LangVersion>
-		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net6.0-ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net7.0-ios'">14.2</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
