@@ -74,14 +74,15 @@ steps:
         }
       displayName: 'Install PowerShell Core'
     - task: xamops.azdevex.provisionator-task.provisionator@1
+      displayName: 'Provision Android SDK'
+      inputs:
+        provisioning_script: $(provisionator.android)
+        provisioning_extra_args: '-v -v -v -v'
+    - task: xamops.azdevex.provisionator-task.provisionator@1
       displayName: 'Provision Visual Studio'
       condition: eq(variables['provisioningVS'], 'true')
       inputs:
         provisioning_script: $(provisionator.vs)
-    - task: xamops.azdevex.provisionator-task.provisionator@1
-      displayName: 'Provision Android SDK'
-      inputs:
-        provisioning_script: $(provisionator.android)
     - pwsh: |
         $msbuild = "$env:ProgramFiles/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/MSBuild.exe"
         echo "##vso[task.setvariable variable=MSBUILD_EXE]$msbuild"
