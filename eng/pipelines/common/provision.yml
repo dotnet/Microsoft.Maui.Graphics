@@ -83,7 +83,11 @@ steps:
         echo "##vso[task.setvariable variable=MSBUILD_EXE]$msbuild"
       displayName: 'Setup MSBuild Paths'
       condition: eq(variables['provisioningVS'], 'true')
-
+    - pwsh: |
+        Write-Host $env:ANDROID_HOME
+        Write-Host $env:ANDROID_SDK_HOME
+        'y' | & "${env:ProgramFiles(x86)}\Android\android-sdk\tools\bin\sdkmanager" "platforms;android-32"
+      displayName: Install Android API 32
 
   # # Prepare Both
   # - pwsh: ./build.ps1 --target provision
