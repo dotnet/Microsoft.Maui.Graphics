@@ -4,6 +4,7 @@ variables:
   DotNet.Cli.Telemetry.OptOut: true
   provisionator.path: '$(System.DefaultWorkingDirectory)/eng/provisioning/provisioning.csx'
   provisionator.vs: '$(System.DefaultWorkingDirectory)/eng/provisioning/vs.csx'
+  provisionator.android: '$(System.DefaultWorkingDirectory)/eng/provisioning/android.csx'
   provisionator.extraArguments: '--v'
   signingCondition: or(eq(variables['Sign'], 'true'),
                        or(eq(variables['Build.SourceBranch'], 'refs/heads/main'),
