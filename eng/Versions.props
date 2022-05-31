@@ -23,7 +23,7 @@
     <DotNetMauiManifestVersionBand>$(DotNetVersionBand)</DotNetMauiManifestVersionBand>
     <DotNetMonoManifestVersionBand>$(DotNetVersionBand)</DotNetMonoManifestVersionBand>
     <DotNetEmscriptenManifestVersionBand>$(DotNetVersionBand)</DotNetEmscriptenManifestVersionBand>
-    <DotNetAndroidManifestVersionBand>$(DotNetVersionBand)</DotNetAndroidManifestVersionBand>
-    <DotNetMaciOSManifestVersionBand>$(DotNetVersionBand)-preview.5</DotNetMaciOSManifestVersionBand>
+    <DotNetAndroidManifestVersionBand>$(DotNetSdkManifestsFolder)</DotNetAndroidManifestVersionBand>
+    <DotNetMaciOSManifestVersionBand>$(DotNetSdkManifestsFolder)</DotNetMaciOSManifestVersionBand>
   </PropertyGroup>
 </Project>
