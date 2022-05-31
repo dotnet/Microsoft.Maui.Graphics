@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>$(_MauiDotNetVersion)-macos</TargetFramework>
+        <TargetFramework>$(_MauiDotNetTfm)-macos</TargetFramework>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <RootNamespace>GraphicsTester.Skia.Mac</RootNamespace>
         <LangVersion>10.0</LangVersion>

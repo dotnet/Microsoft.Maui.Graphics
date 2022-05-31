@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;$(_MauiDotNetVersion)-ios;$(_MauiDotNetVersion)-macos;$(_MauiDotNetVersion)-android;$(_MauiDotNetVersion)-maccatalyst</TargetFrameworks>
-    <TargetFrameworks Condition="'$(IncludeWindowsTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetVersion)-windows10.0.18362</TargetFrameworks>
-    <TargetFrameworks Condition="'$(IncludeTizenTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetVersion)-tizen6.5</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;$(_MauiDotNetTfm)-ios;$(_MauiDotNetTfm)-macos;$(_MauiDotNetTfm)-android;$(_MauiDotNetTfm)-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeWindowsTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetTfm)-windows10.0.18362</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeTizenTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetTfm)-tizen6.5</TargetFrameworks>
     <RootNamespace>Microsoft.Maui.Graphics.Skia</RootNamespace>
     <AssemblyName>Microsoft.Maui.Graphics.Skia</AssemblyName>
     <LangVersion>10.0</LangVersion>
