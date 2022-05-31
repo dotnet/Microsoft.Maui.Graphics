@@ -2,12 +2,12 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0-macos</TargetFramework>
+        <TargetFramework>$(_MauiDotNetVersion)-macos</TargetFramework>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <RootNamespace>GraphicsTester.Skia.Mac</RootNamespace>
         <LangVersion>10.0</LangVersion>
 
-        <SupportedOSPlatformVersion Condition="'$(TargetFramework)' == 'net7.0-macos'">10.14</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion>10.14</SupportedOSPlatformVersion>
 
     </PropertyGroup>
 

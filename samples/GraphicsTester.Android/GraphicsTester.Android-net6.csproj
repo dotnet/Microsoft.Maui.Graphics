@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0-android</TargetFramework>
+		<TargetFramework>$(_MauiDotNetVersion)-android</TargetFramework>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>GraphicsTester.Android</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>

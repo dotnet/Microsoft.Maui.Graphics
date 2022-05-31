@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0-ios;net7.0-android;net7.0-maccatalyst;net7.0-macos</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.18362</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;$(_MauiDotNetVersion)-ios;$(_MauiDotNetVersion)-android;$(_MauiDotNetVersion)-maccatalyst;$(_MauiDotNetVersion)-macos</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeWindowsTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetVersion)-windows10.0.18362</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeTizenTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetVersion)-tizen6.5</TargetFrameworks>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
