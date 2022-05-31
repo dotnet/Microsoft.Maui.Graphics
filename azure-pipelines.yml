@@ -146,7 +146,7 @@ stages:
               displayName: build classic solutions
 
             - pwsh: |
-                $env:DOTNET_ROOT=(Join-Path '$(System.DefaultWorkingDirectory)' 'bin/dotnet/')
+                $env:DOTNET_ROOT=(Join-Path '$(System.DefaultWorkingDirectory)' ./bin/dotnet/)
                 $env:PATH=($env:DOTNET_ROOT + [IO.Path]::PathSeparator + $env:PATH)
                 Write-Host "DOTNET_ROOT: $env:DOTNET_ROOT"
                 Write-Host "PATH: $env:PATH"
