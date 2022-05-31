@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0-ios;net6.0-android;net6.0-maccatalyst;net6.0-macos;net6.0-tizen6.5</TargetFrameworks>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.18362</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;$(_MauiDotNetTfm)-ios;$(_MauiDotNetTfm)-android;$(_MauiDotNetTfm)-maccatalyst;$(_MauiDotNetTfm)-macos</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeWindowsTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetTfm)-windows10.0.18362</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeTizenTargetFrameworks)' == 'true'">$(TargetFrameworks);$(_MauiDotNetTfm)-tizen6.5</TargetFrameworks>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Optional: Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
@@ -10,6 +11,9 @@
     <AssemblyName>Microsoft.Maui.Graphics</AssemblyName>
     <RootNamespace>Microsoft.Maui.Graphics</RootNamespace>
     <LangVersion>10.0</LangVersion>
+    <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
+    <DisableEmbeddedXbf>false</DisableEmbeddedXbf>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Microsoft.Maui.Graphics</PackageId>

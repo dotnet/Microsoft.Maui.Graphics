@@ -6,47 +6,14 @@ var dotnetPath = $"./bin/dotnet/dotnet{ext}";
 // Tasks for CI
 
 Task("dotnet")
-    .Description("Provisions .NET 6 into bin/dotnet based on eng/Versions.props")
     .Does(() =>
     {
-        if (!localDotnet) 
-            return;
-
-        DotNetCoreBuild("./src/DotNet/DotNet.csproj", new DotNetCoreBuildSettings
+        DotNetCoreBuild("./build/DotNet/DotNet.csproj", new DotNetCoreBuildSettings
         {
             MSBuildSettings = new DotNetCoreMSBuildSettings()
                 .EnableBinaryLogger($"{logDirectory}/dotnet-{configuration}.binlog")
-                .SetConfiguration(configuration),
+                .SetConfiguration(configuration)
         });
-    });
-
-Task("dotnet-local-workloads")
-    .Does(() =>
-    {
-        if (!localDotnet) 
-            return;
-        
-        if(!string.IsNullOrEmpty(dotnetInstallDirectory))
-        {
-            DotNetCoreBuild("./build/DotNet/DotNet.csproj", new DotNetCoreBuildSettings
-            {
-                MSBuildSettings = new DotNetCoreMSBuildSettings()
-                    .EnableBinaryLogger($"{logDirectory}/dotnet-workloads-{configuration}.binlog")
-                    .SetConfiguration(configuration)
-                    .WithProperty("InstallDotNet", installDotNet)
-                    .WithProperty("DotNetDirectory", dotnetInstallDirectory+"/")
-            });
-        }
-        else
-        {
-            DotNetCoreBuild("./build/DotNet/DotNet.csproj", new DotNetCoreBuildSettings
-            {
-                MSBuildSettings = new DotNetCoreMSBuildSettings()
-                    .EnableBinaryLogger($"{logDirectory}/dotnet-workloads-{configuration}.binlog")
-                    .SetConfiguration(configuration)
-                    .WithProperty("InstallDotNet", installDotNet)
-            });
-        }
     });
 
 
