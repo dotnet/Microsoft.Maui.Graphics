@@ -9,7 +9,7 @@
     <MicrosoftNETWorkloadEmscriptenManifest70100PackageVersion>7.0.0-preview.5.22252.1</MicrosoftNETWorkloadEmscriptenManifest70100PackageVersion>
     <MicrosoftNETWorkloadEmscriptenPackageVersion>$(MicrosoftNETWorkloadEmscriptenManifest70100PackageVersion)</MicrosoftNETWorkloadEmscriptenPackageVersion>
     <!-- xamarin/xamarin-android -->
-    <MicrosoftAndroidSdkWindowsPackageVersion>33.0.0-preview.4.33</MicrosoftAndroidSdkWindowsPackageVersion>
+    <MicrosoftAndroidSdkWindowsPackageVersion>33.0.0-preview.4.35</MicrosoftAndroidSdkWindowsPackageVersion>
     <!-- xamarin/xamarin-macios -->
     <MicrosoftiOSSdkPackageVersion>15.4.703-ci.net7-0</MicrosoftiOSSdkPackageVersion>
     <MicrosoftMacCatalystSdkPackageVersion>15.4.703-ci.net7-0</MicrosoftMacCatalystSdkPackageVersion>
