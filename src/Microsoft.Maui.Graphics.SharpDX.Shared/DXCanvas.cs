@@ -61,26 +61,29 @@ namespace Microsoft.Maui.Graphics.SharpDX
 
 		private bool _bitmapPatternFills;
 
-		public DXCanvas() : base(CreateNewState, CreateStateCopy)
+		public DXCanvas() : base(new CanvasStateService(), new StringSizeService())
 		{
 			Dpi = 96;
 		}
 
-		public DXCanvas(RenderTarget renderTarget) : base(CreateNewState, CreateStateCopy)
+		public DXCanvas(RenderTarget renderTarget) : base(new CanvasStateService(), new StringSizeService())
 		{
 			RenderTarget = renderTarget;
 			Dpi = renderTarget.DotsPerInch.Width;
 		}
 
-		private static DXCanvasState CreateNewState(object context)
+		class CanvasStateService : ICanvasStateService<DXCanvasState>
 		{
-			var canvas = (DXCanvas) context;
-			return new DXCanvasState(canvas.Dpi, canvas.RenderTarget);
-		}
+			public DXCanvasState CreateCopy(DXCanvasState prototype)
+			{
+				return new DXCanvasState(prototype);
+			}
 
-		private static DXCanvasState CreateStateCopy(DXCanvasState prototype)
-		{
-			return new DXCanvasState(prototype);
+			public DXCanvasState CreateNew(object context)
+			{
+				var canvas = (DXCanvas) context;
+				return new DXCanvasState(canvas.Dpi, canvas.RenderTarget);
+			}
 		}
 
 		private float _dpi = 96;
@@ -450,13 +453,13 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			CurrentState.ClipRectangle(x, y, width, height);
 		}
 
-		public override void SubtractFromClip(EWPath path, float ppu)
-		{    
-			if (path == null)        
-				return;        
+		//public override void SubtractFromClip(EWPath path, float ppu)
+		//{    
+		//	if (path == null)        
+		//		return;        
 			
-			CurrentState.SubtractFromClip(path, ppu);
-		}
+		//	CurrentState.SubtractFromClip(path, ppu);
+		//}
 
 		public override void SubtractFromClip(float x, float y, float width, float height)
 		{
@@ -1167,96 +1170,99 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			}
 		}
 
-		public override SizeF GetStringSize(string value, IFont font, float textSize)
+		class StringSizeService : IStringSizeService
 		{
-			if (value == null) return new SizeF();
-
-			float fontSize = textSize;
-			float factor = 1;
-			while (fontSize > 14)
+			public SizeF GetStringSize(string value, IFont font, float textSize)
 			{
-				fontSize /= 14;
-				factor *= 14;
-			}
+				if (value == null) return new SizeF();
 
-			if (font == null)
-				font = Graphics.Font.Default;
+				float fontSize = textSize;
+				float factor = 1;
+				while (fontSize > 14)
+				{
+					fontSize /= 14;
+					factor *= 14;
+				}
 
-			var size = new SizeF();
+				if (font == null)
+					font = Graphics.Font.Default;
 
-			var textFormat = new TextFormat(FactoryDirectWrite, font.Name, fontSize);
-			textFormat.TextAlignment = TextAlignment.Leading;
-			textFormat.ParagraphAlignment = ParagraphAlignment.Near;
+				var size = new SizeF();
 
-			var textLayout = new TextLayout(FactoryDirectWrite, value, textFormat, 512, 512);
-			size.Width = textLayout.Metrics.Width;
-			size.Height = textLayout.Metrics.Height;
-
-			size.Width *= factor;
-			size.Height *= factor;
-
-			return size;
-		}
-
-		public override SizeF GetStringSize(
-			string value,
-			IFont font,
-			float textSize,
-			HorizontalAlignment horizontalAlignment,
-			VerticalAlignment verticalAlignment)
-		{
-			if (value == null) return new SizeF();
-
-			float fontSize = textSize;
-			float factor = 1;
-			while (fontSize > 14)
-			{
-				fontSize /= 14;
-				factor *= 14;
-			}
-
-			var size = new SizeF();
-
-			var textFormat = new TextFormat(FactoryDirectWrite, font.Name, font.Weight.ToFontWeight(), font.StyleType.ToFontStyle(), fontSize);
-			if (horizontalAlignment == HorizontalAlignment.Left)
-			{
+				var textFormat = new TextFormat(FactoryDirectWrite, font.Name, fontSize);
 				textFormat.TextAlignment = TextAlignment.Leading;
-			}
-			else if (horizontalAlignment == HorizontalAlignment.Center)
-			{
-				textFormat.TextAlignment = TextAlignment.Center;
-			}
-			else if (horizontalAlignment == HorizontalAlignment.Right)
-			{
-				textFormat.TextAlignment = TextAlignment.Trailing;
-			}
-			else if (horizontalAlignment == HorizontalAlignment.Justified)
-			{
-				textFormat.TextAlignment = TextAlignment.Justified;
-			}
-
-			if (verticalAlignment == VerticalAlignment.Top)
-			{
 				textFormat.ParagraphAlignment = ParagraphAlignment.Near;
+
+				var textLayout = new TextLayout(FactoryDirectWrite, value, textFormat, 512, 512);
+				size.Width = textLayout.Metrics.Width;
+				size.Height = textLayout.Metrics.Height;
+
+				size.Width *= factor;
+				size.Height *= factor;
+
+				return size;
 			}
-			else if (verticalAlignment == VerticalAlignment.Center)
+
+			public SizeF GetStringSize(
+				string value,
+				IFont font,
+				float textSize,
+				HorizontalAlignment horizontalAlignment,
+				VerticalAlignment verticalAlignment)
 			{
-				textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+				if (value == null) return new SizeF();
+
+				float fontSize = textSize;
+				float factor = 1;
+				while (fontSize > 14)
+				{
+					fontSize /= 14;
+					factor *= 14;
+				}
+
+				var size = new SizeF();
+
+				var textFormat = new TextFormat(FactoryDirectWrite, font.Name, font.Weight.ToFontWeight(), font.StyleType.ToFontStyle(), fontSize);
+				if (horizontalAlignment == HorizontalAlignment.Left)
+				{
+					textFormat.TextAlignment = TextAlignment.Leading;
+				}
+				else if (horizontalAlignment == HorizontalAlignment.Center)
+				{
+					textFormat.TextAlignment = TextAlignment.Center;
+				}
+				else if (horizontalAlignment == HorizontalAlignment.Right)
+				{
+					textFormat.TextAlignment = TextAlignment.Trailing;
+				}
+				else if (horizontalAlignment == HorizontalAlignment.Justified)
+				{
+					textFormat.TextAlignment = TextAlignment.Justified;
+				}
+
+				if (verticalAlignment == VerticalAlignment.Top)
+				{
+					textFormat.ParagraphAlignment = ParagraphAlignment.Near;
+				}
+				else if (verticalAlignment == VerticalAlignment.Center)
+				{
+					textFormat.ParagraphAlignment = ParagraphAlignment.Center;
+				}
+				else if (verticalAlignment == VerticalAlignment.Bottom)
+				{
+					textFormat.ParagraphAlignment = ParagraphAlignment.Far;
+				}
+
+				var textLayout = new TextLayout(FactoryDirectWrite, value, textFormat, 512f, 512f, Dip, false);
+				size.Width = textLayout.Metrics.Width;
+				size.Height = textLayout.Metrics.Height;
+
+
+				size.Width *= factor;
+				size.Height *= factor;
+
+				return size;
 			}
-			else if (verticalAlignment == VerticalAlignment.Bottom)
-			{
-				textFormat.ParagraphAlignment = ParagraphAlignment.Far;
-			}
-
-			var textLayout = new TextLayout(FactoryDirectWrite, value, textFormat, 512f, 512f, Dip, false);
-			size.Width = textLayout.Metrics.Width;
-			size.Height = textLayout.Metrics.Height;
-
-
-			size.Width *= factor;
-			size.Height *= factor;
-
-			return size;
 		}
 	}
 }

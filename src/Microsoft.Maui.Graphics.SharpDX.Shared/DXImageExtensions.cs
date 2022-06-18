@@ -12,13 +12,14 @@ namespace Microsoft.Maui.Graphics.SharpDX
 				return dxImage.NativeImage;
 			}
 
-			if (image is VirtualImage virtualImage)
-			{
-				using (var stream = new MemoryStream(virtualImage.Bytes))
-				{
-					return DXGraphicsService.CurrentTarget.Value.LoadBitmap(stream);
-				}
-			}
+			// Can not find VirtualImage type.
+			//if (image is VirtualImage virtualImage)
+			//{
+			//	using (var stream = new MemoryStream(virtualImage.Bytes))
+			//	{
+			//		return DXGraphicsService.CurrentTarget.Value.LoadBitmap(stream);
+			//	}
+			//}
 
 			if (image != null)
 			{

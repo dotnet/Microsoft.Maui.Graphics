@@ -117,5 +117,8 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			var bitmap = DXGraphicsService.CurrentTarget.Value.LoadBitmap(stream);
 			return new DXImage(bitmap);
 		}
+
+		public IImage ToPlatformImage()
+			=> this;
 	}
 }
