@@ -510,7 +510,10 @@ After:
 
 		public override void DrawImage(IImage image, float x, float y, float width, float height)
 		{
-			if (image is W2DImage platformImage)
+			var stream = image.AsStream();
+			var imageFromStream = W2DImage.FromStream(stream);
+	
+			if (imageFromStream is W2DImage platformImage)
 			{
 				SetRect(x, y, width, height);
 
