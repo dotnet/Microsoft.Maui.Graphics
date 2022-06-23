@@ -696,50 +696,50 @@ namespace Microsoft.Maui.Graphics.SharpDX
 			ClipPath(path, WindingMode.NonZero);
 		}
 
-		public void SubtractFromClip(EWPath path, float ppu)
-        {
-            var layerRect = new RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
-            var toSubtract = path.AsDxPath(ppu, _renderTarget.Factory, FillMode.Alternate);
+		//public void SubtractFromClip(EWPath path, float ppu)
+  //      {
+  //          var layerRect = new RectangleF(0, 0, _renderTarget.Size.Width, _renderTarget.Size.Height);
+  //          var toSubtract = path.AsDxPath(ppu, _renderTarget.Factory, FillMode.Alternate);
 
-            if (_layerMask != null)
-            {
-                ((DeviceContext)_renderTarget).PopLayer();
-                _layerCount--;
+  //          if (_layerMask != null)
+  //          {
+  //              ((DeviceContext)_renderTarget).PopLayer();
+  //              _layerCount--;
 
-                var newLayerMask = new PathGeometry(_renderTarget.Factory);
-                var newMaskSync = newLayerMask.Open();
+  //              var newLayerMask = new PathGeometry(_renderTarget.Factory);
+  //              var newMaskSync = newLayerMask.Open();
 
-                _layerMask.Combine(toSubtract, CombineMode.Exclude, newMaskSync);
-                newMaskSync.Close();
+  //              _layerMask.Combine(toSubtract, CombineMode.Exclude, newMaskSync);
+  //              newMaskSync.Close();
 
-                _layerMask.Dispose();
-                _layerMask = newLayerMask;
-            }
-            else
-            {
-                _layerMask = new PathGeometry(_renderTarget.Factory);
-                var maskSink = _layerMask.Open();
+  //              _layerMask.Dispose();
+  //              _layerMask = newLayerMask;
+  //          }
+  //          else
+  //          {
+  //              _layerMask = new PathGeometry(_renderTarget.Factory);
+  //              var maskSink = _layerMask.Open();
 
-                _layerBounds = new RectangleGeometry(_renderTarget.Factory, layerRect);
+  //              _layerBounds = new RectangleGeometry(_renderTarget.Factory, layerRect);
 
-                _layerBounds.Combine(toSubtract, CombineMode.Exclude, maskSink);
-                maskSink.Close();
-            }
+  //              _layerBounds.Combine(toSubtract, CombineMode.Exclude, maskSink);
+  //              maskSink.Close();
+  //          }
 
-            toSubtract.Dispose();
+  //          toSubtract.Dispose();
 
-            var layerParameters = new LayerParameters1
-            {
-                ContentBounds = layerRect,
-                MaskTransform = Matrix3x2.Identity,
-                MaskAntialiasMode = AntialiasMode.PerPrimitive,
-                Opacity = 1,
-                GeometricMask = _layerMask
-            };
+  //          var layerParameters = new LayerParameters1
+  //          {
+  //              ContentBounds = layerRect,
+  //              MaskTransform = Matrix3x2.Identity,
+  //              MaskAntialiasMode = AntialiasMode.PerPrimitive,
+  //              Opacity = 1,
+  //              GeometricMask = _layerMask
+  //          };
 
-            ((DeviceContext)_renderTarget).PushLayer(layerParameters, null);
-            _layerCount++;
-        }
+  //          ((DeviceContext)_renderTarget).PushLayer(layerParameters, null);
+  //          _layerCount++;
+  //      }
 
         public void SubtractFromClip(float x, float y, float width, float height)
         {
