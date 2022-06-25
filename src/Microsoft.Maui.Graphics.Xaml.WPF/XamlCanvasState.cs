@@ -302,11 +302,7 @@ namespace Microsoft.Maui.Graphics.Xaml
 		{
 			get
 			{
-				var style = Fonts.CurrentService.GetFontStyleById(_font ?? "Arial");
-				if (style == null)
-					return new FontFamily("Arial");
-
-				return new FontFamily(style.FontFamily.Name);
+				return new FontFamily(_font);
 			}
 		}
 
@@ -314,25 +310,32 @@ namespace Microsoft.Maui.Graphics.Xaml
 		{
 			get
 			{
-				var style = Fonts.CurrentService.GetFontStyleById(_font ?? "Arial");
-				if (style != null)
-				{
-					var weight = style.Weight;
-					return FontWeight.FromOpenTypeWeight(weight);
-				}
+				//var style = Fonts.CurrentService.GetFontStyleById(_font ?? "Arial");
+				//if (style != null)
+				//{
+				//	var weight = style.Weight;
+				//	return FontWeight.FromOpenTypeWeight(weight);
+				//}
 
-				return FontWeights.Regular;
+				//return FontWeights.Regular;
+				return _fontWeight;
 			}
 		}
+
+		internal void SetFontWeight(int weight)
+		{
+			_fontWeight = FontWeight.FromOpenTypeWeight(weight);
+		}
+
+		private FontWeight _fontWeight = System.Windows.FontWeights.Regular;
 
 		public FontStyle FontStyle
 		{
 			get
 			{
-				var style = Fonts.CurrentService.GetFontStyleById(_font ?? "Arial");
-				if (style != null)
+				var styleType = _fontStyle;
+				if (styleType != null)
 				{
-					var styleType = style.StyleType;
 					switch (styleType)
 					{
 						case FontStyleType.Italic:
@@ -345,6 +348,13 @@ namespace Microsoft.Maui.Graphics.Xaml
 				return FontStyles.Normal;
 			}
 		}
+
+		internal void SetFontStyle(Microsoft.Maui.Graphics.FontStyleType fontStyleType)
+		{
+			_fontStyle = fontStyleType;
+		}
+
+		private Microsoft.Maui.Graphics.FontStyleType? _fontStyle;
 
 		public void XamlTranslate(float tx, float ty)
 		{
