@@ -22,7 +22,7 @@ namespace Microsoft.Maui.Graphics
 		[Obsolete("Use Green instead.")]
 		public float G => Green;
 
-		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use Blue instead.")]
+		[Obsolete("Use Blue instead.")]
 		public float B => Blue;
 
 		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use Alpha instead.")]
