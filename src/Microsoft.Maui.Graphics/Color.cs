@@ -31,7 +31,7 @@ namespace Microsoft.Maui.Graphics
 		[Obsolete("Use GetHue() instead.")]
 		public float Hue => GetHue();
 
-		[Obsolete("This Xamarin Forms field is obsolete in Maui. Use GetLuminosity() instead.")]
+		[Obsolete("Use GetLuminosity() instead.")]
 		public float Luminosity => GetLuminosity();
 
 		[Obsolete("Use GetSaturation() instead.")]
