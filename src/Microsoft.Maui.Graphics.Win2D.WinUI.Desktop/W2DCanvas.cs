@@ -374,9 +374,9 @@ After:
 
 			if (paint is ImagePaint imagePaint)
 			{
-				if (imagePaint.Image is W2DImage image)
+				if (imagePaint.Image is PlatformImage platformImage)
 				{
-					var bitmapBrush = new CanvasImageBrush(_session, image.PlatformImage)
+					var bitmapBrush = new CanvasImageBrush(_session, platformImage.Bitmap)
 					{
 						ExtendX = CanvasEdgeBehavior.Wrap,
 						ExtendY = CanvasEdgeBehavior.Wrap
@@ -510,17 +510,17 @@ After:
 
 		public override void DrawImage(IImage image, float x, float y, float width, float height)
 		{
-			if (image is W2DImage platformImage)
+			if (image is PlatformImage platformImage)
 			{
 				SetRect(x, y, width, height);
 
-/* Unmerged change from project 'Microsoft.Maui.Graphics.Win2D.WinUI.Desktop'
-Before:
-				Draw(s => s.DrawImage(platformImage.PlatformImage, _rect, Rect.Empty, CurrentState.Alpha, CanvasImageInterpolation.Linear));
-After:
-				Draw(s => s.DrawImage(platformImage.PlatformImage, _rect, global::Windows.Foundation.Rect.Empty, CurrentState.Alpha, CanvasImageInterpolation.Linear));
-*/
-				Draw(s => s.DrawImage(platformImage.PlatformImage, _rect, WRect.Empty, CurrentState.Alpha, CanvasImageInterpolation.Linear));
+				/* Unmerged change from project 'Microsoft.Maui.Graphics.Win2D.WinUI.Desktop'
+				Before:
+								Draw(s => s.DrawImage(platformImage.Bitmap, _rect, Rect.Empty, CurrentState.Alpha, CanvasImageInterpolation.Linear));
+				After:
+								Draw(s => s.DrawImage(platformImage.Bitmap, _rect, global::Windows.Foundation.Rect.Empty, CurrentState.Alpha, CanvasImageInterpolation.Linear));
+				*/
+				Draw(s => s.DrawImage(platformImage.Bitmap, _rect, WRect.Empty, CurrentState.Alpha, CanvasImageInterpolation.Linear));
 			}
 		}
 
