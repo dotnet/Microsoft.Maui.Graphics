@@ -8,7 +8,7 @@ namespace Microsoft.Maui.Graphics.Win2D
 	{
 		public IImage FromStream(Stream stream, ImageFormat formatHint = ImageFormat.Png)
 		{
-			return W2DImage.FromStream(stream, formatHint);
+			return PlatformImage.FromStream(stream, formatHint);
 		}
 	}
 
