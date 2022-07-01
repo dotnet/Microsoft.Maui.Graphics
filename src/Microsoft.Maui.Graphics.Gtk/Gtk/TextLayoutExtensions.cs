@@ -4,7 +4,8 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 
 		public static void SetFontStyle(this TextLayout it, IFont font, double? fontSize = null, int? weight = null, FontStyleType? fontStyleType = null) {
 
-			it.FontFamily = font.Name;
+			if (font is { })
+				it.FontFamily = font.Name;
 
 			if (weight.HasValue)
 				it.Weight = weight.Value.ToPangoWeight();

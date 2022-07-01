@@ -5,10 +5,9 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk
 
 	public partial class PlatformCanvas : AbstractCanvas<PlatformCanvasState>
 	{
-
-		public PlatformCanvas() : base(CreateNewState, CreateStateCopy)
+		public PlatformCanvas()
+			: base(new PlatformCanvasStateService(), new PlatformStringSizeService ())
 		{
-			_context = default;
 		}
 
 		private Cairo.Context _context;
@@ -22,16 +21,6 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk
 				ResetState();
 				_context = value;
 			}
-		}
-
-		private static PlatformCanvasState CreateNewState(object context)
-		{
-			return new PlatformCanvasState { };
-		}
-
-		private static PlatformCanvasState CreateStateCopy(PlatformCanvasState prototype)
-		{
-			return new PlatformCanvasState(prototype);
 		}
 
 		public override void SaveState()
