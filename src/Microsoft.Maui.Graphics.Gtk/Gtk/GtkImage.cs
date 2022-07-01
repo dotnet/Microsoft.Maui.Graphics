@@ -60,6 +60,7 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 			return context.Image;
 		}
 
+		public IImage ToPlatformImage()=> this;
 	}
 
 }
