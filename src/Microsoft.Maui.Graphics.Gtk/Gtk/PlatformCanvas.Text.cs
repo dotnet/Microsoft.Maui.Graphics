@@ -49,41 +49,6 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 
 		}
 
-		private static TextLayout? _textLayout;
-
-		private TextLayout SharedTextLayout => _textLayout ??= new TextLayout(SharedContext)
-		{
-			HeightForWidth = true
-		};
-
-		public override SizeF GetStringSize(string value, IFont font, float textWidth)
-		{
-			if (string.IsNullOrEmpty(value))
-				return new SizeF();
-
-			lock (SharedTextLayout)
-			{
-				SharedTextLayout.FontFamily = font?.Name ?? FontExtensions.Default.Family;
-
-				return SharedTextLayout.GetSize(value, textWidth);
-			}
-
-		}
-
-		public override SizeF GetStringSize(string value, IFont font, float textWidth, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
-		{
-			if (string.IsNullOrEmpty(value))
-				return new SizeF();
-
-			lock (SharedTextLayout)
-			{
-				SharedTextLayout.FontFamily = font.Name;
-				SharedTextLayout.HorizontalAlignment = horizontalAlignment;
-				SharedTextLayout.VerticalAlignment = verticalAlignment;
-
-				return SharedTextLayout.GetSize(value, textWidth);
-			}
-		}
 	}
 
 }

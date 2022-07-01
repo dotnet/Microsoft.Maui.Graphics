@@ -4,22 +4,6 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 
 	public partial class PlatformCanvas {
 
-		Cairo.Context? _sharedContext;
-
-		internal Cairo.Context SharedContext
-		{
-			get
-			{
-				if (_sharedContext == null)
-				{
-					using var sf = new Cairo.ImageSurface(Cairo.Format.ARGB32, 1, 1);
-					_sharedContext = new Cairo.Context(sf);
-				}
-
-				return _sharedContext;
-			}
-		}
-
 		private Cairo.Surface CreateSurface(Cairo.Context context, bool imageSurface = false) {
 			var surface = context.GetTarget();
 
