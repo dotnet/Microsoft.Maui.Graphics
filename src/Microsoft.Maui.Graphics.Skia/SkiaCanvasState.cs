@@ -202,7 +202,7 @@ namespace Microsoft.Maui.Graphics.Skia
 		{
 			set
 			{
-				if (_font != value && (_font != null && !_font.Equals(value)))
+				if (!ReferenceEquals(_font, value) && (_font is null || !_font.Equals(value)))
 				{
 					_font = value;
 					_typefaceInvalid = true;
