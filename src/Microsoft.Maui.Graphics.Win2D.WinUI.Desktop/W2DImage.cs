@@ -7,18 +7,18 @@ using Windows.Storage.Streams;
 
 namespace Microsoft.Maui.Graphics.Win2D
 {
-	public class PlatformImage : IImage
+	internal class W2DImage : IImage
 	{
 		private readonly ICanvasResourceCreator _creator;
 		private CanvasBitmap _bitmap;
 
-		public PlatformImage(ICanvasResourceCreator creator, CanvasBitmap bitmap)
+		public W2DImage(ICanvasResourceCreator creator, CanvasBitmap bitmap)
 		{
 			_creator = creator;
 			_bitmap = bitmap;
 		}
 
-		public CanvasBitmap Bitmap => _bitmap;
+		public CanvasBitmap PlatformImage => _bitmap;
 
 		public void Dispose()
 		{
@@ -118,7 +118,7 @@ namespace Microsoft.Maui.Graphics.Win2D
 				throw new Exception("No resource creator has been registered globally or for this thread.");
 
 			var bitmap = AsyncPump.Run(async () => await CanvasBitmap.LoadAsync(creator, stream.AsRandomAccessStream()));
-			return new PlatformImage(creator, bitmap);
+			return new W2DImage(creator, bitmap);
 		}
 	}
 }
