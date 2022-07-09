@@ -6,6 +6,7 @@
     <RootNamespace>Microsoft.Maui.Graphics.Skia</RootNamespace>
     <AssemblyName>Microsoft.Maui.Graphics.Skia</AssemblyName>
     <LangVersion>10.0</LangVersion>
+    <WarningsAsErrors>RS0016;RS0017</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,5 +26,6 @@
   </ItemGroup>
 
   <Import Project="..\targets\MultiTargeting.targets" />
+  <Import Project="..\targets\PublicAPI.targets" />
 
 </Project>
