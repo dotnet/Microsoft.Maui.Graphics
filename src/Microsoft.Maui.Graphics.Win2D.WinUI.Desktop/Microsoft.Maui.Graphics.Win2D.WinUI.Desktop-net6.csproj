@@ -9,6 +9,7 @@
     <LangVersion>10.0</LangVersion>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <WarningsAsErrors>RS0016;RS0017</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,5 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Microsoft.Maui.Graphics\Microsoft.Maui.Graphics-net6.csproj" />
   </ItemGroup>
+
+  <Import Project="..\targets\PublicAPI.targets" />
 
 </Project>
