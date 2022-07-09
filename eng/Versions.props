@@ -15,6 +15,10 @@
     <MicrosoftMacCatalystSdkPackageVersion>15.4.303</MicrosoftMacCatalystSdkPackageVersion>
     <MicrosoftmacOSSdkPackageVersion>12.3.303</MicrosoftmacOSSdkPackageVersion>
     <MicrosofttvOSSdkPackageVersion>15.4.303</MicrosofttvOSSdkPackageVersion>
+    <!-- Other packages -->
+    <MicrosoftCodeAnalysisNetAnalyzersVersion>7.0.0-preview1.22329.1</MicrosoftCodeAnalysisNetAnalyzersVersion>
+    <MicrosoftCodeAnalysisPublicApiAnalyzersVersion>3.3.3</MicrosoftCodeAnalysisPublicApiAnalyzersVersion>
+    <MicrosoftCodeAnalysisBannedApiAnalyzersVersion>3.3.3</MicrosoftCodeAnalysisBannedApiAnalyzersVersion>
     <MicrosoftDotNetBuildTasksFeedPackageVersion>7.0.0-beta.22171.2</MicrosoftDotNetBuildTasksFeedPackageVersion>
   </PropertyGroup>
   <PropertyGroup>

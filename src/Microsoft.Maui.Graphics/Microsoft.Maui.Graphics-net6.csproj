@@ -10,6 +10,7 @@
     <AssemblyName>Microsoft.Maui.Graphics</AssemblyName>
     <RootNamespace>Microsoft.Maui.Graphics</RootNamespace>
     <LangVersion>10.0</LangVersion>
+    <WarningsAsErrors>RS0016;RS0017</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Microsoft.Maui.Graphics</PackageId>
@@ -39,4 +40,5 @@
       <DependentUpon>GraphicsiOS.resx</DependentUpon>
     </None>
   </ItemGroup>
+  <Import Project="..\targets\PublicAPI.targets" />
 </Project>
