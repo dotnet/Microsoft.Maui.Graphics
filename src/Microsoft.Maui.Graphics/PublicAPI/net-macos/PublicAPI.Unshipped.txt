@@ -1,0 +1,8 @@
+*REMOVED*Microsoft.Maui.Graphics.AbstractCanvas<TState>.RetinaScale.get -> float
+*REMOVED*Microsoft.Maui.Graphics.AbstractCanvas<TState>.RetinaScale.set -> void
+*REMOVED*Microsoft.Maui.Graphics.ICanvas.RetinaScale.get -> float
+*REMOVED*Microsoft.Maui.Graphics.ICanvas.RetinaScale.set -> void
+*REMOVED*Microsoft.Maui.Graphics.PictureCanvas.RetinaScale.get -> float
+*REMOVED*Microsoft.Maui.Graphics.PictureCanvas.RetinaScale.set -> void
+*REMOVED*Microsoft.Maui.Graphics.ScalingCanvas.RetinaScale.get -> float
+*REMOVED*Microsoft.Maui.Graphics.ScalingCanvas.RetinaScale.set -> void
