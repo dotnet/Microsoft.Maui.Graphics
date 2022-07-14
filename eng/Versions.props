@@ -11,10 +11,10 @@
     <!-- xamarin/xamarin-android -->
     <MicrosoftAndroidSdkWindowsPackageVersion>32.0.415</MicrosoftAndroidSdkWindowsPackageVersion>
     <!-- xamarin/xamarin-macios -->
-    <MicrosoftiOSSdkPackageVersion>15.4.432</MicrosoftiOSSdkPackageVersion>
-    <MicrosoftMacCatalystSdkPackageVersion>15.4.432</MicrosoftMacCatalystSdkPackageVersion>
-    <MicrosoftmacOSSdkPackageVersion>12.3.432</MicrosoftmacOSSdkPackageVersion>
-    <MicrosofttvOSSdkPackageVersion>15.4.432</MicrosofttvOSSdkPackageVersion>
+    <MicrosoftiOSSdkPackageVersion>15.4.434</MicrosoftiOSSdkPackageVersion>
+    <MicrosoftMacCatalystSdkPackageVersion>15.4.434</MicrosoftMacCatalystSdkPackageVersion>
+    <MicrosoftmacOSSdkPackageVersion>12.3.434</MicrosoftmacOSSdkPackageVersion>
+    <MicrosofttvOSSdkPackageVersion>15.4.434</MicrosofttvOSSdkPackageVersion>
     <MicrosoftDotNetBuildTasksFeedPackageVersion>7.0.0-beta.22171.2</MicrosoftDotNetBuildTasksFeedPackageVersion>
   </PropertyGroup>
   <PropertyGroup>
