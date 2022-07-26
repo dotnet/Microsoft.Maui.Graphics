@@ -1,16 +1,10 @@
-# Microsoft.Maui.Graphics
+# Microsoft.Maui.Graphics (Experiment)
 
 [![NuGet](https://badgen.net/nuget/v/Microsoft.Maui.Graphics)](https://www.nuget.org/packages/Microsoft.Maui.Graphics/)
 
-Microsoft.Maui.Graphics is a cross-platform graphics library for iOS, Android, Windows, macOS, Tizen and Linux written completely in C#.  With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implementations within a singular application.
+Microsoft.Maui.Graphics is an experimental cross-platform graphics library for iOS, Android, Windows, macOS, Tizen and Linux written completely in C#. A Microsoft supported portion of this library has been merged with [dotnet/maui](https://github.com/dotnet/maui) and is maintained separately. This project remains separate for developers to experiment further on additional scenarios such as WASM, WinForms, WPF, Xamarin, and Linux.
 
-# Applications
-
-Any dotnet projects needing a multi-platform graphics abstraction that is backed by native APIs can use Microsoft.Maui.Graphics.
-
-[.NET MAUI](https://github.com/dotnet/maui) is an example of a project using Microsoft.Maui.Graphics.
-
-Note: Microsoft.Maui.Graphics does not have a MAUI dependency and can be used on any of the supported platforms listed below.
+With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implementations within a singular application.
 
 # Goals
 * No dependencies on System.Drawing
