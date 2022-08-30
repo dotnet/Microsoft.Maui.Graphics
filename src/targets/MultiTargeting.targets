@@ -65,7 +65,13 @@
     <Compile Remove="**\Win32\*.cs"/>
     <None Include="**\Win32\*.cs"/>
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) == true Or '$(TargetPlatformIdentifier)' == 'tizen'">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) == true">
     <PackageReference Include="Tizen.NET" Version="4.0.0" />
+    <Compile Remove="**\*.Tizen.nui.cs" />
+    <None Include="**\*.Tizen.nui.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('-tizen'))">
+    <Compile Remove="**\*.Tizen.cs"/>
+    <None Include="**\*.Tizen.cs"/>
   </ItemGroup>
 </Project>

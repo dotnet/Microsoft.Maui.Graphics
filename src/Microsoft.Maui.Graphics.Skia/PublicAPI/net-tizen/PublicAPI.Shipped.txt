@@ -93,7 +93,7 @@ Microsoft.Maui.Graphics.Skia.TextLine.Width.get -> float
 Microsoft.Maui.Graphics.Skia.Views.SkiaGraphicsView
 Microsoft.Maui.Graphics.Skia.Views.SkiaGraphicsView.Drawable.get -> Microsoft.Maui.Graphics.IDrawable
 Microsoft.Maui.Graphics.Skia.Views.SkiaGraphicsView.Drawable.set -> void
-Microsoft.Maui.Graphics.Skia.Views.SkiaGraphicsView.SkiaGraphicsView(ElmSharp.EvasObject parent, Microsoft.Maui.Graphics.IDrawable drawable = null) -> void
+Microsoft.Maui.Graphics.Skia.Views.SkiaGraphicsView.SkiaGraphicsView(Microsoft.Maui.Graphics.IDrawable drawable = null) -> void
 override Microsoft.Maui.Graphics.Skia.SkiaBitmapExportContext.Canvas.get -> Microsoft.Maui.Graphics.ICanvas
 override Microsoft.Maui.Graphics.Skia.SkiaBitmapExportContext.Dispose() -> void
 override Microsoft.Maui.Graphics.Skia.SkiaBitmapExportContext.Image.get -> Microsoft.Maui.Graphics.IImage
