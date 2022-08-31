@@ -34,6 +34,8 @@
   <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) != true  And '$(TargetPlatformIdentifier)' != 'tizen'">
     <Compile Remove="**\*.Tizen.cs"/>
     <None Include="**\*.Tizen.cs"/>
+    <Compile Remove="**\*.Tizen.nui.cs"/>
+    <None Include="**\*.Tizen.nui.cs"/>
     <Compile Remove="**\Tizen\*.cs"/>
     <None Include="**\Tizen\*.cs"/>
     <Compile Remove="**\Tizen\**\*.cs"/>
