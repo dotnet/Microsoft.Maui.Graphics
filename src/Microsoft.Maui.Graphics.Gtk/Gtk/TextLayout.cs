@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Maui.Graphics.Extras;
 using Microsoft.Maui.Graphics.Text;
+using Pango;
 using Context = Cairo.Context;
 
 namespace Microsoft.Maui.Graphics.Platform.Gtk {
@@ -21,13 +22,60 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 
 		public Context Context => _context;
 
-		public string FontFamily { get; set; }
+		public string FontFamily {
+			get {
+				if (string.IsNullOrEmpty (_fontFamily)) {
+					_fontFamily = Gdk.PangoHelper.ContextGet ().FontDescription.Family;
+				}
 
-		public Pango.Weight Weight { get; set; } = Pango.Weight.Normal;
+				return _fontFamily;
+			}
+			set {
+				if (string.Equals (_fontFamily, value))
+					return;
+				_fontFamily = value;
+				FontDescriptionChanged ();
+			}
+		}
 
-		public Pango.Style Style { get; set; } = Pango.Style.Normal;
+		public Pango.Weight Weight {
+			get => _weight;
+			set {
+				if (_weight == value)
+					return;
 
-		public int PangoFontSize { get; set; } = -1;
+				_weight = value;
+				FontDescriptionChanged ();
+			}
+		}
+
+		public Pango.Style Style {
+			get => _style;
+			set {
+				if (_style == value)
+					return;
+
+				_style = value;
+				FontDescriptionChanged ();
+			}
+		}
+
+		public int PangoFontSize {
+			get {
+				if (_pangoFontSize == -1) {
+					_pangoFontSize = Gdk.PangoHelper.ContextGet ().FontDescription.Size;
+				}
+
+				return _pangoFontSize;
+			}
+			set {
+				if (_pangoFontSize == value)
+					return;
+
+				_pangoFontSize = value;
+				FontDescriptionChanged ();
+			}
+		}
 
 		private Pango.Layout? _layout;
 		private bool _layoutOwned = false;
@@ -56,18 +104,24 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 		}
 
 		private Pango.FontDescription? _fontDescription;
+
+		void FontDescriptionChanged () {
+			if (_fontDescriptionOwned && _fontDescription is {}) {
+				_fontDescription.Family = FontFamily;
+				_fontDescription.Weight = Weight;
+				_fontDescription.Style = Style;
+				_fontDescription.Size = PangoFontSize;
+			}
+		}
+
 		private bool _fontDescriptionOwned = false;
+		private string _fontFamily;
+		private Weight _weight = Pango.Weight.Normal;
+		private Style _style = Pango.Style.Normal;
+		private int _pangoFontSize = -1;
 
 		public Pango.FontDescription FontDescription {
 			get {
-				if (PangoFontSize == -1) {
-					PangoFontSize = Gdk.PangoHelper.ContextGet().FontDescription.Size;
-				}
-
-				if (string.IsNullOrEmpty(FontFamily)) {
-					FontFamily = Gdk.PangoHelper.ContextGet().FontDescription.Family;
-				}
-
 				if (_fontDescription == null) {
 					_fontDescription = new Pango.FontDescription {
 						Family = FontFamily,
@@ -82,6 +136,8 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 				return _fontDescription;
 			}
 			set {
+				if (Equals (_fontDescription, value))
+					return;
 				_fontDescription = value;
 				_fontDescriptionOwned = false;
 			}

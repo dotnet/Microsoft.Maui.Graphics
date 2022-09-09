@@ -2,15 +2,16 @@ namespace Microsoft.Maui.Graphics.Platform.Gtk {
 
 	internal static class TextLayoutExtensions {
 
-		public static void SetFontStyle(this TextLayout it, IFont font, double? size = null, int? weight = null, FontStyleType? fontStyleType = null) {
+		public static void SetFontStyle(this TextLayout it, IFont font, double? fontSize = null, int? weight = null, FontStyleType? fontStyleType = null) {
 
-			it.FontFamily = font.Name;
+			if (font is { })
+				it.FontFamily = font.Name;
 
 			if (weight.HasValue)
 				it.Weight = weight.Value.ToPangoWeight();
 
-			if (size.HasValue)
-				it.PangoFontSize = size.Value.ScaledToPango();
+			if (fontSize.HasValue)
+				it.PangoFontSize = fontSize.Value.ScaledToPango();
 
 			if (fontStyleType.HasValue)
 				it.Style = fontStyleType.Value switch
