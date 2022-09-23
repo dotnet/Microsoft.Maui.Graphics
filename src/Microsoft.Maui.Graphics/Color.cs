@@ -16,6 +16,27 @@ namespace Microsoft.Maui.Graphics
 		public readonly float Blue;
 		public readonly float Alpha = 1;
 
+		[Obsolete("Use Red instead.")]
+		public float R => Red;
+
+		[Obsolete("Use Green instead.")]
+		public float G => Green;
+
+		[Obsolete("Use Blue instead.")]
+		public float B => Blue;
+
+		[Obsolete("Use Alpha instead.")]
+		public float A => Alpha;
+
+		[Obsolete("Use GetHue() instead.")]
+		public float Hue => GetHue();
+
+		[Obsolete("Use GetLuminosity() instead.")]
+		public float Luminosity => GetLuminosity();
+
+		[Obsolete("Use GetSaturation() instead.")]
+		public float Saturation => GetSaturation();
+
 		public Color()
 		{
 			// Default Black
@@ -145,6 +166,9 @@ namespace Microsoft.Maui.Graphics
 
 		[Obsolete("Use FromArgb instead.")]
 		public static Color FromHex(string colorAsArgbHex) => FromArgb(colorAsArgbHex);
+
+		[Obsolete("Use Parse instead.")]
+		public static Color FromHtml(string htmlColor) => Parse(htmlColor);
 
 		public Paint AsPaint()
 		{
