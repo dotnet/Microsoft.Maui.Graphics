@@ -9,13 +9,13 @@ namespace Microsoft.Maui.Graphics
 	[TypeConverter(typeof(Converters.RectTypeConverter))]
 	public partial struct Rect
 	{
-		public double X { get; set; }
+		public double Left { get; set; }
 
-		public double Y { get; set; }
+		public double Top { get; set; }
 
-		public double Width { get; set; }
+		public double Right { get; set; }
 
-		public double Height { get; set; }
+		public double Bottom { get; set; }
 
 		public static Rect Zero = new Rect();
 
@@ -127,28 +127,28 @@ namespace Microsoft.Maui.Graphics
 		}
 
 		// Position/Size
-		public double Top
+		public double X
 		{
-			get => Y;
-			set => Y = value;
+			get => Left;
+			set => Left = value;
 		}
 
-		public double Bottom
+		public double Y
 		{
-			get => Y + Height;
-			set => Height = value - Y;
+			get => Top;
+			set => Top = value;
 		}
 
-		public double Right
+		public double Width
 		{
-			get => X + Width;
-			set => Width = value - X;
+			get => Right - Left;
+			set => Right = Left + value;
 		}
 
-		public double Left
+		public double Height
 		{
-			get => X;
-			set => X = value;
+			get => Bottom - Top;
+			set => Bottom = Top + value;
 		}
 
 		public bool IsEmpty => (Width <= 0) || (Height <= 0);
