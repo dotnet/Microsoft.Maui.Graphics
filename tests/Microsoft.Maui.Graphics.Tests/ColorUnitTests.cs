@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Microsoft.Maui.Graphics;
 using Xunit;
 
-namespace Xamarin.Forms.Core.UnitTests
+namespace Microsoft.Maui.Graphics.Tests
 {
 	public class ColorUnitTests
 	{
@@ -202,24 +204,24 @@ namespace Xamarin.Forms.Core.UnitTests
 		public void TestFromHex()
 		{
 			var color = Color.FromRgb(138, 43, 226);
-			Assert.Equal(color, new Color("8a2be2"));
+			Assert.Equal(color, Color.FromArgb("8a2be2"));
 
-            Assert.Equal(Color.FromRgba(138, 43, 226, 128), new Color("#8a2be280"));
-			Assert.Equal(Color.FromHex("#aabbcc"), new Color("#abc"));
-			Assert.Equal(Color.FromHex("#aabbccdd"), new Color("#abcd"));
+			Assert.Equal(Color.FromRgba(138, 43, 226, 128), Color.FromArgb("#808a2be2"));
+			Assert.Equal(Color.FromArgb("#aabbcc"), Color.FromArgb("#abc"));
+			Assert.Equal(Color.FromArgb("#aabbccdd"), Color.FromArgb("#abcd"));
 		}
 
 		[Fact]
 		public void TestToHex()
 		{
 			var colorRgb = Color.FromRgb(138, 43, 226);
-			Assert.Equal(Color.FromHex(colorRgb.ToHex()), colorRgb);
+			Assert.Equal(Color.FromArgb(colorRgb.ToArgbHex()), colorRgb);
 			var colorRgba = Color.FromRgba(138, 43, 226, .2);
-			Assert.Equal(Color.FromHex(colorRgba.ToHex()), colorRgba);
+			Assert.Equal(Color.FromArgb(colorRgba.ToArgbHex()), colorRgba);
 			var colorHsl = Color.FromHsla(240, 1, 1);
-			Assert.Equal(Color.FromHex(colorHsl.ToHex()), colorHsl);
+			Assert.Equal(Color.FromArgb(colorHsl.ToArgbHex()), colorHsl);
 			var colorHsla = Color.FromHsla(240, 1, 1, .1f);
-			var hexFromHsla = new Color(colorHsla.ToHex());
+			var hexFromHsla = Color.FromArgb(colorHsla.ToArgbHex());
 			Assert.Equal(hexFromHsla.Alpha, colorHsla.Alpha,2);
 			Assert.Equal(hexFromHsla.Red, colorHsla.Red,3);
 			Assert.Equal(hexFromHsla.Green, colorHsla.Green,3);
@@ -293,6 +295,175 @@ namespace Xamarin.Forms.Core.UnitTests
 			Assert.Equal(Colors.Transparent, Color.FromRgba(0, 0, 0, 0));
 			Assert.Equal(Colors.Wheat, Color.FromRgb(245, 222, 179));
 			Assert.Equal(Colors.White, Color.FromRgb(255, 255, 255));
+		}
+
+		[Fact]
+		public void TestFromUint()
+		{
+			var expectedColor = new Color(1, 0.65f, 0, 1);
+
+			// Convert the expected color to a uint (argb)
+			var blue = (int)(expectedColor.Blue * 255);
+			var red = (int)(expectedColor.Red * 255);
+			var green = (int)(expectedColor.Green * 255);
+			var alpha = (int)(expectedColor.Alpha * 255);
+
+			uint argb = (uint)(blue | (green << 8) | (red << 16) | (alpha << 24));
+
+			// Create a new color from the uint
+			var fromUint = Color.FromUint(argb);
+
+			// Verify the components
+			Assert.Equal(expectedColor.Alpha, fromUint.Alpha, 2);
+			Assert.Equal(expectedColor.Red, fromUint.Red, 2);
+			Assert.Equal(expectedColor.Green, fromUint.Green, 2);
+			Assert.Equal(expectedColor.Blue, fromUint.Blue, 2);
+		}
+
+		[Fact]
+		public void ToUInt()
+		{
+			var color = Color.FromRgba(255, 122, 15, 255);
+			var i = color.ToUint();
+			Assert.Equal(4294933007U, i);
+		}
+
+		[Theory]
+		[InlineData("#FF0000", "#00FFFF")] // Red & Cyan
+		[InlineData("#00FF00", "#FF00FF")] // Green & Fuchsia
+		[InlineData("#0000FF", "#FFFF00")] // Blue & Yellow
+		[InlineData("#0AF56C", "#F50A93")] // Lime green & bright purple (but with no limit values)
+		public void GetComplementary(string original, string expected)
+		{
+			var orig = Color.FromArgb(original);
+			var expectedComplement = Color.FromArgb(expected);
+
+			var comp = orig.GetComplementary();
+
+			Assert.Equal(expectedComplement.Alpha, comp.Alpha, 3);
+			Assert.Equal(expectedComplement.Red, comp.Red, 3);
+			Assert.Equal(expectedComplement.Green, comp.Green, 3);
+			Assert.Equal(expectedComplement.Blue, comp.Blue, 3);
+		}
+
+		public static IEnumerable<object[]> TestFromRgbaValues()
+		{
+			yield return new object[] { "#111", Color.FromRgb(0x11, 0x11, 0x11) };
+			yield return new object[] { "#a222", Color.FromRgba(0xaa, 0x22, 0x22, 0x22) };
+			yield return new object[] { "#F2E2D2", Color.FromRgb(0xF2, 0xE2, 0xD2) };
+			yield return new object[] { "#C2F2E2D2", Color.FromRgba(0xC2, 0xF2, 0xE2, 0xD2) };
+			yield return new object[] { "111", Color.FromRgb(0x11, 0x11, 0x11) };
+			yield return new object[] { "a222", Color.FromRgba(0xaa, 0x22, 0x22, 0x22) };
+			yield return new object[] { "F2E2D2", Color.FromRgb(0xF2, 0xE2, 0xD2) };
+			yield return new object[] { "C2F2E2D2", Color.FromRgba(0xC2, 0xF2, 0xE2, 0xD2) };
+		}
+
+		[Theory]
+		[MemberData(nameof(TestFromRgbaValues))]
+		public void TestFromRgba(string value, Color expected)
+		{
+			Color actual = Color.FromRgba(value);
+			Assert.Equal(expected, actual);
+		}
+
+		public static IEnumerable<object[]> TestFromArgbValuesHash()
+		{
+			yield return new object[] { "#111", Color.FromRgb(0x11, 0x11, 0x11) };
+			yield return new object[] { "#a222", Color.FromRgba(0x22, 0x22, 0x22, 0xaa) };
+			yield return new object[] { "#F2E2D2", Color.FromRgb(0xF2, 0xE2, 0xD2) };
+			yield return new object[] { "#C2F2E2D2", Color.FromRgba(0xF2, 0xE2, 0xD2, 0xC2) };
+		}
+
+		public static IEnumerable<object[]> TestFromArgbValuesNoHash()
+		{
+			yield return new object[] { "111", Color.FromRgb(0x11, 0x11, 0x11) };
+			yield return new object[] { "a222", Color.FromRgba(0x22, 0x22, 0x22, 0xaa) };
+			yield return new object[] { "F2E2D2", Color.FromRgb(0xF2, 0xE2, 0xD2) };
+			yield return new object[] { "C2F2E2D2", Color.FromRgba(0xF2, 0xE2, 0xD2, 0xC2) };
+		}
+
+		[Theory]
+		[MemberData(nameof(TestFromArgbValuesHash))]
+		[MemberData(nameof(TestFromArgbValuesNoHash))]
+		public void TestFromArgb(string value, Color expected)
+		{
+			Color actual = Color.FromArgb(value);
+			Assert.Equal(expected, actual);
+		}
+
+		public static IEnumerable<object[]> TestParseValidValues()
+		{
+			foreach (object[] argb in TestFromArgbValuesHash())
+			{
+				yield return argb;
+			}
+
+			yield return new object[] { "rgb(255,0,0)", Color.FromRgb(255, 0, 0) };
+			yield return new object[] { "rgb(100%, 0%, 0%)", Color.FromRgb(255, 0, 0) };
+
+			yield return new object[] { "rgba(0, 255, 0, 0.7)", Color.FromRgba(0, 255, 0, 0.7f) };
+			yield return new object[] { "rgba(0%, 100%, 0%, 0.7)", Color.FromRgba(0, 255, 0, 0.7f) };
+
+			yield return new object[] { "hsl(120, 100%, 50%)", Color.FromHsla(120f / 360f, 1.0f, .5f) };
+			yield return new object[] { "hsl(120, 75, 20%)", Color.FromHsla(120f / 360f, .75f, .2f) };
+
+			yield return new object[] { "hsla(160, 100%, 50%, .4)", Color.FromHsla(160f / 360f, 1.0f, .5f, .4f) };
+			yield return new object[] { "hsla(160,100%,50%,.6)", Color.FromHsla(160f / 360f, 1.0f, .5f, .6f) };
+
+			yield return new object[] { "hsv(120, 85%, 35%)", Color.FromHsv(120f / 360f, .85f, .35f) };
+			yield return new object[] { "hsv(120, 85, 35)", Color.FromHsv(120f / 360f, .85f, .35f) };
+
+			yield return new object[] { "hsva(120, 100%, 50%, .8)", Color.FromHsva(120f / 360f, 1.0f, .5f, .8f) };
+			yield return new object[] { "hsva(120, 100, 50, .8)", Color.FromHsva(120f / 360f, 1.0f, .5f, .8f) };
+		}
+
+		[Theory]
+		[MemberData(nameof(TestParseValidValues))]
+		public void TestParseValid(string value, Color expected)
+		{
+			Assert.True(Color.TryParse(value, out Color actual));
+			Assert.Equal(expected, actual);
+
+			actual = Color.Parse(value);
+			Assert.Equal(expected, actual);
+		}
+
+		[Theory]
+		[InlineData(null)]
+		[InlineData("")]
+		[InlineData("default")]
+		[InlineData("notAColor")]
+		[InlineData("#ZZZ")]
+		[InlineData("#12g")]
+		[InlineData("#1g3")]
+		[InlineData("#zyxv")]
+		[InlineData("222")]
+		[InlineData("rgb)255,0,0(")]
+		[InlineData("rgb255,0,0")]
+		[InlineData("rgba(255, 0, 0, 0.8")]
+		[InlineData("hsv(120, 100#, 50#)")]
+		[InlineData("hsv(120%, 100%, 50%)")]
+		[InlineData("hsva(120, 120%, 50%, a)")]
+		public void TestParseBad(string badValue)
+		{
+			Assert.False(Color.TryParse(badValue, out Color actual));
+			Assert.Throws<InvalidOperationException>(() => Color.Parse(badValue));
+		}
+
+		[Fact]
+		public void TestParseAllBuiltInColors()
+		{
+			var fields = typeof(Colors).GetFields(BindingFlags.Public | BindingFlags.Static);
+			Assert.True(fields.Length > 100, "we should have some Color fields");
+
+			foreach (FieldInfo field in fields)
+			{
+				string colorName = field.Name;
+				Color actual = Color.Parse(colorName);
+				Color expected = (Color)field.GetValue(null);
+
+				Assert.Equal(expected, actual);
+			}
 		}
 	}
 }

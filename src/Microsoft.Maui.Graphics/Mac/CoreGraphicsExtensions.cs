@@ -1,22 +1,23 @@
 using AppKit;
 
-namespace Microsoft.Maui.Graphics.CoreGraphics
+namespace Microsoft.Maui.Graphics.Platform
 {
-    public static class CoreGraphicsExtensions
-    {
-        public static Paint AsPaint(this NSImage target)
-        {
-            if (target == null)
-                return null;
+	public static class CoreGraphicsExtensions
+	{
+		public static ImagePaint AsPaint(this NSImage target)
+		{
+			if (target == null)
+				return null;
 
-            var image = new NativeImage(target);
-            var paint = new Paint {Image = image};
-            return paint;
-        }
+			var image = new PlatformImage(target);
+			var paint = new ImagePaint {Image = image};
 
-        public static NSColor AsNSColor(this Color color)
-        {
-            return NSColor.FromDeviceRgba(color.Red, color.Green, color.Blue, color.Alpha);
-        }
-    }
+			return paint;
+		}
+
+		public static NSColor AsNSColor(this Color color)
+		{
+			return NSColor.FromDeviceRgba(color.Red, color.Green, color.Blue, color.Alpha);
+		}
+	}
 }

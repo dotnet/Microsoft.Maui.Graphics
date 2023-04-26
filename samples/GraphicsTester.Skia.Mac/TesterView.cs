@@ -1,73 +1,70 @@
-﻿using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Graphics.CoreGraphics;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Graphics.Platform;
 using Microsoft.Maui.Graphics.Skia.Views;
 using AppKit;
 using CoreGraphics;
+using Microsoft.Maui.Graphics.Platform;
 
 namespace GraphicsTester.Skia {
+	public class TesterViewController : NSViewController {
+		public override void LoadView ()
+		{
+			View = new TesterView ();
+		}
 
-    public class TesterViewController : NSViewController {
-        public override void LoadView ()
-        {
-            View = new TesterView ();
-        }
+		public override void ViewDidAppear()
+		{
+			base.ViewDidAppear();
+			var frame = View.Window.Frame;
+			frame.Size = new CGSize(1024, 1024);
+			View.Window.SetFrame(frame, false);
+		}
+	}
 
-        public override void ViewDidAppear()
-        {
-            base.ViewDidAppear();
-            var frame = View.Window.Frame;
-            frame.Size = new CGSize(1024, 1024);
-            View.Window.SetFrame(frame, false);
-        }
-    }
+	public class TesterView : NSView {
+		private readonly NSTableView tableView;
+		private readonly SkiaGraphicsView graphicsView;
+		private readonly TesterTableViewSource tableSource;
 
-    public class TesterView : NSView {
-        private readonly NSTableView tableView;
-        private readonly SkiaGraphicsView graphicsView;
-        private readonly TesterTableViewSource tableSource;
+		public TesterView () : base ()
+		{
+			tableSource = new TesterTableViewSource ();
+			tableSource.ScenarioSelected += (drawable) => {
+				graphicsView.Drawable = drawable;
+			};
 
-        public TesterView () : base ()
-        {
-            GraphicsPlatform.Register (NativeGraphicsService.Instance);
+			tableView = new NSTableView ();
+			tableView.AddColumn (new NSTableColumn () {
+				Width = 300,
+			});
+			tableView.Source = tableSource;
+			//tableView.BackgroundColor = NSColor.White;
 
-            tableSource = new TesterTableViewSource ();
-            tableSource.ScenarioSelected += (drawable) => {
-                graphicsView.Drawable = drawable;
-            };
+			AddSubview (tableView);
 
-            tableView = new NSTableView ();
-            tableView.AddColumn (new NSTableColumn () {
-                Width = 300,
-            });
-            tableView.Source = tableSource;
-            //tableView.BackgroundColor = NSColor.White;
+			graphicsView = new SkiaGraphicsView ();
+			AddSubview (graphicsView);
 
-            AddSubview (tableView);
+			Layout ();
 
-            graphicsView = new SkiaGraphicsView ();
-            AddSubview (graphicsView);
+			tableView.SelectRow (0, false);
+		}
 
-            Layout ();
+		public override bool IsFlipped => true;
 
-            tableView.SelectRow (0, false);
-        }
+		public override void Layout ()
+		{
+			var bounds = Bounds;
+			tableView.Frame = new CGRect (0, 0, 300, bounds.Height);
+			graphicsView.Frame = new CGRect (300, 0, bounds.Width - 300, bounds.Height);
+		}
 
-        public override bool IsFlipped => true;
-
-        public override void Layout ()
-        {
-            var bounds = Bounds;
-            tableView.Frame = new CGRect (0, 0, 300, bounds.Height);
-            graphicsView.Frame = new CGRect (300, 0, bounds.Width - 300, bounds.Height);
-        }
-
-        public override CGRect Frame {
-            get => base.Frame;
-            set {
-                base.Frame = value;
-                Layout ();
-            }
-        }
-    }
+		public override CGRect Frame {
+			get => base.Frame;
+			set {
+				base.Frame = value;
+				Layout ();
+			}
+		}
+	}
 }
-

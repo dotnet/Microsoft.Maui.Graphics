@@ -1,10 +1,10 @@
-# Microsoft.Maui.Graphics
+# Microsoft.Maui.Graphics (Experiment)
 
-Microsoft.Maui.Graphics is a cross-platform graphics library for iOS, Android, Windows, macOS, Tizen and Linux completely in C#.  With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implentations within a singular application.
+[![NuGet](https://badgen.net/nuget/v/Microsoft.Maui.Graphics)](https://www.nuget.org/packages/Microsoft.Maui.Graphics/)
 
-# Motivation
+Microsoft.Maui.Graphics is an experimental cross-platform graphics library for iOS, Android, Windows, macOS, Tizen and Linux written completely in C#. A Microsoft supported portion of this library has been merged with [dotnet/maui](https://github.com/dotnet/maui) and is maintained separately. This project remains separate for developers to experiment further on additional scenarios such as WASM, WinForms, WPF, Xamarin, and Linux.
 
-Within the dotnet ecosystem there are multiple graphics libraries available depending on your target platforms; however, if you are doing cross-platform development there is not a unified graphics abstraction.  Some legacy API's (System.Drawing, I'm looking at you) only have limited support/usefulness on non-Windows platforms.  SkiaSharp runs almost everywhere these days, but for many use cases the native graphics abstractions are needed.
+With this library you can use a common API to target multiple abstractions allowing you to share your drawing code between platforms, or mix and match graphics implementations within a singular application.
 
 # Goals
 * No dependencies on System.Drawing
@@ -19,7 +19,7 @@ There is no official support. Use at your own Risk.
 # Supported Platforms
 Platform               | Supported Abstractions |
 -----------------------|-------------------------------------------|
-Xamarin.iOS            | CoreGraphics & SkiaSharp | 
+Xamarin.iOS            | CoreGraphics & SkiaSharp |
 Xamarin.Android        | Android.Graphics & SkiaSharp |
 Xamarin.Mac            | CoreGraphics & SkiaSharp |
 WPF                    | SharpDX, SkiaSharp, Xaml & GDI |
@@ -35,7 +35,7 @@ Xamarin.Forms          | Dependent on native platform support (noted above) |
     * Shapes (Rectangles, Rounded Rectangles, Ellipses, Arcs)
     * Paths
     * Images
-    * Fonts 
+    * Fonts
     * Shadows
     * Image and pattern fills
     * Clipping
@@ -43,7 +43,7 @@ Xamarin.Forms          | Dependent on native platform support (noted above) |
 * Fonts - You can access fonts with a common API
 * Attributed text - You can draw attributed text with a common API
 * Bitmaps - You can create and draw on bitmap images with a common API
-* PDF - You can create PDF's using a common API
+* PDF - You can create PDFs using a common API
 
 # Known Limitations
 * Attributed text is not currently supported with SkiaSharp

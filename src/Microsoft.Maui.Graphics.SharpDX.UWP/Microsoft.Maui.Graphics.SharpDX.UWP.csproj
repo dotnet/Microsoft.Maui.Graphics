@@ -11,7 +11,7 @@
     <AssemblyName>Microsoft.Maui.Graphics.SharpDX.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -116,7 +116,6 @@
     <Compile Include="DirectXPanelBase.cs" />
     <Compile Include="DXGraphicsView.cs" />
     <Compile Include="GraphicsExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SurfaceImageSourceTarget.cs" />
     <Compile Include="SwapPanelDeviceManager.cs" />
     <Compile Include="TargetBase.cs" />

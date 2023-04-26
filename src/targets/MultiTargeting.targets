@@ -1,5 +1,5 @@
 <Project>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS')) != true ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS')) != true And '$(TargetPlatformIdentifier)' != 'ios' And '$(TargetPlatformIdentifier)' != 'maccatalyst'">
     <Compile Remove="**\*.iOS.cs"/>
     <None Include="**\*.iOS.cs"/>
     <Compile Remove="**\iOS\*.cs"/>
@@ -7,7 +7,7 @@
     <Compile Remove="**\iOS\**\*.cs"/>
     <None Include="**\iOS\**\*.cs"/>
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.Mac')) != true ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.Mac')) != true  And '$(TargetPlatformIdentifier)' != 'macos'">
     <Compile Remove="**\*.Mac.cs"/>
     <None Include="**\*.Mac.cs"/>
     <Compile Remove="**\Mac\*.cs"/>
@@ -15,7 +15,7 @@
     <Compile Remove="**\Mac\**\*.cs"/>
     <None Include="**\Mac\**\*.cs"/>
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.Mac')) != true And $(TargetFramework.StartsWith('Xamarin.iOS')) != true ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.Mac')) != true And $(TargetFramework.StartsWith('Xamarin.iOS')) != true  And '$(TargetPlatformIdentifier)' != 'ios' And '$(TargetPlatformIdentifier)' != 'maccatalyst' And '$(TargetPlatformIdentifier)' != 'macos'">
     <Compile Remove="**\*.MaciOS.cs"/>
     <None Include="**\*.MaciOS.cs"/>
     <Compile Remove="**\MaciOS\*.cs"/>
@@ -23,7 +23,7 @@
     <Compile Remove="**\MaciOS\**\*.cs"/>
     <None Include="**\MaciOS\**\*.cs"/>
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid')) != true ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid')) != true  And '$(TargetPlatformIdentifier)' != 'android'">
     <Compile Remove="**\*.Android.cs"/>
     <None Include="**\*.Android.cs"/>
     <Compile Remove="**\Android\*.cs"/>
@@ -31,20 +31,31 @@
     <Compile Remove="**\Android\**\*.cs"/>
     <None Include="**\Android\**\*.cs"/>
   </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) != true ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) != true  And '$(TargetPlatformIdentifier)' != 'tizen'">
     <Compile Remove="**\*.Tizen.cs"/>
     <None Include="**\*.Tizen.cs"/>
+    <Compile Remove="**\*.Tizen.nui.cs"/>
+    <None Include="**\*.Tizen.nui.cs"/>
     <Compile Remove="**\Tizen\*.cs"/>
     <None Include="**\Tizen\*.cs"/>
     <Compile Remove="**\Tizen\**\*.cs"/>
     <None Include="**\Tizen\**\*.cs"/>
+  </ItemGroup>
+  <ItemGroup Condition="!$(TargetFramework.Contains('-windows'))">
+    <Compile Remove="**\*.Windows.cs"/>
+    <None Include="**\*.Windows.cs"/>
+    <Compile Remove="**\Windows\*.cs"/>
+    <None Include="**\Windows\*.cs"/>
+    <Compile Remove="**\Windows\**\*.cs"/>
+    <None Include="**\Windows\**\*.cs"/>
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard')) != true ">
     <Compile Remove="**\*.Standard.cs"/>
     <None Include="**\*.Standard.cs"/>
     <Compile Remove="**\Standard\*.cs"/>
     <None Include="**\Standard\*.cs"/>
-    <Compile Remove="**\Standard\*.cs"/>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp')) != true ">
     <Compile Remove="**\*.Win32.cs"/>
@@ -56,15 +67,13 @@
     <Compile Remove="**\Win32\*.cs"/>
     <None Include="**\Win32\*.cs"/>
   </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-  </PropertyGroup><!-- If this becomes part of the product we will remove these but for now it's useful having them all in one place -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
-    <PackageReference Include="Xamarin.AndroidX.Lifecycle.LiveData" Version="2.3.0.1" />
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.3.0.1" />
-    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.7" />
-  </ItemGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) == true ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('tizen')) == true">
     <PackageReference Include="Tizen.NET" Version="4.0.0" />
+    <Compile Remove="**\*.Tizen.nui.cs" />
+    <None Include="**\*.Tizen.nui.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('-tizen'))">
+    <Compile Remove="**\*.Tizen.cs"/>
+    <None Include="**\*.Tizen.cs"/>
   </ItemGroup>
 </Project>

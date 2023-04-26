@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Properties\" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Markdig" Version="0.22.1" />
     </ItemGroup>
 

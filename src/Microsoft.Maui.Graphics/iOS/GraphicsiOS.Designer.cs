@@ -8,7 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Maui.Graphics.CoreGraphics {
+namespace Microsoft.Maui.Graphics.Platform {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -16,10 +19,10 @@ namespace Microsoft.Maui.Graphics.CoreGraphics {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class GraphicsiOS {
+    internal class GraphicsiOS {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -33,10 +36,10 @@ namespace Microsoft.Maui.Graphics.CoreGraphics {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Maui.Graphics.Coregraphics", typeof(GraphicsiOS).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Maui.Graphics.iOS.GraphicsiOS", typeof(GraphicsiOS).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -48,7 +51,7 @@ namespace Microsoft.Maui.Graphics.CoreGraphics {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,7 +63,7 @@ namespace Microsoft.Maui.Graphics.CoreGraphics {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string error {
+        internal static string error {
             get {
                 return ResourceManager.GetString("error", resourceCulture);
             }
@@ -69,7 +72,7 @@ namespace Microsoft.Maui.Graphics.CoreGraphics {
         /// <summary>
         ///   Looks up a localized string similar to Unable to allocate enough memory to create a bitmap of size {0}x{1}..
         /// </summary>
-        public static string unable_to_create_bitmap {
+        internal static string unable_to_create_bitmap {
             get {
                 return ResourceManager.GetString("unable_to_create_bitmap", resourceCulture);
             }

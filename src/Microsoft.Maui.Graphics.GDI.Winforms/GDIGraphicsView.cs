@@ -1,90 +1,97 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace Microsoft.Maui.Graphics.GDI
 {
-    public partial class GDIGraphicsView : UserControl
-    {
-        private readonly RectangleF dirtyRect = new RectangleF();
-        private GDIGraphicsRenderer renderer;
-        private IDrawable drawable;
+	public partial class GDIGraphicsView : UserControl
+	{
+		private readonly RectF dirtyRect = new RectF();
+		private GDIGraphicsRenderer renderer;
+		private IDrawable drawable;
 
-        public GDIGraphicsView()
-        {
-            DoubleBuffered = true;
-            Renderer = null;
-            Drawable = null;
-        }
+		public GDIGraphicsView()
+		{
+			DoubleBuffered = true;
+			Renderer = null;
+			Drawable = null;
+		}
 
-        public GDIGraphicsView(IDrawable drawable = null, GDIGraphicsRenderer renderer = null)
-        {
-            DoubleBuffered = true;
-            Drawable = drawable;
-            Renderer = renderer;
-        }
+		public GDIGraphicsView(IDrawable drawable = null, GDIGraphicsRenderer renderer = null)
+		{
+			DoubleBuffered = true;
+			Drawable = drawable;
+			Renderer = renderer;
+		}
 
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            // Do nothing
-        }
+		protected override void OnPaintBackground(PaintEventArgs e)
+		{
+			// Do nothing
+		}
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            renderer.Draw(e.Graphics, e.ClipRectangle.AsRectangleF());
-        }
+		protected override void OnPaint(PaintEventArgs e)
+		{
+			// Extend render area by 1px to prevent rendering artifacts at the edges
+			RectF rect = new RectF(
+				x: e.ClipRectangle.X - 1,
+				y: e.ClipRectangle.Y - 1,
+				width: e.ClipRectangle.Width + 2,
+				height: e.ClipRectangle.Height + 2);
 
-        public bool Dirty
-        {
-            get => renderer.Dirty;
-            set => renderer.Dirty = value;
-        }
+			renderer.Draw(e.Graphics, rect);
+		}
 
-        public Color BackgroundColor
-        {
-            get => renderer.BackgroundColor;
-            set => renderer.BackgroundColor = value;
-        }
+		public bool Dirty
+		{
+			get => renderer.Dirty;
+			set => renderer.Dirty = value;
+		}
 
-        public GDIGraphicsRenderer Renderer
-        {
-            get => renderer;
+		public Color BackgroundColor
+		{
+			get => renderer.BackgroundColor;
+			set => renderer.BackgroundColor = value;
+		}
 
-            set
-            {
-                if (renderer != null)
-                {
-                    renderer.Drawable = null;
-                    renderer.GraphicsView = null;
-                    renderer.Dispose();
-                }
+		public GDIGraphicsRenderer Renderer
+		{
+			get => renderer;
 
-                renderer = value ?? new GDIDirectGraphicsRenderer()
-                {
-                    BackgroundColor = Colors.White
-                };
+			set
+			{
+				if (renderer != null)
+				{
+					renderer.Drawable = null;
+					renderer.GraphicsView = null;
+					renderer.Dispose();
+				}
 
-                renderer.GraphicsView = this;
-                renderer.Drawable = drawable;
-            }
-        }
+				renderer = value ?? new GDIDirectGraphicsRenderer()
+				{
+					BackgroundColor = Colors.White
+				};
 
-        public IDrawable Drawable
-        {
-            get => drawable;
-            set
-            {
-                drawable = value;
-                if (renderer != null)
-                {
-                    renderer.Drawable = drawable;
-                }
-            }
-        }
+				renderer.GraphicsView = this;
+				renderer.Drawable = drawable;
+			}
+		}
 
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            renderer.SizeChanged(Width, Height);
-        }
-    }
+		public IDrawable Drawable
+		{
+			get => drawable;
+			set
+			{
+				drawable = value;
+				if (renderer != null)
+				{
+					renderer.Drawable = drawable;
+				}
+			}
+		}
+
+		protected override void OnResize(EventArgs e)
+		{
+			base.OnResize(e);
+			renderer.SizeChanged(Width, Height);
+		}
+	}
 }
