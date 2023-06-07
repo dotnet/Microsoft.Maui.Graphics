@@ -8,7 +8,6 @@ namespace Microsoft.Maui.Graphics.Skia
 {
 	public class SkiaCanvas : AbstractCanvas<SkiaCanvasState>, IBlurrableCanvas
 	{
-		private readonly SKMatrix _shaderMatrix = new SKMatrix();
 		private readonly SkiaCanvasStateService _stateService;
 
 		private SKCanvas _canvas;
